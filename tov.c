@@ -21,7 +21,7 @@ double eos(double p){
 
 double tov(double p, double m, double r){
 
-  return - (eos(p)+ p) * (m+4*M_PI*pow(r,3.)) / (-2*m*r+pow(r, 2.0));
+  return - (eos(p)+ p) * (m + 4*M_PI*pow(r,3.) * p) / (-2*m*r+pow(r, 2.0));
 }
 
 
