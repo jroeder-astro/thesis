@@ -14,6 +14,18 @@ double y[N][num_steps+1];  // Diskretisierte "Bahnkurven".
 
 double y_0[N] = { 1.0 , 0.0 };  // Anfangsbedingungen.
 
+
+double x_t(double a){
+
+return a;
+}
+
+
+double v_t(double a){
+
+return -pow(omega, 2.0) * a;
+}
+
 int main()
 {
   int i1, i2;
@@ -36,8 +48,8 @@ int main()
 
       double k1[N];
 
-      k1[0] = y[1][i1-1]   * tau;
-      k1[1] = -pow(omega, 2.0) * y[0][i1-1]   * tau;
+      k1[0] =  v_t(y[1][i1-1]) * tau;
+      k1[1] =  x_t(y[0][i1-1]) * tau;
 
       // Berechne k2 = f(y(t)+(1/2)*k1 , t+(1/2)*tau) * tau.
 
