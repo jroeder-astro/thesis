@@ -19,6 +19,7 @@ plt.plot(x, y ,label='Num. Solution')
 #plt.plot(x, polyval(p1,x))
 
 plt.title('TOV equation\nHell yes')
+plt.axis([0, 0.07, 0, 11])
 plt.ylabel('P(r)')
 plt.xlabel('r')
 plt.show()
