@@ -6,7 +6,7 @@ from numpy import *
 x = []
 y = []
 
-with open('out2.dat', 'r') as csvfile:
+with open('tov.out', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x.append(float(row[0]))
@@ -18,7 +18,7 @@ with open('out2.dat', 'r') as csvfile:
 plt.plot(x, y,'o' ,label='Num. Solution')
 #plt.plot(x, polyval(p1,x))
 
-plt.title('HO\n1D')
-plt.ylabel('x(t)')
-plt.xlabel('t')
+plt.title('TOV equation\nHell yes')
+plt.ylabel('P(r)')
+plt.xlabel('r')
 plt.show()

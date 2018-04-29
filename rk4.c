@@ -1,4 +1,3 @@
-// HALLO
 #include<stdlib.h>
 #include<math.h>
 #include<stdio.h>
@@ -7,24 +6,12 @@ const int N = 2;  // Anzahl der Komponenten von \vec{y} bzw. \vec{f}.
 
 const double omega = 1.0;  // Frequenz.
 
-const int num_steps = 100;  // Anzahl der RK-Schritte.
+const int num_steps = 1000;  // Anzahl der RK-Schritte.
 const double tau = 0.1;  // Schrittweite.
 
 double y[N][num_steps+1];  // Diskretisierte "Bahnkurven".
 
 double y_0[N] = { 1.0 , 0.0 };  // Anfangsbedingungen.
-
-
-double x_t(double a){
-
-return a;
-}
-
-
-double v_t(double a){
-
-return -pow(omega, 2.0) * a;
-}
 
 int main()
 {
@@ -48,8 +35,8 @@ int main()
 
       double k1[N];
 
-      k1[0] =  v_t(y[1][i1-1]) * tau;
-      k1[1] =  x_t(y[0][i1-1]) * tau;
+      k1[0] = y[1][i1-1]   * tau;
+      k1[1] = -pow(omega, 2.0) * y[0][i1-1]   * tau;
 
       // Berechne k2 = f(y(t)+(1/2)*k1 , t+(1/2)*tau) * tau.
 
@@ -58,11 +45,22 @@ int main()
       k2[0] = (y[1][i1-1] + 0.5*k1[1])   * tau;
       k2[1] = -pow(omega, 2.0) * (y[0][i1-1] + 0.5*k1[0])   * tau;
 
-      // *****
+      // Berechne k3 = f(y(t)+(1/2)*k2 , t+(1/2)*tau) * tau.
+
+      double k3[N];
+
+      k3[0] = ( y[1][i1-1] + 0.5 * k2[1] )   * tau;
+      k3[1] = -pow(omega, 2.0) * (y[0][i1-1] + 0.5*k2[0]) * tau;
+
+      double k4[N];
+
+      k4[0] = (y[1][i1-1] + k3[1]) * tau;
+      k4[1] = -pow(omega, 2.0)*(y[0][i1-1]+k3[0])*tau;
 
       for(i2 = 0; i2 < N; i2++)
-	y[i2][i1] = y[i2][i1-1] + k2[i2];
-  }
+	y[i2][i1] = y[i2][i1-1] + 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
+    } 
+
   for(i1 = 0; i1 <= num_steps; i1++)
     {
       double t = i1 * tau;
