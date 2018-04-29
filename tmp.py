@@ -15,7 +15,7 @@ with open('tov.out', 'r') as csvfile:
 #p1 = polyfit(x, y, 1)
 #print(p1)
 
-plt.plot(x, y,'o' ,label='Num. Solution')
+plt.plot(x, y ,label='Num. Solution')
 #plt.plot(x, polyval(p1,x))
 
 plt.title('TOV equation\nHell yes')
