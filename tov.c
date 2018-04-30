@@ -5,9 +5,9 @@
 
 const int N = 2;  // Anzahl der Komponenten von \vec{y} bzw. \vec{f}.
 
-const int num_steps = 100;  // Anzahl der RK-Schritte.
+const int num_steps = 1000;  // Anzahl der RK-Schritte.
 
-const double tau = 0.1;  // Schrittweite.
+const double tau = 0.01;  // Schrittweite.
 
 double y[N][num_steps+1];  // Diskretisierte "Bahnkurven".
 
@@ -74,8 +74,9 @@ r = rho + tau;
   for(i1 = 0; i1 <= num_steps; i1++)
     {
       double radius = i1 * tau;
-      printf("%9.6lf,%9.6lf\n", radius, y[0][i1]);
+      printf("%9.6lf,%9.6lf,%9.6lf\n", radius, y[0][i1], y[1][i1]);
     }
   
   return 0;
 }
+
