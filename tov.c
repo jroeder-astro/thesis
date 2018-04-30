@@ -11,12 +11,12 @@ const double tau = 0.1;  // Schrittweite.
 
 double y[N][num_steps+1];  // Diskretisierte "Bahnkurven".
 
-double y_0[N] = {10.0, 0.0};  // Anfangsbedingungen.
+double y_0[N] = {0.01, 0.0};  // Anfangsbedingungen.
 
 
 double eos(double p){
 
-  return 3*p;
+  return pow(p/10., 3./5.);
 }
 
 double tov(double p, double m, double r){

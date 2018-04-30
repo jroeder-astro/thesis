@@ -15,11 +15,12 @@ with open('tov.out', 'r') as csvfile:
 #p1 = polyfit(x, y, 1)
 #print(p1)
 
-plt.plot(x, y ,label='Num. Solution')
+plt.plot(x, y, label='4th order\nRunge-Kutta')
 #plt.plot(x, polyval(p1,x))
 
-plt.title('TOV equation\nHell yes')
-plt.axis([0, 0.07, 0, 11])
+plt.title('TOV equation\nAttempt for numerical solution')
+#plt.axis([0, 0.07, 0, 11])
 plt.ylabel('P(r)')
 plt.xlabel('r')
+plt.legend()
 plt.show()
