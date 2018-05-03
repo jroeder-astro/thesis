@@ -5,8 +5,8 @@
 
 
 const int N = 2;            // number of components of ODE vector
-const int num_steps = 100;  // number of Runge-Kutta steps
-const double tau = 0.1;     // stepsize
+const int num_steps = 1000000;  // number of Runge-Kutta steps
+const double tau = 0.001;     // stepsize
 double y[N][num_steps+1];   // discretization
 
 
@@ -33,10 +33,10 @@ int main()
 
   int i1, i2;
 
-  for(int P = 0; P < 101; P+=1  ){    // initial pressure loop
+  for(int P = 0; P < 1001; P+=1  ){    // initial pressure loop
 
   double r = 0.000001;
-  double p0 = 0.01 + P * 0.001;
+  double p0 = 0.001 + P * 0.0001;
   double y_0[N] = {p0, 0.0}; 
 
   for(i1 = 0; i1 < N; i1++)
