@@ -90,6 +90,9 @@ r = rho + tau;
  // printf("**********************************************************\n");   // debug
   
   printf("%5.8lf,%5.8lf\n",(i1-1)*tau, y[1][i1-1]); // mass-radius for multiple stars
+//  printf("%5.8lf\n",(i1-1)*tau); printf("%5.8lf\n",y[1][i1-1]);
+
+
 
 }
 
