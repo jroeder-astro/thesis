@@ -33,32 +33,19 @@ int main()
 
   int i1, i2;
 
+//  for(int P = 0; P < 10001; P+=1  ){    // initial pressure loop
 
-  double m0, r;
-
-  FILE *radii = fopen("radii_rk4.out", "r");
-  if (radii == NULL) exit(0);
-
-  FILE *mass = fopen("mass_rk4.out", "r");
-  if (mass == NULL) exit(0);
-
-
-  while(  1  ){    // initial pressure loop
-
-
-  int d1 = fscanf(radii, "%lf", &r);
-  if (d1 == EOF) break;
-  int d2 = fscanf(mass, "%lf", &m0);
-  if (d2 == EOF) break;
-
-  double y_0[N] = {0.0, m0};
+  double r = 9.14;
+  double R = r;
+  double p0 = 0.0;
+  double m0 = 1.787292;
+  double y_0[N] = {p0, m0}; 
 
   for(i1 = 0; i1 < N; i1++)
     {
        y[i1][0] = y_0[i1];
-    //   printf("y[i1][0] = %5.6lf\n", y[i1][0]);    // debug statement
+     //  printf("y[i1][0] = %5.6lf\n", y[i1][0]);    // debug statement
     }
-
   for(i1 = 1; i1<=num_steps ; i1++)  // actual Runge-Kutta 4th order algorithm
     {
       double rho = r;
@@ -92,27 +79,28 @@ r = rho;
       k4[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1] + k3[0])*tau;
 
       for(i2 = 0; i2 < N; i2++)
-	y[i2][i1] = y[i2][i1-1] - 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
+	y[i2][i1] = y[i2][i1-1] + 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
     
 r = rho + tau;
     } 
 
-  for(i1 = 0; i1 <= num_steps && y[0][i1] > 0.0 ; i1++)
+  for(i1 = 0; i1 <= num_steps; i1++)
     {
       double radius = R + i1 * tau;
       if (radius < 0.0) break;
-      printf("%9.6lf,%9.6lf\n", radius, y[1][i1]);   // P(r) for one star
+     // if (y[0][i1] = 0.0) break;
+      printf("%9.6lf,%9.6lf\n", radius, y[1][i1]);   // m(r) for one star
     }
+
  // printf("**********************************************************\n");   // debug
   
-//  printf("%5.8lf,%5.8lf\n",(i1-1)*tau, y[1][i1-1]); // mass-radius for multiple stars
-//  printf("%5.8lf\n",(i1-1)*tau); printf("%5.8lf\n",y[1][i1-1]);
+ // printf("%5.8lf,%5.8lf\n",(i1-1)*tau, y[1][i1-1]); // mass-radius for multiple stars
+ // printf("%5.8lf\n",(i1-1)*tau); printf("%5.8lf\n",y[1][i1-1]);
 
 
 
-}
-fclose(radii);
-fclose(mass);
+//}
+
   
   return 0;
 }
