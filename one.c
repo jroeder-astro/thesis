@@ -11,11 +11,6 @@ double y[N][num_steps+1];   // discretization
 
 
 
-double p0;                  // initial pressure
-double y_0[N] = {p0, 0.0};  // initial pressure & mass
-
-
-
 double eos(double p){
 
   return pow(p/10., 3./5.);
@@ -34,18 +29,20 @@ int main()
   int i1, i2;
 
 //  for(int P = 0; P < 10001; P+=1  ){    // initial pressure loop
+  
 
-  double r = 9.14;
+  double r = 24.92;
   double R = r;
-  double p0 = 0.0;
-  double m0 = 1.787292;
+  double p0 = pow(10., -11.);
+  double m0 = 0.68050233;
   double y_0[N] = {p0, m0}; 
 
   for(i1 = 0; i1 < N; i1++)
     {
        y[i1][0] = y_0[i1];
-     //  printf("y[i1][0] = %5.6lf\n", y[i1][0]);    // debug statement
+   //  printf("y[i1][0] = %5.6lf\n", y[i1][0]);    // debug statement
     }
+
   for(i1 = 1; i1<=num_steps ; i1++)  // actual Runge-Kutta 4th order algorithm
     {
       double rho = r;
@@ -76,11 +73,12 @@ r = rho;
       double k4[N];
 
       k4[0] = tov(y[0][i1-1] + k3[0], y[1][i1-1] + k3[1], r + tau)  * tau;
-      k4[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1] + k3[0])*tau;
+      k4[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1] + k3[0]) * tau;
 
-      for(i2 = 0; i2 < N; i2++)
+      for(i2 = 0; i2 < N; i2++){
 	y[i2][i1] = y[i2][i1-1] + 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
-    
+     // printf("y[i2][i1]=%lf\n", y[i2][i1]);
+      }
 r = rho + tau;
     } 
 
@@ -88,9 +86,13 @@ r = rho + tau;
     {
       double radius = R + i1 * tau;
       if (radius < 0.0) break;
-     // if (y[0][i1] = 0.0) break;
-      printf("%9.6lf,%9.6lf\n", radius, y[1][i1]);   // m(r) for one star
+      if (y[1][i1] < 0.0) break;
+//    printf("%9.6lf,%9.6lf\n", radius, y[1][i1]);   // m(r) for one star
     }
+
+//    printf("i1 = %d\n", i1);
+      printf("%9.6lf,%9.6lf\n", R + (i1-1) * tau, y[1][i1-1]);
+
 
  // printf("**********************************************************\n");   // debug
   
