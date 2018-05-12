@@ -60,14 +60,16 @@ int main()
 
       k2[0] = tov(y[0][i1-1] + (1./2.)*k1[0], y[1][i1-1] + (1./2.)*k1[1], r + tau/2.)  * tau;
       k2[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1] + (1./2.)*k1[0]) * tau;
-r = rho;
+      r = rho;
+      
       // k3 = f(y(t)+(1/2)*k2 , t+(1/2)*tau) * tau
 
       double k3[N];
 
       k3[0] = tov(y[0][i1-1] + (1./2.)*k2[0], y[1][i1-1] + (1./2.)*k2[1], r + tau/2.)   * tau;
       k3[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1] + (1./2.)*k2[0]) * tau;
-r = rho;
+      r = rho;
+      
       // k4 = f(y(t)+k3 , t+tau) * tau
 
       double k4[N];
@@ -77,9 +79,10 @@ r = rho;
 
       for(i2 = 0; i2 < N; i2++){
 	y[i2][i1] = y[i2][i1-1] + 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
-     // printf("y[i2][i1]=%lf\n", y[i2][i1]);
+        printf("y[i2][i1]=%lf\n", y[i2][i1]); 
       }
-r = rho + tau;
+      r = rho + tau;
+      if (y[0][i1] <= 0.0 || y[1][i1] <= 0.0) break;
     } 
 
   for(i1 = 0; i1 <= num_steps; i1++)
@@ -91,7 +94,7 @@ r = rho + tau;
     }
 
 //    printf("i1 = %d\n", i1);
-      printf("%9.6lf,%9.6lf\n", R + (i1-1) * tau, y[1][i1-1]);
+      printf("%9.6lf,%9.6lf\n", R + (i1-1) * tau, y[0][i1-1]);
 
 
  // printf("**********************************************************\n");   // debug
