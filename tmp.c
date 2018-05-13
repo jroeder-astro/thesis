@@ -113,34 +113,42 @@ int main(){
 	  printf("%5.9lf,%5.9lf\n", y[0][i1-1], eos(y[0][i1-1])); // reconstruction with given EoS
   }
 
-
  // printf("i1 = %d, y[0][i1] = %5.10lf, m0 = %5.10lf\n", i1, y[0][i1], m0);
  //  	  if (y[0][i1] < 0.0) break;
 
-  while(m0 >= 1.6 && m0 <= 1.65){  
+  double P = y[0][i1];
+  double reos = eos(y[0][i1]);
+  double err = 0.001;
+
+  printf("reos = %lf\n", reos);
+
+  while(m0 >= 1.6 /*&& m0 <= 1.65*/){  
  
+
 	  int d1 = fscanf(radii, "%lf", &r);
 	  if (d1 == EOF) break;
        // printf("r = %lf\n", r);
 	  int d2 = fscanf(mass, "%lf", &m0);
           if (d2 == EOF) break;
-          printf("m0 = %lf\n", m0);    
+       // printf("m0 = %lf\n", m0);    
+     reos = 0.0;
  
-	  double P = y[0][i1];
-          double reos = 0.0;
- 
+     while (fabs(m0 - y[1][i1]) >= err){
+
+          printf("fabs = %lf\n", fabs(m0-y[1][i1])); 	 
+
           double R = r;
 	  double p0 = pow(10., -11.);
-	  double y_0[N] = {p0, m0}; 
+	  double y_0[N] = {P, 0.0}; 
 
+          printf("1st for loop\n");
 	  for(i1 = 0; i1 < N; i1++)
 	    {
 	       y[i1][0] = y_0[i1];
 	    // printf("y[i1][0] = %5.12lf\n", y[i1][0]);    // debug statement
 	    }
 
-          while(fabs(y[1][i1] - m0) >= err){
-
+          printf("2nd for loop\n");
 	  for(i1 = 1; i1<=num_steps ; i1++)  // actual Runge-Kutta 4th order algorithm
 	    {
 	      // printf("entered rk4 loop\n"); 
@@ -162,8 +170,8 @@ int main(){
 	      r = rho + tau;
 	      if (y[0][i1] <= 0.0 || y[1][i1] <= 0.0) break; 	
 	    }
-          }
-  
+          
+  printf("3rd for loop\n");
 	  for(i1 = 0; i1 <= num_steps; i1++)
 	    {
  	       double radius = R + i1 * tau;
@@ -175,9 +183,18 @@ int main(){
 	  if (R + i1 * tau < 0.0) break;
 	  if (y[0][i1] < 0.0) break;
 
-	  printf("%5.9lf,%5.9lf\n", y[0][i1-1], eos(y[0][i1-1]));
-
-
+   printf("if for reos\n")
+              if (m0 < y[1][i1]){
+                  reos -= 0.0001;
+              }
+              if (m0 > y[1][i1]){
+	          reos += 0.0001;
+              }
+	   printf(" reos = %lf\n", reos);
+      }   
+          
+             // printf("%5.9lf,%5.9lf\n", y[0][i1-1], reos);
+              P += 0.00001;   
   }
 
   
