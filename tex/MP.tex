@@ -41,14 +41,28 @@ therefore staying spherically symmetric. In terms of the metric components, we a
 %insert metric
 
 
+
+In conclusion we get the full TOV equation(s):
+\begin{equation}\label{eq:tov}
+	\frac{dP}{dr} = \frac{(\epsilon + P)(m + 4\pi r^3 P)}{2mr-r^2}
+\end{equation}
+\begin{equation}\label{eq:mr}
+	\frac{dm}{dr} = 4\pi r^2\epsilon
+\end{equation}
+
 \subsection{Numerical solution}
 
 In order to generate an initial mass-radius relation to test our reverse algorithm with, we use a fourth order Runge-Kutta
 algorithm to solve the TOV equation along with the mass differential equation numerically. 
 By looking at both equations, our ODE system is in the form
-%insert form 
-
-
+\begin{equation}\label{eq:ode}
+	\dot{y}(t) = f(y(t), t)
+\end{equation}
+where $\dot{y}(t)$ is a two component "vector":
+\begin{equation}
+	\dot{y}(t) =  \left( \begin{array}{c}dP/dr\\dm/dr\end{array} \right)
+\end{equation}
+$f(y(t), t)$ then contains the right hand side of equations~\ref{eq:tov} and~\ref{eq:mr}.
 
 
 
