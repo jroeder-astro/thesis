@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.14)  16 MAY 2018 17:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6630 64-bit) (preloaded format=pdflatex 2018.3.14)  16 MAY 2018 21:14
 entering extended mode
 **./MP.tex
 (MP.tex
@@ -402,21 +402,21 @@ been already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.28 
-      [1] [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
+      [1] [2] [3]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 136.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 136.
  (MP.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 132.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 136.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 136.
 Package rerunfilecheck Info: File `MP.out' has not changed.
 (rerunfilecheck)             Checksum: 429C46535398FDDB7CC39058AB739C34;253.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 136.
  ) 
 Here is how much of TeX's memory you used:
- 6661 strings out of 493305
- 96040 string characters out of 3136279
- 186358 words of memory out of 3000000
+ 6664 strings out of 493305
+ 96070 string characters out of 3136279
+ 187358 words of memory out of 3000000
  10124 multiletter control sequences out of 15000+200000
  10449 words of font info for 39 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -430,9 +430,9 @@ m Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><D:/Program F
 iles (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Program Files
  (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/Program Files (
 x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on MP.pdf (4 pages, 112764 bytes).
+Output written on MP.pdf (5 pages, 117841 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 17 named destinations out of 1000 (max. 500000)
+ 100 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 
