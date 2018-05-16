@@ -62,8 +62,18 @@ where $\dot{y}(t)$ is a two component "vector":
 \begin{equation}
 	\dot{y}(t) =  \left( \begin{array}{c}dP/dr\\dm/dr\end{array} \right)
 \end{equation}
-$f(y(t), t)$ then contains the right hand side of equations~\ref{eq:tov} and~\ref{eq:mr}.
-
+$f(y(t), t)$ then contains the right hand side of equations~\ref{eq:tov} and~\ref{eq:mr}. As stated before, to create an initial mass radius relation to check the inverted algorithm with, we use a fourth order Runge-Kutta [RK4] code. The RK4 method works as follows:
+\begin{equation}
+	y(t+\tau) = y(t) + \frac{1}{6} (k_1 + 2k_2 + 2k_3 + k_4)
+ \end{equation}
+with $k_i$:
+\begin{align*}
+	k_1 &= f(y(t),t)\cdot\tau\\
+	k_2 &= f(y(t)+k_1/2,t+\tau/2)\cdot\tau\\
+	k_3 &= f(y(t)+k_2/2,t+\tau/2)\cdot\tau\\
+	k_4 &= f(y(t)+k_3,t+\tau)\cdot\tau
+\end{align*}
+All $k_i$ are of course also two component "vectors".
 
 
 
