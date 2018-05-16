@@ -6,72 +6,66 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{ngerman}
+%\usepackage{ngerman}
 \usepackage[ansinew]{inputenc}
 \usepackage[left=2cm,top=1cm]{geometry}
 
 \begin{document}
-\pagestyle{empty}
-\begin{flushleft}
-\begin{table}
-\begin{tabular}{lr}
-\bfseries\LARGE
-Goethe-Universit\"at & \\
-\bfseries\LARGE
-Frankfurt am Main  & \\\\
-\bfseries\LARGE
-Physikalisches Institut & \multirow{-6}{0.5\textwidth}{\includegraphics[width=0.5\textwidth]{pilogo}}\\
-\bfseries\LARGE
-Anf\"angerpraktikum Teil 1 &  \\\\\\
-\end{tabular}
-\end{table}
-\begin{tabular}{lr}
-\bfseries\LARGE
-Versuchsname: & \\
-\\\\
-\bfseries\LARGE
-Themengebiet: & \\
-\\\\
-\bfseries\LARGE
-Versuchsnummer: & \\
-\\\\
-\bfseries\LARGE
-Studiengang: & \\
-\\\\
-\bfseries\LARGE
-PG-Nummer: & \\
-\\\\
-\bfseries\LARGE
-Praktikanten: & \\
-\\\\
-\bfseries\LARGE
-Assistent: & \\
-\\\\
-\bfseries\LARGE
-Versuchsdurchf\"uhrung am: & \\
-\\\\
-\bfseries\LARGE
-Protokollabgabe am: & \\
-\\\\
-\bfseries\LARGE
-Korrekturabgabe am: & \\
-\\\\
-\bfseries\LARGE
-Versuch bestanden am: & \\
-\end{tabular}
-\end{flushleft}
+	\pagestyle{empty}
 
-\newpage
-\section{Aufgabenstellung}
-Bestimmen Sie die Erdbeschleunigung $g$ mithilfe eines mathematischen Pendels.
 
-\section{Physikalische Grundlagen}
-\begin{wrapfigure}{L}{70mm}
-\begin{center}
-\includegraphics[width=65mm]{fig1}
-\caption{Fadenpendel \cite{Eichler}.}\label{fig:1}
-\end{center}
-\end{wrapfigure}
+\begin{titlepage}
+    \centering
+	\huge{Inverse equation of state construction from mass-radius-relations of compact stars}
+	\bigskip
+    \large{Bachelor thesis}
+    \huge{Jan Roeder}
+\end{titlepage}
+
+
+\tableofcontents
+\pagebreak
+
+
+\section{Introduction}
+
+\section{Preparations}
+
+\subsection{The Tolman-Oppenheimer-Volkoff equation}
+
+Before we get to the main topics of this thesis, it is important to set up a basis that our work emerges from. \\
+Firstly, this involves a derivation of the equation used for determining the structure of compact stars; here, we will use the 
+Tolman-Oppenheimer-Volkoff [TOV] equation. We choose our unit system as $c=G=1$, so that every unit is a power of a length.\\
+The derivation is based off assuming the star matter as a perfect/ideal fluid. The system shall further not evolve in time, 
+therefore staying spherically symmetric. In terms of the metric components, we are left with;
+%insert metric
+
+
+\subsection{Numerical solution}
+
+In order to generate an initial mass-radius relation to test our reverse algorithm with, we use a fourth order Runge-Kutta
+algorithm to solve the TOV equation along with the mass differential equation numerically. 
+By looking at both equations, our ODE system is in the form
+%insert form 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\pagebreak
 
 %%%ALTERNATIVE BILDUMGEBUNG
 % \begin{figure}[h]
@@ -81,61 +75,8 @@ Bestimmen Sie die Erdbeschleunigung $g$ mithilfe eines mathematischen Pendels.
 % \end{center}
 % \end{figure}
 
-Das Mathematische Pendel ist eine Idealisierung des Physikalischen Pendels und
-kann nur in Näherung realisiert werden. Es besteht aus einem Massepunkt und
-einer masselosen reibungsfreien Aufhängung \cite{Eichler}. Eine mögliche
-Realisierung ist ein Fadenpendel mit einem Faden der Länge $l$ an dem eine
-kugelförmige Masse $m$ hängt (siehe Abb. \ref{fig:1}). Nach einer Auslenkung um den Winkel $\varphi $ vollführt
-dieses Pendel Schwingungen um seine Ruhelage. 
-Auf den Körper wirkt die
-Gewichtskraft $F = m \cdot g$. Man zerlegt sie in eine Komponente in Richtung des
-Fadens (diese wird vom Faden aufgefangen) und in eine Komponente senkrecht dazu
-(siehe Abb. \ref{fig:1}). Dies ist die rücktreibende Kraft $F_R=-m\cdot g \cdot \sin \varphi$.
-Sie erzeugt eine Beschleunigung, $a=\ddot{x}=l\cdot\varphi$, mit $\ddot{\varphi}=\frac{\partial^2\varphi}{\partial t^2}$ längs der kreisförmigen Pendelbahn. Mit der Newtonschen Grundgleichung  ergibt sich $m\cdot l\cdot \ddot{\varphi}=-m\cdot g\cdot \sin\varphi$ bzw.
-\begin{equation}
-\ddot{\varphi}+\omega^2\sin\varphi=0 \textnormal{ mit } \omega=\sqrt{g/l}.
-\end{equation}
-Dabei ist $\omega$ die Kreisfrequenz der Schwingung. Für kleine Amplituden (kleine Auslenkwinkel mit $\sin\varphi\approx \varphi)$ wird daraus die Schwingungsgleichung eines harmonischen Oszillators mit der Kreisfrequenz $\omega$, die unabhängig von der Maximalamplitude $\varphi_0$ ist \cite{Eichler}:
-\begin{equation}
-\ddot{\varphi}+\omega^2\varphi=0 \textnormal{ und daraus } \varphi(t)=\varphi_0\sin(\omega\cdot t+\alpha) \textnormal{ mit } \alpha \textnormal{...Phasenverschiebung.}
-\end{equation}
-Damit folgt aus der Schwingungsdauer $T=2\pi/\omega=2\pi\sqrt{l/g}$ direkt die Erdbeschleunigung:
-\begin{equation}
-\label{Eq:3}
-g=\frac{4\pi^2l}{T^2}.
-\end{equation}
 
-\newpage
-\section{Messwerte}
-Die Messung der Periodendauer wird mit der Stoppuhr eines Smartphones durchgeführt. Die Anfangs- und Endzeit wird jeweils im Nulldurchgang der Schwingung bestimmt. Die Messung der Fadenlänge erfolgt mit einem Stahlmaßstab. Gemessen wird der senkrechte Abstand zwischen Aufhängung der Kugelmasse und Pendelaufhängung, $l_{\rm{mess}}$. Um die wirksame Pendellänge $l$ zu berechnen, wird der Kugelradius, $rl_{\rm{Kugel}}$, und der Abstand der Schraubeneinfassung, $d_{\rm{Schraube}}$, addiert:
-\begin{equation}
-\label{Eq:4}
-l = {l_{{\rm{mess}}}} + {r_{{\rm{Kugel}}}} + {d_{{\rm{Schraube}}}} = {l_{{\rm{mess}}}} + 12.5 \cdot {10^{ - 3}}\,{\rm{m}} + 2.5 \cdot {10^{ - 3}}\,{\rm{m}} = {l_{{\rm{mess}}}} + 0.015\,{\rm{m}}
-\end{equation}
 
-Zur Bestimmung des Mittelwertes $(\bar{x})$, der Standardabweichung der Einzelmessung $(\sigma)$ und der Standardabweichung des Mittelwertes $m$ werden folgende Formeln verwendet:
-\begin{equation}
-\label{Eq:5}
-\bar x = \frac{1}{n}\sum\limits_{i = 1}^n {{x_i}}\,\,,\,\,\,\sigma  = \sqrt {\frac{1}{{n - 1}}\sum\limits_{i = 1}^n {{{\left( {{x_i} - \left\langle x \right\rangle } \right)}^2}} }\,\,,\,\,\,m = \frac{\sigma }{{\sqrt n }}
-\end{equation}
-
-\begin{table}[h!]
-  \centering
-  %\caption{Caption for the table.}
-  \label{tab:1}
-  \begin{tabular}{|c||c|c|}
-  \hline
-    Messung der Periodendauer & $10\cdot T$ (s) & $T$ (s)\\
-    \hline\hline
-    1 &  & \\ \hline
-    2 &  & \\ \hline
-    3 &  & \\ \hline
-    4 &  & \\ \hline
-    5 &  & \\ \hline
-    Mittelwert $\bar{T}$ &  & \\ \hline
-    Standardabweichung $\sigma_T$ &  & \\ \hline
-  \end{tabular}
-\end{table}
 
 \hspace{15pt}
 
@@ -157,58 +98,7 @@ Zur Bestimmung des Mittelwertes $(\bar{x})$, der Standardabweichung der Einzelme
   \end{tabular}
 \end{table}
 
-\section{Auswertung}
-Die Erdbeschleunigung ergibt sich nach Formel \ref{Eq:3} mit dem Mittelwert aus den Messungen für die Periodendauer und der Fadenlänge.
 
-\noindent $\bar{g}=$
-
-\section{Fehlerrechnung}
-Der Fehler von $l$ ergibt sich aus dem systematischen Fehler des Maßstabs $\Delta l_{\rm{sys}}$ und
-dem zufälligen Fehler $\Delta l_{zuf}$ aus der Messreihe. Für den Maßstab gilt: $\Delta l_{\rm{sys}}=5\cdot10^{-4}$~m$ + 5\cdot10^{-4}\cdot \bar{l} $. Der zufällige Fehler ergibt sich aus der doppelten Standardabweichung des Mittelwertes
-
-\begin{equation}\label{Eq:6}
-\Delta l_{\rm{\rm{zuf}}}=2\cdot\sigma_l=\frac{2\sigma_l}{\sqrt{5}}.
-\end{equation}
-
-\begin{equation}\label{Eq:7}
-\Delta l=\Delta l_{\rm{sys}}+\Delta l_{\rm{zuf}}=
-\end{equation}
-Der systematische Fehler der Stoppuhr eines typischen Smartphones liegt bei etwa $\Delta T_{\rm{sys}}=10\cdot10^{-3}$~s$ + 5\cdot10^{-4}\cdot \bar{T}$, der zufällige Fehler ergibt sich analog zu $\Delta l_{\rm{\rm{zuf}}}$ :
-
-\begin{equation}\label{Eq:8}
-\Delta T=\Delta T_{\rm{sys}}+\Delta T_{\rm{zuf}}=
-\end{equation}
-
-Da die beiden Messgrößen  $l$  und $T$  in voneinander unabhängigen Messreihen ermittelt wurden, pflanzen sie sich bei der Bestimmung von $g$  nach dem Fehlerfortpflanzungsgesetz von Gauss fort.
-
-\begin{equation}\label{Eq:9}
-\Delta g=\sqrt{\bigl{(}\frac{\partial g}{\partial l}\Delta l\bigr{)}^2+\bigl{(}\frac{\partial g}{\partial T}\Delta T\bigr{)}^2}=
-\end{equation}
-Durch Umformungen erhält man den relativen Fehler
-\begin{equation}\label{Eq:10}
-\frac{\Delta g}{g}=\frac{\Delta g}{\frac{4\pi^2l}{T^2}}=
-\end{equation}
-Wenn man die Werte in Formel \ref{Eq:9}  und \ref{Eq:10} einsetzt erhält man: 
-
-\hspace{15pt}
-
-\noindent 
-Absoluter Fehler: $\Delta g=...$ 
-
-\hspace{15pt}
-
-\noindent 
-Relativer Fehler: $\frac{\Delta g}{g}=...$
-
-\section{Angabe des Ergebnisses und Diskussion}
-In diesem Versuch wurde die Erdbeschleunigung mithilfe eines Fadenpendels bestimmt.
- 
-\noindent $\underline{\underline{\Delta g=...}}$\\
-\hspace{5pt}
-\noindent Vergleich mit Literaturwert aus \cite{Kuchling} $g_{Lit}=9.81$~m/s$^2$.
-\hspace{5pt}
-\noindent Diskussion: enthalten die Messwerte mit Fehlerbereich den Literaturwert, wenn nicht, was sind mögliche Fehlerquellen, die nicht berücksichtigt wurden, etc.  
-...\\
 
 \begin{thebibliography}{2}
 \bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
