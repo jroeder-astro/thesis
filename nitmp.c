@@ -5,7 +5,7 @@
 
 const int N = 2;              // number of components of ODE vector
 const int num_steps = 10000;  // number of Runge-Kutta steps
-const double tau = -0.01;     // stepsize
+double tau = -0.01;     // stepsize
 double y[N][num_steps+1];     // discretization
 
 
@@ -126,6 +126,8 @@ int main(){
   
   //printf("reos = %Lf\n", reos);
 
+  tau *= -1.;
+
   while(m0 >= 1.6 && m0 <= 1.63){  
  
 
@@ -182,7 +184,7 @@ int main(){
 
 	      k1[0] = tov(y[0][X], y[1][X], r) * tau;
 	      k1[1] = 4*M_PI*pow(r, 2.0) * reos * tau;
-printf("yo");
+printf("yo\n");
 	      for(i2 = 0; i2 < N; i2++)
 		{
 		   y[i2][i1] = y[i2][i1-1] + k1[i2];
