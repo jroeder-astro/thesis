@@ -5,12 +5,8 @@
 
 const int N = 2;              // number of components of ODE vector
 const int num_steps = 10000;  // number of Runge-Kutta steps
-double tau = -0.01;     // stepsize
+double tau = -0.01;           // stepsize
 double y[N][num_steps+1];     // discretization
-
-
-double p0;                    // initial pressure
-double y_0[N] = {p0, 0.0};    // initial pressure & mass
 
 
 double eos(double p){
@@ -35,9 +31,12 @@ int main(){
   double m0 = 0.0;
   double r = 0.0;
   int X = 0;
+  
+  FILE *EOS = fopen("EOS.out", "w");
+  if (EOS == NULL) exit(0);  
 
   while(m0 < 1.6){
-  
+          
           if( fscanf(OUT, "%lf,%lf,%d", &r, &m0, &X) == EOF ) break;
 	    
           double R = r;
@@ -106,18 +105,35 @@ int main(){
 	  if (R + i1 * tau < 0.0) break;
 	  if (y[0][i1] < 0.0) break;
 
-	  printf("%5.9lf,%5.9lf\n", y[0][i1-1], eos(y[0][i1-1])); 
+	  fprintf(EOS, "%5.9lf,%5.9lf\n", y[0][i1-1], eos(y[0][i1-1])); 
           // reconstruction with given EoS
   }
 
-  // printf("i1 = %d, y[0][i1] = %5.10lf, m0 = %5.10lf\n", i1, y[0][i1], m0);
-  //  	  if (y[0][i1] < 0.0) break;
+//  printf("X = %d\n", X);
 
-  double P = y[0][i1];
-  long double reos = eos(y[0][i1]);
-  double err = 0.001;
+  fclose(EOS);
+
+  FILE *REOS = fopen("EOS.out", "a+");
+  if (REOS == NULL) exit(0); 
+   
+  double reosR = 0.0;  // part of eos read from file
+  double reosW = 0.0;  // new eos parts written to file
   
-  //printf("reos = %Lf\n", reos);
+  tau *= -1.; // stop calculating inversely, might have to change
+              // that upstairs as well, which would be kinda crap
+
+
+  while (m0 > 1.6){
+
+         if( fscanf(REOS, "%lf,%lf", &p, &reosR) == EOF ) break;
+
+         if( fscanf(OUT, "%lf,%lf,%d", &r, &m0, &X) == EOF ) break;
+	    
+         double R = r;
+	 double p0 = 0.000001 + X * 0.00001;
+  	 double y_0[N] = {p0, 0.0}; 
+
+         
 
 
 
@@ -125,6 +141,18 @@ int main(){
 
 
 
+
+
+
+
+
+
+  }
+
+
+
+
+  fclose(REOS);
   
   fclose(OUT);
 
