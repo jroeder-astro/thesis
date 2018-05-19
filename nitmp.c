@@ -29,22 +29,16 @@ int main(){
 
   int i1, i2;
 
-  FILE *radii = fopen("radii_rk4.out", "r");
-  if (radii == NULL) exit(0);
-  FILE *mass = fopen("mass_rk4.out", "r");
-  if (mass == NULL) exit(0);
+  FILE *OUT = fopen("TOV.out", "r");
+  if (OUT == NULL) exit(0);
  
   double m0 = 0.0;
   double r = 0.0;
+  int X = 0;
 
   while(m0 < 1.6){
-
-	  int d1 = fscanf(radii, "%lf", &r);
-	  if (d1 == EOF) break;
-       // printf("r = %lf\n", r);
-	  int d2 = fscanf(mass, "%lf", &m0);
-          if (d2 == EOF) break;
-       // printf("m0 = %lf\n", m0);
+  
+          if( fscanf(OUT, "%lf,%lf,%d", &r, &m0, &X) == EOF ) break;
 	    
           double R = r;
 	  double p0 = pow(10., -11.);
@@ -122,112 +116,17 @@ int main(){
   double P = y[0][i1];
   long double reos = eos(y[0][i1]);
   double err = 0.001;
-  int X = i1;
   
   //printf("reos = %Lf\n", reos);
 
-  tau *= -1.;
-
-  while(m0 >= 1.6 && m0 <= 1.63){  
- 
-
-	  int d1 = fscanf(radii, "%lf", &r);
-	  if (d1 == EOF) break;
-       // printf("r = %lf\n", r);
-	  int d2 = fscanf(mass, "%lf", &m0);
-          if (d2 == EOF) break;
-        printf("m0 = %lf\n", m0);    
-       
- 
-     while (fabs(m0 - y[1][i1]) >= err){
-
-          printf("fabs = %lf\n", fabs(m0-y[1][i1])); 	 
- 
-          double R = r;
-	  double p0 = pow(10., -11.);
-	  double y_0[N] = {P, 0.0}; 
-
-	  for(i1 = 0; i1 < N; i1++)
-	    {
-	       y[i1][0] = y_0[i1];
-	      // printf("y[i1][0] = %5.12lf\n", y[i1][0]);   
-	    }
-         
-          for(i1 = 1; i1 <= X ; i1++) 
-	    {
-	      
-	      double rho = r;
-	      
-	      double k1[N];
-
-	      k1[0] = tov(y[0][i1-1], y[1][i1-1], r) * tau;
-	      k1[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1]) * tau;
-
-	      for(i2 = 0; i2 < N; i2++) {
-		   y[i2][i1] = y[i2][i1-1] + k1[i2];
-	      //         printf("y[i2][i1] = %lf\n", y[i2][i1]);
-		}
-	      //	 printf("y[i2][i1] = %lf\n", y[i2][i1]);
-		
-	      r = rho + tau;
-	      if (y[0][i1] <= 0.0 || y[1][i1] <= 0.0) break; 	
-	    
-
-
-           // printf("y[i2][i1] = %lf\n", y[i2][i1])	
-           // printf("X = %d\n", X);
-            printf("i1 = %d\n", i1);
-          
-              if (i1 = X){
-
-              double k1[N];
-
-	      k1[0] = tov(y[0][X], y[1][X], r) * tau;
-	      k1[1] = 4*M_PI*pow(r, 2.0) * reos * tau;
-printf("yo\n");
-	      for(i2 = 0; i2 < N; i2++)
-		{
-		   y[i2][i1] = y[i2][i1-1] + k1[i2];
-		   printf("y[i2][i1] = %lf\n", y[i2][i1]);
-		}
-              }
-            }
 
 
 
 
-	  for(i1 = 0; i1 <= X; i1++)
-	    {
- 	       double radius = R + i1 * tau;
-	       if (radius < 0.0) break;
-	       if (y[1][i1] < 0.0) break;
-            // printf("%9.6lf,%9.6lf\n", radius, y[1][i1]);   // m(r) for one star
-	    }
-	//  printf("i1 = %d\n", i1);
-        //  printf("r = %lf\n", r);
-	  if (r <= 0.0) break;
-	//  if (y[0][X] < 0.0) break;
 
-          // printf("if for reos\n");
-              if (m0 < y[1][X]){
-                  reos -= 0.0001;
-              }
-              if (m0 > y[1][X]){
-	          reos += 0.0001;
-              }
-	  if (reos <= 0.0) break; 
-          printf("reos = %Lf\n", reos);
-         // printf("y[1][X] = %lf\n", y[1][X]);
-      }   
-         
-              printf("%5.9lf,%5.9Lf\n", y[0][X], reos);
-              P += 0.00001;
-              X += 1;   
-  }
 
   
-  fclose(radii);
-  fclose(mass);
+  fclose(OUT);
 
   return 0;
 }
