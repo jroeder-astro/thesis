@@ -105,51 +105,61 @@ int main(){
 	  if (R + i1 * tau < 0.0) break;
 	  if (y[0][i1] < 0.0) break;
 
-	  fprintf(EOS, "%5.9lf,%5.9lf\n", y[0][i1-1], eos(y[0][i1-1])); 
+//	  fprintf(EOS, "%5.9lf,%5.9lf\n", y[0][i1-1], eos(y[0][i1-1])); 
           // reconstruction with given EoS
   }
+ 
+  // debug
+  printf("p = %lf\n", y[0][i1-1]);
+  printf("X = %d\n", X);
 
-//  printf("X = %d\n", X);
+  double pr = 0.0; 
+  int count = 1;
 
+  for(int i = 0; ; i++){
+     pr = y[0][i1-1] - i * 0.000000001;
+     if (pr < 0.0) break;
+     fprintf(EOS, "%5.9lf,%5.9lf,%d\n", pr, eos(pr), count);
+     count += 1; 
+  }      
+ 
   fclose(EOS);
+
 
   FILE *REOS = fopen("EOS.out", "a+");
   if (REOS == NULL) exit(0); 
    
   double reosR = 0.0;  // part of eos read from file
-  double reosW = 0.0;  // new eos parts written to file
-  
+  double reosW = 0.0;  // new eos parts written to file  
+
   tau *= -1.; // stop calculating inversely, might have to change
               // that upstairs as well, which would be kinda crap
 
 
   while (m0 > 1.6){
 
-         if( fscanf(REOS, "%lf,%lf", &p, &reosR) == EOF ) break;
+         if( fscanf(REOS, "%lf,%lf,%d", &p, &reosR, &count) == EOF ) break;
 
          if( fscanf(OUT, "%lf,%lf,%d", &r, &m0, &X) == EOF ) break;
 	    
          double R = r;
 	 double p0 = 0.000001 + X * 0.00001;
   	 double y_0[N] = {p0, 0.0}; 
-
-         
-
-
-
-
-
-
-
-
-
+  
+       /* IMPORTANT
+       ============
+       - within the EOS.out file, find the highest pressure
+       - add 0.00001 to it
+       - make iteration (euler first) with following x*1000 values  
+       - stepsize to the latter: check with num_steps and the pressure
+         that was added generating the MR relation, to determine number
+         of values to use from EOS.out for iteration
 
 
-
-
+       */
   }
 
-
+/**/
 
 
   fclose(REOS);
