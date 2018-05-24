@@ -116,51 +116,97 @@ int main(){
   double pr = 0.0; 
   int count = 1;
 
-  for(int i = 0; ; i++){
-     pr = y[0][i1-1] - i * 0.000000001;
+  for(int i = 0; /* pr < y[0][i1] */ ; i++){
+     pr = y[0][i1] - i *  0.000001;
      if (pr < 0.0) break;
      fprintf(EOS, "%5.9lf,%5.9lf,%d\n", pr, eos(pr), count);
      count += 1; 
   }      
- 
-  fclose(EOS);
 
 
   FILE *REOS = fopen("EOS.out", "a+");
   if (REOS == NULL) exit(0); 
    
   double reosR = 0.0;  // part of eos read from file
-  double reosW = 0.0;  // new eos parts written to file  
+  double reosW = eos(y[0][i1]);  // new eos parts written to file  
+
+  fclose(EOS);
 
   tau *= -1.; // stop calculating inversely, might have to change
               // that upstairs as well, which would be kinda crap
 
-
+  double err = 0.0001;
+  double p = 0.0;
   while (m0 > 1.6){
 
-         if( fscanf(REOS, "%lf,%lf,%d", &p, &reosR, &count) == EOF ) break;
-
+      
+     while (fabs(m0-y[1][i1]) > err){
+       
          if( fscanf(OUT, "%lf,%lf,%d", &r, &m0, &X) == EOF ) break;
-	    
+	 printf("m0 = %lf\n", m0);	    
+      
+       //  if( fscanf(REOS, "%lf,%lf,%d", &p, &reosR, &count) == EOF ) break;
+       // printf("p = %9.20lf\n", p);
+        
          double R = r;
-	 double p0 = 0.000001 + X * 0.00001;
+	 double p0 = p + 0.00001;
   	 double y_0[N] = {p0, 0.0}; 
   
-       /* IMPORTANT
-       ============
-       - within the EOS.out file, find the highest pressure
-       - add 0.00001 to it
-       - make iteration (euler first) with following x*1000 values  
-       - stepsize to the latter: check with num_steps and the pressure
-         that was added generating the MR relation, to determine number
-         of values to use from EOS.out for iteration
+      	  for(i1 = 0; i1 < N; i1++)
+	    {
+	       y[i1][0] = y_0[i1];
+	    // printf("y[i1][0] = %5.12lf\n", y[i1][0]);    // debug statement
+	    }
+
+          double k1[N];
+ 	      k1[0] = tov(reosW, y[1][i1-1], r) * tau;
+	      k1[1] = 4*M_PI*pow(r, 2.0) * reosW * tau;
 
 
-       */
+	  for(i1 = 1; i1<=num_steps ; i1++)
+	    {
+	      double rho = r;
+	      if( fscanf(REOS, "%lf,%lf,%d", &p, &reosR, &count) == EOF ) break;
+       
+	      // k1 = f(y(t) , t) * tau
+	      
+	      k1[0] = tov(reosR, y[1][i1-1], r) * tau;
+	      k1[1] = 4*M_PI*pow(r, 2.0) * reosR * tau;
+
+	      // k2 = f(y(t)+(1/2)*k1 , t+(1/2)*tau) * tau
+
+	      for(i2 = 0; i2 < N; i2++)
+		{
+		   y[i2][i1]=y[i2][i1-1]+k1[i2];
+		// printf("y[i2][i1] = %lf\n", y[i2][i1]);
+		}
+	      
+	      r = rho + tau;
+	      if (y[0][i1] <= 0.0 || y[1][i1] <= 0.0) break; 	
+	    }
+
+	  for(i1 = 0; i1 <= num_steps; i1++)
+	    {
+	      double radius = R + i1 * tau;
+	      if (radius < 0.0) break;
+	      if (y[1][i1] < 0.0) break;
+           // printf("%9.6lf,%9.6lf\n", radius, y[1][i1]);   // m(r) for one star
+	    }
+
+	  if (R + i1 * tau < 0.0) break;
+	  if (y[0][i1] < 0.0) break;
+
+
+          if (m0-y[1][i1] < -err)
+		reosW += pow(10., -5.); 
+          if (m0-y[1][i1] > err) 
+        	reosW -= pow(10., -5.); 
+
+
+   }
+    fprintf(REOS, "%5.9lf,%5.9lf, %d\n", , reosW, count);
+ 
   }
-
-/**/
-
 
   fclose(REOS);
   

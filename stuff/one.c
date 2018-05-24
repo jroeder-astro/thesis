@@ -79,7 +79,9 @@ int main()
 
       for(i2 = 0; i2 < N; i2++){
 	y[i2][i1] = y[i2][i1-1] + 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
-        printf("y[i2][i1]=%lf\n", y[i2][i1]); 
+        printf("y[0][i1]=%lf\n", y[0][i1]); 
+        printf("y[1][i1]=%lf\n", y[1][i1]);
+        printf("eos=%lf\n", eos(y[0][i1])); 
       }
       r = rho + tau;
       if (y[0][i1] <= 0.0 || y[1][i1] <= 0.0) break;

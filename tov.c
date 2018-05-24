@@ -78,9 +78,11 @@ int main()
 	k4[0] = tov(y[0][i1-1] + k3[0], y[1][i1-1] + k3[1], r + tau)  * tau;
 	k4[1] = 4*M_PI*pow(r, 2.0) * eos(y[0][i1-1] + k3[0])*tau;
 
-	for(i2 = 0; i2 < N; i2++)
+	for(i2 = 0; i2 < N; i2++){
 	y[i2][i1] = y[i2][i1-1] + 1./6. * (k1[i2] + 2.*k2[i2] + 2.*k3[i2] + k4[i2]);
-
+//        if (y[i2][i1] < 0.0) break;
+//        printf("y[i2][i1] = %lf\n", y[i2][i1]);
+        }
 	r = rho + tau;
 	} 
 
@@ -91,7 +93,8 @@ int main()
 	    }
 	 // printf("**********************************************************\n");   // debug
   
-     printf("%5.8lf,%5.8lf,%d\n",(i1-1)*tau, y[1][i1-1],count); // mass-radius for multiple stars
+//     printf("%5.8lf,%5.8lf,%d\n",(i1-1)*tau, y[1][i1-1],count); // mass-radius for multiple stars
+     printf("%5.8lf,%5.8lf,%d\n",y[0][i1-1], eos(y[0][i1-1]),count); // mass-radius for multiple stars
 //   printf("%5.8lf\n",(i1-1)*tau); printf("%5.8lf\n",y[1][i1-1]);
      count += 1;
 
