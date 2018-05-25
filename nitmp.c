@@ -113,24 +113,25 @@ int main(){
   printf("p = %lf\n", y[0][i1-1]);
   printf("X = %d\n", X);
 
-  double pr = 0.0; 
+  long  double pr = 0.0; 
   int count = 1;
 
-  for(int i = 0; /* pr < y[0][i1] */ ; i++){
+  for(int i = 0;  pr < y[0][i1] ; i++){
      pr = y[0][i1] - i *  0.000001;
      if (pr < 0.0) break;
-     fprintf(EOS, "%5.9lf,%5.9lf,%d\n", pr, eos(pr), count);
+     fprintf(EOS, "%5.9Lf,%5.9lf,%d\n", pr, eos(pr), count);
      count += 1; 
   }      
 
 
-  FILE *REOS = fopen("EOS.out", "a+");
+fclose(EOS); 
+EOS = NULL;
+
+/*  FILE *REOS = fopen("EOS.out", "a+");
   if (REOS == NULL) exit(0); 
    
   double reosR = 0.0;  // part of eos read from file
   double reosW = eos(y[0][i1]);  // new eos parts written to file  
-
-  fclose(EOS);
 
   tau *= -1.; // stop calculating inversely, might have to change
               // that upstairs as well, which would be kinda crap
@@ -209,7 +210,7 @@ int main(){
   }
 
   fclose(REOS);
-  
+  */
   fclose(OUT);
 
   return 0;
