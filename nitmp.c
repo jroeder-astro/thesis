@@ -1,7 +1,9 @@
 #include<stdlib.h>
 #include<math.h>
 #include<stdio.h>
+#include<vector>
 
+using namespace std;
 
 const int N = 2;              // number of components of ODE vector
 const int num_steps = 10000;  // number of Runge-Kutta steps
@@ -22,7 +24,8 @@ double tov(double p, double m, double r){
 
 int main(){
 
-
+  vector<double> result;
+ 
   int i1, i2;
 
   FILE *OUT = fopen("TOV.out", "r");
@@ -115,6 +118,10 @@ int main(){
 
   long  double pr = 0.0; 
   int count = 1;
+  
+
+  FILE *EOS = fopen("EOS.out", "w");
+  if (EOS == NULL) exit(0);  
 
   for(int i = 0;  pr < y[0][i1] ; i++){
      pr = y[0][i1] - i *  0.000001;
@@ -123,9 +130,9 @@ int main(){
      count += 1; 
   }      
 
+  fclose(EOS); 
+  EOS = NULL;
 
-fclose(EOS); 
-EOS = NULL;
 
 /*  FILE *REOS = fopen("EOS.out", "a+");
   if (REOS == NULL) exit(0); 
