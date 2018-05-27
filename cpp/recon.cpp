@@ -24,6 +24,7 @@ int main(void){
     vector<double> Presult;   
       int Psize = pow(Pmax,2.)-Pmax;
       Presult.resize(Psize);
+
     vector<double> Mresult;
       int Msize = pow(Pmax,2.)-Pmax;
       Mresult.resize(Msize);
@@ -40,13 +41,23 @@ int main(void){
     unsigned int i = 0;
     int P = 0;
     
-    #pragma omp parallel for private(P,m,p,e,r,dm,dp,de)
-    
-    for (int P = 0; P <= Pmax; P++){
+    double M, R;
 
+    FILE *TOV = fopen("tov.out", "r");
+    if (TOV == NULL) exit(0);
+    int mcount = 0;
+    while (1) {
+
+      if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break; 
+      if (M > 1.6) break;
+      mcount++;
+    } 
+
+//    #pragma omp parallel for private(P,m,p,e,r,dm,dp,de)
+    
     m = 0;
     r = pow(10,-14);
-    p = 0.00000001 + P * 0.0000001;
+    p = 0.00000001 + count * 0.0000001;
     
     do {
         e = eos(p);
@@ -65,12 +76,23 @@ int main(void){
 //    Rresult.push_back(r);
  
     i++;
+   }
 
-    //cout << Mresult[i] << "," << Rresult[i]  << "\n";
-    //cout<<"Neutronensternradius [km]          = "<<r<<"\n";
-    //cout<<"Neutronensternmasse [Sonnenmassen] = "<<m/1.4766<<"\n";
-    }
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
     fstream MR;
     MR.open("tov.out", ios::out);
      
@@ -78,7 +100,7 @@ int main(void){
           MR << Mresult[j] << "," << Rresult[j]  << "\n";
        }
     MR.close();
-
+*/
 
 /*
     cout<<"Neutronensternradius [km]          = "<<r<<"\n";
