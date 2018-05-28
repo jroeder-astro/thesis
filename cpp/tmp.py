@@ -8,7 +8,7 @@ y = []
 
 p = np.arange(0., 0.1, 0.0001)
 
-with open('tov.out', 'r') as csvfile:
+with open('eos.out', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         y.append(float(row[0]))

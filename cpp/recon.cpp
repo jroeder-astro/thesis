@@ -1,8 +1,9 @@
 #include<iostream>                 
 #include<math.h>                   
-#include<vector>
+#include<vector> 
 #include<fstream>
 #include<omp.h>
+#include<iomanip>
 
 using namespace std;                
 
@@ -34,6 +35,10 @@ int main(void){
 
 //  double Eresult[Pmax], Presult[Pmax], Mresult[Pmax], Rresult[Pmax];   
 
+
+
+
+
     double m,p,e,r,dm,dp,de,dr;
     double eos(double);
     dr = 0.00001;    
@@ -52,39 +57,66 @@ int main(void){
       if (M > 1.6) break;
       mcount++;
     } 
+    cout << "mcount = " << mcount << "\n";
+    cout << "M = " << M << "\n";
+
+    fclose(TOV);
+    TOV == NULL;
 
 //    #pragma omp parallel for private(P,m,p,e,r,dm,dp,de)
     
     m = 0;
     r = pow(10,-14);
-    p = 0.00000001 + count * 0.0000001;
+    p = 0.00000001 + mcount * 0.0000001;
     
     do {
         e = eos(p);
-        //  Eresult.push_back(e);
-        //  Presult.push_back(p);                                     
+          Eresult.push_back(e);
+          Presult.push_back(p);                                     
         dm = 4*M_PI*e*r*r*dr;                         
         dp = tov(p,m,r)*dr; 
         r = r+dr; m = m+dm; p = p+dp;                                       
     }
     while (p>0);
    
-    Mresult[P] = m;
-    Rresult[P] = r; 
+   // Mresult[P] = m;
+   // Rresult[P] = r; 
+
+    cout << "M = " << m << "\n";
+    cout << "R = " << r << "\n";
+
+
 
 //    Mresult.push_back(m);    
 //    Rresult.push_back(r);
- 
-    i++;
-   }
+    fstream f;
+    f.open("eos.out", ios::out);
+    
+      for (unsigned int i = 0; i < 100; i++) {
+          f << Presult[i] << "," << Eresult[i]  << "\n";
+      }
 
+    f.close();
+/*
+    for (unsigned int i = 0; i < 10; i++) {
+          cout << setprecision(10) << Presult[i] 
+               << "," << setprecision(10) << Eresult[i]  << "\n";
+    }
 
+    cout << "*********************" << endl;
 
+    vector<double>::iterator itP;
+    itP = Presult.begin();
+    itP = Presult.insert(itP, Presult[0]+5.);
+    //Presult.insert(itP,2,300.);    
 
+    for (unsigned int i = 0; i < 10; i++) {
+          cout << setprecision(10) << Presult[i] 
+               << "," << setprecision(10) << Eresult[i]  << "\n";
+    }
+*/
 
-
-
-
+  
 
 
 
