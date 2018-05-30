@@ -19,17 +19,17 @@ int main(void){
     int Pmax = 15001;
 
     vector<double> Eresult;    
-      int Esize = pow(Pmax,2.)-Pmax;
-      Eresult.resize(Esize);
+     // int Esize = pow(Pmax,2.)-Pmax;
+     // Eresult.resize(Esize);
     vector<double> Presult;   
-      int Psize = pow(Pmax,2.)-Pmax;
-      Presult.resize(Psize);
+     // int Psize = pow(Pmax,2.)-Pmax;
+     // Presult.resize(Psize);
     vector<double> Mresult;
-      int Msize = pow(Pmax,2.)-Pmax;
-      Mresult.resize(Msize);
+     // int Msize = pow(Pmax,2.)-Pmax;
+     // Mresult.resize(Msize);
     vector<double> Rresult;
-      int Rsize = pow(Pmax,2.)-Pmax;
-      Rresult.resize(Rsize); 
+     // int Rsize = pow(Pmax,2.)-Pmax;
+     // Rresult.resize(Rsize); 
 
 //  double Eresult[Pmax], Presult[Pmax], Mresult[Pmax], Rresult[Pmax];   
 
@@ -42,9 +42,12 @@ int main(void){
     
 //    #pragma omp parallel for private(P,m,p,e,r,dm,dp,de)
 
-    int i1, i1;
+    int i1, i2;
     const int N = 2;
-    
+    const int nS = 1000;
+    double y[N][nS-1];     
+    double tau = 0.01; 
+
     for (int P = 0; P <= Pmax; P++){
 
     m = 0;
@@ -62,68 +65,40 @@ int main(void){
 */
 
     double y0[N] = {p, m};
- 
+    double rho = 0.0;    
+    double k1[N];
+
     for (i1 = 0; i1 < N; i1++){
-
+      y[i1][0] = y0[i1];
     }
 
+    for (i1 = 1; i <= nS; i1++){
+      rho = r;
+      k1[0] = tov(y[0][i1-1], y[1][i1-1], r) * tau; 
+      k1[1] = 4*M_PI*pow(r, 2.) * eos(y[0][i1-1]) * tau;
 
+      for (i2 = 0; i2 < N; i2++){
+        y[i2][i1] = y[i1][i1-1] + k1[i2];
+      }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    do {
-        e = eos(p);
-        //  Eresult.push_back(e);
-        //  Presult.push_back(p);                                     
-        dm = 4*M_PI*e*r*r*dr;                         
-        dp = tov(p,m,r)*dr; 
-        r = r+dr; m = m+dm; p = p+dp;                                       
+    r = rho + tau;
     }
-    while (p>0);
-   
-    Mresult[P] = m;
-    Rresult[P] = r; 
 
-//    Mresult.push_back(m);    
-//    Rresult.push_back(r);
+    Rresult.push_back((i1-1)*tau);    
+    Mresult.push_back(y[1][i1-1]);
  
     i++;
 
-    //cout << Mresult[i] << "," << Rresult[i]  << "\n";
-    //cout<<"Neutronensternradius [km]          = "<<r<<"\n";
-    //cout<<"Neutronensternmasse [Sonnenmassen] = "<<m/1.4766<<"\n";
     }
  
     fstream MR;
-    MR.open("tov.out", ios::out);
-     
-       for (unsigned int j = 0; j < Pmax; j++) {
+    MR.open("old.out", ios::out);
+       for (unsigned int j = 0; j < Mresult.size(); j++) {
           MR << Mresult[j] << "," << Rresult[j]  << "\n";
        }
     MR.close();
 
-
-/*
-    cout<<"Neutronensternradius [km]          = "<<r<<"\n";
-    cout<<"Neutronensternmasse [Sonnenmassen] = "<<m/1.4766<<"\n";
-    
+/*  
     fstream f;
     f.open("eos.out", ios::out);
     
@@ -133,6 +108,7 @@ int main(void){
 
     f.close();
 */
+
     return 0;   
 }
 
