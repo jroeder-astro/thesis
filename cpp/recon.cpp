@@ -58,8 +58,8 @@ int main(void){
 //    cout << "mcount = " << mcount << "\n";
 //    cout << "M = " << M << "\n";
 
-    fclose(TOV);
-    TOV == NULL;
+//    fclose(TOV);
+//    TOV == NULL;
 
 //    #pragma omp parallel for private(P,m,p,e,r,dm,dp,de)
     
@@ -101,12 +101,94 @@ int main(void){
 
     vector<double>::iterator itP;
     itP = Presult.begin();
-    itP = Presult.insert(itP, Presult[0]+5.); 
+    itP = Presult.insert(itP, Presult[0]+0.0000001); 
 
+
+/*    // debug
     for (unsigned int i = 0; i < 10; i++) {
           cout << setprecision(10) << Presult[i] 
                << "," << setprecision(10) << Eresult[i]  << "\n";
     }
+*/
+
+  double err = 0.001;
+  double reos = 0.0;
+  while (1) {
+
+      if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break; 
+//      if (M > 1.6) break;
+//      mcount++;
+//    } 
+
+   while (fabs(y[1][i1-1] - m) > err){
+
+    reos = Eresult[0];
+    p = Presult[0];
+    double y0[N] = {p, m};
+
+    for (i1 = 0; i1 < N; i1++){
+      y[i1][0] = y0[i1];
+    }
+
+      double rho = r; double k1[N];
+
+      k1[0] = tov(y[0][0], y[1][0], r) * tau; 
+      k1[1] = 4*M_PI*pow(r, 2.) * reos * tau;
+     
+      for (i2 = 0; i2 < N; i2++){
+        y[i2][i1] = y[i2][i1-1] + k1[i2];
+      }
+
+      r = rho + tau;
+ 
+    for (i1 = 2; i1 <= nS && y[0][i1-1] > 0.; i1++){
+      rho = r;
+
+      k1[0] = tov(y[0][i1-1], y[1][i1-1], r) * tau; 
+      k1[1] = 4*M_PI*pow(r, 2.) * Eresult[i1-2] * tau;
+     
+      for (i2 = 0; i2 < N; i2++){
+        y[i2][i1] = y[i2][i1-1] + k1[i2];
+      }
+
+    r = rho + tau;
+    }
+
+    if (y[1][i1-1] < m) reos += 0.000001;
+    if (y[1][i1-1] > m) reos -= 0.000001;
+    
+  }
+   
+   vector<double>::iterator itP;
+    itP = Presult.begin();
+    itP = Presult.insert(itP, Presult[0]+0.0000001); 
+ 
+   vector<double>::iterator itE;
+    itE = Eresult.begin();
+    itE = Eresult.insert(itE, reos); 
+
+   mcount++;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* 
@@ -142,19 +224,6 @@ int main(void){
     MR.close();
 */
 
-/*
-    cout<<"Neutronensternradius [km]          = "<<r<<"\n";
-    cout<<"Neutronensternmasse [Sonnenmassen] = "<<m/1.4766<<"\n";
-    
-    fstream f;
-    f.open("eos.out", ios::out);
-    
-      for (unsigned int i = 0; i < Eresult.size(); i++) {
-          f << Presult[i] << "," << Eresult[i]  << "\n";
-      }
-
-    f.close();
-*/
-    return 0;   
+   return 0;   
 }
 
