@@ -173,14 +173,22 @@ int main(void){
      // if (M > 1.7) break;
 //      mcount++;
 //    }  
+
          cout << "M = " << M << "\n";
 
          reos = Eresult[0];
    
          cout << "reos = " << reos << "\n";
-         y[1][i1] = 1.5;
-        
+//         y[1][i1] = 1.5;
+ 
+             
+         vector<double> mass;
+         mass.push_back(M);
+
 	 while (fabs(y[1][i1] - M) > err){
+
+           
+           
 
 	    p = Presult[0];
             r = pow(10., -14.);
@@ -191,7 +199,7 @@ int main(void){
 	    for (i1 = 0; i1 < N; i1++){
 	      y[i1][0] = y0[i1];
 	    }
-cout<<"hi"<<endl;
+//cout<<"hi"<<endl;
 	      double rho = r; double k1[N];
                        // y[0]
 	      k1[0] = tov(Presult[0], y[1][0], r) * tau; 
@@ -202,7 +210,7 @@ cout<<"hi"<<endl;
 	      }
 
 	      r = rho + tau;
-cout<<"hi"<<endl;
+//cout<<"hi"<<endl;
  
 	    for (i1 = 2; i1 <= Eresult.size() 
                  && y[0][i1] > 0. && y[1][i1] > 0.; i1++){
@@ -218,13 +226,25 @@ cout<<"hi"<<endl;
 
 	      r = rho + tau;
 	    }
-cout<<"hi"<<endl;
+//cout<<"hi"<<endl;
+/*
+	    if (y[1][i1] > M) reos += 0.00001; //variation
+	    if (y[1][i1] <= M) reos -= 0.00001; //variation
+*/
+            vector<double>::iterator itM;
+	    itM = mass.begin();
+	    itM = mass.insert(itM, y[1][i1]); 
 
-	    if (y[1][i1] < M) reos += 0.00001; //variation
-	    if (y[1][i1] > M) reos -= 0.00001; //variation
+            if (mass[0]-mass[1] > err) reos += 0.00001;
+            if (mass[0]-mass[1] <= err) reos -= 0.00001;
+
+            cout << "var. reos = " << reos << endl;
            
 	    cout << "M2 = " << y[1][i1] << "\n";	 
-            // cout << reos << "\n";
+
+           // mass.push_back(y[1][i1]);
+	   
+           // cout << reos << "\n";
 	 
   //          if( fabs(y[1][i1] - M) > err ) break;
             }
