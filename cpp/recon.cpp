@@ -185,7 +185,7 @@ int main(void){
          vector<double> mass;
          mass.push_back(M);
 
-	 while (fabs(y[1][i1] - M) > err){
+	 while (1){
 
            
            
@@ -223,7 +223,7 @@ int main(void){
 	      for (i2 = 0; i2 < N; i2++){
 		y[i2][i1-1] = y[i2][i1-2] + k1[i2];
 	      }
-
+         //          cout << y[0][i1] << "  " << y[1][i1] << endl;
 	      r = rho + tau;
 	    }
 //cout<<"hi"<<endl;
@@ -235,12 +235,16 @@ int main(void){
 	    itM = mass.begin();
 	    itM = mass.insert(itM, y[1][i1]); 
 
+            cout << mass[0] << "  "  << mass[1] << endl;
+
             if (mass[0]-mass[1] > err) reos += 0.00001;
             if (mass[0]-mass[1] <= err) reos -= 0.00001;
 
             cout << "var. reos = " << reos << endl;
            
 	    cout << "M2 = " << y[1][i1] << "\n";	 
+         
+           if (fabs(y[1][i1] - M) > err) break;
 
            // mass.push_back(y[1][i1]);
 	   
