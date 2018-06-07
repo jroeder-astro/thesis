@@ -181,13 +181,10 @@ int main(void){
          cout << "reos = " << reos << "\n";
 //         y[1][i1] = 1.5;
  
-             
          vector<double> mass;
          mass.push_back(M);
 
-	 while (1){
-
-           
+	 while (fabs(y[1][i1] - M) > err){           
            
 
 	    p = Presult[0];
@@ -227,32 +224,30 @@ int main(void){
 	      r = rho + tau;
 	    }
 //cout<<"hi"<<endl;
-/*
-	    if (y[1][i1] > M) reos += 0.00001; //variation
-	    if (y[1][i1] <= M) reos -= 0.00001; //variation
-*/
+
+	    if (y[1][i1] < M) reos += 0.00001; //variation
+	    if (y[1][i1] >= M) reos -= 0.00001; //variation
+
             vector<double>::iterator itM;
 	    itM = mass.begin();
 	    itM = mass.insert(itM, y[1][i1]); 
-
+/*
             cout << mass[0] << "  "  << mass[1] << endl;
 
             if (mass[0]-mass[1] > err) reos += 0.00001;
             if (mass[0]-mass[1] <= err) reos -= 0.00001;
-
+*/
             cout << "var. reos = " << reos << endl;
            
 	    cout << "M2 = " << y[1][i1] << "\n";	 
          
-           if (fabs(y[1][i1] - M) > err) break;
+      //     if (fabs(y[1][i1] - M) > err) break;
 
            // mass.push_back(y[1][i1]);
 	   
            // cout << reos << "\n";
-	 
-  //          if( fabs(y[1][i1] - M) > err ) break;
-            }
-
+             }
+   
 
 //   cout << mcount << "\n"; 
 	   
