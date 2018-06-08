@@ -187,7 +187,7 @@ int main(void){
 
 	 while (fabs(y[1][i1-1] - M) > err){           
            
-
+y[1][Eresult.size()] = 
 	    p = Presult[0];
             r = pow(10., -14.);
             cout << "p = " << p << "\n";
@@ -206,16 +206,16 @@ int main(void){
 	      for (i2 = 0; i2 < N; i2++){
 		y[i2][1] = y[i2][0] + k1[i2];
 	      }
-    cout << i1 << endl;
-    cout << Eresult.size() << endl;
-    cout << y[0][i1-1] << "  " << y[1][i1-1] << endl;
+//    cout << i1 << endl;
+//    cout << Eresult.size() << endl;
+    cout << y[0][1] << "  " << y[1][1] << endl;
 
 	      r = rho + tau;
 //cout<<"hi"<<endl;
 int j; 
 	    for (j = 2; j <= Eresult.size() 
                  && y[0][j] > 0. && y[1][j] > 0.; j++){
-
+//cout << "hi" << endl;
 	      rho = r;
                        // y[0]
 	      k1[0] = tov(Presult[j-1], y[1][j-1], r) * tau; 
@@ -227,11 +227,13 @@ int j;
 //   cout << y[0][i1] << "  " << y[1][i1] << endl;
 	      r = rho + tau;
 	    }
-     cout << y[0][j-1] << "  " << y[1][j-1] << endl;
+       cout << y[0][j-1] << "  " << y[1][j-1] << endl;
 //   cout<<"hi"<<endl;
 
-	    if (y[1][Eresult.size()-1] < M) reos += 0.00001; //variation
-	    if (y[1][Eresult.size()-1] >= M) reos -= 0.00001; //variation
+//       cout << j << endl;
+ 
+	    if (y[1][j-1] < M) reos += 0.00001; //variation
+	    if (y[1][j-1] >= M) reos -= 0.00001; //variation
 /*
             vector<double>::iterator itM;
 	    itM = mass.begin();
@@ -244,7 +246,7 @@ int j;
 */
             cout << "var. reos = " << reos << endl;
            
-	    cout << "M2 = " << y[1][Eresult.size()-1] << "\n";	 
+	    cout << "M2 = " << y[1][j-1] << "\n";	 
          
       //     if (fabs(y[1][i1] - M) > err) break;
 
