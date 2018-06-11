@@ -187,7 +187,7 @@ int main(void){
 
 	 while (fabs(y[1][i1-1] - M) > err){           
            
-y[1][Eresult.size()] = 
+//  y[1][Eresult.size()] = 
 	    p = Presult[0];
             r = pow(10., -14.);
             cout << "p = " << p << "\n";

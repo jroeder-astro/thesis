@@ -3,19 +3,29 @@ import numpy as np
 import csv
 from numpy import *
 
-x = []
-y = []
+x1 = []
+y1 = []
+x2 = []
+y2 = []
 
 p = np.arange(0., 0.1, 0.0001)
 
 with open('eos.out', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
-        x.append(float(row[0]))
-        y.append(float(row[1]))
+        x1.append(float(row[0]))
+        y1.append(float(row[1]))
+
+with open('eos2.out', 'r') as csvfile:
+    plots = csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        x2.append(float(row[0]))
+        y2.append(float(row[1]))
+
 
 #plt.subplot(3,1,1)
-plt.plot(x, y)
+plt.plot(x1, y1)
+plt.plot(x2, y2)
 #plt.axis([7.8,20,1,1.9])
 plt.title('TOV equation')
 plt.ylabel('e(p)')
