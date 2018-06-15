@@ -1,18 +1,14 @@
 #include<iostream>
 #include<fstream>
+#include<stdlib.h>
+#include<stdio.h>
 using namespace std;
 
 main(void){
   
-  fstream f;
-  f.open("tov.out", ios::in);
-    string item;
-    int count = 0;
-    while (count < 20){
-      f >> item;
-      cout << item << "\n";
-      count++;
-    }
+  double** REOS = NULL;
+  
+
   
   return 0;
 }
