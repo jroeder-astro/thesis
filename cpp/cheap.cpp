@@ -1,0 +1,333 @@
+#include<iostream>                 
+#include<math.h>                   
+#include<vector> 
+#include<fstream>
+#include<omp.h>
+#include<iomanip>
+#include<stdlib.h>
+
+using namespace std;                
+
+double eos(double p){
+    return pow(p/10,3.0/5);
+}  
+
+double tov(double p, double m, double r){
+    return -(eos(p)+p)*(m+4*M_PI*r*r*r*p)/(r*(r-2*m));
+}
+
+int main(void){
+   
+    int Pmax = 1001;
+
+    vector<double> Eresult;    
+   //   int Esize = pow(Pmax,2.)-Pmax;
+   //   Eresult.resize(Esize);
+    vector<double> Presult;   
+   //   int Psize = pow(Pmax,2.)-Pmax;
+   //   Presult.resize(Psize);
+/*
+    vector<double> Mresult;
+      int Msize = pow(Pmax,2.)-Pmax;
+      Mresult.resize(Msize);
+    vector<double> Rresult;
+      int Rsize = pow(Pmax,2.)-Pmax;
+      Rresult.resize(Rsize); 
+*/
+//  double Eresult[Pmax], Presult[Pmax], Mresult[Pmax], Rresult[Pmax];   
+
+    double m,p,e,r,dm,dp,de,dr;
+    double eos(double);
+    dr = 0.00001;    
+
+    unsigned int i = 0;
+    int P = 0;
+    
+    double M, R;
+
+    FILE *TOV = fopen("tov.out", "r");
+    if (TOV == NULL) exit(0);
+    int mcount = 0;
+
+    while (M <= 1.6) {
+
+      if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break; 
+     // if (M > 1.6) break;
+      mcount++;
+    } 
+    mcount--;
+//    cout << "mcount = " << mcount << "\n";
+//    cout << "M = " << M << "\n";
+
+//    fclose(TOV);
+//    TOV == NULL;
+
+//    #pragma omp parallel for private(P,m,p,e,r,dm,dp,de)
+    
+    m = 0;
+    r = pow(10, -14);
+
+    p = 0.00000001 + 2000 * 0.0000001;
+
+    int i1,i2; 
+    const int N = 2;
+    const int nS = 100000;
+    double tau = 0.001;
+    double y[N][nS+1];    
+    double y0[N] = {p, m};
+
+    double p1 = p/15000.;
+
+    cout << mcount << endl;
+
+
+//    while (p > 0){
+
+//        p -= p1; 
+//        Eresult.push_back(eos(p));     
+//        Presult.push_back(p);
+
+//        printf("%5.10lf,%5.10lf\n",p1,eos(p1));
+
+//    }
+
+//    for (i1 = 0; i1 <= Eresult.size(); i++){
+      
+//       printf("%5.10lf,%5.10lf\n", Presult[i1], Eresult[i1]);
+
+//    }
+
+
+
+    //THIS IS STILL USEFUL
+    for (i1 = 0; i1 < N; i1++){
+      y[i1][0] = y0[i1];
+    }
+
+    for (i1 = 1; i1 <= nS && y[0][i1-1] > 0.; i1++){
+      double rho = r; double k1[N];
+
+      k1[0] = tov(y[0][i1-1], y[1][i1-1], r) * tau; 
+      k1[1] = 4*M_PI*pow(r, 2.) * eos(y[0][i1-1]) * tau;
+     
+        Eresult.push_back(eos(y[0][i1-1]));     
+        Presult.push_back(y[0][i1-1]);
+
+        cout << setprecision(20) << Presult[i1-1] << "   " 
+             << setprecision(20) << Eresult[i1-1] << endl;
+
+      for (i2 = 0; i2 < N; i2++){
+        y[i2][i1] = y[i2][i1-1] + k1[i2];
+      }
+
+    r = rho + tau;
+    }
+
+
+
+
+/* 
+    fstream f;
+    f.open("eos.out", ios::out);
+    
+      for (unsigned int i = 0; i < Eresult.size(); i++) {
+          f << setprecision(10) << Presult[i] 
+            << "," << setprecision(10) << Eresult[i]  << "\n";
+      }
+
+    f.close();
+
+*/
+
+
+/*   // Massive debug 
+
+	   for (unsigned int i = 0; i < 5; i++) {
+		  cout << Presult[i] << "," << Eresult[i]  << "\n";
+	   }
+	   cout << setprecision(12) << Presult.back() << "," 
+		<< setprecision(12) << Eresult.back() << "\n";
+	   cout << Presult.size() << " , " << Eresult.size() << "\n";
+
+	   vector<double>::iterator itP;
+	    itP = Presult.begin();
+	    itP = Presult.insert(itP, Presult[0]+5); 
+	 
+	   vector<double>::iterator itE;
+	    itE = Eresult.begin();
+	    itE = Eresult.insert(itE, 6); 
+
+	   cout << "*******************\n";
+
+	   for (unsigned int i = 0; i < 5; i++) {
+		  cout << Presult[i] << "," << Eresult[i]  << "\n";
+	   }
+	   cout << setprecision(12) << Presult.back() << "," 
+		<< setprecision(12) << Eresult.back() << "\n";
+	   cout << Presult.size() << " , " << Eresult.size() << "\n";
+
+*/
+
+
+   vector<double>::iterator itP;
+    itP = Presult.begin();
+    itP = Presult.insert(itP, Presult[0]+0.0000001); 
+
+
+/*    // debug
+    for (unsigned int i = 0; i < 10; i++) {
+          cout << setprecision(10) << Presult[i] 
+               << "," << setprecision(10) << Eresult[i]  << "\n";
+    }
+*/
+
+//  mcount -= 1;
+  double err = 0.0001;
+  double reos;
+   
+//  double y0[N];
+
+
+  while (M <= 1.7) {
+
+      if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break; 
+     // if (M > 1.7) break;
+//      mcount++;
+//    }  
+//         cout << y[1][i1-1] << endl;
+
+         cout << "M = " << M << "\n";
+
+         reos = Eresult[0];
+   
+         cout << "reos = " << reos << "\n";
+//         y[1][i1] = 1.5;
+ 
+  //       vector<double> mass;
+  //       mass.push_back(M);
+
+	 while (fabs(y[1][i1-1] - M) > err){           
+           
+//  y[1][Eresult.size()] = 
+	    p = Presult[0];
+            r = pow(10., -14.);
+            cout << "p = " << p << "\n";
+
+	    y0[0] = p; y0[1] = 0.0;
+
+	    for (i1 = 0; i1 < N; i1++){
+	      y[i1][0] = y0[i1];
+	    }
+//cout<<"hi"<<endl;
+	      double rho = r; double k1[N];
+                       // y[0]
+	      k1[0] = tov(Presult[0], y[1][0], r) * tau; 
+	      k1[1] = 4*M_PI*pow(r, 2.) * reos * tau;
+	     
+	      for (i2 = 0; i2 < N; i2++){
+		y[i2][1] = y[i2][0] + k1[i2];
+	      }
+//    cout << i1 << endl;
+    cout << Eresult.size() << endl;
+    cout << y[0][1] << "  " << y[1][1] << endl;
+
+	      r = rho + tau;
+//cout<<"hi"<<endl;
+int j; 
+	    for (j = 2; j <= Eresult.size() 
+                 && y[0][j] > 0. && y[1][j] > 0.; j++){
+//cout << "hi" << endl;
+	      rho = r;
+                       // y[0]
+	      k1[0] = tov(Presult[j-1], y[1][j-1], r) * tau; 
+	      k1[1] = 4*M_PI*pow(r, 2.) * Eresult[j-2] * tau;
+	     
+	      for (i2 = 0; i2 < N; i2++){
+		y[i2][i1] = y[i2][i1-1] + k1[i2];
+	      }
+//   cout << y[0][i1] << "  " << y[1][i1] << endl;
+	      r = rho + tau;
+	    }
+       cout << y[0][Eresult.size()-1] << "  " << y[1][j-1] << endl;
+//   cout<<"hi"<<endl;
+
+       cout << j << endl;
+ 
+	    if (y[1][j-1] < M) reos += 0.00001; //variation
+	    if (y[1][j-1] >= M) reos -= 0.00001; //variation
+/*
+            vector<double>::iterator itM;
+	    itM = mass.begin();
+	    itM = mass.insert(itM, y[1][i1]); 
+*//*
+            cout << mass[0] << "  "  << mass[1] << endl;
+
+            if (mass[0]-mass[1] > err) reos += 0.00001;
+            if (mass[0]-mass[1] <= err) reos -= 0.00001;
+*/
+//            cout << "var. reos = " << reos << endl;
+           
+	    cout << "M2 = " << y[1][j-1] << "\n";	 
+         
+      //     if (fabs(y[1][i1] - M) > err) break;
+
+           // mass.push_back(y[1][i1]);
+	   
+           // cout << reos << "\n";
+            }
+   
+
+//   cout << mcount << "\n"; 
+	   
+   vector<double>::iterator itP;
+    itP = Presult.begin();
+    itP = Presult.insert(itP, Presult[0]+0.0000001); 
+ 
+   vector<double>::iterator itE;
+    itE = Eresult.begin();
+    itE = Eresult.insert(itE, reos); 
+
+   mcount++;
+}
+
+/* 
+    fstream f;
+    f.open("eos.out", ios::out);
+    
+      for (unsigned int i = 0; i < Eresult.size(); i++) {
+          f << setprecision(10) << Presult[i] 
+            << "," << setprecision(10) << Eresult[i]  << "\n";
+      }
+
+    f.close();
+
+*/
+
+/*
+    cout << "*********************" << endl;
+
+    vector<double>::iterator itP;
+    itP = Presult.begin();
+    itP = Presult.insert(itP, Presult[0]+5.); 
+
+    for (unsigned int i = 0; i < 10; i++) {
+          cout << setprecision(10) << Presult[i] 
+               << "," << setprecision(10) << Eresult[i]  << "\n";
+    }
+
+*/
+/* 
+    fstream MR;
+    MR.open("tov.out", ios::out);
+     
+       for (unsigned int j = 0; j < Pmax; j++) {
+          MR << Mresult[j] << "," << Rresult[j]  << "\n";
+       }
+    MR.close();
+*/
+
+   fclose(TOV); 
+   TOV = NULL;
+   return 0;   
+}
+
