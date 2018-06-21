@@ -199,10 +199,10 @@ int main(void){
 //cout << "reached >err loop" << endl;
 
 
-      // Interpolation
-      // 2D Array: p & eos values in each row. 
-      // Column number is the track along the interpolated line.	 
-         
+    // Interpolation
+    // 2D Array: p & eos values in each row. 
+    // Column number is the track along the interpolated line
+
  	    if((REOS = (double **)malloc(NP * 
                  sizeof(double))) == NULL ) {
                     cout << "Fehler" << endl; exit(0);
@@ -241,7 +241,7 @@ int main(void){
 	      y[i1][0] = y0[i1];
 	    } // adjust this stuff too
 
-           int j = 0;
+            int j = 0;
 	    for (j = 0; j <= NP 
                  && y[0][j] > 0. && y[1][j] > 0.; j++){
 

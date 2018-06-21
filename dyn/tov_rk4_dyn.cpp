@@ -172,7 +172,7 @@ int main(/*int argc, char **argv*/)
 */
 
   double** y;
-  y = (double**)malloc((num_steps_max+1)*sizeof(double));
+  y = (double**)malloc((num_steps_max+1)*sizeof(double *));
   if (y == NULL)
   {
     cout << "Fehler!" << endl; 
@@ -254,8 +254,7 @@ int main(/*int argc, char **argv*/)
 
 //cout << "reached RK" << endl;
 
-	  for(i1 = 0;/* i1 < num_steps_max &&*/ 
-                        y[i1][0] > 0.0; i1++)
+	  for(i1 = 0;/* i1 < num_steps_max &&*/ y[i1][0] > 0.0; i1++)
 	    {
 	      // RK steps
 
@@ -339,7 +338,7 @@ int main(/*int argc, char **argv*/)
 
   for (i1 = 0; i1 <= Mresult.size()-1; i1++)
   {
-    printf("%2.15lf,%2.15lf\n", Rresult[i1], Mresult[i1]/1.766);
+    printf("%2.15lf,%2.15lf\n", Rresult[i1], Mresult[i1]/1.4766);
   }
 
 
