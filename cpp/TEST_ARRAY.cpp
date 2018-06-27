@@ -98,7 +98,7 @@ int main(void){
     }
 */
 
-	for(i1 = 1;  i1 <= nS && y[0][i1-1] > 0.; ; i1++)  
+	for(i1 = 1;  i1 <= nS && y[0][i1-1] > 0.; i1++)  
         // actual Runge-Kutta 4th order algorithm
  	{
 	double rho = r;

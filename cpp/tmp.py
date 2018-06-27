@@ -26,7 +26,7 @@ with open('TEST.out', 'r') as csvfile:
 #plt.subplot(3,1,1)
 plt.plot(x1, y1)
 #plt.plot(x2, y2)
-plt.axis([0.00007,0.000076,0.0006,0.001])
+#plt.axis([0.00007,0.000076,0.0006,0.001])
 plt.title('TOV equation')
 plt.ylabel('e(p)')
 plt.legend()
