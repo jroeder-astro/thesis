@@ -33,11 +33,10 @@ double eos(double p){
 // *****************
 
 const int order = 4; // RK order
-const int num_steps_max = 100000000; // Max. RK steps
+const int num_steps_max = 1000000; // Max. RK steps
 const double t_max = 10.0; // radius limit (needed?)
 const double delta_abs_max = 0.001; // Max. error/step
 double tau = 0.01; // Initial coarse stepsize
-
 
 // double t[num_steps_max+1];     // Discrete radius "axis"
 // double y[num_steps_max+1][N];  // Discrete ODE solution
@@ -46,6 +45,7 @@ double tau = 0.01; // Initial coarse stepsize
 void f_times_tau(double *y_t, double t, 
                  double *f_times_tau_, double tau);
 
+// Do I really need this?
 void f_times_tau_rec(double *y_t, double t, 
                      double *f_times_tau_, double tau, 
                      double *recon);
@@ -89,6 +89,9 @@ int main(/*int argc, char **argv*/)
   vector<double> Eresult;
   vector<double> Presult;  
 
+  vector<array<double, N>> EOS_arr;
+  array<double, N> eos_tmp;
+
   double *t;
   one_alloc(num_steps_max, &t);
 
@@ -99,7 +102,7 @@ int main(/*int argc, char **argv*/)
 
 // Read MR input file 
 
-  double M, R;
+  double M = 0.0, R = 0.0;
 
   FILE *TOV = fopen("MR.dat", "r");
   if (TOV == NULL) exit(0);
@@ -107,7 +110,7 @@ int main(/*int argc, char **argv*/)
 
   while (M <= 1.28)
   {
-     if(fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break;
+     if(fscanf(TOV, "%lf,%lf", &R, &M) == EOF) break;
      mcount++;
   }
   mcount--;
@@ -138,7 +141,6 @@ int main(/*int argc, char **argv*/)
       
       vector<double> EOS_tmp;
       vector<double> result_tmp;      
-      
 
       double* y_tau;
       one_alloc(N, &y_tau);
@@ -157,14 +159,18 @@ int main(/*int argc, char **argv*/)
 	    y[i1+1][i2] = y_tau[i2];
 
 	  t[i1+1] = t[i1] + tau;
-          
+
+          // Building the vectors          
+
           EoS.push_back(EOS_tmp);
 
-          Presult.push_back(y[i1][0]);
-          Eresult.push_back(eos(y[i1][0]));
-          // Building vectors
+    //      Presult.push_back(y[i1][0]);
+    //      Eresult.push_back(eos(y[i1][0]));
          
-//	  tau = rho;
+          eos_tmp = {y[i1][0], eos(y[i1][0])};
+          EOS_arr.push_back(eos_tmp);
+
+          // tau = rho;
 	}
 
       else
@@ -188,29 +194,39 @@ int main(/*int argc, char **argv*/)
 	}
 
       one_free(N, &y_tau);
-      y_tau = NULL;
+      y_tau = NULL;    
      }
+
+  cout << "hello\n";   // WTF DOES THIS DO???
 
   one_free(num_steps_max, &t);
   two_free(num_steps_max, N , &y);
 
-  int num_steps = i1;
+//  int num_steps = i1;
+//  cout << "hello" << endl;    
+//  cout << Presult[i1] << "  " << Eresult[i1] << endl; 
 
-
-  vector<std::array<double, N>> EOS_arr;
-
+//  vector<std::array<double, N>> EOS_arr;
 
 /*
   double **EoS_arr;
   two_alloc(Eresult.size(), N, &EoS_arr);
 */
-  for(unsigned int j1 = 0; j1 < Eresult.size(); j1++)
-  {
-      array<double, N> eos { { Presult[j1], Eresult[j1] } };
-      EOS_arr.push_back(eos);
+
+  for(int j1 = 0; j1 < EOS_arr.size(); j1++)
+  {  
+//      cout << Presult[j1] << "        " << Eresult[j1] << endl;     
+
+//      array<double, N> eos { { Presult[j1], Eresult[j1] } };
+//      EOS_arr.push_back(eos);
+     
+      cout << EOS_arr[j1][0] << "  "  << EOS_arr[j1][1] << endl;     
+
      // EoS_arr[j1][0] = Presult[j1];
      // EoS_arr[j1][1] = Eresult[j1];
   }
+
+cout << "end 1\n";
 
   // ***********************************************
 
@@ -221,22 +237,36 @@ int main(/*int argc, char **argv*/)
   double DP = 0.0;
   double reos;
   double A;
-  
+ 
+cout << "end 2\n";
+
+ 
   for (int it = 1; it <= num; it++)
   {
-    DP += (Presult[it]-Presult[it+1]);
+
+   // DP += (Presult[it]-Presult[it+1]);
+    DP += (EOS_arr[it][0]-EOS_arr[it+1][0]);    
+
   }
 
+cout << "end 3\n";
+
+
   double DP_av = DP/num;
-  double NP = (Presult[0]-Presult[1])/DP_av;
-  double **REOS = NULL;
+  double NP = (EOS_arr[0][0]-EOS_arr[1][0])/DP_av;
+//  double NP = (Presult[0]-Presult[1])/DP_av;
+  double **REOS;
  
+cout << "end 4\n";
+
+
   double *t_2;
   one_alloc(num_steps_max, &t_2);
 
   double **y_2;
   two_alloc(num_steps_max, N, &y_2);
 
+cout << "about to start interpolating\n";
 
   while (M <= 2.3)
   { 
