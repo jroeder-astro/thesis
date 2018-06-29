@@ -197,7 +197,7 @@ int main(/*int argc, char **argv*/)
       y_tau = NULL;    
      }
 
-  cout << "hello\n";   // WTF DOES THIS DO???
+  cout << endl;   // WTF DOES THIS DO???
 
   one_free(num_steps_max, &t);
   two_free(num_steps_max, N , &y);
@@ -233,7 +233,7 @@ cout << "end 1\n";
   // Reconstruction algorithm
 
   double err = 0.0001;
-  int num = 3;
+  int num = 20;
   double DP = 0.0;
   double reos;
   double A;
@@ -261,17 +261,22 @@ cout << "end 4\n";
 
 
   double *t_2;
-  one_alloc(num_steps_max, &t_2);
+  one_alloc(100, &t_2);
 
   double **y_2;
-  two_alloc(num_steps_max, N, &y_2);
+  two_alloc(100, N, &y_2);
 
 cout << "about to start interpolating\n";
-
+/*
   while (M <= 2.3)
   { 
     if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break;
     reos = Eresult[0];
+ 
+    // There is a problem with this if statement
+
+
+cout << "end 5\n";
 
     while (fabs(y[i1][1] - M) > err)
     { 
@@ -279,7 +284,13 @@ cout << "about to start interpolating\n";
       // *********************************************    
 
       // Linear interpolation of EoS, 2D array
-      
+      // Maybe  it is better to open the MR.dat file 
+      // again instead of leaving it open; generally,
+      // try c++ file i/o, maybe that resolves the 
+      // reocurring segmentation fault  
+
+cout << "end 6\n";
+     
       two_alloc(NP, N, &REOS);
      
       A = (reos-Eresult[0])/(Presult[0]-Presult[1]);
@@ -293,10 +304,12 @@ cout << "about to start interpolating\n";
 
       // *********************************************
   
+cout << "end 7\n";
+ 
       // Try reconstruction with Euler 
       // hopefully not too crappy
 
-      for(i1 = 0;/* i1 < num_steps_max &&*/ 
+      for(i1 = 0; i1 < num_steps_max &&   // !!
                  y_2[i1][0] > 0.0; i1++)
       {
         double *y_tau;
@@ -317,7 +330,7 @@ cout << "about to start interpolating\n";
         one_free(N, &y_tau);
       }
       
-      for(i1 = 0;/* i1 < num_steps_max &&*/ 
+      for(i1 = 0; i1 < num_steps_max &&   // !!
                  y_2[i1][0] > 0.0; i1++)
       {
         double *y_tau;
@@ -368,7 +381,7 @@ cout << "about to start interpolating\n";
 
     }
   }
-
+*/
 
 
 
