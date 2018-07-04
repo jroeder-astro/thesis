@@ -80,7 +80,7 @@ int main(void){
     for (i1 = 0; i1 < N; i1++){
       y[i1][0] = y0[i1];
     }
-/*
+
     for (i1 = 1; i1 <= nS && y[0][i1-1] > 0.; i1++){
       double rho = r; double k1[N];
 
@@ -96,8 +96,8 @@ int main(void){
 
     r = rho + tau;
     }
-*/
 
+/*
 	for(i1 = 1;  i1 <= nS && y[0][i1-1] > 0.; i1++)  
         // actual Runge-Kutta 4th order algorithm
  	{
@@ -144,8 +144,8 @@ int main(void){
         }
 	r = rho + tau;
 	} 
-
-
+*/
+cout << "hi 148\n";
 
 /*  // debug
     fstream f;
@@ -212,6 +212,8 @@ int main(void){
   double reos;
   double A;   
 
+cout << "hi 215\n";
+
   int num = 3;
   double DP = 0.0;
 
@@ -251,7 +253,10 @@ int main(void){
       // Interpolation
       // 2D Array: p & eos values in each row. 
       // Column number is the track along the interpolated line.	 
-         
+ 
+cout << "hi 257\n";
+
+        
  	    if((REOS = (double **)malloc(NP * 
                  sizeof(double))) == NULL ) {
                     cout << "Fehler" << endl; exit(0);

@@ -151,8 +151,9 @@ int main(/*int argc, char **argv*/)
 
       //cout << "about to vary stepsize" << endl;
 
-      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -10.))
-	{
+      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -8.)/* && 
+          fabs(y_tau[0]-y[i1][0]) >= pow(10., -9.) */ )	
+      {
 	  // Accepting the step
 
 	  for(i2 = 0; i2 < N; i2++)
@@ -208,11 +209,12 @@ int main(/*int argc, char **argv*/)
 
 //  vector<std::array<double, N>> EOS_arr;
 
-/*
-  double **EoS_arr;
-  two_alloc(Eresult.size(), N, &EoS_arr);
-*/
 
+//  double **EoS_arr;
+//  two_alloc(Eresult.size(), N, &EoS_arr);
+
+
+ // debug
   for(int j1 = 0; j1 < EOS_arr.size(); j1++)
   {  
 //      cout << Presult[j1] << "        " << Eresult[j1] << endl;     
@@ -226,80 +228,96 @@ int main(/*int argc, char **argv*/)
      // EoS_arr[j1][1] = Eresult[j1];
   }
 
-cout << "end 1\n";
+
+  cout << "end 1\n";
 
   // ***********************************************
 
   // Reconstruction algorithm
 
   double err = 0.0001;
-  int num = 20;
+  int num = 5;
   double DP = 0.0;
-  double reos;
-  double A;
- 
-cout << "end 2\n";
+  double Preos = 0.0;
+  double Ereos = 0.0;
+  double A = 0.0;
 
- 
   for (int it = 1; it <= num; it++)
   {
-
    // DP += (Presult[it]-Presult[it+1]);
-    DP += (EOS_arr[it][0]-EOS_arr[it+1][0]);    
-
+   // cout << EOS_arr[it][0] << endl;
+    DP += (EOS_arr[it][0] - EOS_arr[it+1][0]);
+   // cout << DP << endl;    
+   // First loop for interpolation setup 
+   // Sum of Delta(epsilon)'s for mean D(eps)
   }
 
-cout << "end 3\n";
+
+  cout << "about to start interpolating\n";
 
 
   double DP_av = DP/num;
-  double NP = (EOS_arr[0][0]-EOS_arr[1][0])/DP_av;
+  double NPx = (EOS_arr[0][0]-EOS_arr[1][0])/DP_av;
+  int NP = (int)NPx; // typecast for later loop
 //  double NP = (Presult[0]-Presult[1])/DP_av;
   double **REOS;
- 
-cout << "end 4\n";
 
 
+  cout << "about to start interpolating\n";
+
+
+// control output
+  cout << EOS_arr[0][0]-EOS_arr[1][0] << endl;
+  cout << DP_av << endl;
+  cout << NPx << endl; 
+  cout << NP << endl;
+
+
+  cout << "about to start interpolating\n";
+
+
+// allocation of new time and tov axes
   double *t_2;
-  one_alloc(100, &t_2);
+  one_alloc(num_steps_max, &t_2);
 
   double **y_2;
-  two_alloc(100, N, &y_2);
+  two_alloc(num_steps_max, N, &y_2);
 
-cout << "about to start interpolating\n";
-/*
+// debug statement
+  cout << "about to start interpolating\n";
+
+// allocating the memory for interpolated line
+  two_alloc(NP, N, &REOS);
+
+// First loop: only go up to mass 2.3 (whatever the unit)
   while (M <= 2.3)
   { 
     if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break;
-    reos = Eresult[0];
- 
-    // There is a problem with this if statement
 
+    // interpolation "anchor", D(e) from last 
+    Preos = EOS_arr[0][0] + 0.00001;
+    Ereos = EOS_arr[0][1];
 
-cout << "end 5\n";
-
+    // Second loop: "error" checking, keeping D(p) even
     while (fabs(y[i1][1] - M) > err)
     { 
     
       // *********************************************    
 
       // Linear interpolation of EoS, 2D array
-      // Maybe  it is better to open the MR.dat file 
-      // again instead of leaving it open; generally,
-      // try c++ file i/o, maybe that resolves the 
-      // reocurring segmentation fault  
-
-cout << "end 6\n";
+      // two_alloc(NP, N, &REOS);
      
-      two_alloc(NP, N, &REOS);
-     
-      A = (reos-Eresult[0])/(Presult[0]-Presult[1]);
-  
+      // A = (Ereos-EOS_arr[0][1])/(EOS_arr[0][0]-EOS_arr[1][0]);
+      A = (Ereos - EOS_arr[0][1])/(Preos - EOS_arr[0][0]);
+   
       for (int n = 0; n < NP; n++)
       {
-        REOS[n][0] = Presult[0] - n*DP_av;
-        REOS[n][1] = A * (Presult[0] - n*DP_av) + 
-		     (Eresult[0] - Presult[1]*A);
+        REOS[n][0] = EOS_arr[0][1] - n*DP_av;
+        REOS[n][1] = A * (EOS_arr[0][1] - n*DP_av) + 
+		     (EOS_arr[0][1] - EOS_arr[0][0]*A);
+
+        cout << REOS[n][0] << " " << REOS[n][1] << endl;
+
       }
 
       // *********************************************
@@ -309,37 +327,70 @@ cout << "end 7\n";
       // Try reconstruction with Euler 
       // hopefully not too crappy
 
+      double *y_tau;
+      one_alloc(N, &y_tau);
+
+      t_2[0] = 0.000000001;
+
+      // ************************************************
+      // PART ONE: Start calculating mass with the 
+      // interpolated REOS array
+
+
       for(i1 = 0; i1 < num_steps_max &&   // !!
                  y_2[i1][0] > 0.0; i1++)
       {
-        double *y_tau;
-        one_alloc(N, &y_tau);
+      //  double *y_tau;
+      //  one_alloc(N, &y_tau);
 
-        p0 = Presult[0];
+        p0 = EOS_arr[0][0];
         double y_0[N] = { p0 , 0.0 };
 
-        // Initialize solution.
+      // Initialize solution.
 
-        t_2[0] = 0.000000001;
+   cout << "end 8\n";
 
-        for(i1 = 0; i1 < N; i1++)
-            y_2[0][i1] = y_0[i1];
- 
+      // t_2[0] = 0.000000001;
+
+        for(i2 = 0; i2 < N; i2++)
+            y_2[0][i2] = y_0[i2];
+
+   cout << y_2[i1] << " " << t_2[i1] << " " 
+        << y_tau << " " <<  tau << " " << REOS[i1] << endl;
+
+
         Euler_step(y_2[i1], t_2[i1], y_tau, tau, REOS[i1]);
+ 
+   cout << y_2[i1][0] << " " << y_2[i1][1] << endl;
 
-        one_free(N, &y_tau);
+   cout << "end 13\n";
+
+
+      //  one_free(N, &y_tau);
       }
-      
+
+      one_free(N, &y_tau);
+ 
+cout << "end 9\n";
+
+      // **************************************************
+
+      // PART TWO: calculate the rest of the mass with the
+      // previously written EOS_arr
+     
       for(i1 = 0; i1 < num_steps_max &&   // !!
                  y_2[i1][0] > 0.0; i1++)
       {
         double *y_tau;
         one_alloc(N, &y_tau);
 
-        p0 = Presult[0];
+        p0 = EOS_arr[0][0];
         double y_0[N] = { p0 , 0.0 };
 
         // Initialize solution.
+
+cout << "end 10\n";
+
 
         t_2[0] = 0.000000001;
 
@@ -351,7 +402,14 @@ cout << "end 7\n";
         one_free(N, &y_tau);
       }
 
+cout << "end 11 \n";
 
+
+    // ********************************************************
+
+    // PART THREE: Check if calculated mass is close to the one
+    // in the MR.dat file 
+ 
     if (fabs(y_2[i1][1] - M) < err)
     {
       // two_realloc(); //write this function
@@ -367,23 +425,24 @@ cout << "end 7\n";
     {
       if (y_2[i1][1] > M)
       {
-         reos /= 1.2;
+         Ereos /= 1.2;
       }
       if (y_2[i1][1] < M)
       {
-         reos *= 1.2;
+         Ereos *= 1.2;
       }
     }  
       
 
 
-      two_free(NP, N, &REOS);
+    //  two_free(NP, N, &REOS);
 
     }
   }
-*/
 
-
+  one_free(num_steps_max, &t_2);
+  two_free(num_steps_max, N, &y_2);
+  two_free(NP, N, &REOS);
 
   fclose(TOV); 
   TOV = NULL;
