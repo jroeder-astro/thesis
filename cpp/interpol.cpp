@@ -175,6 +175,9 @@ int main(void){
 
   double NP = (Presult[0]-Presult[1])/(DP_av);
 
+  cout << NP << endl;
+
+
   double** REOS = NULL;
 
 

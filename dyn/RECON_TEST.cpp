@@ -133,6 +133,11 @@ int main(/*int argc, char **argv*/)
   // Do Runge-Kutta.
 
   //cout << "reached RK" << endl;
+    
+
+  double* y_tau;
+  one_alloc(N, &y_tau);
+
 
   for(i1 = 0;/* i1 < num_steps_max &&*/ 
 		y[i1][0] > 0.0; i1++)
@@ -142,8 +147,8 @@ int main(/*int argc, char **argv*/)
       vector<double> EOS_tmp;
       vector<double> result_tmp;      
 
-      double* y_tau;
-      one_alloc(N, &y_tau);
+      // double* y_tau;
+      // one_alloc(N, &y_tau);
 
       // y(t)   --> \tau   y_{\tau}(t+\tau)
    
@@ -151,8 +156,72 @@ int main(/*int argc, char **argv*/)
 
       //cout << "about to vary stepsize" << endl;
 
-      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -8.)/* && 
-          fabs(y_tau[0]-y[i1][0]) >= pow(10., -9.) */ )	
+      // ******************************************
+   
+      // Check pressure difference between array points
+
+
+/*
+      if ( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.5) )
+      {
+
+          cout << "hi" << endl;
+
+	  if( y_tau[0] > y[i1][0])
+	  {
+	     tau /= 1.1;
+	     i1--;
+	  }
+
+	  if( y_tau[0] < y[i1][0])
+	  {
+	     tau *= 1.1;
+	     i1--;
+	  } 
+      }
+
+      else if ( fabs(y_tau[0]-y[i1][0]) >= pow(10., -4.5) )
+      {
+
+          cout << "yo2" <<endl;
+
+	  if( y_tau[0] > y[i1][0])
+	  {
+	     tau *= 1.1;
+	     i1--;
+	  }
+
+	  if( y_tau[0] < y[i1][0])
+	  {
+	     tau /= 1.1;
+	     i1--;
+	  } 
+      }
+
+      else
+      {
+          cout << "accept" << endl;
+
+     	  // Accepting the step
+       
+	  for(i2 = 0; i2 < N; i2++)
+	    y[i1+1][i2] = y_tau[i2];
+
+	  t[i1+1] = t[i1] + tau;
+
+          // Building the vectors          
+
+          EoS.push_back(EOS_tmp);
+ 
+          eos_tmp = {y[i1][0], eos(y[i1][0])};
+          EOS_arr.push_back(eos_tmp);
+      }
+
+
+*/ // FROM HERE, ONLY UPPER BOUND...
+
+
+      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
       {
 	  // Accepting the step
 
@@ -165,8 +234,8 @@ int main(/*int argc, char **argv*/)
 
           EoS.push_back(EOS_tmp);
 
-    //      Presult.push_back(y[i1][0]);
-    //      Eresult.push_back(eos(y[i1][0]));
+          // Presult.push_back(y[i1][0]);
+          // Eresult.push_back(eos(y[i1][0]));
          
           eos_tmp = {y[i1][0], eos(y[i1][0])};
           EOS_arr.push_back(eos_tmp);
@@ -194,9 +263,14 @@ int main(/*int argc, char **argv*/)
 	 // i1--;
 	}
 
-      one_free(N, &y_tau);
-      y_tau = NULL;    
-     }
+      // one_free(N, &y_tau);
+      // y_tau = NULL;    
+ 
+    }
+
+  one_free(N, &y_tau);
+  y_tau = NULL;    
+ 
 
   cout << endl;   // WTF DOES THIS DO???
 
@@ -217,10 +291,10 @@ int main(/*int argc, char **argv*/)
  // debug
   for(int j1 = 0; j1 < EOS_arr.size(); j1++)
   {  
-//      cout << Presult[j1] << "        " << Eresult[j1] << endl;     
+     // out << Presult[j1] << "        " << Eresult[j1] << endl;     
 
-//      array<double, N> eos { { Presult[j1], Eresult[j1] } };
-//      EOS_arr.push_back(eos);
+     // array<double, N> eos { { Presult[j1], Eresult[j1] } };
+     // EOS_arr.push_back(eos);
      
       cout << EOS_arr[j1][0] << "  "  << EOS_arr[j1][1] << endl;     
 
@@ -229,7 +303,7 @@ int main(/*int argc, char **argv*/)
   }
 
 
-  cout << "end 1\n";
+//  cout << "end 1\n";
 
   // ***********************************************
 
@@ -253,17 +327,12 @@ int main(/*int argc, char **argv*/)
   }
 
 
-  cout << "about to start interpolating\n";
-
-
   double DP_av = DP/num;
-  double NPx = (EOS_arr[0][0]-EOS_arr[1][0])/DP_av;
+//  double NPx = (EOS_arr[0][0]-EOS_arr[1][0])/DP_av;
+  double NPx = 0.00001/DP_av; 
   int NP = (int)NPx; // typecast for later loop
 //  double NP = (Presult[0]-Presult[1])/DP_av;
   double **REOS;
-
-
-  cout << "about to start interpolating\n";
 
 
 // control output
@@ -273,34 +342,35 @@ int main(/*int argc, char **argv*/)
   cout << NP << endl;
 
 
-  cout << "about to start interpolating\n";
-
-
 // allocation of new time and tov axes
   double *t_2;
-  one_alloc(num_steps_max, &t_2);
+  one_alloc(5, &t_2);
 
   double **y_2;
-  two_alloc(num_steps_max, N, &y_2);
+  two_alloc(5, N, &y_2);
+
 
 // debug statement
   cout << "about to start interpolating\n";
 
 // allocating the memory for interpolated line
-  two_alloc(NP, N, &REOS);
+  two_alloc(5, N, &REOS);
 
 // First loop: only go up to mass 2.3 (whatever the unit)
   while (M <= 2.3)
   { 
     if (fscanf(TOV, "%lf,%lf", &M, &R) == EOF) break;
-
+cout << "end 7\n";
+ 
     // interpolation "anchor", D(e) from last 
     Preos = EOS_arr[0][0] + 0.00001;
     Ereos = EOS_arr[0][1];
-
+cout << "end 7\n";
+ 
     // Second loop: "error" checking, keeping D(p) even
     while (fabs(y[i1][1] - M) > err)
     { 
+ cout << "end 7\n";
     
       // *********************************************    
 
