@@ -288,7 +288,7 @@ int main(/*int argc, char **argv*/)
 //  two_alloc(Eresult.size(), N, &EoS_arr);
 
 
- // debug
+/* // debug
   for(int j1 = 0; j1 < EOS_arr.size(); j1++)
   {  
      // out << Presult[j1] << "        " << Eresult[j1] << endl;     
@@ -301,7 +301,7 @@ int main(/*int argc, char **argv*/)
      // EoS_arr[j1][0] = Presult[j1];
      // EoS_arr[j1][1] = Eresult[j1];
   }
-
+*/
 
 //  cout << "end 1\n";
 
@@ -351,17 +351,17 @@ int main(/*int argc, char **argv*/)
 
 // allocation of new time and tov axes
   double *t_2;
-  one_alloc(5, &t_2);
+  one_alloc(7, &t_2);
 
   double **y_2;
-  two_alloc(5, N, &y_2);
+  two_alloc(7, N, &y_2);
 
 
 // debug statement
   cout << "about to start interpolating\n";
 
 // allocating the memory for interpolated line
-  two_alloc(5, N, &REOS);
+  two_alloc(7, N, &REOS);
 
 // First loop: only go up to mass 2.3 (whatever the unit)
   while (M <= 2.3)
