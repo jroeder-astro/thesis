@@ -342,6 +342,13 @@ int main(/*int argc, char **argv*/)
   cout << NP << endl;
 
 
+
+// ******************************************************
+// ******* Segmentation fault issues from here on *******
+// ******************************************************
+
+
+
 // allocation of new time and tov axes
   double *t_2;
   one_alloc(5, &t_2);
