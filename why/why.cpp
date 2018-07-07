@@ -22,8 +22,11 @@ double eos(double p){
 }
 
 // Reconstructed EoS
-double line(double p, double slope, double A){
-  return slope*p + A;
+double line(double p, vector<double> *alpha){
+// alpha[i] = {a,b,c,d}
+  return ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) * p + 
+          (*alpha)[1] - (*alpha)[0] * ((*alpha)[3]-
+          (*alpha)[1])/((*alpha)[2]-(*alpha)[0]);
 }
 
 
@@ -35,13 +38,14 @@ const int num_steps_max = 1000000; // Max. RK step
 double tau = 0.01;                 // Initial stepsize
 
 // Calculates f(y(t),t) * tau.
-void f_times_tau(double *y_t, double t, 
-                 double *f_times_tau_, double tau);
+void f_times_tau(double *y_t, double t, double *f_times_tau_, 
+                 double tau, vector<double> *alpha, 
+                 double(*state)(double, vector<double> *));
 
 // Do Runge-Kutta
-void RK_step(double *y_t, double t, 
-             double *y_t_plus_tau, double tau, 
-             vector<double> EOS_tmp);
+void RK_step(double *y_t, double t, double *y_t_plus_tau, 
+             double tau, vector<double> *alpha, 
+             double(*state)(double, vector<double> *));
 
 // Do Euler
 void Euler_step(double *y_t, double t, 
@@ -66,6 +70,9 @@ int main(){
 
   double d1, rho = 0.001;
   int i1, i2;
+  double P = 0.0;
+  double Preos = 0.0;
+  double Ereos = 0.0;
 
 // *************************************
 
@@ -78,6 +85,9 @@ int main(){
 
   vector<array<double, N>> EOS_arr;
   array<double, N> eos_tmp;
+  
+  vector<vector<double>> recon_storage;
+  vector<double> alpha;
 
   double *t;
   one_alloc(num_steps_max, &t);
@@ -105,14 +115,24 @@ int main(){
 // ***************************************
 
   double p_init = 0.00001 + mcount * 0.00001;
-  double y_0[N] = {  , 0.0 };
+  double y_0[N] = { P , 0.0 };
+  double p_dur = 0.0;
 
   // Initialize solution.
 
   t[0] = 0.000000001;
 
   for(i1 = 0; i1 < N; i1++)
-    y[0][i1] = y_0[i1];
+    {
+      y[0][i1] = y_0[i1];
+    }
+
+  alpha[0] = p_init;  alpha[1] = eos(p_init);
+  alpha[2] = Preos;   alpha[3] = Ereos;
+
+
+// ***************************************
+
 
   // Do Runge-Kutta.
 
@@ -120,53 +140,141 @@ int main(){
   one_alloc(N, &y_tau);
 
   for(i1 = 0; y[i1][0] > 0.0; i1++)
-    {
-      // RK steps
-      
-      vector<double> EOS_tmp;
-      vector<double> result_tmp;      
-  
-      RK_step(y[i1], t[i1], y_tau, tau, EOS_tmp);
+   {
 
-     // ******************************************
-  
-     // FROM HERE, ONLY UPPER BOUND...
+      while(y[i1][0] > p_dur)
+       {  
 
-      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
-      {
-	  // Accepting the step
+	      // RK steps
+	     
+	      RK_step(y[i1], t[i1], y_tau, tau, line, alpha);
 
-	  for(i2 = 0; i2 < N; i2++)
-	    y[i1+1][i2] = y_tau[i2];
+         // **********************************************
+	  
+	     // FROM HERE, ONLY UPPER BOUND...
 
-	  t[i1+1] = t[i1] + tau;
+	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
+	      {
+		  // Accepting the step
 
-          // Building the vectors          
+		  for(i2 = 0; i2 < N; i2++)
+		    y[i1+1][i2] = y_tau[i2];
 
-          EoS.push_back(EOS_tmp);
-    
-          eos_tmp = {y[i1][0], eos(y[i1][0])};
-          EOS_arr.push_back(eos_tmp);
+		  t[i1+1] = t[i1] + tau;
 
-	}
+		  // Building the vectors          
 
-      else
-	// Adapt step size so that pressures 
-	// are roughly evenly spaced.
-	{
-	  if( y_tau[0] > y[i1][0])
-	  {
-	     tau *= 1.1;
-	     i1--;
-	  }
+		  EoS.push_back(EOS_tmp);
+	    
+		  eos_tmp = {y[i1][0], eos(y[i1][0])};
+		  EOS_arr.push_back(eos_tmp);
 
-	  if( y_tau[0] < y[i1][0])
-	  {
-	     tau /= 1.1;
-	     i1--;
-	  } 
-        }
-    }
+		}
+
+	      else
+		// Adapt step size so that pressures 
+		// are roughly evenly spaced.
+	      {
+		  if( y_tau[0] > y[i1][0])
+		  {
+		     tau *= 1.1;
+		     i1--;
+		  }
+
+		  if( y_tau[0] < y[i1][0])
+		  {
+		     tau /= 1.1;
+		     i1--;
+		  } 
+	      }
+
+         // ********************************************
+       }
+
+         // while y[i1][0] < p_dur 
+ 
+	      // RK steps
+	     
+	      RK_step(y[i1], t[i1], y_tau, tau, eos, alpha);
+
+         // **********************************************
+	  
+	     // FROM HERE, ONLY UPPER BOUND...
+
+	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
+	      {
+		  // Accepting the step
+
+		  for(i2 = 0; i2 < N; i2++)
+		    y[i1+1][i2] = y_tau[i2];
+
+		  t[i1+1] = t[i1] + tau;
+
+		  // Building the vectors          
+
+		  EoS.push_back(EOS_tmp);
+	    
+		  eos_tmp = {y[i1][0], eos(y[i1][0])};
+		  EOS_arr.push_back(eos_tmp);
+
+		}
+
+	      else
+		// Adapt step size so that pressures 
+		// are roughly evenly spaced.
+	      {
+		  if( y_tau[0] > y[i1][0])
+		  {
+		     tau *= 1.1;
+		     i1--;
+		  }
+
+		  if( y_tau[0] < y[i1][0])
+		  {
+		     tau /= 1.1;
+		     i1--;
+		  } 
+	      }
+
+         // ********************************************
+
+	   if (fabs(y[i1][1] - M) < err)
+	   {
+ 
+              recon_storage.push_back(alpha);
+           
+	      // two_realloc(); //write this function
+	      // for (i2 = 0; i2 < NP; i2++)
+	      // {
+
+                 // ******************************************
+                 // Write here the slope and intersect array!!
+                 // ******************************************
+
+		 // double A = REOS[j1][0];
+		 // array<double, N> eos2 { { REOS[i1][0], REOS[i1][1] } };  
+		 // EOS_arr.push_back(eos2);
+	      // }
+	    }
+
+	    else 
+	    {
+	      if (y_2[i1][1] > M)
+	      {
+		 alpha[3] /= 1.2;
+	      }
+	      if (y_2[i1][1] < M)
+	      {
+		 alpha[3] *= 1.2;
+	      }
+	    }  
+
+       
+
+
+
+
+   }
 
   one_free(N, &y_tau);
   y_tau = NULL;    
@@ -372,7 +480,8 @@ void Euler_step(double *y_t, double t, double *y_t_plus_tau,
 // RK4 function
 
 void RK_step(double *y_t, double t, double *y_t_plus_tau, 
-             double tau, vector<double> EOS_tmp)
+             double tau, vector<double> *alpha, 
+             double(*state)(double, vector<double> *))
 {
   int i1;
 
@@ -380,9 +489,6 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
 
   double k1[N];
   f_times_tau(y_t, t, k1, tau);
-
-  EOS_tmp.push_back(y_t[0]);
-  EOS_tmp.push_back(eos(y_t[0]));  
 
   // k2 = f(y(t)+(1/2)*k1 , t+(1/2)*tau) * tau.
 
@@ -394,9 +500,6 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
   double k2[N];
   f_times_tau(y_2, t + 0.5*tau, k2, tau);
   
-  EOS_tmp.push_back(y_2[0]);
-  EOS_tmp.push_back(eos(y_2[0]));  
-
   // k3
 
   double y_3[N];
@@ -406,9 +509,6 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
 
   double k3[N];
   f_times_tau(y_3, t + 0.5*tau, k3, tau);
- 
-  EOS_tmp.push_back(y_3[0]);
-  EOS_tmp.push_back(eos(y_3[0]));  
 
   // k4
 
@@ -419,9 +519,6 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
 
   double k4[N];
   f_times_tau(y_4, t + tau, k3, tau);
-
-  EOS_tmp.push_back(y_4[0]);
-  EOS_tmp.push_back(eos(y_4[0]));  
 
   // final
 
@@ -434,8 +531,9 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
 
 // Calculates f(y(t),t) * tau
 
-void f_times_tau(double *y_t, double t, 
-                 double *f_times_tau_, double tau)
+void f_times_tau(double *y_t, double t, double *f_times_tau_, 
+                 double tau, vector<double> *alpha, 
+                 double(*state)(double, vector<double> *))
 {
   if(N != 2)
     {
@@ -449,6 +547,7 @@ void f_times_tau(double *y_t, double t,
                     / (-2*y_t[1]*t + pow(t, 2.0)));
   f_times_tau_[1] = tau * 4*M_PI * pow(t, 2.) *eos(y_t[0]);
 }
+
 
 // Allocating memory
 
@@ -503,55 +602,10 @@ void two_free(int num_steps_max, int N, double ***y)
   **y = NULL;
 }
 
+
 // *****************************************************
+
  
-/*    // Let's keep this here just to be sure.
-
-	if ((REOS = (double**)malloc(NP*
-	    sizeof(double*))) == NULL)
-	{
-	 cout << "Error" << endl;
-	 exit(0); 
-	} 
-
-	for (i1 = 0; i1 < NP; i1++)
-	{
-	if ((REOS[i1] = (double*)malloc(2 *
-		  sizeof(double))) == NULL)
-	{
-	  cout << "Error" << endl;
-	  exit(0); 
-	} 
-	}
-*/
-/*    // Also, just to be sure.
-
-	double* t;
-	t = (double*)malloc((num_steps_max+1)*sizeof(double));
-	if(t == NULL)
-	{
-	cout << "Fehler!" << endl; 
-	exit(0);
-	}
-
-	double** y;
-	y = (double**)malloc((num_steps_max+1)*sizeof(double*));
-	if (y == NULL)
-	{
-	cout << "Fehler!" << endl; 
-	exit(0);
-	}
-	for(i1 = 0; i1 <= num_steps_max+1; i1++)
-	{
-	y[i1] = (double*)malloc(N*sizeof(double));
-	if (y[i1] == NULL)
-	{
-	cout << "Fehler!" << endl; 
-	exit(0);
-	}
-	}
-*/
-
 // LOWER BOUND FOR RK STEP [unfinished] 
 
 /*
@@ -609,4 +663,4 @@ void two_free(int num_steps_max, int N, double ***y)
           eos_tmp = {y[i1][0], eos(y[i1][0])};
           EOS_arr.push_back(eos_tmp);
       }
-
+*/
