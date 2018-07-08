@@ -1,0 +1,35 @@
+main(){
+
+  >> ...rest of program... <<
+
+  for(i = 0; P > 0 ; i++)
+  {
+      // should this be an if statement
+      // instead of a while loop? --|
+                                    |
+      if(P > P_during)    <---------|
+      {
+          >> RK4 with new line <<
+      }
+      
+      n = 0;
+      if(P < P_during && P > P_init)
+      {   
+          if(P > P_during - P_step * n)
+          {  
+              // Will this loop stick to all 
+              // the same i? -> would be bad
+
+              >> RK4 with n as recon index << 
+          }
+          n++;
+      }
+ 
+      if(P < P_init)
+      {
+          >> RK4 with known eos <<
+      }
+  } 
+
+  >> ...rest of program... << 
+}

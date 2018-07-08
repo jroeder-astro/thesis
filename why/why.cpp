@@ -17,7 +17,7 @@ using namespace std;
 const int N = 2;
 
 // Equation of state
-double eos(double p){
+double eos(double p, vector<double> *alpha){
   return pow(p/10., 3./5.);
 }
 
@@ -37,7 +37,7 @@ double line(double p, vector<double> *alpha){
 const int num_steps_max = 1000000; // Max. RK step
 double tau = 0.01;                 // Initial stepsize
 
-// Calculates f(y(t),t) * tau.
+// Calculates f(y(t),t) * tau
 void f_times_tau(double *y_t, double t, double *f_times_tau_, 
                  double tau, vector<double> *alpha, 
                  double(*state)(double, vector<double> *));
@@ -47,9 +47,10 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
              double tau, vector<double> *alpha, 
              double(*state)(double, vector<double> *));
 
-// Do Euler
+/* Do Euler (not really needed)
 void Euler_step(double *y_t, double t, 
        double *y_t_plus_tau, double tau, double *recon);
+*/
 
 
 // **********
@@ -73,6 +74,7 @@ int main(){
   double P = 0.0;
   double Preos = 0.0;
   double Ereos = 0.0;
+  double err = 0.001;
 
 // *************************************
 
@@ -88,12 +90,19 @@ int main(){
   
   vector<vector<double>> recon_storage;
   vector<double> alpha;
+     for(int x = 0; x < 4; x++){
+          alpha.push_back(0);
+     }
+  vector<double> zero;
 
   double *t;
   one_alloc(num_steps_max, &t);
 
   double **y;
   two_alloc(num_steps_max, N, &y);
+
+  vector<vector<double>> MR_rel;
+  vector<double> one_MR;  
 
 // ****************************************
 
@@ -105,9 +114,20 @@ int main(){
   if (TOV == NULL) exit(0);
   int mcount = 0;
 
-  while (M <= 1.28)
+  one_MR.push_back(0); one_MR.push_back(0);
+
+  while (1)
   {
      if(fscanf(TOV, "%lf,%lf", &R, &M) == EOF) break;
+     one_MR[0] = R; one_MR[1] = M;
+     MR_rel.push_back(one_MR);
+  }
+  fclose(TOV);
+  TOV = NULL;
+
+  for (i2 = 0; i2 <= MR_rel.size(); i2++) 
+  {
+     if (MR_rel[i2][1] >= 1.28) break;
      mcount++;
   }
   mcount--;
@@ -117,6 +137,8 @@ int main(){
   double p_init = 0.00001 + mcount * 0.00001;
   double y_0[N] = { P , 0.0 };
   double p_dur = 0.0;
+ 
+  mcount++;
 
   // Initialize solution.
 
@@ -127,7 +149,7 @@ int main(){
       y[0][i1] = y_0[i1];
     }
 
-  alpha[0] = p_init;  alpha[1] = eos(p_init);
+  alpha[0] = p_init;  alpha[1] = eos(p_init, &zero);
   alpha[2] = Preos;   alpha[3] = Ereos;
 
 
@@ -139,18 +161,29 @@ int main(){
   double* y_tau;
   one_alloc(N, &y_tau);
 
+
+  while(mcount <= MR_rel.size())
+  {
+      // Probably initiallization has to happen here!!
+
   for(i1 = 0; y[i1][0] > 0.0; i1++)
-   {
+    {
+      /* 
+         I should probably write a function for doing an RK step
+         with a certain eos or line, also checking the stepsize 
+         (it is not convenient to have the same piece of code three
+         times in a row)   
+      */
+
+      // *****************************************************
+      // PART I.1: Reconstruction with an "interpolated" line
 
       while(y[i1][0] > p_dur)
        {  
-
 	      // RK steps
 	     
-	      RK_step(y[i1], t[i1], y_tau, tau, line, alpha);
+	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, line);
 
-         // **********************************************
-	  
 	     // FROM HERE, ONLY UPPER BOUND...
 
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
@@ -164,10 +197,10 @@ int main(){
 
 		  // Building the vectors          
 
-		  EoS.push_back(EOS_tmp);
+		  // EoS.push_back(EOS_tmp);
 	    
-		  eos_tmp = {y[i1][0], eos(y[i1][0])};
-		  EOS_arr.push_back(eos_tmp);
+		  // eos_tmp = {y[i1][0], line(y[i1][0], &alpha)};
+		  // EOS_arr.push_back(eos_tmp);
 
 		}
 
@@ -191,14 +224,36 @@ int main(){
          // ********************************************
        }
 
-         // while y[i1][0] < p_dur 
+       // ****************************************************
+       // PART I.2: Have fun with previous lines 
+
+
+      if(recon_storage.size() > 1) 
+      {
+         for(int store = 0; store < recon_storage.size(); store++)
+         {    
+             /*
+                How do I best determine the pressure intervals?
+             */ 
+
+
+            // RK steps
+	     
+	     RK_step(y[i1], t[i1], y_tau, tau, 
+                     &recon_storage[store], line);
+
+
+         }
+      }
+
+       
+       // *************************************************
+       // PART II: Calculate the rest with known eos
  
 	      // RK steps
 	     
-	      RK_step(y[i1], t[i1], y_tau, tau, eos, alpha);
-
-         // **********************************************
-	  
+	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
+  
 	     // FROM HERE, ONLY UPPER BOUND...
 
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
@@ -212,10 +267,10 @@ int main(){
 
 		  // Building the vectors          
 
-		  EoS.push_back(EOS_tmp);
+		  // EoS.push_back(EOS_tmp);
 	    
-		  eos_tmp = {y[i1][0], eos(y[i1][0])};
-		  EOS_arr.push_back(eos_tmp);
+		  // eos_tmp = {y[i1][0], eos(y[i1][0])};
+		  // EOS_arr.push_back(eos_tmp);
 
 		}
 
@@ -236,13 +291,14 @@ int main(){
 		  } 
 	      }
 
-         // ********************************************
+         // **********************************************
+         // PART III: Checking if calculated mass is ok
 
-	   if (fabs(y[i1][1] - M) < err)
+	   if (fabs(y[i1][1] - MR_rel[mcount][1]) < err)
 	   {
  
-              recon_storage.push_back(alpha);
-           
+              recon_storage.push_back(alpha);              
+   
 	      // two_realloc(); //write this function
 	      // for (i2 = 0; i2 < NP; i2++)
 	      // {
@@ -259,22 +315,33 @@ int main(){
 
 	    else 
 	    {
-	      if (y_2[i1][1] > M)
+	      if (y[i1][1] > MR_rel[mcount][1])
 	      {
 		 alpha[3] /= 1.2;
 	      }
-	      if (y_2[i1][1] < M)
+	      if (y[i1][1] < MR_rel[mcount][1])
 	      {
 		 alpha[3] *= 1.2;
 	      }
+              i1 = 0;
 	    }  
 
-       
+         // ************************************************
+     }
 
+     alpha[0] = Preos; alpha [1] = Ereos;
+     Preos += /* xxx */;
+     alpha[2] = Preos; alpha[3] = Ereos;
 
+     /*
+         What to do with p_dur?
+     */
 
+   
+     mcount++;
 
    }
+
 
   one_free(N, &y_tau);
   y_tau = NULL;    
@@ -304,6 +371,9 @@ int main(){
 //  cout << "end 1\n";
 
   // ***********************************************
+
+/*
+
 
   // Reconstruction algorithm
 
@@ -435,10 +505,7 @@ cout << "end 11 \n";
   one_free(num_steps_max, &t_2);
   two_free(num_steps_max, N, &y_2);
   two_free(NP, N, &REOS);
-
-  fclose(TOV); 
-  TOV = NULL;
-
+*/
   // Output
 /*
   for (i1 = 0; i1 <= Mresult.size()-1; i1++)
@@ -461,7 +528,7 @@ cout << "end 11 \n";
 
 
 // Euler function
-
+/*
 void Euler_step(double *y_t, double t, double *y_t_plus_tau, 
              double tau, double *recon)
 {
@@ -473,9 +540,8 @@ void Euler_step(double *y_t, double t, double *y_t_plus_tau,
   for(i1 = 0; i1 < N; i1++){
        y_t_plus_tau[i1] = y_t[i1] + k1[i1];
   }
-
 }
-
+*/
 
 // RK4 function
 
@@ -488,7 +554,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
   // Calculate k1 = f(y(t),t) * tau.
 
   double k1[N];
-  f_times_tau(y_t, t, k1, tau);
+  f_times_tau(y_t, t, k1, tau, alpha, state);
 
   // k2 = f(y(t)+(1/2)*k1 , t+(1/2)*tau) * tau.
 
@@ -498,7 +564,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
     y_2[i1] = y_t[i1] + 0.5*k1[i1];
 
   double k2[N];
-  f_times_tau(y_2, t + 0.5*tau, k2, tau);
+  f_times_tau(y_2, t + 0.5*tau, k2, tau, alpha, state);
   
   // k3
 
@@ -508,7 +574,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
     y_3[i1] = y_t[i1] + 0.5*k2[i1];
 
   double k3[N];
-  f_times_tau(y_3, t + 0.5*tau, k3, tau);
+  f_times_tau(y_3, t + 0.5*tau, k3, tau, alpha, state);
 
   // k4
 
@@ -518,7 +584,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
     y_4[i1] = y_t[i1] + k3[i1];
 
   double k4[N];
-  f_times_tau(y_4, t + tau, k3, tau);
+  f_times_tau(y_4, t + tau, k3, tau, alpha, state);
 
   // final
 
@@ -542,10 +608,10 @@ void f_times_tau(double *y_t, double t, double *f_times_tau_,
     }
 
   // TOV equation implementation
-  f_times_tau_[0] = tau * (  -(eos(y_t[0]) + y_t[0]) 
+  f_times_tau_[0] = tau * (  -(state( y_t[0], alpha) + y_t[0]) 
                     * (y_t[1] + 4*M_PI*pow(t, 3.)*y_t[0]) 
                     / (-2*y_t[1]*t + pow(t, 2.0)));
-  f_times_tau_[1] = tau * 4*M_PI * pow(t, 2.) *eos(y_t[0]);
+  f_times_tau_[1] = tau * 4*M_PI * pow(t, 2.) *state(y_t[0], alpha);
 }
 
 
