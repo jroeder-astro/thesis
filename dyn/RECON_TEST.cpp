@@ -67,7 +67,7 @@ void Euler_step(double *y_t, double t,
 void two_alloc(int num_steps_max, int N, double ***y);
 void one_alloc(int num_steps_max, double **t);
 void two_free(int num_steps_max, int N, double ***y);
-void one_free(int num_steps_max, double **t);
+void one_free(int num_steps_max, double *t);
 
 
 // *****************
@@ -268,7 +268,7 @@ int main(/*int argc, char **argv*/)
  
     }
 
-  one_free(N, &y_tau);
+  one_free(N, y_tau);
   y_tau = NULL;    
  
   one_free(num_steps_max, &t);
@@ -756,10 +756,10 @@ void two_alloc(int num_steps_max, int N, double ***y)
 
 // Freeing the allocated memory
 
-void one_free(int num_steps_max, double **t)
+void one_free(int num_steps_max, double *t)
 {
-  free(*t);
-  *t = NULL; 
+  free(t);
+  t = NULL; 
 }
 
 void two_free(int num_steps_max, int N, double ***y)
