@@ -153,7 +153,7 @@ int main(){
      if (MR_rel[i2][1] >= 1.28) break;
      mcount++;
   }
-  mcount--;
+
 
   // ***************************************
 
@@ -161,7 +161,6 @@ int main(){
   double y_0[N];// = { p_init + p_step , 0.0 };
   double p_dur = p_init;
  
-  mcount++;
 
   // Initialize solution.
 
@@ -194,7 +193,7 @@ int main(){
 
   while(mcount < MR_rel.size())
   {
-     cout << "next round\n";
+     cout << mcount << "  " << "next round\n";
 
       // Initialization
 
@@ -216,13 +215,18 @@ int main(){
       if(y[i1][0] > p_dur)
        {  
 	      // RK steps
-              cout << "started 1.1\n";	     
-              cout << y[i1][0] - p_dur << endl;
+              // cout << "started 1.1\n";	     
+              // cout << y[i1][0] - p_dur << endl;
 
 	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, line);
 
 	      // FROM HERE, ONLY UPPER BOUND...
+	/*
+        	  for(i2 = 0; i2 < N; i2++)
+		    y[i1+1][i2] = y_tau[i2];
 
+		  t[i1+1] = t[i1] + tau;
+        */
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
 	      {
 		  // Accepting the step
@@ -230,7 +234,7 @@ int main(){
 		  for(i2 = 0; i2 < N; i2++)
 		  { 
                      y[i1+1][i2] = y_tau[i2];
-                     cout << y[i1+1][i2] << endl;     
+                     //cout << y[i1+1][i2] << endl;     
                   }
 
 		  t[i1+1] = t[i1] + tau;
@@ -268,7 +272,7 @@ int main(){
 
       if(y[i1][0] < p_dur && y[i1][0] > p_init) 
       {
-        cout << "started part 1.2" << endl;
+        // cout << "started part 1.2" << endl;
      
         if(y[i1][0] > p_dur - p_step * n)
          {    
@@ -276,9 +280,15 @@ int main(){
 	     
 	     RK_step(y[i1], t[i1], y_tau, tau, 
                      &recon_storage[n], line);
-         
+    /*  
+		  for(i2 = 0; i2 < N; i2++)
+		    y[i1+1][i2] = y_tau[i2];
+
+		  t[i1+1] = t[i1] + tau;
+
+   
             // Again, upper bound stepsize check
-    
+   */
               if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
 	      {
 		  // Accepting the step
@@ -330,10 +340,18 @@ int main(){
       if(y[i1][0] < p_init)
          {
 	     // RK steps
+             
+             // cout << "2 started\n";
 
              RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
   
 	     // FROM HERE, ONLY UPPER BOUND...
+
+		  for(i2 = 0; i2 < N; i2++)
+		    y[i1+1][i2] = y_tau[i2];
+
+		  t[i1+1] = t[i1] + tau;
+/*
 
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
 	      {
@@ -370,7 +388,7 @@ int main(){
 		     tau /= 1.2;
 		     i1--;
 		  } 
-	      }
+	      } */
    
          }
 
@@ -414,9 +432,7 @@ int main(){
               i1 = 0;
 	   }  
 
-         // ***********************************************
-   
-     mcount++;
+         // **********************************************
 
   } // while loop for mass <= <value> ends here
 
@@ -435,6 +451,8 @@ int main(){
 
   // OUTPUT FILE 
   // a fun exercise in C++
+
+  cout << "woop reached output section\n";
 
   vector<vector<double>> EOS_out;
   vector<double> ep;
