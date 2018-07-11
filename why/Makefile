@@ -1,3 +1,3 @@
 run: 
-	g++ -o why why.cpp;
+	g++ -std=c++11 -o why why.cpp;
 	./why

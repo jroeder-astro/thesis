@@ -95,7 +95,7 @@ int main(){
   double P = 0.0;
   double Preos = 0.0;
   double Ereos = 0.0;
-  double err = 0.001;
+  double err = 0.003;
   double p_step = 0.00001;
   int n = 0;
 
@@ -215,26 +215,33 @@ int main(){
       if(y[i1][0] > p_dur)
        {  
 	      // RK steps
-              // cout << "started 1.1\n";	     
-              // cout << y[i1][0] - p_dur << endl;
 
+              /*log*/ cout << "started 1.1\n";	     
+              /*log*/ cout << " p - p_dur  = " << y[i1][0] - p_dur << endl;
+ 
 	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, line);
 
 	      // FROM HERE, ONLY UPPER BOUND...
-	/*
+
+	      /* // In case one would want to skip the adaptive scheme
+           
         	  for(i2 = 0; i2 < N; i2++)
 		    y[i1+1][i2] = y_tau[i2];
 
 		  t[i1+1] = t[i1] + tau;
-        */
-	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
+              */
+
+              /*log*/ cout << "|p - p_cal| = " << fabs(y_tau[0]-y[i1][0]) << endl;
+ 
+	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
 	      {
 		  // Accepting the step
 
 		  for(i2 = 0; i2 < N; i2++)
 		  { 
                      y[i1+1][i2] = y_tau[i2];
-                     //cout << y[i1+1][i2] << endl;     
+                     /*log*/ cout <<  "y[i1+1][i2] = " 
+                     /*log*/      << y[i1+1][i2] << endl;     
                   }
 
 		  t[i1+1] = t[i1] + tau;
@@ -254,13 +261,13 @@ int main(){
 	      {
 		  if( y_tau[0] > y[i1][0])
 		  {
-		     tau *= 1.2;
+		     tau *= 1.1;
 		     i1--;
 		  }
 
 		  if( y_tau[0] < y[i1][0])
 		  {
-		     tau /= 1.2;
+		     tau /= 1.1;
 		     i1--;
 		  } 
 	      }
@@ -270,25 +277,37 @@ int main(){
        // ****************************************************
        // PART I.2: Have fun with previous lines 
 
+
+      /*log*/ cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
+      /*log*/ cout << " y[i1][0]   = " << y[i1][0] << endl;
+      /*log*/ cout << "    p_dur   = " << p_dur << endl;
+      /*log*/ cout << "   p_init   = " << p_init << endl;
+
+      /*log*/ cout << "y[i1][0] - p_dur  = " << y[i1][0] - p_dur << endl; 
+      /*log*/ cout << "y[i1][0] - p_init = " << y[i1][0] - p_init << endl;
+
+
       if(y[i1][0] < p_dur && y[i1][0] > p_init) 
       {
-        // cout << "started part 1.2" << endl;
+        
+        /*log*/ cout << "started part 1.2" << endl;
      
         if(y[i1][0] > p_dur - p_step * n)
          {    
-            // RK steps
+             // RK steps
 	     
-	     RK_step(y[i1], t[i1], y_tau, tau, 
+  	     RK_step(y[i1], t[i1], y_tau, tau, 
                      &recon_storage[n], line);
-    /*  
+            
+             /*  
 		  for(i2 = 0; i2 < N; i2++)
 		    y[i1+1][i2] = y_tau[i2];
 
-		  t[i1+1] = t[i1] + tau;
+ 		  t[i1+1] = t[i1] + tau;
+             */
 
-   
-            // Again, upper bound stepsize check
-   */
+             // Again, upper bound stepsize check
+ 
               if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
 	      {
 		  // Accepting the step
@@ -341,26 +360,30 @@ int main(){
          {
 	     // RK steps
              
-             // cout << "2 started\n";
+             /*log*/ cout << "2 started\n";
 
              RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
   
 	     // FROM HERE, ONLY UPPER BOUND...
-
+/*
 		  for(i2 = 0; i2 < N; i2++)
 		    y[i1+1][i2] = y_tau[i2];
 
 		  t[i1+1] = t[i1] + tau;
-/*
+*/
 
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
 	      {
 		  // Accepting the step
 
 		  for(i2 = 0; i2 < N; i2++)
-		    y[i1+1][i2] = y_tau[i2];
+		  {
+                     y[i1+1][i2] = y_tau[i2];
+                     /*log*/ cout <<  "y[i1+1][i2] = " 
+                     /*log*/      << y[i1+1][i2] << endl;  
+		  }
 
-		  t[i1+1] = t[i1] + tau;
+                  t[i1+1] = t[i1] + tau;
 
                   // cout << "part 2 accepted" << endl;     
 	
@@ -388,7 +411,7 @@ int main(){
 		     tau /= 1.2;
 		     i1--;
 		  } 
-	      } */
+	      } //
    
          }
 
@@ -399,17 +422,15 @@ int main(){
          // **********************************************
          // PART III: Checking if calculated mass is ok
 
-	   if (fabs(y[i1][1] - MR_rel[mcount][1]) < err)
+	   if (fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) < err)
 	   {
               recon_storage.push_back(alpha);              
 
-              cout << "part three\n";              
+              /*log*/ cout << "part three\n";              
            
               alpha[0] = Preos; alpha [1] = Ereos;
               Preos += p_step;
               alpha[2] = Preos; alpha[3] = Ereos;
-
-              // cout << "started part 3" << endl;              
 
               mcount++;
               p_dur += p_step;
@@ -418,15 +439,26 @@ int main(){
 
            else 
 	   {
-              cout << "part three (else)\n";
+              /*log*/ cout << "part three (else)\n";
+              /*log*/ cout << " y[i1-1][1] = " << y[i1-1][1]/1.4766 << endl;
+              /*log*/ cout << "MR[mcount]  = " << MR_rel[mcount][1] << endl;
+              /*log*/ cout << "|M - M_dat| = " 
+              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
 
-	      if (y[i1][1] > MR_rel[mcount][1])
+              /*log*/// cout << "part three (else)\n";
+              /*log*/// cout << " y[i1][1]   = " << y[i1][1]/1.4766 << endl;
+              /*log*/// cout << "MR[mcount]  = " << MR_rel[mcount][1] << endl;
+              /*log*/// cout << "|M - M_dat| = " 
+              /*log*///      << fabs(y[i1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+
+
+	      if (y[i1-1][1]/1.4766 > MR_rel[mcount][1])
 	      {
-	         alpha[3] /= 1.2;
+	         alpha[3] *= 1.1;
 	      }
-	      if (y[i1][1] < MR_rel[mcount][1])
+	      if (y[i1-1][1]/1.4766 < MR_rel[mcount][1])
 	      {
-		 alpha[3] *= 1.2;
+		 alpha[3] /= 1.1;
 	      }
 
               i1 = 0;
