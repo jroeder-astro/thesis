@@ -55,7 +55,7 @@ double line(double p, vector<double> *alpha){
 // *****************
 
 const int num_steps_max = 10000000; // Max. RK step
-double tau = 0.01;                 // Initial stepsize
+// double tau = 0.01;               // Initial stepsize
 
 // Calculates f(y(t),t) * tau
 void f_times_tau(double *y_t, double t, double *f_times_tau_, 
@@ -95,9 +95,10 @@ int main(){
   double P = 0.0;
   double Preos = 0.0;
   double Ereos = 0.0;
-  double err = 0.003;
+  double err = 0.005;
   double p_step = 0.00001;
   int n = 0;
+  double tau = 0.01;
 
 // *************************************
 
@@ -127,9 +128,9 @@ int main(){
   vector<vector<double>> MR_rel;
   vector<double> one_MR;  
 
-// ****************************************
+  // ****************************************
 
-// Read MR input file 
+  // Read MR input file 
 
   double M = 0.0, R = 0.0;
 
@@ -193,7 +194,8 @@ int main(){
 
   while(mcount < MR_rel.size())
   {
-     cout << mcount << "  " << "next round\n";
+      /*log*/ cout << mcount << "  " << "next round\n";
+      /*log*/ cout << "  p_dur  = " << p_dur << endl;
 
       // Initialization
 
@@ -203,7 +205,8 @@ int main(){
       for(i1 = 0; i1 < N; i1++)
       {
          y[0][i1] = y_0[i1];
-      // cout << y[0][i1] << endl;
+         /*log*/ cout <<  "y[0][i1] = " 
+         /*log*/      << y[0][i1] << endl;     
       }
 
   for(i1 = 0; y[i1][0] > 0.0; i1++)
@@ -216,8 +219,9 @@ int main(){
        {  
 	      // RK steps
 
-              /*log*/ cout << "started 1.1\n";	     
-              /*log*/ cout << " p - p_dur  = " << y[i1][0] - p_dur << endl;
+              /*log*/// cout << "started 1.1\n";
+              /*log*/// cout << " alpha[3] = " << alpha[3] << endl;
+              /*log*/// cout << " p - p_dur  = " << y[i1][0] - p_dur << endl;
  
 	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, line);
 
@@ -231,7 +235,7 @@ int main(){
 		  t[i1+1] = t[i1] + tau;
               */
 
-              /*log*/ cout << "|p - p_cal| = " << fabs(y_tau[0]-y[i1][0]) << endl;
+              /*log*/// cout << "|p - p_cal| = " << fabs(y_tau[0]-y[i1][0]) << endl;
  
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
 	      {
@@ -240,8 +244,8 @@ int main(){
 		  for(i2 = 0; i2 < N; i2++)
 		  { 
                      y[i1+1][i2] = y_tau[i2];
-                     /*log*/ cout <<  "y[i1+1][i2] = " 
-                     /*log*/      << y[i1+1][i2] << endl;     
+                     /*log*/// cout <<  "y[i1+1][i2] = " 
+                     /*log*///      << y[i1+1][i2] << endl;     
                   }
 
 		  t[i1+1] = t[i1] + tau;
@@ -249,7 +253,7 @@ int main(){
 		  // Building the vectors          
 
 		  // EoS.push_back(EOS_tmp);
-	    
+
 		  // eos_tmp = {y[i1][0], line(y[i1][0], &alpha)};
 		  // EOS_arr.push_back(eos_tmp);
 
@@ -278,26 +282,32 @@ int main(){
        // PART I.2: Have fun with previous lines 
 
 
-      /*log*/ cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
-      /*log*/ cout << " y[i1][0]   = " << y[i1][0] << endl;
-      /*log*/ cout << "    p_dur   = " << p_dur << endl;
-      /*log*/ cout << "   p_init   = " << p_init << endl;
+      /*log*/// cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
+      /*log*/// cout << " y[i1][0]   = " << y[i1][0] << endl;
+      /*log*/// cout << "    p_dur   = " << p_dur << endl;
+      /*log*/// cout << "   p_init   = " << p_init << endl;
 
-      /*log*/ cout << "y[i1][0] - p_dur  = " << y[i1][0] - p_dur << endl; 
-      /*log*/ cout << "y[i1][0] - p_init = " << y[i1][0] - p_init << endl;
+      /*log*/// cout << "y[i1][0] - p_dur  = " << y[i1][0] - p_dur << endl; 
+      /*log*/// cout << "y[i1][0] - p_init = " << y[i1][0] - p_init << endl;
 
 
-      if(y[i1][0] < p_dur && y[i1][0] > p_init) 
+      if(y[i1][0] <= p_dur && y[i1][0] > p_init) 
       {
         
         /*log*/ cout << "started part 1.2" << endl;
-     
+        /*log*/ cout << "             n  = " << n << endl;
+        /*log*/// cout << "y[i1][0] - (p_dur - p_step * n) = " 
+        /*log*///      <<  y[i1][0] - (p_dur - p_step * n)  << endl;
+
         if(y[i1][0] > p_dur - p_step * n)
          {    
              // RK steps
 	     
+             /*log*/// cout << " p - p_dur  = " 
+             /*log*///      << y[i1][0] - p_dur << endl;
+
   	     RK_step(y[i1], t[i1], y_tau, tau, 
-                     &recon_storage[n], line);
+                     &recon_storage[n-1], line);
             
              /*  
 		  for(i2 = 0; i2 < N; i2++)
@@ -306,14 +316,21 @@ int main(){
  		  t[i1+1] = t[i1] + tau;
              */
 
+             /*log*/// cout << "|p - p_cal| = " 
+             /*log*///      << fabs(y_tau[0]-y[i1][0]) << endl;
+ 
              // Again, upper bound stepsize check
  
-              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
+              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
 	      {
 		  // Accepting the step
 
 		  for(i2 = 0; i2 < N; i2++)
-		    y[i1+1][i2] = y_tau[i2];
+		  {   
+                     y[i1+1][i2] = y_tau[i2];
+                     /*log*/ cout <<  "y[i1+1][i2] = " 
+                     /*log*/      << y[i1+1][i2] << endl;     
+                  }
 
 		  t[i1+1] = t[i1] + tau;
 
@@ -327,18 +344,18 @@ int main(){
 		}
 
 	      else
-		// Adapt step size so that pressures 
+  		// Adapt step size so that pressures 
 		// are roughly evenly spaced.
 	      {
 		  if( y_tau[0] > y[i1][0])
 		  {
-		     tau *= 1.2;
+		     tau *= 1.1;
 		     i1--;
 		  }
 
 		  if( y_tau[0] < y[i1][0])
 		  {
-		     tau /= 1.2;
+		     tau /= 1.1;
 		     i1--;
 		  } 
 	      }
@@ -356,7 +373,7 @@ int main(){
       // *************************************************
       // PART II: Calculate the rest with known eos
  
-      if(y[i1][0] < p_init)
+      if(y[i1][0] <= p_init)
          {
 	     // RK steps
              
@@ -372,7 +389,7 @@ int main(){
 		  t[i1+1] = t[i1] + tau;
 */
 
-	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -5.))	
+	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
 	      {
 		  // Accepting the step
 
@@ -385,7 +402,7 @@ int main(){
 
                   t[i1+1] = t[i1] + tau;
 
-                  // cout << "part 2 accepted" << endl;     
+                  /*log*/// cout << "part 2 accepted" << endl;     
 	
 		  // Building the vectors          
 
@@ -402,13 +419,13 @@ int main(){
 	      {
 		  if( y_tau[0] > y[i1][0])
 		  {
-		     tau *= 1.2;
+		     tau *= 1.1;
 		     i1--;
 		  }
 
 		  if( y_tau[0] < y[i1][0])
 		  {
-		     tau /= 1.2;
+		     tau /= 1.1;
 		     i1--;
 		  } 
 	      } //
@@ -427,41 +444,46 @@ int main(){
               recon_storage.push_back(alpha);              
 
               /*log*/ cout << "part three\n";              
-           
-              alpha[0] = Preos; alpha [1] = Ereos;
+              /*log*/ cout << "|M - M_dat| = " 
+              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+
+              alpha[0] = Preos; alpha[1] = alpha[3];
               Preos += p_step;
-              alpha[2] = Preos; alpha[3] = Ereos;
+              alpha[2] = Preos; /*alpha[3] = */;
 
               mcount++;
               p_dur += p_step;
-              n = 0;
+              n = 1;
+              tau = 0.01;
            }
 
            else 
 	   {
               /*log*/ cout << "part three (else)\n";
               /*log*/ cout << " y[i1-1][1] = " << y[i1-1][1]/1.4766 << endl;
-              /*log*/ cout << "MR[mcount]  = " << MR_rel[mcount][1] << endl;
+              /*log*/// cout << " y[i1+1][1] = " << y[i1+1][1]/1.4766 << endl;
+              /*log*/// cout << " y[i1][1]   = " << y[i1][1]/1.4766 << endl;
+              /*log*/ cout << " MR[mcount] = " << MR_rel[mcount][1] << endl;
               /*log*/ cout << "|M - M_dat| = " 
               /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
-
-              /*log*/// cout << "part three (else)\n";
-              /*log*/// cout << " y[i1][1]   = " << y[i1][1]/1.4766 << endl;
-              /*log*/// cout << "MR[mcount]  = " << MR_rel[mcount][1] << endl;
-              /*log*/// cout << "|M - M_dat| = " 
-              /*log*///      << fabs(y[i1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
-
-
+              /*log*/ cout << " alpha[3]_b = "<< alpha[3] << endl;              
+              
 	      if (y[i1-1][1]/1.4766 > MR_rel[mcount][1])
 	      {
-	         alpha[3] *= 1.1;
+	         alpha[3] *= 1.2;
 	      }
 	      if (y[i1-1][1]/1.4766 < MR_rel[mcount][1])
 	      {
-		 alpha[3] /= 1.1;
+		 alpha[3] /= 1.2;
 	      }
+ 
+              /*log*/ cout << " alpha[3]_l = "<< alpha[3] << endl;    
 
               i1 = 0;
+              tau = 0.01;
+ 
+              
+
 	   }  
 
          // **********************************************
