@@ -99,6 +99,7 @@ int main(){
   double p_step = 0.00001;
   int n = 0;
   double tau = 0.01;
+  int n_max = 0;
 
 // *************************************
 
@@ -219,7 +220,7 @@ int main(){
        {  
 	      // RK steps
 
-              /*log*/// cout << "started 1.1\n";
+              /*log*/ cout << "started 1.1\n";
               /*log*/// cout << " alpha[3] = " << alpha[3] << endl;
               /*log*/// cout << " p - p_dur  = " << y[i1][0] - p_dur << endl;
  
@@ -244,8 +245,8 @@ int main(){
 		  for(i2 = 0; i2 < N; i2++)
 		  { 
                      y[i1+1][i2] = y_tau[i2];
-                     /*log*/// cout <<  "y[i1+1][i2] = " 
-                     /*log*///      << y[i1+1][i2] << endl;     
+                     /*log*/ cout <<  "y[i1+1][i2] = " 
+                     /*log*/      << y[i1+1][i2] << endl;     
                   }
 
 		  t[i1+1] = t[i1] + tau;
@@ -364,7 +365,11 @@ int main(){
        
          else
          {
-             n++; i1--;
+            if (n < n_max)
+            {
+               n++; i1--;
+            }
+            else continue;
          }
 
       }   // End of Part I.2
@@ -382,12 +387,13 @@ int main(){
              RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
   
 	     // FROM HERE, ONLY UPPER BOUND...
-/*
+              
+              /*
 		  for(i2 = 0; i2 < N; i2++)
 		    y[i1+1][i2] = y_tau[i2];
 
 		  t[i1+1] = t[i1] + tau;
-*/
+              */
 
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
 	      {
@@ -444,6 +450,7 @@ int main(){
               recon_storage.push_back(alpha);              
 
               /*log*/ cout << "part three\n";              
+              /*log*/ cout << "n = " << n << ", " << "n_m = " << n_max << endl;
               /*log*/ cout << "|M - M_dat| = " 
               /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
 
@@ -454,6 +461,10 @@ int main(){
               mcount++;
               p_dur += p_step;
               n = 1;
+              n_max++;
+              
+              /*log*/ cout << "n = " << n << ", " << "n_m = " << n_max << endl;
+              
               tau = 0.01;
            }
 
@@ -481,8 +492,9 @@ int main(){
 
               i1 = 0;
               tau = 0.01;
- 
-              
+              n = 1;
+
+              /*log*/ cout << "n = " << n << ", " << "n_m = " << n_max << endl;
 
 	   }  
 
