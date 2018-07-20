@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{ngerman}
+\usepackage[ansinew]{inputenc}
+\usepackage[left=2cm,top=1cm]{geometry}
+
+\begin{document}
+	\pagestyle{empty}
+
+
+\begin{titlepage}
+    \centering
+	\huge{Inverse equation of state construction from mass-radius-relations of compact stars}\\
+	\bigskip
+    \large{Bachelor thesis}\\
+    \huge{Jan R\"{o}der}
+\end{titlepage}
+
+%headline!!!
+
+
+\tableofcontents
+\pagebreak
+
+
+\section{Introduction}
+
+To this day, the nature of the equation of state [EOS] for neutron stars is highly debated. Previously discussed EOS have emerged from
+various topics of physics, such as nuclear matter, quark matter and many others. Every one of these could potentially be modified
+to resemble other physical aspects or different conditions. \\
+For the past years, it has been common to derive these EOS from a theory and then use it to construct first one compact star,
+then a whole series, determining a relation between total mass and radius. This method obviously is constrained by the fact that 
+one cannot put an arbitrary number of theories and therefore variables into one EOS, as that would result in a problem impossible to solve,
+even for computers. This is the main reason to write this thesis, as we here will, in a way, revert the previous method.\\
+For compact stars up to a certain mass, we will assume that we know the EOS well enough. Above that mass, we will numerically reconstruct
+an EOS from a mass-radius relation, and further compare the results with results from EOS dictated and constrained by theories.
+
+\section{Preparations}
+
+\subsection{The Tolman-Oppenheimer-Volkoff equation}
+
+Before getting into the actual thesis, one has to set up a theoretical basis for the topic.\\
+This involves a derivation of the equation used for determining the structure of compact stars. Here, that will be the 
+Tolman-Oppenheimer-Volkoff [TOV] equation. \\
+To make analytical and numerical calculations easier, one can choose the unit system to be $c=G=1$, so that every unit is a 
+power of length.\\
+The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
+Further, the system shall not evolve in time, therefore staying spherically symmetric. In terms of the energy-momentum tensor 
+we are left with:
+\begin{equation}
+	T_{\mu\nu}=\left(\epsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
+\end{equation}
+Spherical symmetry leads to a certain form of the metric, which then gives the stress-energy tensor components:
+\begin{equation}
+	T_{\mu\nu} = diag(\epsilon e^{\nu(r)}  , \ P e^{\lambda(r)},\ Pr^2,\ Pr^2sin^2(\theta)    )
+\end{equation}
+Imposing hydrostatic equilibrium,
+\begin{equation}
+	\nabla_\nu T^{\mu\nu}=0
+\end{equation}
+and some calculation, one obtains the expression
+\begin{equation}
+	content...
+\end{equation}
+To determine what $\nu(r)$ looks like, and using the previously defined metric, one can calculate the non-zero components
+of the Ricci tensor:
+\begin{equation}
+	content...
+\end{equation}
+The Einstein equations then yield more equations containing $\nu(r)$ and it's derivatives. After plugging some of the equations 
+into one another, one obtains $\nu(r)$ and therefore, in conclusion, the full TOV equation:
+\begin{equation}\label{eq:tov}
+	\frac{dP}{dr} = \frac{(\epsilon + P)(m + 4\pi r^3 P)}{2mr-r^2}
+\end{equation}
+Together with a second equation for the mass:
+\begin{equation}\label{eq:mr}
+	\frac{dm}{dr} = 4\pi r^2\epsilon
+\end{equation}
+
+\subsection{Numerical solution}
+
+\subsubsection{Method}
+In order to generate an initial mass-radius relation to test the "inverse" algorithm with, one has to solve the TOV and
+mass differential equation numerically. 
+By looking at both equations, our ordinary differential equation [ODE] system is given in the form
+\begin{equation}\label{eq:ode}
+	\dot{y}(t) = f(y(t), t)
+\end{equation}
+where $\dot{y}(t)$ is a two component "vector":
+\begin{equation}
+	\dot{y}(t) =  \left( \begin{array}{c}dP/dr\\dm/dr\end{array} \right)
+\end{equation}
+$f(y(t), t)$ then contains the right hand side of equations~\ref{eq:tov} and~\ref{eq:mr}. \\
+To solve the ODE system we use a fourth order Runge-Kutta [RK4] code. This method works as follows:
+\begin{equation}
+	y(t+\tau) = y(t) + \frac{1}{6} (k_1 + 2k_2 + 2k_3 + k_4)
+ \end{equation}
+with $k_i$:
+\begin{align*}
+	k_1 &= f(y(t),t)\cdot\tau\\
+	k_2 &= f(y(t)+k_1/2,t+\tau/2)\cdot\tau\\
+	k_3 &= f(y(t)+k_2/2,t+\tau/2)\cdot\tau\\
+	k_4 &= f(y(t)+k_3,t+\tau)\cdot\tau
+\end{align*}
+All $k_i$ are of course also two component "vectors".
+
+\subsubsection{Implementation}
+
+In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
+N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; 
+that way only x is reflecting the step count. x will therefore be in range zero up to the number of iteration steps.
+
+
+
+
+
+
+
+
+
+
+
+
+\pagebreak
+
+%%%ALTERNATIVE BILDUMGEBUNG
+% \begin{figure}[h]
+% \begin{center}
+% \includegraphics[width=50mm]{fig1}
+% \caption{Fadenpendel \cite{Eichler}.}\label{fig:1}
+% \end{center}
+% \end{figure}
+
+
+
+
+\hspace{15pt}
+
+\begin{table}[h!]
+  \centering
+  %\caption{Caption for the table.}
+  \label{tab:2}
+  \begin{tabular}{|c||c|}
+  \hline
+    Messung der Fadenlänge & $l$ (m)\\
+    \hline\hline
+    1 &   \\ \hline
+    2 &   \\ \hline
+    3 &   \\ \hline
+    4 &   \\ \hline
+    5 &   \\ \hline
+    Mittelwert $\bar{l}$ &  \\ \hline
+    Standardabweichung $\sigma_l$ &  \\ \hline
+  \end{tabular}
+\end{table}
+
+
+
+\begin{thebibliography}{2}
+\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
+\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
+\end{thebibliography}
+
+\end{document}
