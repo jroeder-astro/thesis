@@ -171,7 +171,7 @@ int main(){
   double p_it = 0.0;
   double p_end = 5*p_dur;
 
-  while(mcount < 3)
+  while(mcount < 5)
   {
       /*log*/// cout << mcount << "  " << "next round\n";
       /*log*/// cout << "  p_dur  = " << p_dur << endl;
@@ -253,6 +253,21 @@ int main(){
 
        }  // End of I.1
 
+
+
+
+
+
+
+
+
+
+
+
+      // ****************************************************
+      // PART I.2: Have fun with previous lines 
+
+
       /*log*/// cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
       /*log*/// cout << " y[i1][0]   = " << y[i1][0] << endl;
       /*log*/// cout << "    p_dur   = " << p_dur << endl;
@@ -260,6 +275,99 @@ int main(){
 
       /*log*/// cout << "y[i1][0] - p_dur  = " << y[i1][0] - p_dur << endl; 
       /*log*/// cout << "y[i1][0] - p_init = " << y[i1][0] - p_init << endl;
+
+
+      if(y[i1][0] <= p_dur && y[i1][0] > p_init) 
+      {
+        
+        /*log*/ cout << "started part 1.2" << endl;
+        /*log*/ cout << "             n  = " << n << endl;
+        /*log*/// cout << "y[i1][0] - (p_dur - p_step * n) = " 
+        /*log*///      <<  y[i1][0] - (p_dur - p_step * n)  << endl;
+
+        if(y[i1][0] > p_dur - p_step * n)
+         {    
+             // RK steps
+	     
+             /*log*/// cout << " p - p_dur  = " 
+             /*log*///      << y[i1][0] - p_dur << endl;
+
+  	     RK_step(y[i1], t[i1], y_tau, tau, 
+                     &recon_storage[n-1], line);
+            
+             /*  
+		  for(i2 = 0; i2 < N; i2++)
+		    y[i1+1][i2] = y_tau[i2];
+
+ 		  t[i1+1] = t[i1] + tau;
+             */
+
+             /*log*/// cout << "|p - p_cal| = " 
+             /*log*///      << fabs(y_tau[0]-y[i1][0]) << endl;
+ 
+             // Again, upper bound stepsize check
+ 
+              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
+	      {
+		  // Accepting the step
+
+		  for(i2 = 0; i2 < N; i2++)
+		  {   
+                     y[i1+1][i2] = y_tau[i2];
+                     /*log*/ cout <<  "y[i1+1][i2] = " 
+                     /*log*/      << y[i1+1][i2] << endl;     
+                  }
+
+		  t[i1+1] = t[i1] + tau;
+
+		  // Building the vectors          
+
+		  // EoS.push_back(EOS_tmp);
+	    
+		  // eos_tmp = {y[i1][0], eos(y[i1][0])};
+		  // EOS_arr.push_back(eos_tmp);
+
+		}
+
+	      else
+  		// Adapt step size so that pressures 
+		// are roughly evenly spaced.
+	      {
+		  if( y_tau[0] > y[i1][0])
+		  {
+		     tau *= 1.1;
+		     i1--;
+		  }
+
+		  if( y_tau[0] < y[i1][0])
+		  {
+		     tau /= 1.1;
+		     i1--;
+		  } 
+	      }
+
+         }
+       
+         else
+         {
+            if (n < n_max)
+            {
+               n++; i1--;
+            }
+            else continue;
+         }
+
+      }   // End of Part I.2
+
+
+
+
+
+
+
+
+
+
 
        
       // *************************************************

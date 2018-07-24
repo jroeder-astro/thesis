@@ -3,18 +3,37 @@ import numpy as np
 import csv
 from numpy import *
 
-x1 = []
-y1 = []
+#x1 = []
+#y1 = []
 #x2 = []
 #y2 = []
 
-p = np.arange(0., 0.1, 0.0001)
+def eos(p):
+    return np.power(p/10., 3./5.)
 
-with open('output.dat', 'r') as csvfile:
-    plots = csv.reader(csvfile, delimiter=',')
-    for row in plots:
-        x1.append(float(row[0]))
-        y1.append(float(row[1]))
+p1 = np.arange(0., 3.*np.power(10., -5.), 0.0000001)
+
+plt.plot(p1, eos(p1))
+plt.plot([4.*np.power(10., -5.)],[0.000546593],'bo')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#with open('output.dat', 'r') as csvfile:
+#    plots = csv.reader(csvfile, delimiter=',')
+#    for row in plots:
+#        x1.append(float(row[0]))
+#        y1.append(float(row[1]))
 
 #with open('RK4th.dat', 'r') as csvfile:
 #    plots = csv.reader(csvfile, delimiter=' ')
@@ -22,9 +41,8 @@ with open('output.dat', 'r') as csvfile:
 #        x2.append(float(row[0]))
 #        y2.append(float(row[1]))
 
-
 #plt.subplot(3,1,1)
-plt.plot(x1, y1)
+#plt.plot(x1, y1)
 #plt.plot(x2, y2, label='RK4')
 #plt.axis([0.00007,0.000076,0.0006,0.001])
 #plt.title('TOV equation')
