@@ -16,7 +16,7 @@
 
 \begin{titlepage}
     \centering
-	\huge{Inverse equation of state construction from mass-radius-relations of compact stars}\\
+	\huge{Constructing the Equation of State for Compact Stars}\\
 	\bigskip
     \large{Bachelor thesis}\\
     \huge{Jan R\"{o}der}
@@ -31,21 +31,18 @@
 
 \section{Introduction}
 
-To this day, the nature of the equation of state [EOS] for neutron stars is highly debated. Previously discussed EOS have emerged from
-various topics of physics, such as nuclear matter, quark matter and many others. Every one of these could potentially be modified
-to resemble other physical aspects or different conditions. \\
-For the past years, it has been common to derive these EOS from a theory and then use it to construct first one compact star,
-then a whole series, determining a relation between total mass and radius. This method obviously is constrained by the fact that 
-one cannot put an arbitrary number of theories and therefore variables into one EOS, as that would result in a problem impossible to solve,
-even for computers. This is the main reason to write this thesis, as we here will, in a way, revert the previous method.\\
-For compact stars up to a certain mass, we will assume that we know the EOS well enough. Above that mass, we will numerically reconstruct
-an EOS from a mass-radius relation, and further compare the results with results from EOS dictated and constrained by theories.
+To this day, the nature of the equation of state [EOS] for neutron stars is highly debated. Previously discussed EOSs have emerged from
+various topics and models of physics. Each one has different parameters determining its impact on calculations. \\
+For the past years, it has been common to derive an EOS from a theory and then use it to construct a mass-radius relation [MRR]. This method is obviously constrained by the fact that one cannot put an arbitrary number of theories into one EOS. That would result in a problem impossible to solve, even for computers. Therefore, the motivation is to minimize the number of parameters and constraints in the future.\\
+The approach chosen in this thesis is inverting the above process. Instead of using an EOS to calculate masses and radii, those shall now take over the role as input parameters. For compact stars up to a certain mass, the EOS will be assumed to be known well enough. Above that mass a numerical reconstruction will take place, determining the EOS from a variety of MRRs. 
 
+
+\pagebreak
 \section{Preparations}
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation}
 
-Before getting into the actual thesis, one has to set up a theoretical basis for the topic.\\
+Before getting into the actual method, one has to set up a theoretical basis for it.
 This involves a derivation of the equation used for determining the structure of compact stars. Here, that will be the 
 Tolman-Oppenheimer-Volkoff [TOV] equation. \\
 To make analytical and numerical calculations easier, one can choose the unit system to be $c=G=1$, so that every unit is a 
@@ -86,9 +83,8 @@ Together with a second equation for the mass:
 \subsection{Numerical solution}
 
 \subsubsection{Method}
-In order to generate an initial mass-radius relation to test the "inverse" algorithm with, one has to solve the TOV and
-mass differential equation numerically. 
-By looking at both equations, our ordinary differential equation [ODE] system is given in the form
+
+The TOV equations come in the form of a first-order ordinary differential equation system (ODE). In order to obtain sufficient precision, a 4th-order Runge-Kutta algorithm shall be used to solve said ODE. By looking at both equations, our ODE system is given in the form:
 \begin{equation}\label{eq:ode}
 	\dot{y}(t) = f(y(t), t)
 \end{equation}
@@ -96,19 +92,19 @@ where $\dot{y}(t)$ is a two component "vector":
 \begin{equation}
 	\dot{y}(t) =  \left( \begin{array}{c}dP/dr\\dm/dr\end{array} \right)
 \end{equation}
-$f(y(t), t)$ then contains the right hand side of equations~\ref{eq:tov} and~\ref{eq:mr}. \\
-To solve the ODE system we use a fourth order Runge-Kutta [RK4] code. This method works as follows:
+$f(y(t), t)$ then contains the right hand side of equations \ref{eq:tov} and \ref{eq:mr}. \\
+Numerically, solving the ODE is achieved by approximation of a step $\tau$ in the function variable $t$ (in TOV, this is the radius $r$) with derivatives of the function that is the ODE solution ($y$). 
 \begin{equation}
 	y(t+\tau) = y(t) + \frac{1}{6} (k_1 + 2k_2 + 2k_3 + k_4)
  \end{equation}
-with $k_i$:
+with increments $k_i$:
 \begin{align*}
 	k_1 &= f(y(t),t)\cdot\tau\\
 	k_2 &= f(y(t)+k_1/2,t+\tau/2)\cdot\tau\\
 	k_3 &= f(y(t)+k_2/2,t+\tau/2)\cdot\tau\\
 	k_4 &= f(y(t)+k_3,t+\tau)\cdot\tau
 \end{align*}
-All $k_i$ are of course also two component "vectors".
+All $k_i$ are of course also two component "vectors". 
 
 \subsubsection{Implementation}
 
