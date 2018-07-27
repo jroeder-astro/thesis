@@ -14,7 +14,13 @@ def eos(p):
 p1 = np.arange(0., 3.*np.power(10., -5.), 0.0000001)
 
 plt.plot(p1, eos(p1))
-plt.plot([4.*np.power(10., -5.)],[0.000546593],'bo')
+#plt.plot([4.*np.power(10., -5.)],[0.000546593],'bo')
+plt.plot([3.1*np.power(10., -5.)],[0.000491693],'ro')
+plt.plot([3.*np.power(10., -5.)],[0.000485593],'go')
+plt.plot([3.1*np.power(10., -5.)],[0.000495502],'bo')
+
+
+
 
 
 
