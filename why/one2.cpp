@@ -416,7 +416,7 @@ int main(){
              
               alpha[3] += pow(10, -6);
               l = 1;
-              p_end = 5*p_init; 
+              p_end = 5*p_dur; 
 
               /*log*/// cout << " alpha[3]_l = "<< alpha[3] << endl;    
 

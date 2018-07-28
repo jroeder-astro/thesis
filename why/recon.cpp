@@ -107,7 +107,7 @@ int main(){
   // program's final version (to be tested)
 
   vector<int> l_storage;
-  vector<double> pao;
+  vector<double> pao(2);
   vector<vector<double>> pao_storage;
 
 
@@ -192,24 +192,26 @@ int main(){
          /*log*///      << y[0][i1] << endl;     
      // }
 
-  cout << "hi5\n" << endl;
-
-
   while( p_end > p_dur )
   {
-
-      cout << "hi4\n" << endl;
 
       p_end  = p_dur + l * pow(10, -6);
       y_0[0] = p_end; 
       y_0[1] = 0.0;
-  
+
       for(i1 = 0; i1 < N; i1++)
       {
          y[0][i1] = y_0[i1];
          /*log*/// cout <<  "y[0][i1] = " 
          /*log*///      << y[0][i1] << endl;     
       }
+
+   cout << y[i1][0] << endl;
+   cout << y[0][0] << endl;
+ 
+   cout << crap << endl;
+
+ 
 
   for(i1 = 0; y[i1][0] > 0.0; i1++)
     {
@@ -277,8 +279,9 @@ int main(){
       /*log*/// cout << " y[i1][0]   = " << y[i1][0] << endl;
       /*log*/// cout << "    p_dur   = " << p_dur << endl;
       /*log*/// cout << "   p_init   = " << p_init << endl;
-      /*log*/// cout << "y[i1][0] - p_dur  = " << y[i1][0] - p_dur << endl; 
+      /*log*/// cout << "p_dur - y[i1][0]  = " << p_dur - y[i1][0] << endl; 
       /*log*/// cout << "y[i1][0] - p_init = " << y[i1][0] - p_init << endl;
+
 
 
       if(    crap > 0 &&     y[i1][0] <= p_dur && y[i1][0] > p_init) 
@@ -298,7 +301,7 @@ int main(){
         /*log*/// cout << "y[i1][0] - (p_dur - p_step * n) = " 
         /*log*///      <<  y[i1][0] - (p_dur - p_step * n)  << endl;
 
-        if(y[i1][0] > pao_storage[n][1])
+        if(y[i1][0] > pao_storage[n][0])
          {    
              // RK steps
 	     
@@ -320,8 +323,8 @@ int main(){
 		  for(i2 = 0; i2 < N; i2++)
 		  {   
                      y[i1+1][i2] = y_tau[i2];
-                     /*log*/ cout <<  "y[i1+1][i2] = " 
-                     /*log*/      << y[i1+1][i2] << endl;     
+                     /*log*/// cout <<  "y[i1+1][i2] = " 
+                     /*log*///      << y[i1+1][i2] << endl;     
                   }
 
 		  t[i1+1] = t[i1] + tau;
@@ -347,14 +350,12 @@ int main(){
 
          }
        
-         else
-         {
-            if (n < n_max)
+         else if (n < n_max - 1)
             {
                n++; i1--;
             }
-            // else continue;
-         }
+         
+       //  else continue; 
 
       }   // End of Part I.2
 
@@ -456,7 +457,7 @@ int main(){
               n_max++;
               
                                crap++;
-              continue;
+              // continue;
 
               p_end = 5 * p_dur;
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
@@ -504,20 +505,20 @@ int main(){
               /*log*/// cout << " alpha[3]_l = "<< alpha[3] << endl;    
 
 
-              cout << "hi1\n" << endl;
+              cout << "hi1" << endl;
 
 
               i1 = 0;
               n = 0;
 
-              cout << "hi2\n" << endl;
+              cout << "hi2" << endl;
               
 
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
 
 	   }  
 
-              cout << "hi3\n" << endl;
+              cout << "hi3" << endl;
 
 
          // **********************************************
