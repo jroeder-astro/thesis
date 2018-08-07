@@ -205,12 +205,6 @@ int main(){
          /*log*/// cout <<  "y[0][i1] = " 
          /*log*///      << y[0][i1] << endl;     
       }
-
-   cout << y[i1][0] << endl;
-   cout << y[0][0] << endl;
- 
-   cout << crap << endl;
-
  
 
   for(i1 = 0; y[i1][0] > 0.0; i1++)
@@ -225,7 +219,7 @@ int main(){
 
               /*log*/// cout << "started 1.1\n";
               /*log*/// cout << " alpha[3] = " << alpha[3] << endl;
-              /*log*/// cout << " p - p_dur  = " << y[i1][0] - p_dur << endl;
+              /*log*/// cout << "[1.1] p - p_dur  = " << y[i1][0] - p_dur << endl;
  
 	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, line);
 
@@ -287,17 +281,9 @@ int main(){
       if(    crap > 0 &&     y[i1][0] <= p_dur && y[i1][0] > p_init) 
       {
         
-
-      /* 
-         How do I best implement the loop over the previously 
-         interpolated lines here? Options:
-         - loop through the l_storage vector
-         - instead of l, store a pressure interval in l_storage 
-      */
-
-
-        /*log*/ cout << "started part 1.2" << endl;
-        /*log*/ cout << "             n  = " << n << endl;
+        /*log*/ cout << "[1.2] p - p_dur  = " << y[i1][0] - p_dur << endl;
+        /*log*/// cout << "started part 1.2" << endl;
+        /*log*/// cout << "             n  = " << n << endl;
         /*log*/// cout << "y[i1][0] - (p_dur - p_step * n) = " 
         /*log*///      <<  y[i1][0] - (p_dur - p_step * n)  << endl;
 
@@ -373,7 +359,12 @@ int main(){
  	      // RK steps
               
               /*log*/// cout << "2 started\n";
+
+              /*log*/// cout << "[ 2 ] p - p_init = " << y[i1][0] - p_init << endl;
  
+              /*log*///   cout << "[ 2 ]         p  = " << y[i1][0] << endl;
+ 
+
               RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
   
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
@@ -432,18 +423,22 @@ int main(){
 
               pao[0] = p_dur; pao[1] = p_end;      // storing p_alpha and p_omega 
               pao_storage.push_back(pao);          // of the line needed for the mass
-
+              
+              /*
 	      for(i2 = 0; i2 < recon_storage.size(); i2++)
 	      {
                 // some debug output, may be deleted later
 	        cout << recon_storage[i2][0] << " " << recon_storage[i2][1] << " "
 		     << recon_storage[i2][2] << " " << recon_storage[i2][3] << endl;
 	      }
+              */
 
               /*log*/ cout << "part three\n";              
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
               /*log*/ cout << "|M - M_dat| = " 
               /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+              /*log*/ cout << "|R - R_dat| = " 
+              /*log*/      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
               /*log*/ cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
 
               p_dur = p_end;
@@ -465,22 +460,26 @@ int main(){
               tau = 0.01;
            }
 
-           else if (p_end <= 5*p_dur) // cutoff for p_end is 5*p_dur
+           else if (p_end <= 5*p_dur) // cutoff for p_end is 5*p_d0r
 	   {
               /*log*/ cout << "part three (else if)\n";
               /*log*/// cout << " y[i1-1][1] = " << y[i1-1][1]/1.4766 << endl;
-              /*log*/ cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
-              /*log*/ cout << "     i1 =     " << i1 << endl;
-              /*log*/ cout << "      l =     " << l << endl;
+              /*log*/// cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
+              /*log*/// cout << "     i1 =     " << i1 << endl;
+              /*log*/// cout << "      l =     " << l << endl;
               /*log*/// cout << " y[i1+1][1] = " << y[i1+1][1]/1.4766 << endl;
               /*log*/// cout << " y[i1][1]   = " << y[i1][1]/1.4766 << endl;
               /*log*/// cout << " MR[mcount] = " << MR_rel[mcount][1] << endl;
               /*log*/ cout << "|M - M_dat| = " 
               /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+              /*log*/ cout << "|R - R_dat| = " 
+              /*log*/      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
               /*log*/// cout << " alpha[3]_b = "<< alpha[3] << endl;              
               /*log*/// cout << " alpha[3]_l = "<< alpha[3] << endl;    
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
-	            
+	      /*log*/ cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+
+        
               l++;
               i1 = 0;
               n = 0;
@@ -489,8 +488,8 @@ int main(){
            else 
 	   {
               /*log*/ cout << "part three (else)\n";      
-              /*log*/ cout << "     i1 =     " << i1 << endl;
-              /*log*/ cout << "      l =     " << l << endl;
+              /*log*/// cout << "     i1 =     " << i1 << endl;
+              /*log*/// cout << "      l =     " << l << endl;
               /*log*/ cout << "|M - M_dat| = " 
               /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
               /*log*/ cout << "|R - R_dat| = " 
@@ -504,23 +503,12 @@ int main(){
 
               /*log*/// cout << " alpha[3]_l = "<< alpha[3] << endl;    
 
-
-              cout << "hi1" << endl;
-
-
               i1 = 0;
               n = 0;
-
-              cout << "hi2" << endl;
-              
-
+             
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
 
 	   }  
-
-              cout << "hi3" << endl;
-
-
          // **********************************************
     }
 
