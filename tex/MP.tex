@@ -115,6 +115,9 @@ with increments $k_i$:
 \end{align*}
 All $k_i$ are of course also two component "vectors". 
 
+\subsubsection{Adaptive stepsize}
+In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If said change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ adjustion. If the check is successful, the program will accept the step result and proceed with the next one.
+
 \subsubsection{Implementation}
 
 In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
@@ -127,9 +130,9 @@ that way only x is reflecting the step count. x will therefore be in range zero 
 
 
 
-\section{Code development}
+\section{Basic algorithm}
 
-The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (a). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The process then starts over at a point near the given EOS and shifting stepwise from there.
+The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (a). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The process then starts over at a point near the given EOS and shifting stepwise from there (c).
 \begin{figure}
 	\centering
 	\includegraphics[width=1\textwidth]{graphs/eos_test}

@@ -3,5 +3,6 @@
 \contentsline {subsection}{\numberline {2.1}The Tolman-Oppenheimer-Volkoff equation}{3}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}Numerical solution}{3}{subsection.2.2}
 \contentsline {subsubsection}{\numberline {2.2.1}Method}{3}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}Implementation}{4}{subsubsection.2.2.2}
-\contentsline {section}{\numberline {3}Code development}{4}{section.3}
+\contentsline {subsubsection}{\numberline {2.2.2}Adaptive stepsize}{4}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Implementation}{4}{subsubsection.2.2.3}
+\contentsline {section}{\numberline {3}Basic algorithm}{4}{section.3}

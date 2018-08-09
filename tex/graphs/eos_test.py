@@ -4,18 +4,23 @@ import csv
 from numpy import *
 
 
-
 def eos(p):
     return np.power(p/10., 3./5.)
 
 def deriv(p):
     return 3./5. * np.power(10., -3./5.) * np.power(p, -2./5.)
 
+def cause(p):
+    return p
+
+
 p1 = np.arange(0., 1.*np.power(10., -5.), 0.0000001)
+p2 = np.arange(0., 2.*np.power(10., -5.), 0.0000001)
 
 
 plt.subplot(1,3,1)
 plt.plot(p1, eos(p1), label='given EOS')
+plt.plot(p2, cause(p2), 'r--')
 plt.ylabel('$\epsilon(p)$')
 plt.xlabel('$p$')
 plt.yticks([])
