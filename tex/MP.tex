@@ -10,6 +10,15 @@
 \usepackage[ansinew]{inputenc}
 \usepackage[left=2cm,top=1cm]{geometry}
 
+% vector graphics test
+\usepackage{color}
+\usepackage{transparent}
+\graphicspath{{graphs/}}
+
+
+
+
+
 \begin{document}
 	\pagestyle{empty}
 
@@ -106,12 +115,30 @@ with increments $k_i$:
 \end{align*}
 All $k_i$ are of course also two component "vectors". 
 
+\subsubsection{Adaptive stepsize}
+
+In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If said change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ adjustion. If the check is successful, the program will accept the step result and proceed with the next one. 
+
 \subsubsection{Implementation}
 
 In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
 N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; 
 that way only x is reflecting the step count. x will therefore be in range zero up to the number of iteration steps.
 
+
+
+
+
+
+
+\section{Basic algorithm}
+
+The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (a). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The process then starts over at a point near the given EOS and shifting stepwise from there (c).
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{graphs/eos_test}
+	\caption{a) Given polytropic equation of state, b) added a constructed straight line}
+\end{figure}
 
 
 
@@ -158,9 +185,9 @@ that way only x is reflecting the step count. x will therefore be in range zero 
 
 
 
-\begin{thebibliography}{2}
-\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
-\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
-\end{thebibliography}
+%\begin{thebibliography}{2}
+%\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
+%\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
+%\end{thebibliography}
 
 \end{document}
