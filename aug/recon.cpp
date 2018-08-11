@@ -152,7 +152,7 @@ int main(){
   p_rec = p_init + p_step;
   e_rec = eos(p_init, &zero);
 
-  double slope = 0.07, slope_step=.01;
+  double slope = 1.07, slope_step=.01;
   alpha[0] = p_init;   alpha[1] = eos(p_init, &zero);
   alpha[2] = 5*p_init; alpha[3] = e_rec+(alpha[2]-alpha[0])/slope;
 
@@ -185,7 +185,7 @@ int main(){
     double diff_s, diff0_s, alpha3_old;
 
 
-  while(slope < 1.0)
+  while(slope > 1.0)
   {
     alpha3_old = alpha[3];
     slope = (alpha[2]-alpha[0])/(alpha[3]-e_rec);
@@ -411,11 +411,11 @@ int main(){
 		  } 
 	      } //
    
-         }
+            }
 
          // **************************************
 
-     }   // Mass calculation loop ends here
+     }   // Mass calculation for-loop ends here
 
 
 
@@ -548,7 +548,7 @@ int main(){
 
 	   }  
          // **********************************************
-    }  // where does this belong to????
+    }  // PEND > PDUR while-loop ends here
 
 
 //***************************************************************new*********************
@@ -590,8 +590,8 @@ int main(){
  
  //***************************************************************end*********************
 
-  } // while loop for mass <= <value> ends here
- }
+   } // slope loop
+ } //mcount loop
 
 
   one_free(N, &y_tau);    
@@ -715,7 +715,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
     y_4[i1] = y_t[i1] + k3[i1];
 
   double k4[N];
-  f_times_tau(y_4, t + tau, k3, tau, alpha, state);
+  f_times_tau(y_4, t + tau, k4, tau, alpha, state);
 */
   // final
 

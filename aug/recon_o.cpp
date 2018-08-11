@@ -510,7 +510,8 @@ int main(){
 
 	   }  
          // **********************************************
-    }
+
+    }  // PEND > PDUR loop ends here
 
   } // while loop for mass <= <value> ends here
 
