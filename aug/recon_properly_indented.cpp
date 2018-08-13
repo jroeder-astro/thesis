@@ -24,9 +24,8 @@ double eos(double p, vector<double> *alpha) {
 double line(double p, vector<double> *alpha) {
   // alpha[i] = {a,b,c,d}
   return ((*alpha)[3] - (*alpha)[1]) / ((*alpha)[2] - (*alpha)[0]) * p +
-         (*alpha)[1] -
-         (*alpha)[0] * ((*alpha)[3] - (*alpha)[1]) /
-             ((*alpha)[2] - (*alpha)[0]);
+         (*alpha)[1] - (*alpha)[0] * ((*alpha)[3] - (*alpha)[1]) /
+         ((*alpha)[2] - (*alpha)[0]);
 }
 
 // *****************
@@ -264,14 +263,8 @@ int main() {
           if (crap > 0 && y[i1][0] <= p_dur && y[i1][0] > p_init) {
 
             /*log*/ cout << "[1.2] p - p_dur  = " << y[i1][0] - p_dur << endl;
-            /*log*/ // cout << "started part 1.2" << endl;
-            /*log*/ // cout << "             n  = " << n << endl;
-            /*log*/ // cout << "y[i1][0] - (p_dur - p_step * n) = "
-            /*log*/ //      <<  y[i1][0] - (p_dur - p_step * n)  << endl;
-
+              
             if (y[i1][0] > pao_storage[n][0]) {
-              // RK steps
-
               /*log*/ // cout << " p - p_dur  = "
               /*log*/ //      << y[i1][0] - p_dur << endl;
 
@@ -328,19 +321,14 @@ int main() {
           // PART II: Calculate the rest with known eos
 
           if (y[i1][0] <= p_init) {
-            // RK steps
-
-            /*log*/ // cout << "2 started\n";
-
             /*log*/ // cout << "[ 2 ] p - p_init = " << y[i1][0] - p_init <<
                     // endl;
-
             /*log*/ //   cout << "[ 2 ]         p  = " << y[i1][0] << endl;
 
             RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
-            //            printf("%d %f %f %f \n",i1,y[i1][0],y[i1][1],t[i1]);
+            // printf("%d %f %f %f \n",i1,y[i1][0],y[i1][1],t[i1]);
 
-            //	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))
+            // if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))
             if (fabs(y_tau[0] - y[i1][0]) <= pow(10., +4.))
             //                    again, sign change! ^^^
             {
@@ -380,7 +368,7 @@ int main() {
         // **********************************************
         // PART III: Checking if calculated mass is ok
 
-        //***************************************************************new*********************
+        // ************************************************new********************
 
         if (!flag) {
           diff0 = y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1];
@@ -406,13 +394,12 @@ int main() {
           continue;
         }
 
-        //***************************************************************end*********************
-
+        // ************************************************end********************
+/*
         // does this loop even do anything at this point?
-        if (fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1]) <
-                M_err                                      // mass check
-            && fabs(t[i1 - 1] - MR_rel[mcount][0]) < R_err // radius check
-            && (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) > 1) // slope check
+        if (fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1]) < M_err // mass
+            && fabs(t[i1 - 1] - MR_rel[mcount][0]) < R_err          // radius
+            && (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) > 1)   // slope
         {
 
           recon_storage.push_back(alpha); // storing line parameters
@@ -423,15 +410,14 @@ int main() {
           pao[1] = p_end;             // storing p_alpha and p_omega
           pao_storage.push_back(pao); // of the line needed for the mass
 
-          /*log*/ cout << "part three\n";
-          /*log*/ // cout << "n = " << n << ", " << "n_m = " << n_max << endl;
-          /*log*/ cout << "|M - M_dat| = "
-                       << fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1])
-                       << endl;
-          /*log*/ cout << "|R - R_dat| = "
-                       << fabs(t[i1 - 1] - MR_rel[mcount][0]) << endl;
-          /*log*/ cout << "   Slope =    "
-                       << (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) << endl;
+          //   cout << "  part three  " << endl;
+          //   cout << "|M - M_dat| = "
+          //        << fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1])
+          //        << endl;
+          //   cout << "|R - R_dat| = "
+          //        << fabs(t[i1 - 1] - MR_rel[mcount][0]) << endl;
+          //   cout << "   Slope =    "
+          //        << (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) << endl;
 
           p_dur = p_end;
           alpha[0] = p_end;
@@ -448,33 +434,24 @@ int main() {
           // continue;
 
           p_end = 5 * p_dur;
-          /*log*/ // cout << "n = " << n << ", " << "n_m = " << n_max << endl;
+          // cout << "n = " << n << ", " << "n_m = " << n_max << endl;
 
           tau = 0.01;
         }
 
         else if (p_end <= 5 * p_dur) // cutoff for p_end is 5*p_d0r
         {
-          /*log*/ cout << "part three (else if)\n";
-          /*log*/ // cout << " y[i1-1][1] = " << y[i1-1][1]/1.4766 << endl;
-          /*log*/ // cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
-          /*log*/ // cout << "     i1 =     " << i1 << endl;
-          /*log*/ // cout << "      l =     " << l << endl;
-          /*log*/ // cout << " y[i1+1][1] = " << y[i1+1][1]/1.4766 << endl;
-          /*log*/ // cout << " y[i1][1]   = " << y[i1][1]/1.4766 << endl;
-          /*log*/ // cout << " MR[mcount] = " << MR_rel[mcount][1] << endl;
-          /*log*/ cout << "|M - M_dat| = "
-                       /*log*/
-                       << fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1])
-                       << endl;
-          /*log*/ cout << "|R - R_dat| = "
-                       /*log*/
-                       << fabs(t[i1 - 1] - MR_rel[mcount][0]) << endl;
-          /*log*/ // cout << " alpha[3]_b = "<< alpha[3] << endl;
-          /*log*/ // cout << " alpha[3]_l = "<< alpha[3] << endl;
-          /*log*/ // cout << "n = " << n << ", " << "n_m = " << n_max << endl;
-          /*log*/ cout << "   Slope =    "
-                       << (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) << endl;
+          // cout << "part three (else if)\n";
+          // cout << "|M - M_dat| = "
+          //      << fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1])
+          //      << endl;
+          // cout << "|R - R_dat| = "
+          //      << fabs(t[i1 - 1] - MR_rel[mcount][0]) << endl;
+          // cout << " alpha[3]_b = "<< alpha[3] << endl;
+          // cout << " alpha[3]_l = "<< alpha[3] << endl;
+          // cout << "n = " << n << ", " << "n_m = " << n_max << endl;
+          // cout << "   Slope =    "
+          //      << (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) << endl;
 
           l++;
           i1 = 0;
@@ -482,35 +459,28 @@ int main() {
         }
 
         else {
-          /*log*/ cout << "part three (else)\n";
-          /*log*/ // cout << "     i1 =     " << i1 << endl;
-          /*log*/ // cout << "      l =     " << l << endl;
-          /*log*/ cout << "|M - M_dat| = "
-                       /*log*/
-                       << fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1])
-                       << endl;
-          /*log*/ cout << "|R - R_dat| = "
-                       /*log*/
-                       << fabs(t[i1 - 1] - MR_rel[mcount][0]) << endl;
-          /*log*/ // cout << " alpha[3]_b = " << alpha[3] << endl;
-          /*log*/ cout << "   Slope =  line  "
-                       << (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) << endl;
+          // cout << "|M - M_dat| = "
+          //      << fabs(y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1])
+          //      << endl;
+          // cout << "|R - R_dat| = "
+          //      << fabs(t[i1 - 1] - MR_rel[mcount][0]) << endl;
+          // cout << " alpha[3]_b = " << alpha[3] << endl;
+          // cout << "   Slope =  line  "
+          //      << (alpha[3] - alpha[1]) / (alpha[2] - alpha[0]) << endl;
 
           alpha[3] += pow(10, -6);
           l = 1;
           p_end = 5 * p_dur;
 
-          /*log*/ // cout << " alpha[3]_l = "<< alpha[3] << endl;
+          // cout << " alpha[3]_l = "<< alpha[3] << endl;
 
           i1 = 0;
           n = 0;
-
-          /*log*/ // cout << "n = " << n << ", " << "n_m = " << n_max << endl;
         }
-        // **********************************************
-      } // where does this belong to????
+*/
+      } // end of p_end <= x * p_dur loop 
 
-      //***************************************************************new*********************
+      // *************************************************new********************
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
@@ -545,10 +515,10 @@ int main() {
 
       alpha[3] = alpha3_old;
 
-      //***************************************************************end*********************
+      // *************************************************end********************
 
-    } // while loop for mass <= <value> ends here
-  }
+    } // end of slope loop
+  } // end of mcount loop
 
   one_free(N, &y_tau);
 

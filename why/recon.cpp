@@ -75,8 +75,8 @@ int main(){
   double P = 0.0;
   double p_rec = 0.0;
   double e_rec = 0.0;
-  double M_err = 0.006;     // 0.006 solar mass tolerance
-  double R_err = 0.1;       // 100m radius tolerance
+  double M_err = 0.34;     // 0.006 solar mass tolerance
+  double R_err = 3.01;       // 100m radius tolerance
   double p_step = 0.00001;  // arbitrary step
   int n = 0;
   double tau = 0.01;
@@ -110,14 +110,16 @@ int main(){
   vector<double> pao(2);
   vector<vector<double>> pao_storage;
 
-
+  vector<vector<double>> EOS_out;
+  vector<double> ep(2);
+ 
   // ****************************************
 
   // Read MR input file 
 
   double M = 0.0, R = 0.0;
 
-  FILE *TOV = fopen("MR.dat", "r");
+  FILE *TOV = fopen("MRn.dat", "r");
   if (TOV == NULL) exit(0);
   int mcount = 0;
 
@@ -173,9 +175,9 @@ int main(){
 
         int crap = 0;
 
+  double A, B;
 
-
-  while(mcount < 5)
+  while(mcount < 15)
   {
      /*log*/// cout << mcount << "  " << "next round\n";
      /*log*/// cout << "  p_dur  = " << p_dur << endl;
@@ -281,7 +283,7 @@ int main(){
       if(    crap > 0 &&     y[i1][0] <= p_dur && y[i1][0] > p_init) 
       {
         
-        /*log*/ cout << "[1.2] p - p_dur  = " << y[i1][0] - p_dur << endl;
+        /*log*/// cout << "[1.2] p - p_dur  = " << y[i1][0] - p_dur << endl;
         /*log*/// cout << "started part 1.2" << endl;
         /*log*/// cout << "             n  = " << n << endl;
         /*log*/// cout << "y[i1][0] - (p_dur - p_step * n) = " 
@@ -302,7 +304,7 @@ int main(){
  
              // Again, upper bound stepsize check
  
-              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
+              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., +4.))	
 	      {
 		  // Accepting the step
 
@@ -365,7 +367,7 @@ int main(){
               /*log*///   cout << "[ 2 ]         p  = " << y[i1][0] << endl;
  
 
-              RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
+              RK_step(y[i1], t[i1], y_tau, tau, &zero, eos);
   
 	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
 	      {
@@ -415,7 +417,7 @@ int main(){
 
 	   if (fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) < M_err  // mass check
                && fabs(t[i1-1]-MR_rel[mcount][0]) < R_err           // radius check
-               && (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) > 1)      // slope check
+               && (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) > 1.01)   // slope check
            {
 
               recon_storage.push_back(alpha);      // storing line parameters
@@ -433,13 +435,25 @@ int main(){
 	      }
               */
 
-              /*log*/ cout << "part three\n";              
+              /*log*/ cout << "part three  \n";              
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
               /*log*/ cout << "|M - M_dat| = " 
-              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;
+              /*log*/ cout << "       Mass = " << y[i1-1][1] << endl;
+              /*log*/ cout << " Solar Mass = " << y[i1-1][1]/1.4766 << endl;
+              /*log*/ cout << " Input Mass = " << MR_rel[mcount][1] << endl;
+  
               /*log*/ cout << "|R - R_dat| = " 
               /*log*/      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
               /*log*/ cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+             
+
+	      A = p_end;                   
+	      B = line(p_end, &alpha);
+	      cout << " P = " << A << endl;
+              cout << " E = " << B << endl;
+              //EOS_out.push_back(ep);
+	      //cout << EOS_out[i1][0] << "," << EOS_out[i1][1] << endl;
 
               p_dur = p_end;
               alpha[0] = p_end; alpha[1] = alpha[3];
@@ -532,8 +546,8 @@ int main(){
 
   cout << "woop reached output section\n";
 
-  vector<vector<double>> EOS_out;
-  vector<double> ep;
+//  vector<vector<double>> EOS_out;
+//  vector<double> ep;
   ep.push_back(0); ep.push_back(0);
 
   double DPx = p_init/100;
@@ -609,7 +623,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
   f_times_tau(y_t, t, k1, tau, alpha, state);
 
   // k2 = f(y(t)+(1/2)*k1 , t+(1/2)*tau) * tau.
-
+/*
   double y_2[N];
 
   for(i1 = 0; i1 < N; i1++)
@@ -617,7 +631,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
 
   double k2[N];
   f_times_tau(y_2, t + 0.5*tau, k2, tau, alpha, state);
-  
+
   // k3
 
   double y_3[N];
@@ -636,13 +650,14 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
     y_4[i1] = y_t[i1] + k3[i1];
 
   double k4[N];
-  f_times_tau(y_4, t + tau, k3, tau, alpha, state);
-
+  f_times_tau(y_4, t + tau, k4, tau, alpha, state);
+*/
   // final
 
   for(i1 = 0; i1 < N; i1++){
-       y_t_plus_tau[i1] = y_t[i1] + 1./6. * 
-       (k1[i1] + 2.*k2[i1] + 2.*k3[i1] + k4[i1]);
+    y_t_plus_tau[i1] = y_t[i1] + k1[i1]; 
+    // y_t_plus_tau[i1] = y_t[i1] + 1./6. * 
+    // (k1[i1] + 2.*k2[i1] + 2.*k3[i1] + k4[i1]);
   }
 }
 

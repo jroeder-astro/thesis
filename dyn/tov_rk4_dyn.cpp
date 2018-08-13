@@ -97,7 +97,8 @@ void RK_step(double *y_t, double t,
   double y_3[N];
  
   for(i1 = 0; i1 < N; i1++)
-    y_3[i1] = y_t[i1] + 0.25*(k2[i1]+k1[i1]);
+     y_3[i1] = y_t[i1] + 0.5*k2[i1];  
+  // y_3[i1] = y_t[i1] + 0.25*(k2[i1]+k1[i1]);
 
   double k3[N];
   f_times_tau(y_3, t + 0.5*tau, k3, tau);
