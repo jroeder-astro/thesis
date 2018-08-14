@@ -135,7 +135,7 @@ int main(){
 
   for (i2 = 0; i2 <= MR_rel.size(); i2++) 
   {
-     if (MR_rel[i2][1] >= 1.28) break;
+     if (MR_rel[i2][1] >= 1) break;
      mcount++;
   }
 
@@ -458,7 +458,7 @@ int main(){
               p_dur = p_end;
               alpha[0] = p_end; alpha[1] = alpha[3];
               p_rec += p_step;
-              alpha[2] = p_rec;
+              alpha[2] = p_end + p_step;   // modified
 
               mcount++;
               p_dur += p_step;
@@ -476,7 +476,7 @@ int main(){
 
            else if (p_end <= 5*p_dur) // cutoff for p_end is 5*p_d0r
 	   {
-              /*log*/ cout << "part three (else if)\n";
+              /*log*/// cout << "part three (else if)\n";
               /*log*/// cout << " y[i1-1][1] = " << y[i1-1][1]/1.4766 << endl;
               /*log*/// cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
               /*log*/// cout << "     i1 =     " << i1 << endl;
@@ -484,14 +484,14 @@ int main(){
               /*log*/// cout << " y[i1+1][1] = " << y[i1+1][1]/1.4766 << endl;
               /*log*/// cout << " y[i1][1]   = " << y[i1][1]/1.4766 << endl;
               /*log*/// cout << " MR[mcount] = " << MR_rel[mcount][1] << endl;
-              /*log*/ cout << "|M - M_dat| = " 
-              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
-              /*log*/ cout << "|R - R_dat| = " 
-              /*log*/      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
+              /*log*/// cout << "|M - M_dat| = " 
+              /*log*///      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+              /*log*/// cout << "|R - R_dat| = " 
+              /*log*///      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
               /*log*/// cout << " alpha[3]_b = "<< alpha[3] << endl;              
               /*log*/// cout << " alpha[3]_l = "<< alpha[3] << endl;    
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
-	      /*log*/ cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+	      /*log*/// cout << " elif Slope = "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
 
         
               l++;
@@ -501,15 +501,15 @@ int main(){
  
            else 
 	   {
-              /*log*/ cout << "part three (else)\n";      
+              /*log*/// cout << "part three (else)\n";      
               /*log*/// cout << "     i1 =     " << i1 << endl;
               /*log*/// cout << "      l =     " << l << endl;
-              /*log*/ cout << "|M - M_dat| = " 
-              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
-              /*log*/ cout << "|R - R_dat| = " 
-              /*log*/      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl; 
+              /*log*/// cout << "|M - M_dat| = " 
+              /*log*///      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;  
+              /*log*/// cout << "|R - R_dat| = " 
+              /*log*///     << fabs(t[i1-1] - MR_rel[mcount][0]) << endl; 
               /*log*/// cout << " alpha[3]_b = " << alpha[3] << endl;              
-              /*log*/ cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+              /*log*/   cout << " else Slope = "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
 
               alpha[3] += pow(10, -6);
               l = 1;

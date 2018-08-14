@@ -185,6 +185,9 @@ int main() {
 
   bool end = false;
 
+  vector<double> p_temp;
+  vector<double> e_temp;
+
   vector<vector<double>> EOS_out;
   vector<double> ep(2);
 
@@ -269,14 +272,6 @@ int main() {
 
           // ****************************************************
           // PART I.2: Have fun with previous lines
-
-          /*log*/ // cout << " y[i1-1][0] = " << y[i1-1][0] << endl;
-          /*log*/ // cout << " y[i1][0]   = " << y[i1][0] << endl;
-          /*log*/ // cout << "    p_dur   = " << p_dur << endl;
-          /*log*/ // cout << "   p_init   = " << p_init << endl;
-          /*log*/ // cout << "p_dur - y[i1][0]  = " << p_dur - y[i1][0] << endl;
-          /*log*/ // cout << "y[i1][0] - p_init = " << y[i1][0] - p_init <<
-                  // endl;
 
           if (crap > 0 && y[i1][0] <= p_dur && y[i1][0] > p_init) {
 
@@ -479,7 +474,6 @@ int main() {
       // what exactly is this for?
       if (diff0_s * diff_s > 0) {  
         cout << "diff0_s * diff_s > 0" << endl;
-        end = true;
         continue;
       }
 
@@ -513,10 +507,13 @@ int main() {
     // n = 0;
     //mcount++; 
 
+    p_temp.push_back(p_end); 
+    e_temp.push_back(line(y[i1-1][0], &alpha));
+    cout << "p: " << p_end << " " << "e: " << line(y[i1-1][0], &alpha) << endl;
 
-    if (end = true) {
-      cout << "p: " << p_end << " " << "e: " << line(y[i1-1][0], &alpha) << endl;
-      // mcount++;
+    if (p_temp[p_temp.size()-2] == p_temp[p_temp.size()-1] && e_temp[e_temp.size()-2] == e_temp[e_temp.size()-1]) {
+      cout << "p! " << p_end << " " << "e! " << line(y[i1-1][0], &alpha) << endl;
+      mcount++;
       end = false;
     }
 
