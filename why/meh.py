@@ -3,15 +3,18 @@ import numpy as np
 import csv
 from numpy import *
 
-#x1 = []
-#y1 = []
+x1 = []
+y1 = []
 #x2 = []
 #y2 = []
 
 def eos(p):
     return np.power(p/10., 3./5.)
 
-p1 = np.arange(0., 0.00012, 0.0000001)
+def line(p):
+    return m*p+b;
+
+p1 = np.arange(0., 0.0004, 0.0000001)
 
 plt.plot(p1, eos(p1))
 
@@ -28,6 +31,11 @@ m = [2.1*K, 3.2*K, 4.3*K, 5.4*K, 0.000321]
 n = [0.000381743, 0.000473831, 0.000484831, 0.000495831, 0.00244383]
 plt.plot(m,n,'g--')
 
+## well then ##
+
+#p = [3.1*K, 4.2*K, 5.3*K, 6.4*K, ]
+#q = []
+#plt.plot(p,q,'gr--')
 
 
 
@@ -52,11 +60,14 @@ plt.plot(m,n,'g--')
 
 
 
-#with open('output.dat', 'r') as csvfile:
-#    plots = csv.reader(csvfile, delimiter=',')
-#    for row in plots:
-#        x1.append(float(row[0]))
-#        y1.append(float(row[1]))
+with open('log', 'r') as csvfile:
+    plots = csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        x1.append(float(row[0]))
+        y1.append(float(row[1]))
+
+plt.plot(x1,y1,'c--')
+
 
 #with open('RK4th.dat', 'r') as csvfile:
 #    plots = csv.reader(csvfile, delimiter=' ')

@@ -119,7 +119,7 @@ int main(){
 
   double M = 0.0, R = 0.0;
 
-  FILE *TOV = fopen("MRn.dat", "r");
+  FILE *TOV = fopen("MR.dat", "r");
   if (TOV == NULL) exit(0);
   int mcount = 0;
 
@@ -135,7 +135,7 @@ int main(){
 
   for (i2 = 0; i2 <= MR_rel.size(); i2++) 
   {
-     if (MR_rel[i2][1] >= 1) break;
+     if (MR_rel[i2][1] >= 1.28) break;
      mcount++;
   }
 
@@ -177,7 +177,7 @@ int main(){
 
   double A, B;
 
-  while(mcount < 15)
+  while(mcount < 25)
   {
      /*log*/// cout << mcount << "  " << "next round\n";
      /*log*/// cout << "  p_dur  = " << p_dur << endl;
@@ -227,7 +227,7 @@ int main(){
 
               /*log*/// cout << "|p - p_cal| = " << fabs(y_tau[0]-y[i1][0]) << endl;
  
-	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
+	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10.,4.))	
 	      {
 		  // Accepting the step
 
@@ -304,7 +304,7 @@ int main(){
  
              // Again, upper bound stepsize check
  
-              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., +4.))	
+              if( fabs(y_tau[0]-y[i1][0]) <= pow(10., 4.))	
 	      {
 		  // Accepting the step
 
@@ -369,7 +369,7 @@ int main(){
 
               RK_step(y[i1], t[i1], y_tau, tau, &zero, eos);
   
-	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))	
+	      if( fabs(y_tau[0]-y[i1][0]) <= pow(10.,4.))	
 	      {
 		  // Accepting the step
 
@@ -417,7 +417,7 @@ int main(){
 
 	   if (fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) < M_err  // mass check
                && fabs(t[i1-1]-MR_rel[mcount][0]) < R_err           // radius check
-               && (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) > 1.01)   // slope check
+               && (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) > 1.6)   // slope check
            {
 
               recon_storage.push_back(alpha);      // storing line parameters
@@ -435,23 +435,23 @@ int main(){
 	      }
               */
 
-              /*log*/ cout << "part three  \n";              
+              /*log*/// cout << "part three  \n";              
               /*log*/// cout << "n = " << n << ", " << "n_m = " << n_max << endl;
-              /*log*/ cout << "|M - M_dat| = " 
-              /*log*/      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;
-              /*log*/ cout << "       Mass = " << y[i1-1][1] << endl;
-              /*log*/ cout << " Solar Mass = " << y[i1-1][1]/1.4766 << endl;
-              /*log*/ cout << " Input Mass = " << MR_rel[mcount][1] << endl;
+              /*log*/// cout << "|M - M_dat| = " 
+              /*log*///      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;
+              /*log*/// cout << "       Mass = " << y[i1-1][1] << endl;
+              /*log*/// cout << " Solar Mass = " << y[i1-1][1]/1.4766 << endl;
+              /*log*/// cout << " Input Mass = " << MR_rel[mcount][1] << endl;
   
-              /*log*/ cout << "|R - R_dat| = " 
-              /*log*/      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
-              /*log*/ cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+              /*log*/// cout << "|R - R_dat| = " 
+              /*log*///      << fabs(t[i1-1] - MR_rel[mcount][0]) << endl;  
+              /*log*/// cout << "   Slope =    "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
              
 
 	      A = p_end;                   
 	      B = line(p_end, &alpha);
-	      cout << " P = " << A << endl;
-              cout << " E = " << B << endl;
+	      cout << A << "," << B << "," << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+              //cout << " E = " << B << endl;
               //EOS_out.push_back(ep);
 	      //cout << EOS_out[i1][0] << "," << EOS_out[i1][1] << endl;
 
@@ -474,7 +474,7 @@ int main(){
               tau = 0.01;
            }
 
-           else if (p_end <= 5*p_dur) // cutoff for p_end is 5*p_d0r
+           else if (p_end <= 1.5*p_dur) // cutoff for p_end is 5*p_d0r
 	   {
               /*log*/// cout << "part three (else if)\n";
               /*log*/// cout << " y[i1-1][1] = " << y[i1-1][1]/1.4766 << endl;
@@ -509,7 +509,7 @@ int main(){
               /*log*/// cout << "|R - R_dat| = " 
               /*log*///     << fabs(t[i1-1] - MR_rel[mcount][0]) << endl; 
               /*log*/// cout << " alpha[3]_b = " << alpha[3] << endl;              
-              /*log*/   cout << " else Slope = "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+              /*log*/// cout << " else Slope = "<<(alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
 
               alpha[3] += pow(10, -6);
               l = 1;
@@ -655,9 +655,9 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau,
   // final
 
   for(i1 = 0; i1 < N; i1++){
-    y_t_plus_tau[i1] = y_t[i1] + k1[i1]; 
-    // y_t_plus_tau[i1] = y_t[i1] + 1./6. * 
-    // (k1[i1] + 2.*k2[i1] + 2.*k3[i1] + k4[i1]);
+     y_t_plus_tau[i1] = y_t[i1] + k1[i1]; 
+     // y_t_plus_tau[i1] = y_t[i1] + 1./6. * 
+     // (k1[i1] + 2.*k2[i1] + 2.*k3[i1] + k4[i1]);
   }
 }
 

@@ -32,7 +32,7 @@ double line(double p, vector<double> *alpha) {
 // * RK parameters *
 // *****************
 
-const int num_steps_max = 100000; // Max. RK step
+const int num_steps_max = 1000000; // Max. RK step
 // double tau = 0.01;               // Initial stepsize
 
 // Calculates f(y(t),t) * tau
@@ -183,7 +183,7 @@ int main() {
   
   double pstep = 1e-6;
 
-  bool end = false;
+  bool loop = false;
 
   vector<double> p_temp;
   vector<double> e_temp;
@@ -198,9 +198,11 @@ int main() {
     flag_s = false;
 
     while (slope < 1.0) {
-      alpha3_old = alpha[3];
-      slope = (alpha[2] - alpha[0]) / (alpha[3] - e_rec);
-      alpha[3] = e_rec + (alpha[2] - alpha[0]) / (slope + slope_step);
+      //if (!loop) {
+        alpha3_old = alpha[3];
+        slope = (alpha[2] - alpha[0]) / (alpha[3] - e_rec);
+        alpha[3] = e_rec + (alpha[2] - alpha[0]) / (slope + slope_step);
+      //}
 
       flag = false;
       pstep = 1e-6;
@@ -238,7 +240,7 @@ int main() {
             /*log*/ // cout << "|p - p_cal| = " << fabs(y_tau[0]-y[i1][0]) <<
                     // endl;
 
-            //     if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))
+            // if (fabs(y_tau[0] - y[i1][0]) <= pow(10., -4.))
             if (fabs(y_tau[0] - y[i1][0]) <= pow(10., +4.))
             //                murdered the adaptivity ^^^
             {
@@ -288,7 +290,7 @@ int main() {
 
               // Again, upper bound stepsize check
 
-              // if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))
+              // if (fabs(y_tau[0] - y[i1][0]) <= pow(10., -4.))
               if (fabs(y_tau[0] - y[i1][0]) <= pow(10., +4.))
               //           shut down the adaptive steps ^^^
               {
@@ -341,7 +343,7 @@ int main() {
             RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
             // printf("%d %f %f %f \n",i1,y[i1][0],y[i1][1],t[i1]);
 
-            // if( fabs(y_tau[0]-y[i1][0]) <= pow(10., -4.))
+            // if (fabs(y_tau[0] - y[i1][0]) <= pow(10., -4.))
             if (fabs(y_tau[0] - y[i1][0]) <= pow(10., +4.))
             //                    again, sign change! ^^^
             {
@@ -385,27 +387,28 @@ int main() {
 
         if (!flag) {
           diff0 = y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1];
+          printf("diff0 mass %g %g\n", pstep, diff0);
           flag = true;
           continue;
         }
 
         else {
           diff = y[i1 - 1][1] / 1.4766 - MR_rel[mcount][1];
-          printf("diff mass %g %g\n", pstep, diff);
+          printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
 
           if (diff * diff0 > 0) {
-            cout << "diff * diff0 > 0" << endl;
+            cout << diff * diff0 << endl;
             continue;
           }
 
-          pstep /= 10.0;
+          pstep /= 10.0;         cout << "ddd" << endl;
 
           if (pstep < 1e-9) {
             cout << "pstep < x breaking condition" << endl;
             break;
           }
 
-          p_end -= 10.0 * pstep;
+          p_end -= 10.0 * pstep;  cout << "eee" << endl;
           continue;
         }
 
@@ -492,29 +495,36 @@ int main() {
  
     // this is where saving of point takes place
 
-    // pao[0] = p_dur;
-    // pao[1] = p_end;             // storing p_alpha and p_omega
-    // pao_storage.push_back(pao); // of the line needed for the mass
-    
-    //p_dur = p_end;
-    //alpha[0] = p_end;
-    //alpha[1] = alpha[3];
-    
-    // p_rec += p_step;
-    
-    //alpha[2] += p_rec;
-
-    // n = 0;
-    //mcount++; 
-
     p_temp.push_back(p_end); 
     e_temp.push_back(line(y[i1-1][0], &alpha));
     cout << "p: " << p_end << " " << "e: " << line(y[i1-1][0], &alpha) << endl;
 
-    if (p_temp[p_temp.size()-2] == p_temp[p_temp.size()-1] && e_temp[e_temp.size()-2] == e_temp[e_temp.size()-1]) {
+    if (p_temp[p_temp.size()-2] == p_temp[p_temp.size()-1] && 
+        e_temp[e_temp.size()-2] == e_temp[e_temp.size()-1]) {
+     
       cout << "p! " << p_end << " " << "e! " << line(y[i1-1][0], &alpha) << endl;
+
+      pao[0] = p_dur;
+      pao[1] = p_end;             // storing p_alpha and p_omega
+      pao_storage.push_back(pao); // of the line needed for the mass
+    
+      e_rec = line(p_end, &alpha);
+      p_dur = p_end;
+
+      slope = 0.07; slope_step = 0.01;
+
+      alpha[0] = p_end;
+      alpha[1] = alpha[3];
+      alpha[2] = 5*alpha[0];
+      // alpha[3] = e_rec + (alpha[2] - alpha[0]) / slope;
+
+      p_rec += p_step;
+      p_end += 5*p_step;     
+      n = 0;
       mcount++;
-      end = false;
+      flag_s = false;
+      flag = false;
+      loop = true;
     }
 
 
@@ -592,7 +602,7 @@ int main() {
 // RK4 function
 
 void RK_step(double *y_t, double t, double *y_t_plus_tau, double tau,
-             vector<double> *alpha, double (*state)(double, vector<double> *)) {
+             vector<double> *alpha, double(*state)(double, vector<double> *)) {
   int i1;
 
   // Calculate k1 = f(y(t),t) * tau.
@@ -644,7 +654,7 @@ void RK_step(double *y_t, double t, double *y_t_plus_tau, double tau,
 
 void f_times_tau(double *y_t, double t, double *f_times_tau_, double tau,
                  vector<double> *alpha,
-                 double (*state)(double, vector<double> *)) {
+                 double(*state)(double, vector<double> *)) {
   if (N != 2) {
     fprintf(stderr, "Error: N != 2!\n");
     exit(EXIT_FAILURE);
