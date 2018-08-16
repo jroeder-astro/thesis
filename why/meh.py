@@ -5,16 +5,26 @@ from numpy import *
 
 x1 = []
 y1 = []
+<<<<<<< HEAD
 x2 = []
 y2 = []
 x3 = []
 y3 = []
+=======
+#x2 = []
+#y2 = []
+>>>>>>> 226f81eceedb97273e306e32a84fd58efc62e375
 
 def eos(p):
     return np.power(p/10., 3./5.)
 
 def line(p):
     return m*p+b;
+<<<<<<< HEAD
+=======
+
+p1 = np.arange(0., 0.0004, 0.0000001)
+>>>>>>> 226f81eceedb97273e306e32a84fd58efc62e375
 
 p1 = np.arange(0., 0.0004, 0.0000001)
 
@@ -35,6 +45,11 @@ K = np.power(10., -5.)
 
 ## well then ##
 
+<<<<<<< HEAD
+=======
+## well then ##
+
+>>>>>>> 226f81eceedb97273e306e32a84fd58efc62e375
 #p = [3.1*K, 4.2*K, 5.3*K, 6.4*K, ]
 #q = []
 #plt.plot(p,q,'gr--')
@@ -62,12 +77,17 @@ K = np.power(10., -5.)
 
 
 
+<<<<<<< HEAD
 with open('MR.dat', 'r') as csvfile:
+=======
+with open('log', 'r') as csvfile:
+>>>>>>> 226f81eceedb97273e306e32a84fd58efc62e375
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x1.append(float(row[0]))
         y1.append(float(row[1]))
 
+<<<<<<< HEAD
 plt.plot(x1,y1,'r', label='MR.dat')
 
 with open('mrcurve', 'r') as csvfile:
@@ -92,6 +112,10 @@ plt.plot(x3,y3,'b', label='mr_rel_rk4')
 
 
 plt.plot([3.8538*K],[0.000455623],'ro')
+=======
+plt.plot(x1,y1,'c--')
+
+>>>>>>> 226f81eceedb97273e306e32a84fd58efc62e375
 
 #with open('RK4th.dat', 'r') as csvfile:
 #    plots = csv.reader(csvfile, delimiter=' ')
