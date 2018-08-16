@@ -226,7 +226,7 @@ main(){
     } // end slope loop
 
   cout << "Radius: " << MR_rel[mcount][0] << " , " << t[i1-1] << endl;
-  cout << "Mass:   " << MR_rel[mcount][1] << " , " << y[i1-1][1] << endl;
+  cout << "Mass:   " << MR_rel[mcount][1] << " , " << y[i1-1][1]/1.4766 << endl;
 
   } // end mcount loop
  

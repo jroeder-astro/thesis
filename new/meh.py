@@ -14,6 +14,8 @@ with open('mr.out', 'r') as csvfile:
 
 plt.plot(x1, y1, label='Euler')
 
+plt.plot([15.5],[1.0005], 'ro', label='Stefan')
+plt.plot([15.62],[0.993025], 'go', label='Jan')
 #with open('RK4th.dat', 'r') as csvfile:
 #    plots = csv.reader(csvfile, delimiter=' ')
 #    for row in plots:
