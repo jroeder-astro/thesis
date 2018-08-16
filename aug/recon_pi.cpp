@@ -110,7 +110,7 @@ int main() {
 
   double M = 0.0, R = 0.0;
 
-  FILE *TOV = fopen("MR.dat", "r");
+  FILE *TOV = fopen("Mr2.dat", "r");
   if (TOV == NULL)
     exit(0);
   int mcount = 0;
@@ -135,7 +135,7 @@ int main() {
 
   // ***************************************
 
-  double p_init = 0.00002 + mcount * 0.00001;
+  double p_init = 0.00001 + mcount * 0.00001;
   double y_0[N];
   double p_dur = p_init;
 

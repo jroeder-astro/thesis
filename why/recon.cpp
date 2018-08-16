@@ -440,6 +440,7 @@ int main(){
               /*log*/// cout << "|M - M_dat| = " 
               /*log*///      << fabs(y[i1-1][1]/1.4766 - MR_rel[mcount][1]) << endl;
               /*log*/// cout << "       Mass = " << y[i1-1][1] << endl;
+   
               /*log*/// cout << " Solar Mass = " << y[i1-1][1]/1.4766 << endl;
               /*log*/// cout << " Input Mass = " << MR_rel[mcount][1] << endl;
   
@@ -450,13 +451,22 @@ int main(){
 
 	      A = p_end;                   
 	      B = line(p_end, &alpha);
-	      cout << A << "," << B << "," << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+
+
+              cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
+
+
+	      //cout << A << "," << B << "," << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) << endl;
+              //cout << alpha[0] << "," << alpha[1] << endl;
+              //cout << alpha[2] << "," << alpha[3] << endl;
+
               //cout << " E = " << B << endl;
               //EOS_out.push_back(ep);
 	      //cout << EOS_out[i1][0] << "," << EOS_out[i1][1] << endl;
 
               p_dur = p_end;
-              alpha[0] = p_end; alpha[1] = alpha[3];
+              alpha[0] = p_end; alpha[1] = B;
+              alpha[3] = alpha[1];
               p_rec += p_step;
               alpha[2] = p_end + p_step;   // modified
 

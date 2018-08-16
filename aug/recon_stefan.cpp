@@ -224,7 +224,7 @@ int main(){
               /*log*/// cout << " alpha[3] = " << alpha[3] << endl;
               /*log*/// cout << "[1.1] p - p_dur  = " << y[i1][0] - p_dur << endl;
  
-	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, line);
+	      RK_step(y[i1], t[i1], y_tau, tau, &alpha, eos);
               //     printf("%d %f %f %f \n",i1,y[i1][0],y[i1][1],t[i1]);
 
               /*log*/// cout << "|p - p_cal| = " << fabs(y_tau[0]-y[i1][0]) << endl;
@@ -301,7 +301,7 @@ int main(){
              /*log*///      << y[i1][0] - p_dur << endl;
 
   	     RK_step(y[i1], t[i1], y_tau, tau, 
-                     &recon_storage[n], line);
+                     &recon_storage[n], eos);
             
              /*log*/// cout << "|p - p_cal| = " 
              /*log*///      << fabs(y_tau[0]-y[i1][0]) << endl;
