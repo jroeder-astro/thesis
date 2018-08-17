@@ -65,11 +65,6 @@ main(){
   double e_rec;
   double pstep;
 
-  vector<double> store;
-  vector<double> pao_store;
-  vector<vector<double>> reconstruction;
-  bool   one     = true;
-  int    n       = 0;
 
   // File I/O
  
@@ -105,7 +100,7 @@ main(){
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 
-  while (mcount < 20) {
+  while (mcount < 8) {
     flag_s = false;
     
     while (slope < 1.0) {
@@ -136,12 +131,7 @@ main(){
 
                    //  vvv  to be modified    
           if (y[i1][0] > p_dur) {
-            if (!one) {
-	      tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
-            }
-            else {
-              tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
-            }
+	    tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
 
 	    for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
@@ -150,21 +140,15 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
 
-          if (reconstruction.size() > 0 && y[i1][0] <= p_dur && y[i1][0] > p_init) {
-            if (y[i1][0] > pao_store[n]) {
-              tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
+          if (y[i1][0] <= p_dur && y[i1][0] > p_init) {
+                 //               tbm           vvvvvvvvvvv 
+	    tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
 
-	      for (i2 = 0; i2 < N; i2++) {
-	        y[i1+1][i2] = y_tau[i2];
- 	      } 
+	    for (i2 = 0; i2 < N; i2++) {
+	      y[i1+1][i2] = y_tau[i2];
+ 	    } 
 
-	      t[i1+1] = t[i1] + tau;
-            }
-
-            else if (n < pao_store.size()) {
-              n++;
-              i1--;
-            }
+	    t[i1+1] = t[i1] + tau;
           }
 
           if (y[i1][0] <= p_init) {
@@ -181,14 +165,14 @@ main(){
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          //printf("diff0 mass %g %g\n", pstep, diff0);
+          printf("diff0 mass %g %g\n", pstep, diff0);
           flag = true;
           continue;
         }
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          //printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
+          printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
 
           if (diff * diff0 > 0) {
             // cout << diff * diff0 << endl;
@@ -198,7 +182,7 @@ main(){
           pstep /= 10.0;
 
           if (pstep < 1e-9) {
-            //cout << "pstep < x breaking condition" << endl;
+            cout << "pstep < x breaking condition" << endl;
             break;
           }
 
@@ -210,30 +194,30 @@ main(){
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-        //       MR_rel[mcount][0]);
+        printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+               MR_rel[mcount][0]);
         flag_s = true;
         continue;
       }
 
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
-      //printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-      //       MR_rel[mcount][0]);
+      printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+             MR_rel[mcount][0]);
 
       if (fabs(diff_s) < 0.005) {
-        //cout << "fabs(diff_s) break condition" << endl;
+        cout << "fabs(diff_s) break condition" << endl;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
-        //cout << "diff0_s * diff_s > 0" << endl;
+        cout << "diff0_s * diff_s > 0" << endl;
         continue;
       }
 
       slope_step /= 10;
 
       if (slope_step < 1e-5) {
-        //cout << "slope_step break condition" << endl;
+        cout << "slope_step break condition" << endl;
         break;
       }
 
@@ -241,36 +225,8 @@ main(){
 
     } // end slope loop
 
-  //cout << "Radius: " << MR_rel[mcount][0] << " , " << t[i1-1] << endl;
-  //cout << "Mass:   " << MR_rel[mcount][1] << " , " << y[i1-1][1]/1.4766 << endl;
-  //cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
-  
-  n = 0;
-
-  store.push_back(y[i1][1]/1.4766);
-
-  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]) {
-    mcount++;
-    reconstruction.push_back(alpha);
-    pao_store.push_back(p_end);
-    n = 0;
- 
-    cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
- 
-    if (!one) {
-      e_rec = line(p_end, &alpha);
-    }
-    else { 
-      e_rec = eos(p_end, &alpha);
-    }
-
-   // alpha[0] = p_end;
-   // alpha[1] = e_rec;
-   // alpha[2] = 5 * p_end;
-   // alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
-
-    one = false;
-   }
+  cout << "Radius: " << MR_rel[mcount][0] << " , " << t[i1-1] << endl;
+  cout << "Mass:   " << MR_rel[mcount][1] << " , " << y[i1-1][1] << endl;
 
   } // end mcount loop
  
