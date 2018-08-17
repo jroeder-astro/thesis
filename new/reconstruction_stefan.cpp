@@ -134,23 +134,29 @@ main(){
 
 	for (i1 = 0; y[i1][0] > 0; i1++) {
 
-                   //  vvv  to be modified    
-          if (y[i1][0] > p_dur) {
-            if (!one) {
-	      tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
-            }
-            else {
-              tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
-            }
-
+          if (!one && y[i1][0] > pao_store[0]) {
+            tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
+            
 	    for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
  	    } 
 
 	    t[i1+1] = t[i1] + tau;
           }
+            
+          else if (one && y[i1][0] > p_init) {
+            tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
+	   
+            for (i2 = 0; i2 < N; i2++) {
+	      y[i1+1][i2] = y_tau[i2];
+ 	    } 
 
-          if (reconstruction.size() > 0 && y[i1][0] <= p_dur && y[i1][0] > p_init) {
+	    t[i1+1] = t[i1] + tau;
+          }
+
+          if (!one && y[i1][0] <= p_dur && y[i1][0] > p_init
+              /* && reconstruction.size() > 0 */)  {
+           
             if (y[i1][0] > pao_store[n]) {
               tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
 
@@ -242,7 +248,8 @@ main(){
     } // end slope loop
 
   //cout << "Radius: " << MR_rel[mcount][0] << " , " << t[i1-1] << endl;
-  //cout << "Mass:   " << MR_rel[mcount][1] << " , " << y[i1-1][1]/1.4766 << endl;
+  //cout << "Mass:   " << MR_rel[mcount][1] << " , " 
+  //     << y[i1-1][1]/1.4766 << endl;
   //cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
   
   n = 0;
@@ -263,19 +270,17 @@ main(){
     else { 
       e_rec = eos(p_end, &alpha);
     }
+ 
+    alpha[0] = p_end;
+    alpha[1] = e_rec;
+    alpha[2] = 5 * p_end;
 
-   // alpha[0] = p_end;
-   // alpha[1] = e_rec;
-   // alpha[2] = 5 * p_end;
-   // alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
-
+    slope = 0.07; slope_step = 0.01;
     one = false;
    }
 
   } // end mcount loop
- 
-  // output...
- 
+  
   return 0;
 }
 
