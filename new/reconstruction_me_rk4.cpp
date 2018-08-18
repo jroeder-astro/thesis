@@ -70,7 +70,7 @@ main(){
 
   // File I/O
  
-  FILE *MRR = fopen("mr.out", "r");
+  FILE *MRR = fopen("mr_rk4.out", "r");
   if (MRR == NULL)
     exit(0);
   while (1) {
@@ -247,7 +247,7 @@ main(){
         }
 
         else if (p_end <= 1.5*p_dur) {
-        /*  
+         
           if( mcount > m_init + 2) {           
             cout << "else if\n";
             cout << "Radius: " << MR_rel[mcount][0] 
@@ -255,14 +255,14 @@ main(){
             cout << "Mass:   " << MR_rel[mcount][1] 
                  << " , " << y[i1-1][1]/1.4766 << endl;
           }
-        */
+        
           l++; 
           n = 0;
           p_end = 5 * p_dur;
         }
             
         else {
-/*
+
           cout << "else\n";
           cout << "Radius: " << MR_rel[mcount][0] 
                << " , " << t[i1-1] << endl;
@@ -270,7 +270,7 @@ main(){
                << " , " << y[i1-1][1]/1.4766 << endl;
           cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0])
                << endl;
-*/
+
           alpha[3] += pow(10, -6);
 
           l = 1; 
@@ -313,8 +313,38 @@ void tov_euler(double *y_t, double t,
   double k1[N];
   f_times_tau(y_t, t, k1, tau, alpha, state);
 
+  double y_2[N]; 
+
   for (i1 = 0; i1 < N; i1++) {
-    y_t_plus_tau[i1] = y_t[i1] + k1[i1];
+    y_2[i1] = y_t[i1] + 0.5*k1[i1];
+  }
+
+  double k2[N];
+  f_times_tau(y_2, t + tau/2., k2, tau, alpha, state);
+
+  double y_3[N];
+  
+  for (i1 = 0; i1 < N; i1++) {
+    y_3[i1] = y_t[i1] + 0.5*k2[i1];
+  }
+
+  double k3[N];
+  f_times_tau(y_3, t + tau/2., k3, tau, alpha, state);
+ 
+  double y_4[N];
+  
+  for (i1 = 0; i1 < N; i1++) {
+    y_4[i1] = y_t[i1] + k3[i1];
+  }
+
+  double k4[N];
+  f_times_tau(y_4, t + tau, k4, tau, alpha, state);
+
+
+  for (i1 = 0; i1 < N; i1++) {
+    // y_t_plus_tau[i1] = y_t[i1] + k1[i1];
+    y_t_plus_tau[i1] = y_t[i1] + 1./6. *
+                       (k1[i1] + 2.*k2[i1] + 2.*k3[i1] + k4[i1]);
   }
 }
 

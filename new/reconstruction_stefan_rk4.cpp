@@ -73,7 +73,7 @@ main(){
 
   // File I/O
  
-  FILE *MRR = fopen("mr.out", "r");
+  FILE *MRR = fopen("mr_rk4.out", "r");
   if (MRR == NULL)
     exit(0);
   while (1) {
@@ -154,8 +154,7 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
 
-          if (!one && y[i1][0] <= p_dur && y[i1][0] > p_init
-              /* && reconstruction.size() > 0 */)  {
+          if (!one && y[i1][0] <= p_dur && y[i1][0] > p_init) {
            
             if (y[i1][0] > pao_store[n]) {
               tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
@@ -254,7 +253,10 @@ main(){
   
   n = 0;
 
+  // store.push_back(y[i1][1]/1.4766);
+
   store.push_back(y[i1-1][1]/1.4766);
+
 
   if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]) {
     mcount++;
@@ -305,8 +307,37 @@ void tov_euler(double *y_t, double t,
   double k1[N];
   f_times_tau(y_t, t, k1, tau, alpha, state);
 
+  double y_2[N]; 
+
   for (i1 = 0; i1 < N; i1++) {
-    y_t_plus_tau[i1] = y_t[i1] + k1[i1];
+    y_2[i1] = y_t[i1] + 0.5*k1[i1];
+  }
+
+  double k2[N];
+  f_times_tau(y_2, t + tau/2., k2, tau, alpha, state);
+
+  double y_3[N];
+  
+  for (i1 = 0; i1 < N; i1++) {
+    y_3[i1] = y_t[i1] + 0.5*k2[i1];
+  }
+
+  double k3[N];
+  f_times_tau(y_3, t + tau/2., k3, tau, alpha, state);
+ 
+  double y_4[N];
+  
+  for (i1 = 0; i1 < N; i1++) {
+    y_4[i1] = y_t[i1] + k3[i1];
+  }
+
+  double k4[N];
+  f_times_tau(y_4, t + tau, k4, tau, alpha, state);
+
+  for (i1 = 0; i1 < N; i1++) {
+    // y_t_plus_tau[i1] = y_t[i1] + k2[i1];
+    y_t_plus_tau[i1] = y_t[i1] + 1./6. *
+                       (k1[i1] + 2.*k2[i1] + 2.*k3[i1] + k4[i1]);
   }
 }
 

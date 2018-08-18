@@ -9,6 +9,12 @@ y1 = []
 x2 = []
 y2 = []
 
+x3 = []
+y3 = []
+
+x4 = []
+y4 = []
+
 with open('mr.out', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
@@ -28,8 +34,24 @@ with open('rec_stefan.out', 'r') as csvfile:
 
 plt.plot(x2, y2, 'ro', label='Rec_Stefan')
 
+with open('rec_jan.out', 'r') as csvfile:
+    plots = csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        x3.append(float(row[0]))
+        y3.append(float(row[1]))
 
-plt.plot([15.5, 14.99, 14.59],[1.00014, 1.03397, 1.06196], 'go', label='Rec_Jan')
+plt.plot(x3, y3, 'go', label='Rec_Jan')
+
+with open('rec_stefan_rk4.out', 'r') as csvfile:
+    plots = csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        x4.append(float(row[0]))
+        y4.append(float(row[1]))
+
+plt.plot(x2, y2, 'co', label='Rec_Stefan_RK4')
+
+
+#plt.plot([15.5, 14.99, 14.59],[1.00014, 1.03397, 1.06196], 'go', label='Rec_Jan')
 
 
 

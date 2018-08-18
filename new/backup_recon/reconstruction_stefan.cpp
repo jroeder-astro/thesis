@@ -254,7 +254,7 @@ main(){
   
   n = 0;
 
-  store.push_back(y[i1-1][1]/1.4766);
+  store.push_back(y[i1][1]/1.4766);
 
   if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]) {
     mcount++;
