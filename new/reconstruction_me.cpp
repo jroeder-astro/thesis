@@ -58,15 +58,15 @@ main(){
   double e_rec;
   double pstep;
 
-  double M_err   = 0.0001;
-  double R_err   = 0.01;
+  double M_err   = 0.001;
+  double R_err   = 0.001;
   int    l       = -3;  
 
   vector<double> pao_store; 
   vector<vector<double>> reconstruction;
   bool   one     = true;
   int    n       = 0;
-
+  int    m_init  = 0;
 
   // File I/O
  
@@ -88,7 +88,7 @@ main(){
       break;
     mcount++;
   }
-
+  m_init = mcount;
 
   // Initialization
 
@@ -103,7 +103,7 @@ main(){
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec; // + (alpha[2]-alpha[0]) / slope;
 
-  while (mcount < 8) {
+  while (mcount < 20) {
     // let's see
 
       while (p_end > p_dur) {
@@ -188,24 +188,35 @@ main(){
           reconstruction.push_back(alpha);
           pao_store.push_back(p_end);
 
+          if (!one) {
+            e_rec = line(p_end, &alpha);
+          }
+          else {
+            e_rec = eos(p_end, &alpha);
+          }
+
           alpha[0] = p_end;
           alpha[1] = e_rec;
           alpha[2] = 5 * p_end;
-          
+          alpha[3] = e_rec + pow(10., -3.);
+ 
           mcount++;
           one = false;
-          l = -2;
-          p_end = 5 * p_dur;   
+          l = 1;
+          p_end = 5 * p_dur;
+          M_err *= 50;
+          R_err += 0.2;   
         }
 
         else if (p_end <= 1.5*p_dur) {
-        /*  
-          cout << "else if\n";
-          cout << "Radius: " << MR_rel[mcount][0] 
-               << " , " << t[i1-1] << endl;
-          cout << "Mass:   " << MR_rel[mcount][1] 
-               << " , " << y[i1-1][1]/1.4766 << endl;
-        */ 
+          if( mcount > m_init + 2) {           
+            cout << "else if\n";
+            cout << "Radius: " << MR_rel[mcount][0] 
+                 << " , " << t[i1-1] << endl;
+            cout << "Mass:   " << MR_rel[mcount][1] 
+                 << " , " << y[i1-1][1]/1.4766 << endl;
+          }
+
           l++; 
           n = 0;
           p_end = 5 * p_dur;

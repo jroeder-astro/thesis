@@ -29,6 +29,10 @@ with open('rec_stefan.out', 'r') as csvfile:
 plt.plot(x2, y2, 'ro', label='Rec_Stefan')
 
 
+plt.plot([15.5, 14.99, 14.59],[1.00014, 1.03397, 1.06196], 'go', label='Rec_Jan')
+
+
+
 #with open('RK4th.dat', 'r') as csvfile:
 #    plots = csv.reader(csvfile, delimiter=' ')
 #    for row in plots:
