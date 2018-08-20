@@ -43,6 +43,7 @@ main(){
   int    P       = 0;
   double M, R;
   int    mcount  = 0;
+  int    m_max   = 0;
 
   vector<double> alpha(4);
   vector<double> one_MR(2);
@@ -51,7 +52,7 @@ main(){
   double p_init  = 0.0;
   double p_end   = 0.0;
   double p_dur   = 0.0;
-  double slope   = 0.07;
+  double slope   = 0.03;
   double slope_step = 0.01;
 
   bool   flag_s  = false;
@@ -74,18 +75,22 @@ main(){
   // File I/O
  
   FILE *MRR = fopen("mr.out", "r");
-  if (MRR == NULL)
+ 
+  if (MRR == NULL) {
     exit(0);
+  }
+ 
   while (1) {
-    if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF)
+    if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF) {
       break;
+    }
     one_MR[0] = R;
     one_MR[1] = M;
     MR_rel.push_back(one_MR);
   }
   fclose(MRR);
   MRR = NULL;
-
+ 
   for (i1 = 0; i1 < MR_rel.size(); i1++) {
     if (MR_rel[i1][1] >= 1)
       break;
@@ -105,7 +110,7 @@ main(){
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 
-  while (mcount < 20) {
+  while (mcount < 25) {
     flag_s = false;
     
     while (slope < 1.0) {
@@ -134,7 +139,7 @@ main(){
 
 	for (i1 = 0; y[i1][0] > 0; i1++) {
 
-          if (!one && y[i1][0] > pao_store[0]) {
+          if (!one && y[i1][0] > pao_store[pao_store.size()-1]) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
             
 	    for (i2 = 0; i2 < N; i2++) {
@@ -159,7 +164,7 @@ main(){
            
             if (y[i1][0] > pao_store[n]) {
               tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
-
+              cout << "II\n";
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
  	      } 
@@ -236,9 +241,9 @@ main(){
         continue;
       }
 
-      slope_step /= 10;
+      slope_step /= 5;
 
-      if (slope_step < 1e-5) {
+      if (slope_step < 1e-7) {
         //cout << "slope_step break condition" << endl;
         break;
       }
@@ -275,7 +280,7 @@ main(){
     alpha[1] = e_rec;
     alpha[2] = 5 * p_end;
 
-    slope = 0.07; slope_step = 0.01;
+    slope = 0.03; slope_step = 0.01;
     one = false;
    }
 
@@ -318,4 +323,18 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * state(y_t[0], alpha);
 }
+
+
+/*
+  for (i1 = 0; i1 < MR_rel.size(); i1++) {
+    if (MR_rel[i1][1] <= 1) {
+      mcount++;
+    }
+    if (MR_rel[i1][1] - MR_rel[i1+1][1]) {
+      m_max = i1;
+      break;
+    }
+  }
+*/
+
 
