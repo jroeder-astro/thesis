@@ -110,7 +110,7 @@ main(){
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 
-  while (mcount < 25) {
+  while (mcount < 50) {
     flag_s = false;
     
     while (slope < 1.0) {
@@ -138,7 +138,8 @@ main(){
         // cout << "doing Euler\n";
 
 	for (i1 = 0; y[i1][0] > 0; i1++) {
-
+ 
+          // Part I.1
           if (!one && y[i1][0] > pao_store[pao_store.size()-1]) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
             
@@ -149,6 +150,7 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
             
+          // Part I.2
           else if (one && y[i1][0] > p_init) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
 	   
@@ -159,12 +161,14 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
 
-          if (!one && y[i1][0] <= p_dur && y[i1][0] > p_init
-              /* && reconstruction.size() > 0 */)  {
+          // Part II
+          if (!one && y[i1][0] <= pao_store[pao_store.size()-1] 
+                   && y[i1][0] > p_init
+                /* && reconstruction.size() > 0 */)  {
            
-            if (y[i1][0] > pao_store[n]) {
+            if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {
               tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
-              cout << "II\n";
+              //cout << "II  " << n << endl;
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
  	      } 
@@ -178,6 +182,7 @@ main(){
             }
           }
 
+          // Part III
           if (y[i1][0] <= p_init) {
 	    tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
 

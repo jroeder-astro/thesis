@@ -148,7 +148,7 @@ main(){
 
           // PART II
           if (!one && y[i1][0] <= pao_store[pao_store.size()-1] 
-              && y[i1][0] > p_init) {
+                   && y[i1][0] > p_init) {
 
             if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {
 	      tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
@@ -201,8 +201,8 @@ main(){
                  << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
             cout << " |M_c-M_f| = " 
                  << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
-            // cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) 
-            //      << endl;
+            cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) 
+                 << endl;
             
             reconstruction.push_back(alpha);
             pao_store.push_back(p_end);
@@ -218,13 +218,13 @@ main(){
             one = false;
             l = 1;
             p_end = 5 * p_dur;
-            //M_err += 0.02 * dial;
-            //R_err += 0.02 * dial;  
+            M_err += 0.02 * dial;
+            R_err += 0.02 * dial;  
             cout << M_err << " , " << R_err << endl;
-            //dial /= 1.2;
+            dial++;
           }
 
-          if (one) {
+          else if (one) {
 
             cout << "part three (one)\n";
             cout << "Radius: " << MR_rel[mcount][0] 
@@ -258,22 +258,24 @@ main(){
           }
         }
 
-        else if (p_end <= 1.5*p_dur) {
-          
-          if( mcount > m_init) {           
+        if (p_end <= 1.5*p_dur) {
+         /* 
+          if( mcount > m_init+1) {           
             cout << "else if\n";
             cout << "Radius: " << MR_rel[mcount][0] 
                  << " , " << t[i1-1] << endl;
             cout << "Mass:   " << MR_rel[mcount][1] 
                  << " , " << y[i1-1][1]/1.4766 << endl;
+            cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) 
+                 << endl; 
           }
-        
+        */
           l++; 
           n = 0;
           p_end = 5 * p_dur;
         }
             
-        else {
+        else if (!one) {
 
           cout << "else\n";
           cout << "Radius: " << MR_rel[mcount][0] 
@@ -285,7 +287,7 @@ main(){
 
           alpha[3] += pow(10, -6);
 
-          l = 1; 
+          l = -1; 
           p_end = 5 * p_dur;
           // i1 = 0;
         }
