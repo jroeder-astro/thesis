@@ -12,9 +12,28 @@ main(){
           >> RK4 with new line <<
       }
       
-      n = 0;
+
+
+  // P_storage = {P_alpha, P_omega} 
+  //           = {P_s[x][0], P_s[x][1]}
+
+
       if(P < P_during && P > P_init)
       {   
+          if(P > P_storage[n][0])
+          {
+              >> RK4 with recon storage << 
+          }
+       
+          else
+          {
+              n++;
+              i--;
+          }
+
+
+
+
           if(P > P_during - P_step * n)
           {  
               // Will this loop stick to all 
@@ -23,8 +42,13 @@ main(){
               >> RK4 with n as recon index << 
           }
           n++;
+
       }
  
+      
+
+
+
       if(P < P_init)
       {
           >> RK4 with known eos <<
