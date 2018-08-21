@@ -29,9 +29,9 @@ with open('rec_stefan.out', 'r') as csvfile:
         x2.append(float(row[0]))
         y2.append(float(row[1]))
 
-plt.plot(x2, y2, 'ro', label='Rec_Stefan')
+#plt.plot(x2, y2, 'ro', label='Rec_Stefan')
 
-with open('rec_jan.out', 'r') as csvfile:
+with open('what', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x3.append(float(row[0]))
@@ -45,7 +45,7 @@ with open('rec_stefan_rk4.out', 'r') as csvfile:
         x4.append(float(row[0]))
         y4.append(float(row[1]))
 
-plt.plot(x4, y4, 'co', label='Rec_Stefan_RK4')
+#plt.plot(x4, y4, 'co', label='Rec_Stefan_RK4')
 
 
 #plt.subplot(2,1,1)

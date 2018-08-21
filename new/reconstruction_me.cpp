@@ -67,7 +67,7 @@ main(){
   bool   one     = true;
   int    n       = 0;
   int    m_init  = 0;
-  double dial    = 2;
+  double dial    = 1.5;
 
 
   // File I/O
@@ -152,8 +152,8 @@ main(){
 
             if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {
 	      tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
-              //cout << " p II : " << y[i1][0] << " p_store: " 
-              //     << reconstruction[n][1] << endl;
+              // cout << " p II : " << y[i1][0] << " p_store: " 
+              //      << reconstruction[n][1] << endl;
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
  	      } 
@@ -197,12 +197,18 @@ main(){
                  << " , " << t[i1-1] << endl;
             cout << "     Mass:   " << MR_rel[mcount][1] 
                  << " , " << y[i1-1][1]/1.4766 << endl;
-            cout << " |R_c-R_f| = " 
-                 << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
-            cout << " |M_c-M_f| = " 
-                 << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
+            cout << " R_rel_err = " 
+                 << fabs(1 - MR_rel[mcount][0] / t[i1-1]) << endl;
+            cout << " M_rel_err = " 
+                 << fabs(1 - MR_rel[mcount][1] / (y[i1-1][1]/1.4766)) << endl;
+            // cout << " |R_c-R_f| = " 
+            //      << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
+            // cout << " |M_c-M_f| = " 
+            //      << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
             cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) 
                  << endl;
+          
+//          cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
             
             reconstruction.push_back(alpha);
             pao_store.push_back(p_end);
@@ -218,14 +224,14 @@ main(){
             one = false;
             l = 1;
             p_end = 5 * p_dur;
-            M_err += 0.02 * dial;
-            R_err += 0.02 * dial;  
-            cout << M_err << " , " << R_err << endl;
-            dial++;
+            // M_err = log(1+dial*0.01); // WHAT THE HECK?? 
+            // R_err = log(1+dial*0.02);  
+            // cout << M_err << " , " << R_err << endl;
+            dial+=1;
           }
 
           else if (one) {
-
+/*
             cout << "part three (one)\n";
             cout << "Radius: " << MR_rel[mcount][0] 
                  << " , " << t[i1-1] << endl;
@@ -235,6 +241,9 @@ main(){
                  << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
             cout << "|M_c-M_f| =  " 
                  << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
+*/
+            
+            cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
 
             reconstruction.push_back(alpha);
             pao_store.push_back(p_end);
@@ -279,7 +288,7 @@ main(){
 
           cout << "else\n";
           cout << "Radius: " << MR_rel[mcount][0] 
-               << " , " << t[i1-1] << endl;
+                << " , " << t[i1-1] << endl;
           cout << "Mass:   " << MR_rel[mcount][1] 
                << " , " << y[i1-1][1]/1.4766 << endl;
           cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0])

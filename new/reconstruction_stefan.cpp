@@ -110,7 +110,7 @@ main(){
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 
-  while (mcount < 50) {
+  while (mcount < 20) {
     flag_s = false;
     
     while (slope < 1.0) {
@@ -226,8 +226,8 @@ main(){
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-        //       MR_rel[mcount][0]);
+        printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+               MR_rel[mcount][0]);
         flag_s = true;
         continue;
       }
@@ -237,19 +237,19 @@ main(){
       //       MR_rel[mcount][0]);
 
       if (fabs(diff_s) < 0.005) {
-        //cout << "fabs(diff_s) break condition" << endl;
+        cout << "fabs(diff_s) break condition" << endl;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
-        //cout << "diff0_s * diff_s > 0" << endl;
+        // cout << "diff0_s * diff_s > 0" << endl;
         continue;
       }
 
-      slope_step /= 5;
+      slope_step /= 20;
 
-      if (slope_step < 1e-7) {
-        //cout << "slope_step break condition" << endl;
+      if (slope_step < 1e-9) {
+        cout << "slope_step break condition" << endl;
         break;
       }
 
@@ -266,7 +266,8 @@ main(){
 
   store.push_back(y[i1-1][1]/1.4766);
 
-  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]) {
+  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]
+      &&   /*Error check?? Same problem as with my code then*/    ) {
     mcount++;
     reconstruction.push_back(alpha);
     pao_store.push_back(p_end);
