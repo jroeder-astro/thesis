@@ -67,7 +67,7 @@ main(){
   bool   one     = true;
   int    n       = 0;
   int    m_init  = 0;
-  double dial    = 1.5;
+  double dial    = .5;
 
 
   // File I/O
@@ -218,7 +218,7 @@ main(){
             alpha[0] = p_end;
             alpha[1] = e_rec;
             alpha[2] = 5 * p_end;
-            alpha[3] = e_rec + pow(10., -4.);
+            alpha[3] = e_rec + pow(10., -3.);
  
             mcount++;
             one = false;
@@ -294,7 +294,7 @@ main(){
           cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0])
                << endl;
 
-          alpha[3] += pow(10, -6);
+          alpha[3] += pow(10, -7);
 
           l = -1; 
           p_end = 5 * p_dur;
