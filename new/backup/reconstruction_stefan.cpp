@@ -163,6 +163,9 @@ main(){
 
 	} // end of mass calculation
 
+        cout << "Slope: " << slope << endl;
+
+
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
           printf("diff0 mass %g %g\n", pstep, diff0);

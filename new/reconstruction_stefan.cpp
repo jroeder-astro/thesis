@@ -3,6 +3,7 @@
 #include<math.h>
 #include<stdlib.h>
 #include<fstream>
+#include<time.h>
 using namespace std;
 
 
@@ -118,7 +119,10 @@ main(){
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
                        / (slope + slope_step); 
+      //   Does this make sense?  ^^^^^^^^^^
 
+      //slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+     
       flag = false;
       pstep = 1e-6;
       p_end = p_dur - 5 * pstep;
@@ -195,17 +199,22 @@ main(){
 
 	} // end of mass calculation
 
+        n = 0;
+        cout << "Slope after mass: " <<slope<< endl;   
+        cout << " P_end for mass:  " <<p_end<<endl;
+ 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          //printf("diff0 mass %g %g\n", pstep, diff0);
+          printf("diff0 mass %g %g\n", pstep, diff0);
+          n = 0;
           flag = true;
           continue;
         }
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          //printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
-
+          printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
+          n = 0;
           if (diff * diff0 > 0) {
             // cout << diff * diff0 << endl;
             continue;
@@ -214,7 +223,7 @@ main(){
           pstep /= 10.0;
 
           if (pstep < 1e-9) {
-            //cout << "pstep < x breaking condition" << endl;
+            cout << "pstep < x breaking condition" << endl;
             break;
           }
 
@@ -228,21 +237,24 @@ main(){
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
         printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
                MR_rel[mcount][0]);
+        n = 0;
         flag_s = true;
         continue;
       }
 
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
-      //printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-      //       MR_rel[mcount][0]);
+      printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+             MR_rel[mcount][0]);
 
       if (fabs(diff_s) < 0.005) {
         cout << "fabs(diff_s) break condition" << endl;
+        n = 0;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
         // cout << "diff0_s * diff_s > 0" << endl;
+        n = 0;
         continue;
       }
 
@@ -250,8 +262,11 @@ main(){
 
       if (slope_step < 1e-9) {
         cout << "slope_step break condition" << endl;
+        n = 0;
         break;
       }
+
+      n = 0;
 
       alpha[3] = alpha3_old;
 
@@ -267,13 +282,13 @@ main(){
   store.push_back(y[i1-1][1]/1.4766);
 
   if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]
-      &&   /*Error check?? Same problem as with my code then*/    ) {
+      /* && Error check?? Same problem as with my code then */    ) {
     mcount++;
     reconstruction.push_back(alpha);
     pao_store.push_back(p_end);
     n = 0;
  
-    cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
+    cout << "output: " << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
  
     if (!one) {
       e_rec = line(p_end, &alpha);
@@ -282,15 +297,27 @@ main(){
       e_rec = eos(p_end, &alpha);
     }
  
+    p_dur = p_end;
+
     alpha[0] = p_end;
     alpha[1] = e_rec;
     alpha[2] = 5 * p_end;
+    alpha[3] = e_rec + 4*p_end / 0.03;
 
-    slope = 0.03; slope_step = 0.01;
+    cout << alpha[0] << " " << alpha[1] << " " 
+         << alpha[2] << " " << alpha[3] << endl;
+
+    // slope = 0.03; 
+    slope_step = 0.01;
     one = false;
    }
 
   } // end mcount loop
+
+
+  for (i1 = 0; i1 < store.size(); i1++) {
+    cout << store[i1] << endl;
+  }
   
   return 0;
 }

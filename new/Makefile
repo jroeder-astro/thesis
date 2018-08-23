@@ -1,3 +1,3 @@
 run:
-	g++ -std=c++11 -o reconstruction_me reconstruction_me.cpp;
-	./reconstruction_me
+	g++ -std=c++11 -o reconstruction_stefan reconstruction_stefan.cpp;
+	./reconstruction_stefan
