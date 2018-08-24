@@ -70,8 +70,17 @@ main(){
   vector<double> store;
   vector<double> pao_store;
   vector<vector<double>> reconstruction;
+
   bool   one     = true;
+  bool   two     = false;
   int    n       = 0;
+  double m_deriv_old = 0.0;
+  double m_deriv = 0.0;
+  double mass    = 0.0;
+  double mass_old = 0.0;
+
+  vector<double> masses;
+  vector<double> radii;
 
   // File I/O
  
@@ -121,7 +130,7 @@ main(){
                        / (slope + slope_step); 
       //   Does this make sense?  ^^^^^^^^^^
 
-      //slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+      // slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
      
       flag = false;
       pstep = 1e-6;
@@ -129,7 +138,7 @@ main(){
                         // this destroys the three if statements!!!
       while (p_end >= 0.8 * p_dur) {
         p_end += pstep;
-	y_0[0] = p_end; 
+	y_0[0] = p_end;
 	y_0[1] = 0.0;
 	// t[0] = 0.00000000001; // ?
 
@@ -160,19 +169,19 @@ main(){
 	   
             for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
- 	    } 
+ 	    }
 
 	    t[i1+1] = t[i1] + tau;
           }
 
           // Part II
           if (!one && y[i1][0] <= pao_store[pao_store.size()-1] 
-                   && y[i1][0] > p_init
+                   && y[i1][0] > p_init && !two
                 /* && reconstruction.size() > 0 */)  {
            
-            if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {
-              tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
-              //cout << "II  " << n << endl;
+            if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {// vvv ??
+              tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n+1], line);
+              cout << "II  " << n << endl;
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
  	      } 
@@ -201,22 +210,55 @@ main(){
 
         n = 0;
         cout << "Slope after mass: " <<slope<< endl;   
-        cout << " P_end for mass:  " <<p_end<<endl;
- 
+        // cout << " P_end for mass:  " <<p_end<< endl;
+
+      /*
+        somewhere here, put in a "de-softener" if the reconstructed
+        MRR reaches a maximum before the current chosen mass due to
+        a too soft EoS.
+        OR: plug in another if statement to say "yup mass is fine 
+        even if diff*diff0 did not change sign"
+      */
+
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
           printf("diff0 mass %g %g\n", pstep, diff0);
           n = 0;
           flag = true;
+          masses.push_back(y[i1-1][1]);
+          //mass = y[i1-1][1];
           continue;
         }
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
+          printf("diff mass %g %g %g %g\n", pstep, diff, 
+                 y[i1-1][1]/1.4766, MR_rel[mcount][1]);
           n = 0;
+          masses.push_back(y[i1-1][1]);
+/*
+          // will this do the job?
+          if (masses.size() > 2) {
+            if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
+                (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
+              
+              // de-softener / stiffener
+
+              
+
+
+              // accepting value next to desired mass
+              break;
+            }
+          }
+*/
+          //mass_old = mass;
+          //mass = y[i1-1][1];
+          //m_deriv_old = m_deriv;
+          //m_deriv = mass - mass_old;
+
           if (diff * diff0 > 0) {
-            // cout << diff * diff0 << endl;
+            cout << "diff * diff0 > 0" << endl;
             continue;
           }
 
@@ -233,6 +275,8 @@ main(){
 
       } // end p_end < p_dur loop
 
+      radii.push_back(t[i1-1]);
+
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
         printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
@@ -240,6 +284,10 @@ main(){
         n = 0;
         flag_s = true;
         continue;
+      }
+
+      if (!one && radii[radii.size()-1] == radii[radii.size()-2]) {
+        break;
       }
 
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
@@ -253,14 +301,14 @@ main(){
       }
 
       if (diff0_s * diff_s > 0) {  
-        // cout << "diff0_s * diff_s > 0" << endl;
+        cout << "diff0_s * diff_s > 0" << endl;
         n = 0;
         continue;
       }
 
-      slope_step /= 20;
+      slope_step /= 10;
 
-      if (slope_step < 1e-9) {
+      if (slope_step < 1e-6) {
         cout << "slope_step break condition" << endl;
         n = 0;
         break;
@@ -281,36 +329,44 @@ main(){
 
   store.push_back(y[i1-1][1]/1.4766);
 
-  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]
-      /* && Error check?? Same problem as with my code then */    ) {
+//  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]
+//      /* && Error check?? Same problem as with my code then */    ) {
     mcount++;
+
     reconstruction.push_back(alpha);
     pao_store.push_back(p_end);
+
     n = 0;
  
     cout << "output: " << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
  
-    if (!one) {
+    if (!one)
       e_rec = line(p_end, &alpha);
-    }
-    else { 
+    else
       e_rec = eos(p_end, &alpha);
-    }
  
     p_dur = p_end;
 
     alpha[0] = p_end;
     alpha[1] = e_rec;
     alpha[2] = 5 * p_end;
-    alpha[3] = e_rec + 4*p_end / 0.03;
+    alpha[3] = e_rec + 4*p_end / 0.08;
 
     cout << alpha[0] << " " << alpha[1] << " " 
          << alpha[2] << " " << alpha[3] << endl;
 
     // slope = 0.03; 
     slope_step = 0.01;
+  
+    if (reconstruction.size() == 2) 
+      two = true;
+    else 
+      two = false;
+    
     one = false;
-   }
+  
+
+//   }
 
   } // end mcount loop
 
