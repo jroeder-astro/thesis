@@ -224,7 +224,7 @@ main(){
 	} // end of mass calculation
 
         n = 0;
-        cout << "Slope after mass: " <<slope<< endl;   
+       // cout << "Slope after mass: " <<slope<< endl;   
         // cout << " P_end for mass:  " <<p_end<< endl;
 
       /*
@@ -237,7 +237,7 @@ main(){
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          printf("diff0 mass %g %g\n", pstep, diff0);
+          //printf("diff0 mass %g %g\n", pstep, diff0);
           n = 0;
           flag = true;
           masses.push_back(y[i1-1][1]);
@@ -247,40 +247,45 @@ main(){
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          printf("diff mass %g %g %g %g\n", pstep, diff, 
-                 y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+/*          
+          if (reconstruction.size() > 6) {
+            printf("diff mass %g %g %g %g\n", pstep, diff, 
+                   y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+          }
+*/
           n = 0;
           masses.push_back(y[i1-1][1]);
-/*
+
           // will this do the job?
-          if (masses.size() > 2) {
+          if (masses.size() > 2 && reconstruction.size() > 1) {
             if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
                 (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
               
               // de-softener / stiffener
+              // cout << "yo\n"; 
+              slope += 0.5*slope_step;
 
-              
+              //slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+              alpha[3] = e_rec + (alpha[2]-alpha[0]) 
+                         / (slope); 
 
+              continue;
 
+              // vvvvvvv doesn't seem to work properly
               // accepting value next to desired mass
-              break;
+              // break;
             }
           }
-*/
-          //mass_old = mass;
-          //mass = y[i1-1][1];
-          //m_deriv_old = m_deriv;
-          //m_deriv = mass - mass_old;
 
           if (diff * diff0 > 0) {
-            cout << "diff * diff0 > 0" << endl;
+            //cout << "diff * diff0 > 0" << endl;
             continue;
           }
 
           pstep /= 10.0;
 
           if (pstep < 1e-9) {
-            cout << "pstep < x breaking condition" << endl;
+            //cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -291,11 +296,12 @@ main(){
       } // end p_end < p_dur loop
 
       radii.push_back(t[i1-1]);
+// /*!*/ masses.clear(); 
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-               MR_rel[mcount][0]);
+        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+        //       MR_rel[mcount][0]);
         n = 0;
         flag_s = true;
         continue;
@@ -306,17 +312,17 @@ main(){
       }
 
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
-      printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-             MR_rel[mcount][0]);
+      //printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+      //       MR_rel[mcount][0]);
 
       if (fabs(diff_s) < 0.005) {
-        cout << "fabs(diff_s) break condition" << endl;
+        //cout << "fabs(diff_s)  br. c." << endl;
         n = 0;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
-        cout << "diff0_s * diff_s > 0" << endl;
+        //cout << "diff0_s * diff_s > 0" << endl;
         n = 0;
         continue;
       }
@@ -324,7 +330,7 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        cout << "slope_step break condition" << endl;
+        //cout << "slope_step < x br.c." << endl;
         n = 0;
         break;
       }
@@ -347,13 +353,14 @@ main(){
 //  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]
 //      /* && Error check?? Same problem as with my code then */    ) {
     mcount++;
+    masses.clear();
 
     reconstruction.push_back(alpha);
     pao_store.push_back(p_end);
 
     n = 0;
  
-    cout << "output: " << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
+    cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
  
     if (!one)
       e_rec = line(p_end, &alpha);
@@ -367,13 +374,12 @@ main(){
     alpha[2] = 5 * p_end;
     alpha[3] = e_rec + 4*p_end / 0.08;
 
-    cout << alpha[0] << " " << alpha[1] << " " 
-         << alpha[2] << " " << alpha[3] << endl;
+    //cout << alpha[0] << " " << alpha[1] << " " 
+    //     << alpha[2] << " " << alpha[3] << endl;
 
-    // slope = 0.03; 
     slope_step = 0.01;
   
-    cout << "rec.size() = " << reconstruction.size() << endl;
+    // cout << "rec.size() = " << reconstruction.size() << endl;
 
     if (reconstruction.size() == 1) 
       two = true;
@@ -387,11 +393,11 @@ main(){
 
   } // end mcount loop
 
-
+/*
   for (i1 = 0; i1 < store.size(); i1++) {
     cout << store[i1] << endl;
   }
-  
+*/
   return 0;
 }
 

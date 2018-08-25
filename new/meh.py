@@ -31,13 +31,13 @@ with open('rec_stefan.out', 'r') as csvfile:
 
 #plt.plot(x2, y2, 'ro', label='Rec_Stefan')
 
-with open('what', 'r') as csvfile:
+with open('log', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x3.append(float(row[0]))
         y3.append(float(row[1]))
 
-plt.plot(x3, y3, 'go', label='Rec_Jan')
+plt.plot(x3, y3, 'go', label='Rec_Stefan')
 
 with open('rec_stefan_rk4.out', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
