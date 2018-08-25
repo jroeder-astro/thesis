@@ -89,7 +89,7 @@ main(){
   if (MRR == NULL) {
     exit(0);
   }
- 
+
   while (1) {
     if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF) {
       break;
@@ -153,7 +153,7 @@ main(){
 	for (i1 = 0; y[i1][0] > 0; i1++) {
  
           // Part I.1
-          if (!one && y[i1][0] > pao_store[pao_store.size()-1]) {
+          if (!one && y[i1][0] > pao_store[pao_store.size()-1] && !two) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
             
 	    for (i2 = 0; i2 < N; i2++) {
@@ -174,14 +174,29 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
 
+          // Part I.3 (optional)
+          else if (!one && y[i1][0] > p_init && two) {
+            tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
+            
+	    for (i2 = 0; i2 < N; i2++) {
+	      y[i1+1][i2] = y_tau[i2];
+ 	    } 
+
+	    t[i1+1] = t[i1] + tau;
+          }
+
           // Part II
           if (!one && y[i1][0] <= pao_store[pao_store.size()-1] 
-                   && y[i1][0] > p_init && !two
+                   && y[i1][0] > p_init  && !two 
                 /* && reconstruction.size() > 0 */)  {
            
             if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {// vvv ??
-              tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n+1], line);
-              cout << "II  " << n << endl;
+              tov_euler(y[i1], t[i1], y_tau, tau, 
+                        &reconstruction[reconstruction.size()-(n+1)], line);
+              
+              //if (n > 1)
+                 //cout << "II  " << n << endl;
+
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
  	      } 
@@ -189,7 +204,7 @@ main(){
 	      t[i1+1] = t[i1] + tau;
             }
 
-            else if (n < pao_store.size()) {
+            else if (n < pao_store.size() && n < reconstruction.size()-1) {
               n++;
               i1--;
             }
@@ -358,7 +373,9 @@ main(){
     // slope = 0.03; 
     slope_step = 0.01;
   
-    if (reconstruction.size() == 2) 
+    cout << "rec.size() = " << reconstruction.size() << endl;
+
+    if (reconstruction.size() == 1) 
       two = true;
     else 
       two = false;
