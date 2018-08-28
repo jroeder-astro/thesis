@@ -252,7 +252,7 @@ main(){
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
 /*!*/         
-          if (reconstruction.size() > 22) {
+          if (reconstruction.size() > 20) {
             printf("diff mass %g %g %g %g\n", pstep, diff, 
                    y[i1-1][1]/1.4766, MR_rel[mcount][1]);
           }
@@ -265,9 +265,20 @@ main(){
             if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
                 (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
               
+              // cout << "de-softening..." << endl;
               // de-softener / stiffener
               // further adjust factor... 
               slope += 0.41 * slope_step;
+
+              if (slope > 1) 
+                break;
+
+              //cout << "test  " 
+              //<< fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
+  
+              if (fabs(diff) < pow(10., -5.)) {
+                break; 
+              }
 
               //slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
               alpha[3] = e_rec + (alpha[2]-alpha[0]) 
@@ -313,7 +324,7 @@ main(){
   
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
 /*!*/    
-      if (reconstruction.size() > 22) {
+      if (reconstruction.size() > 20) {
         printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
                MR_rel[mcount][0]);
       }
