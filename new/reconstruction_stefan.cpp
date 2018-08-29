@@ -225,19 +225,11 @@ main(){
 
         n = 0;
         
-        if (reconstruction.size() > 22) {
-          cout << "Slope after mass: " << slope << endl; 
+        if (reconstruction.size() >= 7) {
+          //cout << "Slope after mass: " << slope << endl; 
         }
   
         // cout << " P_end for mass:  " <<p_end<< endl;
-
-      /*
-        somewhere here, put in a "de-softener" if the reconstructed
-        MRR reaches a maximum before the current chosen mass due to
-        a too soft EoS.
-        OR: plug in another if statement to say "yup mass is fine 
-        even if diff*diff0 did not change sign"
-      */
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
@@ -252,23 +244,25 @@ main(){
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
 /*!*/         
-          if (reconstruction.size() > 20) {
-            printf("diff mass %g %g %g %g\n", pstep, diff, 
-                   y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+          if (reconstruction.size() >= 7) {
+            //printf("diff mass %g %g %g %g\n", pstep, diff, 
+            //       y[i1-1][1]/1.4766, MR_rel[mcount][1]);
           }
 
           n = 0;
           masses.push_back(y[i1-1][1]);
 
           // will this do the job?
-          if (masses.size() > 2 && reconstruction.size() > 1) {
+          if (masses.size() > 2 && reconstruction.size() >= 7) {
             if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
                 (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
               
-              // cout << "de-softening..." << endl;
+              cout << "de-softening..." << endl;
               // de-softener / stiffener
               // further adjust factor... 
               slope += 0.41 * slope_step;
+
+              masses.clear();
 
               if (slope > 1) 
                 break;
@@ -315,8 +309,8 @@ main(){
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-        //       MR_rel[mcount][0]);
+        printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+               MR_rel[mcount][0]);
         n = 0;
         flag_s = true;
         continue;
@@ -324,7 +318,7 @@ main(){
   
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
 /*!*/    
-      if (reconstruction.size() > 20) {
+      if (reconstruction.size() >= 7) {
         printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
                MR_rel[mcount][0]);
       }
@@ -383,7 +377,7 @@ main(){
     else
       e_rec = eos(p_end, &alpha);
 
-    cout << t[i1-1] << "," << y[i1-1][1]/1.4766 
+    cout << "out: " << t[i1-1] << "," << y[i1-1][1]/1.4766 
          << "," << e_rec << "," << p_end
          << "," << mcount << "," << reconstruction.size() 
          << "," << slope << endl;
