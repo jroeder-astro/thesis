@@ -4,7 +4,6 @@ import csv
 from numpy import *
 
 
-
 def eos(p):
     return np.power(p/10., 3./5.)
 
@@ -13,16 +12,17 @@ def deriv(p):
 
 p1 = np.arange(0., 1.*np.power(10., -5.), 0.0000001)
 
+plt.figure(figsize=(12, 5))
 
 plt.subplot(1,3,1)
 plt.plot(p1, eos(p1), label='given EOS')
-plt.ylabel('$\epsilon(p)$')
-plt.xlabel('$p$')
+plt.ylabel('$\epsilon(p)$', fontsize = 20)
+plt.xlabel('$p$', fontsize = 20)
 plt.yticks([])
 plt.xticks([])
 plt.title('a)')
 plt.axis([0,2.*np.power(10.,-5.), 0,  eos(2.*np.power(10.,-5.))+np.power(10.,-6.) ] )
-plt.legend(loc = 2)
+plt.legend(loc=2)
 
 
 plt.subplot(1,3,2)
@@ -33,8 +33,8 @@ plt.xticks([])
 plt.axis([0,2.*np.power(10.,-5.), 0,  eos(2.*np.power(10.,-5.))+np.power(10.,-6.) ] )
 plt.title('b)')
 plt.legend(loc=2)
-plt.xlabel('$p$')
-plt.ylabel('$\epsilon(p)$')
+plt.xlabel('$p$', fontsize = 20)
+plt.ylabel('$\epsilon(p)$', fontsize = 20)
 
 
 plt.subplot(1,3,3)
@@ -46,8 +46,8 @@ plt.xticks([])
 plt.axis([0,2.*np.power(10.,-5.), 0,  eos(2.*np.power(10.,-5.))+np.power(10.,-6.) ] )
 plt.title('c)')
 plt.legend(loc=2)
-plt.xlabel('$p$')
-plt.ylabel('$\epsilon(p)$')
+plt.xlabel('$p$',fontsize = 20)
+plt.ylabel('$\epsilon(p)$',fontsize = 20)
 
 
 plt.show()

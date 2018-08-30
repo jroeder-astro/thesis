@@ -51,15 +51,15 @@ The approach chosen in this thesis is inverting the above process. Instead of us
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation}
 
-Before getting into the actual method, one has to set up a theoretical basis for it.
+Before getting into the actual method, a theoretical basis has to be set up.
 This involves a derivation of the equation used for determining the structure of compact stars. Here, that will be the 
 Tolman-Oppenheimer-Volkoff [TOV] equation. \\
-To make analytical and numerical calculations easier, one can choose the unit system to be $c=G=1$, so that every unit is a 
+To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a 
 power of length.\\
 The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
-Further, the system shall not evolve in time, therefore staying spherically symmetric. In terms of the energy-momentum tensor 
-we are left with:
-\begin{equation}
+Further, the system shall not evolve in time, therefore staying spherically symmetric. In terms of the energy-momentum tensor we are left with:
+
+\begin{equation}\label{eq:hydro}
 	T_{\mu\nu}=\left(\epsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
 \end{equation}
 Spherical symmetry leads to a certain form of the metric, which then gives the stress-energy tensor components:
@@ -122,8 +122,7 @@ In order to maintain a minimum level of precision, the program checks for the ch
 \subsubsection{Implementation}
 
 In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
-N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; 
-that way only x is reflecting the step count. x will therefore be in range zero up to the number of iteration steps.
+N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; that way $x$ is only reflecting the step count. $x$ will therefore be in range zero up to the number of iteration steps. We set an arbitrary maximum step amount to prevent segmentation faults.
 
 
 
@@ -133,11 +132,22 @@ that way only x is reflecting the step count. x will therefore be in range zero 
 
 \section{Basic algorithm}
 
-The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (a). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The process then starts over at a point near the given EOS and shifting stepwise from there (c).
+
+The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The process then starts over at a point near the given EOS and shifting stepwise from there (Fig. \ref{fig:recon} c).
+
 \begin{figure}
 	\centering
-	\includegraphics[width=1\textwidth]{graphs/eos_test}
-	\caption{a) Given polytropic equation of state, b) added a constructed straight line}
+	\includegraphics[width=1\textwidth]{graphs/mrr_corr_eos}
+	\caption{corresponding points in MRR and EOS. Point in EOS resembles values in the center of the star.}
+	\label{fig:mce}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{graphs/eos_recon}
+	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) added another line, in calculations, the green one will be used as part of the EOS}
+	\label{fig:recon}
 \end{figure}
 
 
@@ -185,9 +195,9 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 
 
 
-%\begin{thebibliography}{2}
+\begin{thebibliography}{2}
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
 %\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
-%\end{thebibliography}
+\end{thebibliography}
 
 \end{document}
