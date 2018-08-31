@@ -27,7 +27,10 @@ plt.legend(loc=2)
 
 plt.subplot(1,3,2)
 plt.plot(p1, eos(p1), label='given EOS')
-plt.plot([1.*np.power(10.,-5.), 2.*np.power(10.,-5.)],[eos(1.*np.power(10.,-5.)), eos(2.*np.power(10.,-5.))-0.00005], label='added line')
+#plt.plot([1.*np.power(10.,-5.), 2.*np.power(10.,-5.)],[eos(1.*np.power(10.,-5.)), eos(2.*np.power(10.,-5.))-0.00005], label='added line')
+
+plt.plot([1.*np.power(10.,-5.), 1.5*np.power(10.,-5.)],[eos(1.*np.power(10.,-5.)), eos(1.5*np.power(10.,-5.))-0.00005], label='added line')
+
 plt.yticks([])
 plt.xticks([])
 plt.axis([0,2.*np.power(10.,-5.), 0,  eos(2.*np.power(10.,-5.))+np.power(10.,-6.) ] )

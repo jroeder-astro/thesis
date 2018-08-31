@@ -133,7 +133,7 @@ N will be two, for the whole program, as we will not add other equations to the 
 \section{Basic algorithm}
 
 
-The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The process then starts over at a point near the given EOS and shifting stepwise from there (Fig. \ref{fig:recon} c).
+The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given EOS. This process will be repeated until the end of the MRR file.
 
 \begin{figure}
 	\centering
@@ -146,7 +146,7 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 \begin{figure}
 	\centering
 	\includegraphics[width=1\textwidth]{graphs/eos_recon}
-	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) added another line, in calculations, the green one will be used as part of the EOS}
+	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) The green line is part of the reconstruction but is not varied, only the red one}
 	\label{fig:recon}
 \end{figure}
 
