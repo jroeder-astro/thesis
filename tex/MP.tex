@@ -21,6 +21,7 @@
 
 \begin{document}
 	\pagestyle{empty}
+	\textasciitilde
 
 
 \begin{titlepage}
@@ -47,13 +48,18 @@ The approach chosen in this thesis is inverting the above process. Instead of us
 
 
 \pagebreak
-\section{Preparations}
+\section{Theoretical background}
+
+\subsection{Compact Stars}
+
+At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core, up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their EOS is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
+If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova explosion. The type of remnant left behind is called neutron star, and the matter out of which it is formed is always of the same composition and state. Therefore, in contrast to white dwarfs, there is one unique EOS to describe all neutron stars. \\
+Both kinds of compact stars are subject to fast neutrino and photon cooling. After at most a few million years temperatures will have dropped several orders of magnitude below $1$\,MeV, so that on the nuclear scale the star can be  treated as cold. 
+
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation}
 
-Before getting into the actual method, a theoretical basis has to be set up.
-This involves a derivation of the equation used for determining the structure of compact stars. Here, that will be the 
-Tolman-Oppenheimer-Volkoff [TOV] equation. \\
+The equation used for determining the structure of compact stars will here be the Tolman-Oppenheimer-Volkoff [TOV] equation. \\
 To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a 
 power of length.\\
 The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
@@ -146,7 +152,7 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 \begin{figure}
 	\centering
 	\includegraphics[width=1\textwidth]{graphs/eos_recon}
-	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) The green line is part of the reconstruction but is not varied, only the red one}
+	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) Successfully varied green line, red line for next mass}
 	\label{fig:recon}
 \end{figure}
 
@@ -160,6 +166,7 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 
 
 
+\pagebreak
 \pagebreak
 
 %%%ALTERNATIVE BILDUMGEBUNG
@@ -196,6 +203,7 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 
 
 \begin{thebibliography}{2}
+	\bibitem{Glendenning} Glendenning, N. K.; Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
 %\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
 \end{thebibliography}
