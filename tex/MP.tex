@@ -50,16 +50,23 @@ The approach chosen in this thesis is inverting the above process. Instead of us
 \pagebreak
 \section{Theoretical background}
 
-\subsection{Compact Stars}
+\subsection{Compact stars}
 
 At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core, up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their EOS is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
 If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova explosion. The type of remnant left behind is called neutron star, and the matter out of which it is formed is always of the same composition and state. Therefore, in contrast to white dwarfs, there is one unique EOS to describe all neutron stars. \\
 Both kinds of compact stars are subject to fast neutrino and photon cooling. After at most a few million years temperatures will have dropped several orders of magnitude below $1$\,MeV, so that on the nuclear scale the star can be  treated as cold. 
 
+\subsection{Neutron star structure}
 
-\subsection{The Tolman-Oppenheimer-Volkoff equation}
 
-The equation used for determining the structure of compact stars will here be the Tolman-Oppenheimer-Volkoff [TOV] equation. \\
+
+\subsection{The third family}
+
+Most equations of state, when plugged into the Tolman-Oppenheimer-Volkofff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with one maximum. From there on to lower radii the configurations become unstable due to a sign change in the curve slope \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, one generally refers to these stars as "high mass twins" or "twin stars". 
+
+\subsection{The Tolman-Oppenheimer-Volkoff equation} \label{TOV}
+
+The equation used for determining the structure of compact stars will here be the TOV equation. \\
 To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a 
 power of length.\\
 The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
@@ -128,16 +135,27 @@ In order to maintain a minimum level of precision, the program checks for the ch
 \subsubsection{Implementation}
 
 In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
-N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; that way $x$ is only reflecting the step count. $x$ will therefore be in range zero up to the number of iteration steps. We set an arbitrary maximum step amount to prevent segmentation faults.
+N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; that way $x$ is only reflecting the step count. $x$ will therefore be in range zero up to the number of iteration steps. We set an arbitrary maximum step amount to prevent segmentation faults.\\
+The RK4 algorithm will be implemented in such a way, that it can be easily modified any time to another order of Runge-Kutta or even Euler.
+
+
+\subsection{From TOV solver to reconstruction}
+
+After implementing the TOV equations together with the integration method, one can now generate a MRR by looping over several $p_c$ and using one EOS only. This MRR will be used for testing the final reconstruction code, which will consist of the TOV solver extended with the reconstruction algorithm explained below.\\
+The main additions will be the split of the pressure range into segments, each requiring their own part of the EOS, as well as a segment determining the ``correctness'' of calculated mass and radius. The code will work not as ``inversely'' as was proposed before; the stars will still be integrated from the core towards the surface. However, the reconstruction no longer uses one single EOS.
+
+
+\subsection{The inverse problem}
+
+When numerical solutions grew in importance for scientists, interest in looking at problems in an inverted way rose. 
 
 
 
 
 
+\section{Reconstruction method}
 
-
-\section{Basic algorithm}
-
+\subsection{General goal}
 
 The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given EOS. This process will be repeated until the end of the MRR file.
 
@@ -157,9 +175,19 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 \end{figure}
 
 
+\subsection{Pressure intervals}
 
+For the first mass in the file that is supposed to be reconstructed, the code will use the given EOS over the complete pressure interval $p_c$ to 0. That way, the first mass can be reproduced exactly in a test case. $p_c$ will be the last pressure value of the given EOS interval. From there, lines will be added to that end point; in the program, a flag labelled ``one'' will be set to false after the first mass was calculated. \\
+From this point on it is important to determine which EOS will be used for what pressure interval inside the star. The second mass to be calculated will use the given EOS and one single line after it; masses number three and above then also need a line, but before finishing with the given EOS the previously determined lines are supposed to fill in the rest of the pressure range. \\
+The line currently subject to variation will start at the central pressure ($p_c$) and will end at the last pressure a star was reconstructed for. This is resembled by the end point of the last previous line (or in the special case, the last pressure of the given EOS). The last given EOS pressure is saved in the very beginning as $p_init$, marking the point from which the given EOS will finish up the mass calculation.
 
+\subsection{Test case}
 
+The first code test will take place with a simple polytropic EOS such as
+\begin{equation*}
+	\epsilon(p) = \left(\frac{p}{10}\right)^{3/5}
+\end{equation*}
+Using
 
 
 
@@ -200,10 +228,14 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
   \end{tabular}
 \end{table}
 
-
+%{1965gtgc.book.....H}
 
 \begin{thebibliography}{2}
-	\bibitem{Glendenning} Glendenning, N. K.; Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
+	\bibitem{Glendenning} Glendenning, N. K., Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
+	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
+	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
+	\bibitem{Haensel et al.(2007)} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
+	
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
 %\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
 \end{thebibliography}
