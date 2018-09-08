@@ -65,13 +65,15 @@ Generally, a neutron star can be divided into four zones: The inner and outer co
 \paragraph{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$} In the \textit{inner crust} neutron-rich nuclei from a lattice; as the densities increases, neutron drip takes place. Now, there is not only an electron gas, but also a superfluid neutron gas formed by the dripped-out neutrons.
 \paragraph{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho_{core}$} The \textit{outer core} or \textit{neutron fluid} does no longer consist of a lattice. Remaining charge neutral, this region  
 is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons.
-\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.
+\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.\\
 
+The EOS becomes gradually less known towards the central region. A number of nuclear or fluid EOSs have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. \\
+The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.
 
 
 \subsection{The third family}
 
-Most equations of state, when plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with one maximum. From there on to lower radii the configurations become unstable due to a sign change in the curve slope \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, one generally refers to these stars as "high mass twins" or "twin stars". 
+Most equations of state, plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with a single maximum. From there on to lower radii the configurations become unstable due to a sign change in $dM/d\rho_c$ \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, one generally refers to these stars as "high mass twins" or "twin stars". 
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation} \label{TOV}
 
@@ -155,13 +157,14 @@ The main additions will be the split of the pressure range into segments, each r
 
 \subsection{The inverse problem}
 
-When numerical solutions grew in importance for scientists, interest in looking at problems in an inverted way rose. 
+The first one to propose an inverted approach to the so-called ``stellar structure problem'' was L. Lindblom in 1992 \cite{Lindblom(1992)}. The ``standard'' version of this problem is just an integration of the TOV equations with a set EOS and central pressure, determining the total mass and radius (values of the variables at the surface). Lindblom presents an MRR-EOS-pair uniquely linked by an abstract map. This gives rise to the possibility of using that map in the other direction, i.e. from MRR to EOS. His ``traditional'' solution of the inverse problem works as follows:\\
+Instead of integrating the TOV equations from the core towards the surface with initial values $p=p_c$ and $r=0$, he uses $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, Lindblom assumes the EOS to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\}. Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. By representing the TOV equations for this small region as a power series, and inverting that, one can obtain \{$\epsilon_{i+1}, p_{i+1}$\} as a function of previously calculated quantities. This algorithm is repeated for the rest of the MRR, using an interpolation method to link \{$\epsilon_{i+1}, p_{i+1}$\} to the known EOS.\\
+Here, a different approach to this problem is developed, more on that in \ref{recon_method_sec}.
 
 
 
 
-
-\section{Reconstruction method}
+\section{Reconstruction method} \label{recon_method_sec}
 
 \subsection{General goal}
 
@@ -240,9 +243,12 @@ Using
 \begin{thebibliography}{2}
 	\bibitem{Glendenning} Glendenning, N. K., Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
 	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
+
 	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, 663 p. 252
 	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
+	
+	\bibitem{Lindblom(1992)} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
 	\bibitem{Haensel et al.(2007)} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
 	
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.

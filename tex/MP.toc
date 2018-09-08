@@ -11,11 +11,11 @@
 \contentsline {subsection}{\numberline {2.4}The Tolman-Oppenheimer-Volkoff equation}{4}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Numerical solution}{5}{subsection.2.5}
 \contentsline {subsubsection}{\numberline {2.5.1}Method}{5}{subsubsection.2.5.1}
-\contentsline {subsubsection}{\numberline {2.5.2}Adaptive stepsize}{5}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.2}Adaptive stepsize}{6}{subsubsection.2.5.2}
 \contentsline {subsubsection}{\numberline {2.5.3}Implementation}{6}{subsubsection.2.5.3}
 \contentsline {subsection}{\numberline {2.6}From TOV solver to reconstruction}{6}{subsection.2.6}
 \contentsline {subsection}{\numberline {2.7}The inverse problem}{6}{subsection.2.7}
-\contentsline {section}{\numberline {3}Reconstruction method}{6}{section.3}
-\contentsline {subsection}{\numberline {3.1}General goal}{6}{subsection.3.1}
+\contentsline {section}{\numberline {3}Reconstruction method}{7}{section.3}
+\contentsline {subsection}{\numberline {3.1}General goal}{7}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}Pressure intervals}{8}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Test case}{8}{subsection.3.3}
