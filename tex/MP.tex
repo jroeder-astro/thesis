@@ -15,13 +15,14 @@
 \usepackage{transparent}
 \graphicspath{{graphs/}}
 
-
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
 
 
 
 \begin{document}
 	\pagestyle{empty}
-	\textasciitilde
+	%\textasciitilde
 
 
 \begin{titlepage}
@@ -58,42 +59,49 @@ Both kinds of compact stars are subject to fast neutrino and photon cooling. Aft
 
 \subsection{Neutron star structure}
 
+Generally, a neutron star can be divided into four zones: The inner and outer core, with inner and outer crust above it. These zones have fundamentally different properties. These zones are usually defined through their range of densities. For example, (one finds the original version of this proposal in \cite{Pandharipande1976} and \cite{ShapiroTeukolsky}), with $[\rho] =$\,g/cm$^3$:
+\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and and magnetic fields can have big impact on the equation of state here.
+\paragraph{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$} The \textit{outer crust} consists of a Coulomb lattice within a relativistic electron gas.
+\paragraph{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$} In the \textit{inner crust} neutron-rich nuclei from a lattice; as the densities increases, neutron drip takes place. Now, there is not only an electron gas, but also a superfluid neutron gas formed by the dripped-out neutrons.
+\paragraph{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho_{core}$} The \textit{outer core} or \textit{neutron fluid} does no longer consist of a lattice. Remaining charge neutral, this region  
+is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons.
+\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.
+
 
 
 \subsection{The third family}
 
-Most equations of state, when plugged into the Tolman-Oppenheimer-Volkofff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with one maximum. From there on to lower radii the configurations become unstable due to a sign change in the curve slope \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, one generally refers to these stars as "high mass twins" or "twin stars". 
+Most equations of state, when plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with one maximum. From there on to lower radii the configurations become unstable due to a sign change in the curve slope \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, one generally refers to these stars as "high mass twins" or "twin stars". 
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation} \label{TOV}
 
-The equation used for determining the structure of compact stars will here be the TOV equation. \\
-To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a 
+The equation used for determining the structure of compact stars will here be the TOV equation. To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a 
 power of length.\\
 The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
-Further, the system shall not evolve in time, therefore staying spherically symmetric. In terms of the energy-momentum tensor we are left with:
-
+Further, the space-time shall not evolve in time, therefore staying spherically symmetric (i.e. it is stationary). In terms of the energy-momentum tensor we are left with:
 \begin{equation}\label{eq:hydro}
 	T_{\mu\nu}=\left(\epsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
 \end{equation}
-Spherical symmetry leads to a certain form of the metric, which then gives the stress-energy tensor components:
-\begin{equation}
-	T_{\mu\nu} = diag(\epsilon e^{\nu(r)}  , \ P e^{\lambda(r)},\ Pr^2,\ Pr^2sin^2(\theta)    )
+Where $\epsilon$ is the energy density, $P$ is the pressure and $u_\mu$ is the 4-velocity. \\
+Spherical symmetry leads to a certain form of the metric,
+\begin{equation} \label{eq:line_element}
+	ds^2 = e^{2\varPhi} dt^2 - e^{2\lambda}dr^2 - r^2(d\theta^2+\sin^2d\phi^2)
 \end{equation}
-Imposing hydrostatic equilibrium,
+containing spherical coordinates $r, \theta, \phi$ and a time-like coordinate $t$. Equation \ref{eq:line_element} becomes the line element for a flat space-time if the exponents in the first two coefficients become zero, from which follows the role of the exponent terms as curvature description in the radial and the time ``directions''. To be precise, $\varPhi$ is directly related to gravitational redshift, and $\lambda$ determines the change of proper length due to curvature.\\
+This gives us the stress-energy tensor components:
+\begin{equation}
+	T_{\mu\nu} = diag(\epsilon e^{2\varPhi}  , \ P e^{2\lambda},\ Pr^2,\ Pr^2sin^2(\theta))
+\end{equation}
+One now imposes conservation of energy and momentum, 
 \begin{equation}
 	\nabla_\nu T^{\mu\nu}=0
 \end{equation}
-and some calculation, one obtains the expression
-\begin{equation}
-	content...
+and puts it into the Einstein equations \ref{eq:einstein} together with the metric, the components of which can be read from \ref{eq:line_element}.
+\begin{equation} \label{eq:einstein}
+	R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = 8\pi \,T_{\mu\nu}
 \end{equation}
-To determine what $\nu(r)$ looks like, and using the previously defined metric, one can calculate the non-zero components
-of the Ricci tensor:
-\begin{equation}
-	content...
-\end{equation}
-The Einstein equations then yield more equations containing $\nu(r)$ and it's derivatives. After plugging some of the equations 
-into one another, one obtains $\nu(r)$ and therefore, in conclusion, the full TOV equation:
+Here, $R_{\mu\nu}$ is the Ricci tensor and $R$ is the Ricci scalar. Both can be calculated from the metric $g_{\mu\nu}$. Before one can get to work to get the actual TOV equations, the metric exponential functions have to be calculated.\\
+One obtains,finally, the full TOV equation:
 \begin{equation}\label{eq:tov}
 	\frac{dP}{dr} = \frac{(\epsilon + P)(m + 4\pi r^3 P)}{2mr-r^2}
 \end{equation}
@@ -229,9 +237,10 @@ Using
 \end{table}
 
 %{1965gtgc.book.....H}
-
 \begin{thebibliography}{2}
 	\bibitem{Glendenning} Glendenning, N. K., Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
+	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
+	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, 663 p. 252
 	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
 	\bibitem{Haensel et al.(2007)} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
