@@ -67,7 +67,7 @@ Generally, a neutron star can be divided into four zones: The inner and outer co
 is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons.
 \paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.\\
 
-The EOS becomes gradually less known towards the central region. A number of nuclear or fluid EOSs have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. \\
+The EOS becomes gradually less known towards the central region. A number of nuclear or fluid EOSs have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single EOS for the whole neutron star would be of great interest, one usually determines the EOS piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
 The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.
 
 
@@ -111,6 +111,40 @@ Together with a second equation for the mass:
 \begin{equation}\label{eq:mr}
 	\frac{dm}{dr} = 4\pi r^2\epsilon
 \end{equation}
+
+
+\subsection{Fermi gas equation of state}
+
+% Glendenning, page???
+
+
+This EOS will serve as a test case for the reconstruction algorithm (the constant in the polytrope will be set arbitrarily when using it as a first test). For a detailed version of this derivation, see \cite{Glendenning}. \\
+Here, $p=k$ ($c=1$) and therefore $E=\sqrt{k^2+m^2}$. With that, the energy density, pressure and density become:
+\begin{align}
+	\epsilon &= \frac{\gamma}{2\pi ^2}\int_{0}^{k_F} k^2\sqrt{k^2+m^2} \ dk \\
+	p &=  \frac{\gamma}{6\pi ^2} \int_{0}^{k_F} \frac{k^4}{\sqrt{k^2+m^2}} \ dk \\
+	\rho &= \frac{\gamma}{2\pi ^2}\int_{0}^{k_F} k^2 \ dk
+\end{align}
+Setting the chemical potential to $\mu = \sqrt{k_F^2+m^2}$ (the Fermi energy), the solutions to these integrals read
+\begin{align} \label{eq:eorho_solved}
+	\epsilon &= \frac{1}{4\pi^2} \left[  \mu k_F \left(\mu^2-\frac{m^2}{2}\right)-\frac{m^4}{2} \ln \left(\frac{\mu +k_F}{m}\right)   \right] \\
+	p &= \frac{1}{12\pi^2} \left[  \mu k_F \left(\mu^2-\frac{5m^2}{2}\right)-\frac{3m^4}{2} \ln \left(\frac{\mu +k_F}{m}\right)   \right] \\
+	\rho &= \frac{k_F^3}{3\pi^2} \label{eq:rho}
+\end{align}
+where $\gamma = 2$, the degeneracy factor for fermions due to spin orientation. The Pauli principle is therefore directly included. Charge neutrality can be imposed, and chemical equilibrium can be obtained as
+\begin{equation}
+	\mu_n = \mu_p + \mu_e
+\end{equation}
+with chemical potentials for neutrons, protons and electrons.\\
+Numerically, it is convenient to calculate limits of equations \ref{eq:eorho_solved} - \ref{eq:rho} for the case of high and low densities, i. e. $k_F \gg m$ or $k_F \ll m$. Our test case EOS will resemble very low densities. Expanding \ref{eq:eorho_solved} in $k_F/m$ one obtains
+\begin{equation}
+	p\sim K\cdot \rho^{5/3}
+\end{equation}
+Which is a polytropic type of equation. By absorbing densities into the energy density, one can get
+\begin{equation}
+	p = K\epsilon^\gamma
+\end{equation}
+
 
 \subsection{Numerical solution}
 
@@ -157,9 +191,9 @@ The main additions will be the split of the pressure range into segments, each r
 
 \subsection{The inverse problem}
 
-The first one to propose an inverted approach to the so-called ``stellar structure problem'' was L. Lindblom in 1992 \cite{Lindblom(1992)}. The ``standard'' version of this problem is just an integration of the TOV equations with a set EOS and central pressure, determining the total mass and radius (values of the variables at the surface). Lindblom presents an MRR-EOS-pair uniquely linked by an abstract map. This gives rise to the possibility of using that map in the other direction, i.e. from MRR to EOS. His ``traditional'' solution of the inverse problem works as follows:\\
+The first one to propose an inverted approach to the so-called ``stellar structure problem'' was L. Lindblom in 1992 \cite{Lindblom(1992)}. The ``standard'' version of this problem is just an integration of the TOV equations with a set EOS and central pressure, determining the total mass and radius (values of the variables at the surface). Lindblom presents an MRR-EOS-pair to be uniquely linked by an abstract map. This gives rise to the possibility of using that map in the other direction, i.e. from MRR to EOS. His ``traditional'' solution of the inverse problem works as follows:\\
 Instead of integrating the TOV equations from the core towards the surface with initial values $p=p_c$ and $r=0$, he uses $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, Lindblom assumes the EOS to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\}. Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. By representing the TOV equations for this small region as a power series, and inverting that, one can obtain \{$\epsilon_{i+1}, p_{i+1}$\} as a function of previously calculated quantities. This algorithm is repeated for the rest of the MRR, using an interpolation method to link \{$\epsilon_{i+1}, p_{i+1}$\} to the known EOS.\\
-Here, a different approach to this problem is developed, more on that in \ref{recon_method_sec}.
+Here, a different and more simplistic approach to this problem is developed. This new method does not require the star to be integrated from crust to core, but will merely be a modification of the standard problem. This leads to a kind of ``trial and error'' type of solution, as section \ref{recon_method_sec} will explain more detailed.
 
 
 

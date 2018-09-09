@@ -4,13 +4,14 @@
 \BOOKMARK [2][-]{subsection.2.2}{Neutron star structure}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{The third family}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{The Tolman-Oppenheimer-Volkoff equation}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.5}{Numerical solution}{section.2}% 7
-\BOOKMARK [3][-]{subsubsection.2.5.1}{Method}{subsection.2.5}% 8
-\BOOKMARK [3][-]{subsubsection.2.5.2}{Adaptive stepsize}{subsection.2.5}% 9
-\BOOKMARK [3][-]{subsubsection.2.5.3}{Implementation}{subsection.2.5}% 10
-\BOOKMARK [2][-]{subsection.2.6}{From TOV solver to reconstruction}{section.2}% 11
-\BOOKMARK [2][-]{subsection.2.7}{The inverse problem}{section.2}% 12
-\BOOKMARK [1][-]{section.3}{Reconstruction method}{}% 13
-\BOOKMARK [2][-]{subsection.3.1}{General goal}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.2}{Pressure intervals}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.3}{Test case}{section.3}% 16
+\BOOKMARK [2][-]{subsection.2.5}{Fermi gas equation of state}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{Numerical solution}{section.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.6.1}{Method}{subsection.2.6}% 9
+\BOOKMARK [3][-]{subsubsection.2.6.2}{Adaptive stepsize}{subsection.2.6}% 10
+\BOOKMARK [3][-]{subsubsection.2.6.3}{Implementation}{subsection.2.6}% 11
+\BOOKMARK [2][-]{subsection.2.7}{From TOV solver to reconstruction}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.8}{The inverse problem}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Reconstruction method}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{General goal}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Pressure intervals}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Test case}{section.3}% 17
