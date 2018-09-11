@@ -14,7 +14,7 @@ plt.plot(p1, eos(p1), label='known')
 x1 = []
 y1 = []
 
-with open('log', 'r') as csvfile:
+with open('log_save', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x1.append(float(row[3]))

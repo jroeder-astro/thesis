@@ -52,5 +52,5 @@ plt.legend(loc=2)
 plt.xlabel('$p$',fontsize = 20)
 plt.ylabel('$\epsilon(p)$',fontsize = 20)
 
-
+plt.tight_layout()
 plt.show()

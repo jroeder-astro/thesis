@@ -7,7 +7,7 @@
 \BOOKMARK [2][-]{subsection.2.5}{Fermi gas equation of state}{section.2}% 7
 \BOOKMARK [2][-]{subsection.2.6}{Numerical solution}{section.2}% 8
 \BOOKMARK [3][-]{subsubsection.2.6.1}{Method}{subsection.2.6}% 9
-\BOOKMARK [3][-]{subsubsection.2.6.2}{Adaptive stepsize}{subsection.2.6}% 10
+\BOOKMARK [3][-]{subsubsection.2.6.2}{Adaptive step size}{subsection.2.6}% 10
 \BOOKMARK [3][-]{subsubsection.2.6.3}{Implementation}{subsection.2.6}% 11
 \BOOKMARK [2][-]{subsection.2.7}{From TOV solver to reconstruction}{section.2}% 12
 \BOOKMARK [2][-]{subsection.2.8}{The inverse problem}{section.2}% 13

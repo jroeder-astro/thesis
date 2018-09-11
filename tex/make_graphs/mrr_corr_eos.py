@@ -39,11 +39,12 @@ plt.legend()
 
 plt.subplot(2,2,(2,4))
 plt.plot(x2, y2, label='EOS')
-plt.plot([0.0004], [0.0022974], 'go')
+plt.plot([0.0022974],[0.0004] ,'go')
 plt.ylabel('$e(p)$',fontsize = 20)
 plt.xlabel('$p$',fontsize = 20)
 plt.yticks([])
 plt.xticks([])
 plt.legend(loc=4)
 
+plt.tight_layout()
 plt.show()

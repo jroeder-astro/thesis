@@ -31,7 +31,7 @@ with open('rec_stefan.out', 'r') as csvfile:
 
 #plt.plot(x2, y2, 'ro', label='Rec_Stefan')
 
-with open('log', 'r') as csvfile:
+with open('log_new', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x3.append(float(row[0]))

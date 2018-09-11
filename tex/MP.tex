@@ -170,9 +170,10 @@ with increments $k_i$:
 	k_3 &= f(y(t)+k_2/2,t+\tau/2)\cdot\tau\\
 	k_4 &= f(y(t)+k_3,t+\tau)\cdot\tau
 \end{align*}
-All $k_i$ are of course also two component "vectors". 
+All $k_i$ are of course also two component "vectors". \\
+For simpler test versions of the code, it is convenient to reduce the RK4 algorithm to RK1, or Euler's method. Also, the step size does not have to be adaptive. That way, runtime efficiency can be adjusted.
 
-\subsubsection{Adaptive stepsize}
+\subsubsection{Adaptive step size}
 
 In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If said change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ adjustion. If the check is successful, the program will accept the step result and proceed with the next one. 
 
@@ -180,7 +181,7 @@ In order to maintain a minimum level of precision, the program checks for the ch
 
 In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
 N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; that way $x$ is only reflecting the step count. $x$ will therefore be in range zero up to the number of iteration steps. We set an arbitrary maximum step amount to prevent segmentation faults.\\
-The RK4 algorithm will be implemented in such a way, that it can be easily modified any time to another order of Runge-Kutta or even Euler.
+The RK4 algorithm will be implemented so that it can be easily modified any time to another order of Runge-Kutta or even Euler.
 
 
 \subsection{From TOV solver to reconstruction}
@@ -203,15 +204,12 @@ Here, a different and more simplistic approach to this problem is developed. Thi
 \subsection{General goal}
 
 The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given EOS. This process will be repeated until the end of the MRR file.
-
 \begin{figure}
 	\centering
 	\includegraphics[width=1\textwidth]{graphs/mrr_corr_eos}
 	\caption{corresponding points in MRR and EOS. Point in EOS resembles values in the center of the star.}
 	\label{fig:mce}
 \end{figure}
-
-
 \begin{figure}
 	\centering
 	\includegraphics[width=1\textwidth]{graphs/eos_recon}
@@ -224,7 +222,7 @@ The goal is to reconstruct the EOS with as few biasing and imposing of mathemati
 
 For the first mass in the file that is supposed to be reconstructed, the code will use the given EOS over the complete pressure interval $p_c$ to 0. That way, the first mass can be reproduced exactly in a test case. $p_c$ will be the last pressure value of the given EOS interval. From there, lines will be added to that end point; in the program, a flag labelled ``one'' will be set to false after the first mass was calculated. \\
 From this point on it is important to determine which EOS will be used for what pressure interval inside the star. The second mass to be calculated will use the given EOS and one single line after it; masses number three and above then also need a line, but before finishing with the given EOS the previously determined lines are supposed to fill in the rest of the pressure range. \\
-The line currently subject to variation will start at the central pressure ($p_c$) and will end at the last pressure a star was reconstructed for. This is resembled by the end point of the last previous line (or in the special case, the last pressure of the given EOS). The last given EOS pressure is saved in the very beginning as $p_init$, marking the point from which the given EOS will finish up the mass calculation.
+The line currently subject to variation will start at the central pressure ($p_c$) and will end at the last pressure a star was reconstructed for. This is resembled by the end point of the last previous line (or in the special case, the last pressure of the given EOS). The last given EOS pressure is saved in the very beginning as $p_{p_init}$, marking the point from which the given EOS will finish up the mass calculation.
 
 \subsection{Test case}
 
@@ -232,7 +230,21 @@ The first code test will take place with a simple polytropic EOS such as
 \begin{equation*}
 	\epsilon(p) = \left(\frac{p}{10}\right)^{3/5}
 \end{equation*}
-Using
+Using the TOV solver, an MRR is generated. For this simple case, RK4 was reduced to Euler's method and the step size is not adaptive. The MRR seen in Fig. \ref{fig:test} will be the first one to be reconstructed. 
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{graphs/test_mrr_eos}
+	\caption{Test case}
+	\label{fig:test}
+\end{figure}
+The curves both consist of 100 data points which will be read in by the reconstruction code. The result can be seen in \ref{fig:recon_test}.
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{graphs/recon_test_mrr_eos}
+	\caption{Test case}
+	\label{fig:recon_test}
+\end{figure}
+
 
 
 

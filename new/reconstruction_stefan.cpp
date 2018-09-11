@@ -135,7 +135,7 @@ main(){
       flag = false;
       pstep = 1e-6;
       p_end = p_dur - 5 * pstep;
-                        // this destroys the three if statements!!!
+                        
       while (p_end >= 0.8 * p_dur) {
         p_end += pstep;
 	y_0[0] = p_end;
@@ -194,8 +194,8 @@ main(){
               tov_euler(y[i1], t[i1], y_tau, tau, 
                         &reconstruction[reconstruction.size()-(n+1)], line);
               
-              //if (n > 1)
-                 //cout << "II  " << n << endl;
+              // if (n > 1)
+              //    cout << "II  " << n << endl;
 
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
@@ -225,9 +225,9 @@ main(){
 
         n = 0;
       
-        if (reconstruction.size() >= 17) {
+//        if (reconstruction.size() >= 17) {
           cout << "Slope after mass: " << slope << endl; 
-        }
+//        }
   
         // cout << " P_end for mass:  " <<p_end<< endl;
 
@@ -244,10 +244,10 @@ main(){
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
 /*!*/
-          if (reconstruction.size() >= 17) {
+//          if (reconstruction.size() >= 17) {
             printf("diff mass %g %g %g %g\n", pstep, diff, 
                    y[i1-1][1]/1.4766, MR_rel[mcount][1]);
-          }
+//          }
 
           n = 0;
           masses.push_back(y[i1-1][1]);
@@ -258,7 +258,7 @@ main(){
                 (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
               
               if (reconstruction.size() >= 14) {
-                pstep += 1e-6 * (reconstruction.size() - 4);
+                pstep += 1e-6 * (reconstruction.size()-2);
                 cout << "de-softening..." << endl;
               }
  
@@ -317,17 +317,18 @@ main(){
   
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
 /*!*/    
-      if (reconstruction.size() >= 17) {
+//      if (reconstruction.size() >= 17) {
         printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
                MR_rel[mcount][0]);
-      }
-/*
+//      }
+
+
       if (!one && radii[radii.size()-1] == radii[radii.size()-2]) {
         cout << "same radius b.c.\n";
         n = 0;
         break;
       }
-*/
+
  
       if (fabs(diff_s) < 0.005) {
         cout << "fabs(diff_s)  br. c." << endl;
@@ -377,9 +378,9 @@ main(){
     else
       e_rec = eos(p_end, &alpha);
 
-    cout /*<< "out: "*/ << t[i1-1] << "," << y[i1-1][1]/1.4766 
+    cout << "out: " << t[i1-1] << "," << y[i1-1][1]/1.4766 
          << "," << e_rec << "," << p_end
-         << "," << MR_rel[mcount][0] << "," << MR_rel[mcount][1]
+         << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
          << "," << mcount << "," << reconstruction.size() 
          << "," << slope << endl;
 
@@ -395,8 +396,6 @@ main(){
 
     slope_step = 0.01;
   
-    // cout << "rec.size() = " << reconstruction.size() << endl;
-
     if (reconstruction.size() == 1) 
       two = true;
     else 
