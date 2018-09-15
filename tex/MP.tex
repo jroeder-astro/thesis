@@ -10,6 +10,8 @@
 \usepackage[ansinew]{inputenc}
 \usepackage[left=2cm,top=1cm]{geometry}
 
+\renewcommand{\familydefault}{\sfdefault}
+
 % vector graphics test
 \usepackage{color}
 \usepackage{transparent}
@@ -53,7 +55,7 @@ The approach chosen in this thesis is inverting the above process. Instead of us
 
 \subsection{Compact stars}
 
-At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core, up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their EOS is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
+At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$ \cite{Mazzali et al.(2007)}. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their EOS is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
 If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova explosion. The type of remnant left behind is called neutron star, and the matter out of which it is formed is always of the same composition and state. Therefore, in contrast to white dwarfs, there is one unique EOS to describe all neutron stars. \\
 Both kinds of compact stars are subject to fast neutrino and photon cooling. After at most a few million years temperatures will have dropped several orders of magnitude below $1$\,MeV, so that on the nuclear scale the star can be  treated as cold. 
 
@@ -70,10 +72,10 @@ is dominated by a neutron superfluid along with a proton superfluid. The charge 
 The EOS becomes gradually less known towards the central region. A number of nuclear or fluid EOSs have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single EOS for the whole neutron star would be of great interest, one usually determines the EOS piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
 The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.
 
-
 \subsection{The third family}
 
-Most equations of state, plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with a single maximum. From there on to lower radii the configurations become unstable due to a sign change in $dM/d\rho_c$ \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, one generally refers to these stars as "high mass twins" or "twin stars". 
+Most equations of state, plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with a single maximum. From there on to lower radii the configurations become unstable due to a sign change in $dM/d\rho_c$ \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, these stars are generally referred to as "high mass twins" or "twin stars". \\
+The main arguments against a third family would be instability to oscillations (resulting in explosion oder black hole formation) and distribution of Fermi pressure among more flavors \cite{GlennKett}. Most theories resolve around quark core formation and a pasta-like phase transition from hadronic to quark matter analogue to the zone between crust and core. 
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation} \label{TOV}
 
@@ -115,9 +117,6 @@ Together with a second equation for the mass:
 
 \subsection{Fermi gas equation of state}
 
-% Glendenning, page???
-
-
 This EOS will serve as a test case for the reconstruction algorithm (the constant in the polytrope will be set arbitrarily when using it as a first test). For a detailed version of this derivation, see \cite{Glendenning}. \\
 Here, $p=k$ ($c=1$) and therefore $E=\sqrt{k^2+m^2}$. With that, the energy density, pressure and density become:
 \begin{align}
@@ -142,9 +141,9 @@ Numerically, it is convenient to calculate limits of equations \ref{eq:eorho_sol
 \end{equation}
 Which is a polytropic type of equation. By absorbing densities into the energy density, one can get
 \begin{equation}
-	p = K\epsilon^\gamma
+	p = K\cdot\epsilon^\gamma
 \end{equation}
-
+which is common to use for simple star models, especially white dwarfs. 
 
 \subsection{Numerical solution}
 
@@ -240,8 +239,8 @@ Using the TOV solver, an MRR is generated. For this simple case, RK4 was reduced
 The curves both consist of 100 data points which will be read in by the reconstruction code. The result can be seen in \ref{fig:recon_test}.
 \begin{figure}
 	\centering
-	\includegraphics[width=1\textwidth]{graphs/recon_test_mrr_eos}
-	\caption{Test case}
+%	\includegraphics[width=1\textwidth]{graphs/recon_test_mrr_eos}
+	\caption{Reconstruction test}
 	\label{fig:recon_test}
 \end{figure}
 
@@ -287,13 +286,12 @@ The curves both consist of 100 data points which will be read in by the reconstr
 
 %{1965gtgc.book.....H}
 \begin{thebibliography}{2}
+	\bibitem{Mazzali et al.(2007)} Mazzali, P.~A., R{\"o}pke, F.~K., Benetti, S., \& Hillebrandt, W.\ 2007, Science, \textbf{315}, 825 
 	\bibitem{Glendenning} Glendenning, N. K., Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
 	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
-
 	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, 663 p. 252
 	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
-	
 	\bibitem{Lindblom(1992)} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
 	\bibitem{Haensel et al.(2007)} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
 	
