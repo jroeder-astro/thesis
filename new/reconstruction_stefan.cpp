@@ -123,7 +123,7 @@ main(){
   while (mcount < MR_rel.size()) {
     flag_s = false;
     
-    while (slope < 1+mcount/20) {
+    while (slope < 1.5) {
       alpha3_old = alpha[3];
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
@@ -268,7 +268,7 @@ main(){
 
               masses.clear();
 
-              if (slope > 1+mcount/20) 
+              if (slope > 1.1) 
                 break;
 
               // cout << "test  " 
