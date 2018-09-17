@@ -123,7 +123,7 @@ main(){
   while (mcount < MR_rel.size()) {
     flag_s = false;
     
-    while (slope < 1+mcount/20) {
+    while (slope < 1.0) {
       alpha3_old = alpha[3];
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
@@ -226,7 +226,7 @@ main(){
         n = 0;
       
 //        if (reconstruction.size() >= 17) {
-          //cout << "Slope after mass: " << slope << endl; 
+          cout << "Slope after mass: " << slope << endl; 
 //        }
   
         // cout << " P_end for mass:  " <<p_end<< endl;
@@ -245,8 +245,8 @@ main(){
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
 /*!*/
 //          if (reconstruction.size() >= 17) {
-            // printf("diff mass %g %g %g %g\n", pstep, diff, 
-            //        y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+            printf("diff mass %g %g %g %g\n", pstep, diff, 
+                   y[i1-1][1]/1.4766, MR_rel[mcount][1]);
 //          }
 
           n = 0;
@@ -259,7 +259,7 @@ main(){
               
               if (reconstruction.size() >= 14) {
                 pstep += 1e-6 * (reconstruction.size()-2);
-                // cout << "de-softening..." << endl;
+                cout << "de-softening..." << endl;
               }
  
               // de-softener / stiffener
@@ -268,17 +268,17 @@ main(){
 
               masses.clear();
 
-              if (slope > 1+mcount/20) 
+              if (slope > 1) 
                 break;
 
-              // cout << "test  " 
-              // << fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
+              //cout << "test  " 
+              //<< fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
   
               if (fabs(diff) < pow(10., -5.)) {
                 break; 
               }
 
-              // slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+              //slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
               alpha[3] = e_rec + (alpha[2]-alpha[0]) 
                          / (slope); 
 
@@ -287,13 +287,13 @@ main(){
           }
 
           if (diff * diff0 > 0) {
-            // cout << "diff * diff0 > 0" << endl;
+            //cout << "diff * diff0 > 0" << endl;
             continue;
           }
 
           pstep /= 10.0;
           if (pstep < 1e-9) {
-            // cout << "pstep < x br. c." << endl;
+            cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -318,20 +318,20 @@ main(){
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
 /*!*/    
 //      if (reconstruction.size() >= 17) {
-        // printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-        //        MR_rel[mcount][0]);
+        printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+               MR_rel[mcount][0]);
 //      }
 
 
       if (!one && radii[radii.size()-1] == radii[radii.size()-2]) {
-        // cout << "same radius b.c.\n";
+        cout << "same radius b.c.\n";
         n = 0;
         break;
       }
 
  
       if (fabs(diff_s) < 0.005) {
-        // cout << "fabs(diff_s)  br. c." << endl;
+        cout << "fabs(diff_s)  br. c." << endl;
         n = 0;
         break;
       }
@@ -345,7 +345,7 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        // cout << "slope_step < x br.c." << endl;
+        cout << "slope_step < x br.c." << endl;
         n = 0;
         break;
       }
@@ -378,7 +378,7 @@ main(){
     else
       e_rec = eos(p_end, &alpha);
 
-    cout /* << "out: "*/ << t[i1-1] << "," << y[i1-1][1]/1.4766 
+    cout << "out: " << t[i1-1] << "," << y[i1-1][1]/1.4766 
          << "," << e_rec << "," << p_end
          << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
          << "," << mcount << "," << reconstruction.size() 
@@ -408,6 +408,11 @@ main(){
 
   } // end mcount loop
 
+/*
+  for (i1 = 0; i1 < store.size(); i1++) {
+    cout << store[i1] << endl;
+  }
+*/
   return 0;
 }
 
