@@ -82,6 +82,8 @@ main(){
   vector<double> masses;
   vector<double> radii;
 
+  double p, e;
+
   // File I/O
  
   FILE *MRR = fopen("mr.out", "r");
@@ -111,9 +113,9 @@ main(){
   // Initialization
 
   p_init = 0.00001 + mcount * 0.00001;
-  e_rec = eos(p_init, &alpha);
-  t[0] = 0.0000000001;
-  p_dur = p_init;
+  e_rec  = eos(p_init, &alpha);
+  t[0]   = 0.0000000001;
+  p_dur  = p_init;
 
   alpha[0] = p_init;
   alpha[1] = e_rec;
@@ -123,7 +125,7 @@ main(){
   while (mcount < MR_rel.size()) {
     flag_s = false;
     
-    while (slope < 1+mcount/20) {
+    while (slope < 1.5) {
       alpha3_old = alpha[3];
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
@@ -268,7 +270,7 @@ main(){
 
               masses.clear();
 
-              if (slope > 1+mcount/20) 
+              if (slope > 1.5) 
                 break;
 
               // cout << "test  " 
@@ -419,9 +421,9 @@ double eos(double p, vector<double> *alpha) {
 }
 
 double line(double p, vector<double> *alpha) {
-   return p * ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) 
-          + ((*alpha)[1] - (*alpha)[0] * 
-          ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]));
+  return p * ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) 
+         + ((*alpha)[1] - (*alpha)[0] * 
+         ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]));
 }
 
 void tov_euler(double *y_t, double t, 
@@ -445,18 +447,5 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * state(y_t[0], alpha);
 }
-
-
-/*
-  for (i1 = 0; i1 < MR_rel.size(); i1++) {
-    if (MR_rel[i1][1] <= 1) {
-      mcount++;
-    }
-    if (MR_rel[i1][1] - MR_rel[i1+1][1]) {
-      m_max = i1;
-      break;
-    }
-  }
-*/
 
 
