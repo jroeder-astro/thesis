@@ -10,7 +10,7 @@ using namespace std;
 // Global parameters
 
 const int N = 2;
-const int num_steps = 200000;
+const int num_steps = 100000;
 
 
 // Function heads
@@ -82,8 +82,6 @@ main(){
   vector<double> masses;
   vector<double> radii;
 
-  double p, e;
-
   // File I/O
  
   FILE *MRR = fopen("mr.out", "r");
@@ -113,9 +111,9 @@ main(){
   // Initialization
 
   p_init = 0.00001 + mcount * 0.00001;
-  e_rec  = eos(p_init, &alpha);
-  t[0]   = 0.0000000001;
-  p_dur  = p_init;
+  e_rec = eos(p_init, &alpha);
+  t[0] = 0.0000000001;
+  p_dur = p_init;
 
   alpha[0] = p_init;
   alpha[1] = e_rec;
@@ -125,7 +123,7 @@ main(){
   while (mcount < MR_rel.size()) {
     flag_s = false;
     
-    while (slope < 1.5) {
+    while (slope < 1.0) {
       alpha3_old = alpha[3];
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
@@ -137,7 +135,7 @@ main(){
       flag = false;
       pstep = 1e-6;
       p_end = p_dur - 5 * pstep;
-                        
+                        // this destroys the three if statements!!!
       while (p_end >= 0.8 * p_dur) {
         p_end += pstep;
 	y_0[0] = p_end;
@@ -196,8 +194,8 @@ main(){
               tov_euler(y[i1], t[i1], y_tau, tau, 
                         &reconstruction[reconstruction.size()-(n+1)], line);
               
-              // if (n > 1)
-              //    cout << "II  " << n << endl;
+              //if (n > 1)
+                 //cout << "II  " << n << endl;
 
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
@@ -226,12 +224,20 @@ main(){
 	} // end of mass calculation
 
         n = 0;
-      
-//        if (reconstruction.size() >= 17) {
-          //cout << "Slope after mass: " << slope << endl; 
-//        }
+        
+        if (reconstruction.size() > 22) {
+          cout << "Slope after mass: " << slope << endl; 
+        }
   
         // cout << " P_end for mass:  " <<p_end<< endl;
+
+      /*
+        somewhere here, put in a "de-softener" if the reconstructed
+        MRR reaches a maximum before the current chosen mass due to
+        a too soft EoS.
+        OR: plug in another if statement to say "yup mass is fine 
+        even if diff*diff0 did not change sign"
+      */
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
@@ -245,57 +251,56 @@ main(){
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-/*!*/
-//          if (reconstruction.size() >= 17) {
-            // printf("diff mass %g %g %g %g\n", pstep, diff, 
-            //        y[i1-1][1]/1.4766, MR_rel[mcount][1]);
-//          }
+/*!*/         
+          if (reconstruction.size() > 20) {
+            printf("diff mass %g %g %g %g\n", pstep, diff, 
+                   y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+          }
 
           n = 0;
           masses.push_back(y[i1-1][1]);
 
           // will this do the job?
-          if (masses.size() > 2 && reconstruction.size() >= 7) {
+          if (masses.size() > 2 && reconstruction.size() > 1) {
             if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
                 (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
               
-              if (reconstruction.size() >= 14) {
-                pstep += 1e-6 * (reconstruction.size()-2);
-                // cout << "de-softening..." << endl;
-              }
- 
+              // cout << "de-softening..." << endl;
               // de-softener / stiffener
               // further adjust factor... 
               slope += 0.41 * slope_step;
 
-              masses.clear();
-
-              if (slope > 1.5) 
+              if (slope > 1) 
                 break;
 
-              // cout << "test  " 
-              // << fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
+              //cout << "test  " 
+              //<< fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
   
               if (fabs(diff) < pow(10., -5.)) {
                 break; 
               }
 
-              // slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+              //slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
               alpha[3] = e_rec + (alpha[2]-alpha[0]) 
                          / (slope); 
 
               continue;
+
+              // vvvvvvv doesn't seem to work properly
+              // accepting value next to desired mass
+              // break;
             }
           }
 
           if (diff * diff0 > 0) {
-            // cout << "diff * diff0 > 0" << endl;
+            //cout << "diff * diff0 > 0" << endl;
             continue;
           }
 
           pstep /= 10.0;
+
           if (pstep < 1e-9) {
-            // cout << "pstep < x br. c." << endl;
+            //cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -310,8 +315,8 @@ main(){
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        // printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-        //        MR_rel[mcount][0]);
+        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+        //       MR_rel[mcount][0]);
         n = 0;
         flag_s = true;
         continue;
@@ -319,21 +324,19 @@ main(){
   
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
 /*!*/    
-//      if (reconstruction.size() >= 17) {
-        // printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-        //        MR_rel[mcount][0]);
-//      }
-
+      if (reconstruction.size() > 20) {
+        printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+               MR_rel[mcount][0]);
+      }
 
       if (!one && radii[radii.size()-1] == radii[radii.size()-2]) {
-        // cout << "same radius b.c.\n";
         n = 0;
         break;
       }
 
  
       if (fabs(diff_s) < 0.005) {
-        // cout << "fabs(diff_s)  br. c." << endl;
+        cout << "fabs(diff_s)  br. c." << endl;
         n = 0;
         break;
       }
@@ -347,7 +350,7 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        // cout << "slope_step < x br.c." << endl;
+        cout << "slope_step < x br.c." << endl;
         n = 0;
         break;
       }
@@ -380,9 +383,8 @@ main(){
     else
       e_rec = eos(p_end, &alpha);
 
-    cout /* << "out: "*/ << t[i1-1] << "," << y[i1-1][1]/1.4766 
+    cout << t[i1-1] << "," << y[i1-1][1]/1.4766 
          << "," << e_rec << "," << p_end
-         << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
          << "," << mcount << "," << reconstruction.size() 
          << "," << slope << endl;
 
@@ -398,6 +400,8 @@ main(){
 
     slope_step = 0.01;
   
+    // cout << "rec.size() = " << reconstruction.size() << endl;
+
     if (reconstruction.size() == 1) 
       two = true;
     else 
@@ -410,6 +414,11 @@ main(){
 
   } // end mcount loop
 
+/*
+  for (i1 = 0; i1 < store.size(); i1++) {
+    cout << store[i1] << endl;
+  }
+*/
   return 0;
 }
 
@@ -421,9 +430,9 @@ double eos(double p, vector<double> *alpha) {
 }
 
 double line(double p, vector<double> *alpha) {
-  return p * ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) 
-         + ((*alpha)[1] - (*alpha)[0] * 
-         ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]));
+   return p * ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) 
+          + ((*alpha)[1] - (*alpha)[0] * 
+          ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]));
 }
 
 void tov_euler(double *y_t, double t, 
@@ -447,5 +456,18 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * state(y_t[0], alpha);
 }
+
+
+/*
+  for (i1 = 0; i1 < MR_rel.size(); i1++) {
+    if (MR_rel[i1][1] <= 1) {
+      mcount++;
+    }
+    if (MR_rel[i1][1] - MR_rel[i1+1][1]) {
+      m_max = i1;
+      break;
+    }
+  }
+*/
 
 
