@@ -15,7 +15,7 @@ double    p_end   = 0.0;
 const double tau  = 0.0001;
 double    t[num_steps+1];
 double    p_dur   = 0.0;
-double    Rcomp, Mcomp;
+double    Rcomp, Mcomp;  // what exactly are these
 int       indx    = 2;
 double    eps0, epsp, epsm;
 double    slope_old = 0, lambda;
@@ -65,6 +65,8 @@ main(){
   // I can use them in functions without passing them on (just lazy)
 
   // y no longer 2D, "superindex"?  
+  // other memory area...
+
   y = (double*)malloc(N * num_steps * sizeof(double));
 
   double p_init  = 0.0;
@@ -125,7 +127,7 @@ main(){
   indx     = alpha.size()-2;
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
-  indx     = 2;
+  indx     = 2; // only for curent alpha
 
   // code optimizes a function 
   // eps = (R-R_wanted)**2 + lambda*(slope-slope_before)**2 
@@ -163,12 +165,12 @@ main(){
     eps0 = diff0_s*diff0_s + lambda*(slope-slope_old)*(slope-slope_old);
     printf("diff0 slope radius %f %f\n", slope, diff0_s);
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(1.2*slope); 
-                                                              // ^^^
+    //    ^^^^^^-energy density                                  ^^^
     getR();
     dplus = Rcomp - MR_rel[mcount][0];              // vvvvvvvvv
     epsp = dplus*dplus + lambda*(slope*1.2-slope_old)*(slope*1.2-slope_old);
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(0.8*slope); 
-                                                              // ^^^
+    //    Unit-wise, all fine                                    ^^^
     getR();
     dminus = Rcomp - MR_rel[mcount][0];               // vvvvvvvvv
     epsm = dminus*dminus + lambda*(slope*0.8-slope_old)*(slope*0.8-slope_old);
@@ -193,6 +195,7 @@ main(){
    
     while (slope > 0.0) {
       slope += slope_step;
+
       if (slope <= 0) 
         break;
 
@@ -210,9 +213,9 @@ main(){
 
       diff_s = Rcomp - MR_rel[mcount][0];
       epsp   = diff_s*diff_s + lambda*(slope-slope_old)*(slope-slope_old);
-      //printf("diff radius %g %g %g %g %g %g %g %g \n",
-      //       epsp, slope, slope_step, diff_s, Rcomp, MR_rel[mcount][0],
-      //       Mcomp, MR_rel[mcount][1]);
+      printf("diff radius %g %g %g %g %g %g %g %g \n",
+             epsp, slope, slope_step, diff_s, Rcomp, MR_rel[mcount][0],
+             Mcomp, MR_rel[mcount][1]);
 
       if (fabs(diff_s) < 0.000001) {
         // cout << "fabs(diff_s) break condition" << endl;
@@ -234,7 +237,7 @@ main(){
         break;
       }
 
-      // slope-=10.*slope_step;
+      // slope -= 10.*slope_step;
       // alpha[indx+1] = alpha3_old;
 
     } // end slope loop
@@ -242,11 +245,11 @@ main(){
     // after first round set lambda to some reasonable value 
     // (one might play around with this number)
 
-    lambda = 1e-2;
+    lambda = 5e-2;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
-    //  alpha[indx+1]=line(y[0], p_dur,&alpha);
+    //  alpha[indx+1] = line(y[0], p_dur,&alpha);
     indx = alpha.size()-2;
 
     fprintf(fres,"%e,%e,%e,%e,%e,%e,%e\n", MR_rel[mcount][0], Rcomp, 
@@ -254,10 +257,10 @@ main(){
 
     fflush(fres);
 
-    //cout << "Radius: " << MR_rel[mcount][0] << " , " << Rcomp << endl;
-    //cout << "Mass:   " << MR_rel[mcount][1] << " , " << Mcomp << endl;
-    //cout << "central pressure: " <<  p_end  << endl;
-    //cout << "slope: "  << slope  << endl;
+    cout << "Radius: " << MR_rel[mcount][0] << " , " << Rcomp << endl;
+    cout << "Mass:   " << MR_rel[mcount][1] << " , " << Mcomp << endl;
+    cout << "central pressure: " <<  p_end  << endl;
+    cout << "slope: "  << slope  << endl;
 
     mcount++;
   } // end mcount loop
@@ -270,17 +273,18 @@ main(){
 
 // Functions
 
+
 int tov(double* y_0, double p_cut, vector<double> *alpha) {
   int i1, i2;
   double y_tau[N];
 
   // Initializing
+
   for (i1 = 0; i1 < N; i1++) {
     y[i1] = y_0[i1];
   }
 
   // Integration
-  // cout << "doing Euler\n";
 
   for (i1 = 0; y[i1*N] > 0; i1++) {
     tov_euler(&y[i1*N], t[i1], y_tau, tau, p_cut, alpha);
@@ -293,10 +297,10 @@ int tov(double* y_0, double p_cut, vector<double> *alpha) {
   }
 
   // star is complete at i1
+
   return i1;
 }
 
-// end of mass calculation
 
 double line(double p, double p_cut, vector<double> *alpha) {
   int i;
@@ -306,8 +310,9 @@ double line(double p, double p_cut, vector<double> *alpha) {
     return pow(p/10., 0.6);
 
   // work with previously determined lines
-  // wrong direction...?
-  for (i = 2; i < alpha->size(); i += 2) {
+  // only interval to be found
+  // for (i = 2; i < alpha->size(); i += 2) {
+  for (i = alpha->size(); i >= 2; i -= 2) {
     if (p < (*alpha)[i]) 
       break;
   }
@@ -318,6 +323,7 @@ double line(double p, double p_cut, vector<double> *alpha) {
              (*alpha)[i-1];
   return e;
 }
+
 
 void tov_euler(double *y_t, double t, 
                double *y_t_plus_tau, double tau, double p_cut,  
@@ -332,6 +338,7 @@ void tov_euler(double *y_t, double t,
   }
 }
 
+
 void f_times_tau(double *y_t, double t, 
                  double *f_times_tau, double tau, double p_cut, 
                  vector<double> *alpha) {
@@ -340,6 +347,7 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * line(y_t[0], p_cut, alpha);   
 }
+
 
 void getR() {
   double y_0[N];
@@ -360,9 +368,11 @@ void getR() {
     y_0[1] = 0.0;
             
     // i1 for which star is complete
+    // discrete
     i1 = tov(y_0, p_dur, &alpha);
     
     // why the mash-up of t and y arrays / masses and radii?
+    // interpolation to hit the actual radius
     Rcomp = t[i1-1] + y[(i1-1)*N] * tau / (y[(i1-2)*N]-y[(i1-1)*N]);
     Mcomp = y[(i1-1)*N + 1] + (y[(i1-1)*N + 1]-y[(i1-2)*N + 1]) / 
             tau * (Rcomp-t[i1-1]);
@@ -422,7 +432,7 @@ void getR() {
 
   } // end p_end < p_dur loop
 
-  // why the re-calculation?
+  // why the re-calculation? too much?
   Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
   Mcomp = y[(i1-1)*N+1] + (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
   Mcomp /= 1.4766;

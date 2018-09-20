@@ -54,7 +54,7 @@ main(){
     
     M.push_back(y[i1-1][1]/1.4766);
     R.push_back(t[i1-1]);
-    e.push_back(eos(p0)/(1.51483228e-4));
+    e.push_back(eos(p0)/*/(1.51483228e-4)*/);
     p.push_back(p0);
   }
   

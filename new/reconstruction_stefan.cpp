@@ -53,8 +53,8 @@ main(){
   double p_init  = 0.0;
   double p_end   = 0.0;
   double p_dur   = 0.0;
-  double slope   = 0.03;
-  double slope_step = 0.01;
+  double slope   = 1.2;
+  double slope_step = -0.01;
 
   bool   flag_s  = false;
   double diff0_s = 0.0;
