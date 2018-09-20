@@ -9,14 +9,15 @@
 \contentsline {paragraph}{$\rho \geq \rho _{core}$}{4}{section*.6}
 \contentsline {subsection}{\numberline {2.3}The third family}{4}{subsection.2.3}
 \contentsline {subsection}{\numberline {2.4}The Tolman-Oppenheimer-Volkoff equation}{4}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Fermi gas equation of state}{5}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}Numerical solution}{6}{subsection.2.6}
-\contentsline {subsubsection}{\numberline {2.6.1}Method}{6}{subsubsection.2.6.1}
-\contentsline {subsubsection}{\numberline {2.6.2}Adaptive step size}{7}{subsubsection.2.6.2}
-\contentsline {subsubsection}{\numberline {2.6.3}Implementation}{7}{subsubsection.2.6.3}
-\contentsline {subsection}{\numberline {2.7}From TOV solver to reconstruction}{7}{subsection.2.7}
-\contentsline {subsection}{\numberline {2.8}The inverse problem}{7}{subsection.2.8}
+\contentsline {subsection}{\numberline {2.5}The equation of state}{5}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Fermi gas equation of state}{5}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}Numerical solution}{6}{subsection.2.7}
+\contentsline {subsubsection}{\numberline {2.7.1}Method}{6}{subsubsection.2.7.1}
+\contentsline {subsubsection}{\numberline {2.7.2}Adaptive step size}{7}{subsubsection.2.7.2}
+\contentsline {subsubsection}{\numberline {2.7.3}Implementation}{7}{subsubsection.2.7.3}
+\contentsline {subsection}{\numberline {2.8}From TOV solver to reconstruction}{7}{subsection.2.8}
+\contentsline {subsection}{\numberline {2.9}The inverse problem}{8}{subsection.2.9}
 \contentsline {section}{\numberline {3}Reconstruction method}{8}{section.3}
 \contentsline {subsection}{\numberline {3.1}General goal}{8}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Pressure intervals}{8}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.2}Pressure intervals}{10}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Test case}{10}{subsection.3.3}
