@@ -1,0 +1,66 @@
+g++ -std=c++11 -o reconstruction_stefan reconstruction_stefan.cpp;
+./reconstruction_stefan
+pstep < x br. c.
+pstep < x br. c.
+fabs(diff_s)  br. c.
+15.5,1.0005,0.000577089,4.0001e-05,14.99,1.03217,4,1,0.04
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+fabs(diff_s)  br. c.
+14.99,1.03217,0.000660097,4.9962e-05,14.59,1.05689,5,2,0.11
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+fabs(diff_s)  br. c.
+14.59,1.05689,0.000737297,5.9998e-05,14.25,1.07684,6,3,0.12
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+same radius b.c.
+14.23,1.07684,0.000825739,7.0611e-05,13.95,1.09334,7,4,0.11
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+same radius b.c.
+13.9,1.09334,0.000918754,8.2703e-05,13.7,1.10724,8,5,0.12
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+same radius b.c.
+13.58,1.10724,0.00101038,9.6447e-05,13.47,1.11911,9,6,0.14
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+same radius b.c.
+13.26,1.11911,0.00112485,0.000112473,13.27,1.12938,10,7,0.13
+pstep < x br. c.
+same radius b.c.
+12.98,1.12938,0.00114989,0.000128024,13.08,1.13834,11,8,0.6253
+pstep < x br. c.
+pstep < x br. c.
+pstep < x br. c.
+same radius b.c.
+12.74,1.13844,0.00129053,0.000142735,12.92,1.14622,12,9,0.1046
+pstep < x br. c.
+same radius b.c.
+12.52,1.14622,0.00131207,0.000158506,12.76,1.15319,13,10,0.736
+pstep < x br. c.
+same radius b.c.
+12.31,1.15331,0.00149061,0.000175717,12.62,1.1594,14,11,0.0964
+same radius b.c.
+12.08,1.15939,0.00151507,0.000197027,12.48,1.16495,15,12,0.8754
+Makefile:2: recipe for target 'run' failed

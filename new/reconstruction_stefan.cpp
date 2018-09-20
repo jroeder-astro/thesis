@@ -3,13 +3,14 @@
 #include<math.h>
 #include<stdlib.h>
 #include<fstream>
+#include<time.h>
 using namespace std;
 
 
 // Global parameters
 
 const int N = 2;
-const int num_steps = 100000;
+const int num_steps = 200000;
 
 
 // Function heads
@@ -43,6 +44,7 @@ main(){
   int    P       = 0;
   double M, R;
   int    mcount  = 0;
+  int    m_max   = 0;
 
   vector<double> alpha(4);
   vector<double> one_MR(2);
@@ -51,8 +53,8 @@ main(){
   double p_init  = 0.0;
   double p_end   = 0.0;
   double p_dur   = 0.0;
-  double slope   = 0.07;
-  double slope_step = 0.01;
+  double slope   = 1.2;
+  double slope_step = -0.01;
 
   bool   flag_s  = false;
   double diff0_s = 0.0;
@@ -68,24 +70,39 @@ main(){
   vector<double> store;
   vector<double> pao_store;
   vector<vector<double>> reconstruction;
+
   bool   one     = true;
+  bool   two     = false;
   int    n       = 0;
+  double m_deriv_old = 0.0;
+  double m_deriv = 0.0;
+  double mass    = 0.0;
+  double mass_old = 0.0;
+
+  vector<double> masses;
+  vector<double> radii;
+
+  double p, e;
 
   // File I/O
  
   FILE *MRR = fopen("mr.out", "r");
-  if (MRR == NULL)
+ 
+  if (MRR == NULL) {
     exit(0);
+  }
+
   while (1) {
-    if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF)
+    if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF) {
       break;
+    }
     one_MR[0] = R;
     one_MR[1] = M;
     MR_rel.push_back(one_MR);
   }
   fclose(MRR);
   MRR = NULL;
-
+ 
   for (i1 = 0; i1 < MR_rel.size(); i1++) {
     if (MR_rel[i1][1] >= 1)
       break;
@@ -105,22 +122,25 @@ main(){
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 
-  while (mcount < 20) {
+  while (mcount < MR_rel.size()) {
     flag_s = false;
     
-    while (slope < 1.0) {
+    while (slope < 1.5) {
       alpha3_old = alpha[3];
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
                        / (slope + slope_step); 
+      //   Does this make sense?  ^^^^^^^^^^
 
+      // slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+     
       flag = false;
       pstep = 1e-6;
       p_end = p_dur - 5 * pstep;
-                        // this destroys the three if statements!!!
+                        
       while (p_end >= 0.8 * p_dur) {
         p_end += pstep;
-	y_0[0] = p_end; 
+	y_0[0] = p_end;
 	y_0[1] = 0.0;
 	// t[0] = 0.00000000001; // ?
 
@@ -133,8 +153,9 @@ main(){
         // cout << "doing Euler\n";
 
 	for (i1 = 0; y[i1][0] > 0; i1++) {
-
-          if (!one && y[i1][0] > pao_store[0]) {
+ 
+          // Part I.1
+          if (!one && y[i1][0] > pao_store[pao_store.size()-1] && !two) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
             
 	    for (i2 = 0; i2 < N; i2++) {
@@ -144,21 +165,39 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
             
+          // Part I.2
           else if (one && y[i1][0] > p_init) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
 	   
             for (i2 = 0; i2 < N; i2++) {
+	      y[i1+1][i2] = y_tau[i2];
+ 	    }
+
+	    t[i1+1] = t[i1] + tau;
+          }
+
+          // Part I.3 (optional)
+          else if (!one && y[i1][0] > p_init && two) {
+            tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
+            
+	    for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
  	    } 
 
 	    t[i1+1] = t[i1] + tau;
           }
 
-          if (!one && y[i1][0] <= p_dur && y[i1][0] > p_init
-              /* && reconstruction.size() > 0 */)  {
+          // Part II
+          if (!one && y[i1][0] <= pao_store[pao_store.size()-1] 
+                   && y[i1][0] > p_init  && !two 
+                /* && reconstruction.size() > 0 */)  {
            
-            if (y[i1][0] > pao_store[n]) {
-              tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
+            if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {// vvv ??
+              tov_euler(y[i1], t[i1], y_tau, tau, 
+                        &reconstruction[reconstruction.size()-(n+1)], line);
+              
+              // if (n > 1)
+              //    cout << "II  " << n << endl;
 
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
@@ -167,12 +206,13 @@ main(){
 	      t[i1+1] = t[i1] + tau;
             }
 
-            else if (n < pao_store.size()) {
+            else if (n < pao_store.size() && n < reconstruction.size()-1) {
               n++;
               i1--;
             }
           }
 
+          // Part III
           if (y[i1][0] <= p_init) {
 	    tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
 
@@ -185,26 +225,77 @@ main(){
 
 	} // end of mass calculation
 
+        n = 0;
+      
+//        if (reconstruction.size() >= 17) {
+          //cout << "Slope after mass: " << slope << endl; 
+//        }
+  
+        // cout << " P_end for mass:  " <<p_end<< endl;
+
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
           //printf("diff0 mass %g %g\n", pstep, diff0);
+          n = 0;
           flag = true;
+          masses.push_back(y[i1-1][1]);
+          //mass = y[i1-1][1];
           continue;
         }
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          //printf("diff mass %g %g %g\n", pstep, diff, MR_rel[mcount][1]);
+/*!*/
+//          if (reconstruction.size() >= 17) {
+            // printf("diff mass %g %g %g %g\n", pstep, diff, 
+            //        y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+//          }
+
+          n = 0;
+          masses.push_back(y[i1-1][1]);
+
+          // will this do the job?
+          if (masses.size() > 2 && reconstruction.size() >= 7) {
+            if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
+                (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
+              
+              if (reconstruction.size() >= 14) {
+                pstep += 1e-6 * (reconstruction.size()-2);
+                // cout << "de-softening..." << endl;
+              }
+ 
+              // de-softener / stiffener
+              // further adjust factor... 
+              slope += 0.41 * slope_step;
+
+              masses.clear();
+
+              if (slope > 1.5) 
+                break;
+
+              // cout << "test  " 
+              // << fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
+  
+              if (fabs(diff) < pow(10., -5.)) {
+                break; 
+              }
+
+              // slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
+              alpha[3] = e_rec + (alpha[2]-alpha[0]) 
+                         / (slope); 
+
+              continue;
+            }
+          }
 
           if (diff * diff0 > 0) {
-            // cout << diff * diff0 << endl;
+            // cout << "diff * diff0 > 0" << endl;
             continue;
           }
 
           pstep /= 10.0;
-
           if (pstep < 1e-9) {
-            //cout << "pstep < x breaking condition" << endl;
+            // cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -214,73 +305,111 @@ main(){
 
       } // end p_end < p_dur loop
 
+      radii.push_back(t[i1-1]);
+/*!*/ masses.clear(); 
+
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-        //       MR_rel[mcount][0]);
+        // printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+        //        MR_rel[mcount][0]);
+        n = 0;
         flag_s = true;
         continue;
       }
-
+  
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
-      //printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-      //       MR_rel[mcount][0]);
+/*!*/    
+//      if (reconstruction.size() >= 17) {
+        // printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+        //        MR_rel[mcount][0]);
+//      }
 
+
+      if (!one && radii[radii.size()-1] == radii[radii.size()-2]) {
+        // cout << "same radius b.c.\n";
+        n = 0;
+        break;
+      }
+
+ 
       if (fabs(diff_s) < 0.005) {
-        //cout << "fabs(diff_s) break condition" << endl;
+        // cout << "fabs(diff_s)  br. c." << endl;
+        n = 0;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
-        //cout << "diff0_s * diff_s > 0" << endl;
+        // cout << "diff0_s * diff_s > 0" << endl;
+        n = 0;
         continue;
       }
 
       slope_step /= 10;
 
-      if (slope_step < 1e-5) {
-        //cout << "slope_step break condition" << endl;
+      if (slope_step < 1e-6) {
+        // cout << "slope_step < x br.c." << endl;
+        n = 0;
         break;
       }
 
+      n = 0;
+  
       alpha[3] = alpha3_old;
 
     } // end slope loop
-
-  //cout << "Radius: " << MR_rel[mcount][0] << " , " << t[i1-1] << endl;
-  //cout << "Mass:   " << MR_rel[mcount][1] << " , " 
-  //     << y[i1-1][1]/1.4766 << endl;
-  //cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
-  
+ 
   n = 0;
+
+  masses.clear();
+  radii.clear();
 
   store.push_back(y[i1-1][1]/1.4766);
 
-  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]) {
+//  if (store.size() > 1 && store[store.size()-1] == store[store.size()-2]
+//      /* && Error check?? Same problem as with my code then */    ) {
     mcount++;
+    masses.clear();
+
     reconstruction.push_back(alpha);
     pao_store.push_back(p_end);
+
     n = 0;
  
-    cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
- 
-    if (!one) {
+    if (!one)
       e_rec = line(p_end, &alpha);
-    }
-    else { 
+    else
       e_rec = eos(p_end, &alpha);
-    }
- 
+
+    cout /* << "out: "*/ << t[i1-1] << "," << y[i1-1][1]/1.4766 
+         << "," << e_rec << "," << p_end
+         << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
+         << "," << mcount << "," << reconstruction.size() 
+         << "," << slope << endl;
+
+    p_dur = p_end;
+
     alpha[0] = p_end;
     alpha[1] = e_rec;
     alpha[2] = 5 * p_end;
+    alpha[3] = e_rec + 4*p_end / 0.08;
 
-    slope = 0.07; slope_step = 0.01;
+    //cout << alpha[0] << " " << alpha[1] << " " 
+    //     << alpha[2] << " " << alpha[3] << endl;
+
+    slope_step = 0.01;
+  
+    if (reconstruction.size() == 1) 
+      two = true;
+    else 
+      two = false;
+    
     one = false;
-   }
+  
+
+//   }
 
   } // end mcount loop
-  
+
   return 0;
 }
 
@@ -292,9 +421,9 @@ double eos(double p, vector<double> *alpha) {
 }
 
 double line(double p, vector<double> *alpha) {
-   return p * ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) 
-          + ((*alpha)[1] - (*alpha)[0] * 
-          ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]));
+  return p * ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]) 
+         + ((*alpha)[1] - (*alpha)[0] * 
+         ((*alpha)[3]-(*alpha)[1])/((*alpha)[2]-(*alpha)[0]));
 }
 
 void tov_euler(double *y_t, double t, 
@@ -318,4 +447,5 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * state(y_t[0], alpha);
 }
+
 

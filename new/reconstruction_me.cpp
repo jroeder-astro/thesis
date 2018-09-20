@@ -58,8 +58,8 @@ main(){
   double e_rec;
   double pstep;
 
-  double M_err   = 0.001;
-  double R_err   = 0.001;
+  double M_err   = 0.01;
+  double R_err   = 0.0001;
   int    l       = -3;  
 
   vector<double> pao_store; 
@@ -67,6 +67,8 @@ main(){
   bool   one     = true;
   int    n       = 0;
   int    m_init  = 0;
+  double dial    = .5;
+
 
   // File I/O
  
@@ -121,9 +123,11 @@ main(){
 
 	for (i1 = 0; y[i1][0] > 0; i1++) {
 
-          if (!one && y[i1][0] > pao_store[0]) {
+          // PART I.1
+          if (!one && y[i1][0] > pao_store[pao_store.size()-1]) {
             tov_euler(y[i1], t[i1], y_tau, tau, &alpha, line);
-
+            // cout << " p I.1: " << y[i1][0] << " p_store: " 
+            //     << pao_store[pao_store.size()-1] << endl;
 	    for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
  	    } 
@@ -131,9 +135,10 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
 
+          // PART I.2
           else if (one && y[i1][0] > p_init) {
 	    tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
-
+            // cout << "I.2 (one)\n";
 	    for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
  	    } 
@@ -141,11 +146,14 @@ main(){
 	    t[i1+1] = t[i1] + tau;
           }
 
-          if (!one && y[i1][0] <= p_dur && y[i1][0] > p_init) {
+          // PART II
+          if (!one && y[i1][0] <= pao_store[pao_store.size()-1] 
+                   && y[i1][0] > p_init) {
 
-            if (y[i1][0] > pao_store[0]) {
+            if (y[i1][0] > pao_store[pao_store.size()-(n+2)]) {
 	      tov_euler(y[i1], t[i1], y_tau, tau, &reconstruction[n], line);
-
+              // cout << " p II : " << y[i1][0] << " p_store: " 
+              //      << reconstruction[n][1] << endl;
 	      for (i2 = 0; i2 < N; i2++) {
 	        y[i1+1][i2] = y_tau[i2];
  	      } 
@@ -158,10 +166,11 @@ main(){
               i1--;
             }
           }
-
+ 
+          // PART III
           if (y[i1][0] <= p_init) {
 	    tov_euler(y[i1], t[i1], y_tau, tau, &alpha, eos);
-
+            // cout << "III  " << y[i1][0]  << endl;
 	    for (i2 = 0; i2 < N; i2++) {
 	      y[i1+1][i2] = y_tau[i2];
  	    } 
@@ -183,17 +192,23 @@ main(){
 
           if (!one && (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) > 1.) {
 
-            cout << "part three\n";
+            cout << "part three (!one)\n";
             cout << "    Radius:  " << MR_rel[mcount][0] 
                  << " , " << t[i1-1] << endl;
             cout << "     Mass:   " << MR_rel[mcount][1] 
                  << " , " << y[i1-1][1]/1.4766 << endl;
-            cout << " |R_c-R_f| = " 
-                 << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
-            cout << " |M_c-M_f| = " 
-                 << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
+            cout << " R_rel_err = " 
+                 << fabs(1 - MR_rel[mcount][0] / t[i1-1]) << endl;
+            cout << " M_rel_err = " 
+                 << fabs(1 - MR_rel[mcount][1] / (y[i1-1][1]/1.4766)) << endl;
+            // cout << " |R_c-R_f| = " 
+            //      << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
+            // cout << " |M_c-M_f| = " 
+            //      << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
             cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) 
                  << endl;
+          
+//          cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
             
             reconstruction.push_back(alpha);
             pao_store.push_back(p_end);
@@ -203,20 +218,21 @@ main(){
             alpha[0] = p_end;
             alpha[1] = e_rec;
             alpha[2] = 5 * p_end;
-            alpha[3] = e_rec + pow(10., -4.);
+            alpha[3] = e_rec + pow(10., -3.);
  
             mcount++;
             one = false;
             l = 1;
             p_end = 5 * p_dur;
-            M_err += 0.01;
-            R_err += 0.01;  
-            cout << M_err << " , " << R_err << endl;
+            // M_err = log(1+dial*0.01); // WHAT THE HECK?? 
+            // R_err = log(1+dial*0.02);  
+            // cout << M_err << " , " << R_err << endl;
+            dial+=1;
           }
 
-          if (one) {
-
-            cout << "part three\n";
+          else if (one) {
+/*
+            cout << "part three (one)\n";
             cout << "Radius: " << MR_rel[mcount][0] 
                  << " , " << t[i1-1] << endl;
             cout << "Mass:   " << MR_rel[mcount][1] 
@@ -225,6 +241,9 @@ main(){
                  << fabs(MR_rel[mcount][0] - t[i1-1]) << endl;
             cout << "|M_c-M_f| =  " 
                  << fabs(MR_rel[mcount][1] - y[i1-1][1]/1.4766) << endl;
+*/
+            
+            cout << t[i1-1] << "," << y[i1-1][1]/1.4766 << endl;
 
             reconstruction.push_back(alpha);
             pao_store.push_back(p_end);
@@ -236,24 +255,28 @@ main(){
             alpha[2] = 5 * p_end;
             alpha[3] = e_rec + pow(10., -3.);
  
-            mcount++;
             one = false;
             l = 1;
             p_end = 5 * p_dur;
-            M_err += 0.01;
-            R_err += 0.01;
+            //M_err += 0.01;
+            //R_err += 0.01;
+            //M_err = .5;
+            
+            mcount++;
             //cout << M_err << " , " << R_err << endl;    
           }
         }
 
-        else if (p_end <= 1.5*p_dur) {
-        /*  
-          if( mcount > m_init + 2) {           
+        if (p_end <= 1.5*p_dur) {
+         /* 
+          if( mcount > m_init+1) {           
             cout << "else if\n";
             cout << "Radius: " << MR_rel[mcount][0] 
                  << " , " << t[i1-1] << endl;
             cout << "Mass:   " << MR_rel[mcount][1] 
                  << " , " << y[i1-1][1]/1.4766 << endl;
+            cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0]) 
+                 << endl; 
           }
         */
           l++; 
@@ -261,30 +284,30 @@ main(){
           p_end = 5 * p_dur;
         }
             
-        else {
-/*
+        else if (!one) {
+
           cout << "else\n";
           cout << "Radius: " << MR_rel[mcount][0] 
-               << " , " << t[i1-1] << endl;
+                << " , " << t[i1-1] << endl;
           cout << "Mass:   " << MR_rel[mcount][1] 
                << " , " << y[i1-1][1]/1.4766 << endl;
           cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0])
                << endl;
-*/
-          alpha[3] += pow(10, -6);
 
-          l = 1; 
+          alpha[3] += pow(10, -7);
+
+          l = -1; 
           p_end = 5 * p_dur;
           // i1 = 0;
         }
 
       } // end p_end < p_dur loop
-
+/*
    cout << "Radius: " << MR_rel[mcount][0] 
                       << " , " << t[i1-1] << endl;
    cout << "Mass:   " << MR_rel[mcount][1] 
                       << " , " << y[i1-1][1]/1.4766 << endl;
-
+*/
   } // end mcount loop
  
   // output...

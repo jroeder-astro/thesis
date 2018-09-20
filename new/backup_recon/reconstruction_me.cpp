@@ -209,8 +209,8 @@ main(){
             one = false;
             l = 1;
             p_end = 5 * p_dur;
-            M_err += 0.01;
-            R_err += 0.01;  
+            M_err += 0.03;
+            R_err += 0.03;  
             cout << M_err << " , " << R_err << endl;
           }
 
@@ -262,7 +262,7 @@ main(){
         }
             
         else {
-/*
+
           cout << "else\n";
           cout << "Radius: " << MR_rel[mcount][0] 
                << " , " << t[i1-1] << endl;
@@ -270,7 +270,7 @@ main(){
                << " , " << y[i1-1][1]/1.4766 << endl;
           cout << "   Slope   = " << (alpha[3]-alpha[1])/(alpha[2]-alpha[0])
                << endl;
-*/
+
           alpha[3] += pow(10, -6);
 
           l = 1; 
