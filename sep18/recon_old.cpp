@@ -125,7 +125,7 @@ main(){
   while (mcount < MR_rel.size()) {
     flag_s = false;
     
-    while (slope < 1.5) {
+    while (slope > 0) {
       alpha3_old = alpha[3];
       slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
       alpha[3] = e_rec + (alpha[2]-alpha[0]) 
@@ -396,7 +396,7 @@ main(){
     //cout << alpha[0] << " " << alpha[1] << " " 
     //     << alpha[2] << " " << alpha[3] << endl;
 
-    slope_step = 0.01;
+    slope_step = -0.01;
   
     if (reconstruction.size() == 1) 
       two = true;
