@@ -59,23 +59,7 @@ At some point in a star's life, it is no longer capable of maintaining nuclear f
 If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova explosion. The type of remnant left behind is called neutron star, and the matter out of which it is formed is always of the same composition and state. Therefore, in contrast to white dwarfs, there is one unique EOS to describe all neutron stars. \\
 Both kinds of compact stars are subject to fast neutrino and photon cooling. After at most a few million years temperatures will have dropped several orders of magnitude below $1$\,MeV, so that on the nuclear scale the star can be  treated as cold. 
 
-\subsection{Neutron star structure}
 
-Generally, a neutron star can be divided into four zones: The inner and outer core, with inner and outer crust above it. These zones have fundamentally different properties. These zones are usually defined through their range of densities. For example, (one finds the original version of this proposal in \cite{Pandharipande1976} and \cite{ShapiroTeukolsky}), with $[\rho] =$\,g/cm$^3$:
-\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and and magnetic fields can have big impact on the equation of state here.
-\paragraph{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$} The \textit{outer crust} consists of a Coulomb lattice within a relativistic electron gas.
-\paragraph{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$} In the \textit{inner crust} neutron-rich nuclei from a lattice; as the densities increases, neutron drip takes place. Now, there is not only an electron gas, but also a superfluid neutron gas formed by the dripped-out neutrons.
-\paragraph{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho_{core}$} The \textit{outer core} or \textit{neutron fluid} does no longer consist of a lattice. Remaining charge neutral, this region  
-is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons.
-\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.\\
-
-The EOS becomes gradually less known towards the central region. A number of nuclear or fluid EOSs have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single EOS for the whole neutron star would be of great interest, one usually determines the EOS piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
-The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.
-
-\subsection{The third family}
-
-Most equations of state, plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with a single maximum. From there on to lower radii the configurations become unstable due to a sign change in $dM/d\rho_c$ \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, these stars are generally referred to as "high mass twins" or "twin stars". \\
-The main arguments against a third family would be instability to oscillations (resulting in explosion oder black hole formation) and distribution of Fermi pressure among more flavors \cite{GlennKett}. Most theories resolve around quark core formation and a pasta-like phase transition from hadronic to quark matter analogue to the zone between crust and core. 
 
 \subsection{The Tolman-Oppenheimer-Volkoff equation} \label{TOV}
 
@@ -115,13 +99,21 @@ Together with a second equation for the mass:
 \end{equation}
 
 
-\subsection{The equation of state}
+\subsection{The equation of state and neutron star structure}
 
 Most generally, an EOS determines the relation between a set of quantities that future dynamics of a system can be extrapolated with. Such a set is often referred to as ``state variables''. Independent of the model applied to a certain type of matter, an EOS takes the form
 \begin{equation*}\label{eq:gen_eos}
 	f(p,V,T)=0
 \end{equation*}
-with, in this case, pressure $p$, Volume $V$ and Temperature $T$. The nature of $f$ (the actual EOS) is then derived from a model (e.g. nuclear or quark) to properly describe the state of matter at hand, be it a fluid, solid or of an exotic type. Here, starting on the outside of a neutron star, states are still in or not far from the range of what can be experimentally observed. Towards the inner regions, exotic states and their impact on the EOS are still subject to investigation.\\
+with, in this case, pressure $p$, Volume $V$ and Temperature $T$. The nature of $f$ (the actual EOS) is then derived from a model (e.g. nuclear or quark) to properly describe the state of matter at hand, be it a fluid, solid or of an exotic type. Here, starting on the outside of a neutron star, states are still in or not far from the range of what can be experimentally observed. Towards the inner regions, exotic states and their impact on the EOS are still subject to investigation. A number of nuclear or fluid EOSs have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single EOS for the whole neutron star would be of great interest, one usually determines the EOS piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
+The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.\\
+Generally, a neutron star can be divided into four zones: The inner and outer core, with inner and outer crust above it. These zones have fundamentally different properties. These zones are usually defined through their range of densities. For example, (one finds the original version of this proposal in \cite{Pandharipande1976} and \cite{ShapiroTeukolsky}), with $[\rho] =$\,g/cm$^3$:
+\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and magnetic fields can have big impact on the equation of state here. The surface may partly consist of accreted matter of unknown composition, followed by a layer of iron that marks the beginning of the actual neutron star. In this region, the EOS is well approximated by BPS \cite{Baym et al.(1971)}, as derived in Baym et al. 1971b. BPS is based on a lattice configuration of nuclei as expected from a lower-density domain. This leads to significant error with respect to the ground state neutron numbers of neutron-rich nuclei further below the surface, as their masses could not be measured with sufficient precision at the time \cite{Baym et al.(1971)} \cite{NeutronStars1}. 
+\paragraph{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$} Descending into the \textit{outer crust} a Coulomb lattice forms within a relativistic electron gas. Due to charge neutrality, $n_{electrons} = Z \cdot n_{nuclei}$; for the pressure holds $P = P_e + P_L$ \cite{NeutronStars1}, where $P_L$ resembles a correction made to account for Coulomb interactions. Upon reaching higher densities, neutronization becomes energetically favorable. While BPS continued calculation with only electron rest energies subtracted from the nucleus energy to determine the energy per Wigner-Seitz cell in the lattice, HP also subtracted electron binding energies. 
+\paragraph{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$} In the \textit{inner crust} neutron-rich nuclei from a lattice; as the densities increases, neutron drip takes place. Now, there is not only an electron gas, but also a superfluid neutron gas formed by the dripped-out neutrons.
+\paragraph{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho_{core}$} The \textit{outer core} or \textit{neutron fluid} does no longer consist of a lattice. Remaining charge neutral, this region  
+is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons.
+\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.\\
 
 
 
@@ -130,9 +122,10 @@ with, in this case, pressure $p$, Volume $V$ and Temperature $T$. The nature of 
 
 
 
+\subsection{The third family}
 
-
-
+Most equations of state, plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with a single maximum. From there on to lower radii the configurations become unstable due to a sign change in $dM/d\rho_c$ \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, these stars are generally referred to as "high mass twins" or "twin stars". \\
+The main arguments against a third family would be instability to oscillations (resulting in explosion oder black hole formation) and distribution of Fermi pressure among more flavors \cite{GlennKett}. Most theories resolve around quark core formation and a pasta-like phase transition from hadronic to quark matter analogue to the zone between crust and core. 
 
 
 
@@ -315,9 +308,11 @@ The curves both consist of 100 data points which will be read in by the reconstr
 	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
 	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, 663 p. 252
 	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
+	\bibitem{Baym et al.(1971)} Baym, G., Pethick, C., \& Sutherland, P.\ 1971, Astrophys. J., \textbf{170}, 299 
+	\bibitem{HaenselPichon(1994} Haensel, P., \& Pichon, B.\ 1994, A\&A, \textbf{283}, 313 
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
 	\bibitem{Lindblom(1992)} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
-	\bibitem{Haensel et al.(2007)} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
+	\bibitem{NeutronStars1} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
 	
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
 %\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.

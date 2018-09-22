@@ -170,9 +170,10 @@ main(){
     indx = alpha.size() - 2; 
 
     while (slope > 0) {
+      slope += slope_step;
       pstep = 1e-6;
       alpha3_old = alpha[indx+1];
-      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
+      //slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) 
                        / (slope + slope_step); 
   
@@ -202,6 +203,8 @@ main(){
           // cout << t[i1+1] << " " << y[i1+1][0] << " " << y[i1+1][1] << endl;
         }
         
+// *************************************************************************
+
         cout << "Slope after mass: " << slope << endl; 
         cout << "  P_end for mass: " << p_end << endl;
 
@@ -222,36 +225,7 @@ main(){
 
           n = 0;
           masses.push_back(y[i1-1][1]);
-/*
-          // will this do the job?
-          if (masses.size() > 2) {
-            if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
-                (masses[masses.size()-2] - masses[masses.size()-3]) < 0) {
-              
- 
-              // de-softener / stiffener
-              // further adjust factor... 
-              slope += slope_step;
-              cout << "desoft\n";
-              masses.clear();
 
-              if (slope > 1.5) 
-                break;
-
-              // cout << "test  " 
-              // << fabs(MR_rel[mcount][1] - masses[masses.size()-2]) << endl;
-  
-              if (fabs(diff) < pow(10., -5.)) {
-                break; 
-              }
-
-              // slope = (alpha[2]-alpha[0]) / (alpha[3]-e_rec); 
-              alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) / (slope); 
-
-              continue;
-            }
-          }
-*/
           if (diff * diff0 > 0) {
             // cout << "diff * diff0 > 0" << endl;
             continue;
@@ -268,6 +242,8 @@ main(){
         }
 
       } // end p_end < p_dur loop
+
+// *************************************************************************
 
       radii.push_back(t[i1-1]);
 /*!*/ masses.clear(); 
@@ -290,25 +266,36 @@ main(){
       }
   
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
-
-      printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-             MR_rel[mcount][0]);
-      
       diffs.push_back(diff_s);
       cout << "diffs size = " << diffs.size() << endl;
       ds = diffs.size();
 
+      if (!one && slope > 1.5 /*&& diffs.size() > 100*/ && diff_s >= -0.01) { 
+        t[i1-1] += y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]); 
+        // = MR_rel[mcount][0]-diff_s/2;
+      }
+
+      printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+             MR_rel[mcount][0]);
+      
       if (!one && ds >= 2 && (diffs[ds-1] > 0 && diffs[ds-2] > 0 && 
           diffs[ds-1] > diffs[ds-2]) || (diffs[ds-1] < 0 && diffs[ds-2] < 0 &&
           diffs[ds-1] < diffs[ds-2])) {
         cout << "Turn around\n";
         slope_step /= -10;
-        if (slope_step < 1e-5) slope_step *= 100;
+        if (slope_step < 1e-5) 
+          slope_step *= 100;
         diffs.clear();
         continue;
       }
 
-      if (fabs(diff_s) < 0.005) {
+      if (!one && diffs.size() > 150) {
+        slope += 5*slope_step;
+        diffs.clear();
+        continue;
+      }
+
+      if (fabs(diff_s) <= 0.005) {
         cout << "fabs(diff_s)  br. c." << endl;
         n = 0;
         break;
@@ -334,6 +321,8 @@ main(){
 
     } // end slope loop
  
+// *************************************************************************
+
   masses.clear();
   radii.clear();
 
@@ -346,7 +335,7 @@ main(){
    
   e_rec = line(p_end, &alpha);
 
-  cout /* << "out: "*/ << t[i1-1] << "," << y[i1-1][1]/1.4766 
+  cout << "out: " << t[i1-1] << "," << y[i1-1][1]/1.4766 
        << "," << e_rec << "," << p_end
        << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
        << "," << mcount << "," << reconstruction.size() 
@@ -373,6 +362,8 @@ main(){
   one = false;
 
   } // end mcount loop
+
+// *************************************************************************
 
   return 0;
 }

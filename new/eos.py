@@ -5,11 +5,11 @@ import csv
 #from numpy import *
 
 K = np.power(10., -5.)
-P = 1.324*np.power(10., -6.)
+P = 7.55616208*np.power(10., 5.)
 Q = np.power(P, -2./3.)
 
 def eos(p):
-    return np.power(p*P/(Q*10.), 3./5.)
+    return np.power(p/(10.), 3./5.)
 
 x1 = []
 y1 = []
@@ -26,7 +26,7 @@ y2 = [b*P for b in y1]
 plt.plot(x2, y2, 'bo', label='recon')
 
 p1 = np.arange(0., 0.0005, 0.00000001)
-plt.plot(p1*P, eos(p1), label='known')
+plt.plot(p1*P, eos(p1)*P, label='known')
 
 plt.title('Equation of State\nReconstruction Algorithms')
 plt.ylabel('$e(p)$ /MeV/fm$^3$')
