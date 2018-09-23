@@ -112,14 +112,15 @@ main(){
 
   // File I/O
  
-  FILE *MRR = fopen("mr.out", "r");
+  FILE *MRR = fopen("mr_sep18.out", "r");
  
   if (MRR == NULL) {
     exit(0);
   }
 
   while (1) {
-    if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF) {
+    //if (fscanf(MRR, "%lf,%lf", &R, &M) == EOF) {
+    if (fscanf(MRR, "%lf %lf %lf %lf", &R, &M, &e, &p) == EOF) {
       break;
     }
     one_MR[0] = R;
@@ -135,11 +136,12 @@ main(){
     mcount++;
   }
 
-  cout << mcount << endl;
+  //cout << mcount << endl;
 
   // Initialization
 
-  p_init  = 0.00001 + mcount * 0.00001;
+  // p_init  = 0.00001 + mcount * 0.00001;
+  p_init  = 4e-5;
   e_rec   = pow(p_init/10., 0.6);
   t[0]    = 0.0000000001;
   p_dur   = p_init;
@@ -151,7 +153,7 @@ main(){
 
   indx     = 2;
 
-  cout << "Slope before mcount loop: " << slope << endl;
+  // cout << "Slope before mcount loop: " << slope << endl;
 
   while (mcount < MR_rel.size()) {
     pstep = 1e-6;
@@ -164,7 +166,7 @@ main(){
     if (!one) {
       alpha.push_back(alpha[indx] + 1000 * pstep);
       alpha.push_back(alpha[indx+1] + 1000 * pstep / slope);
-      cout << "alpha pushed back\n";
+      // cout << "alpha pushed back\n";
     }
 
     indx = alpha.size() - 2; 
@@ -179,10 +181,11 @@ main(){
   
       flag = false;
       p_end = p_dur - 5 * pstep;
-      cout << "p_end: " << p_end << " " << p_dur*0.8 << endl;                 
+      cout << "p_end: " << p_end << " " << p_dur*0.8 << endl;
       
       while (p_end >= 0.8 * p_dur) {
-        p_end += pstep; cout << p_end << endl;
+        p_end += pstep; 
+        cout << p_end << endl;
 	y_0[0] = p_end;
 	y_0[1] = 0.0;
 
@@ -210,7 +213,7 @@ main(){
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
-          printf("diff0 mass %g %g\n", pstep, diff0);
+          // printf("diff0 mass %g %g\n", pstep, diff0);
           n = 0;
           flag = true;
           masses.push_back(y[i1-1][1]);
@@ -233,7 +236,7 @@ main(){
 
           pstep /= 10.0;
           if (pstep < 1e-9) {
-            cout << "pstep < x br. c." << endl;
+            //cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -250,13 +253,13 @@ main(){
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-               MR_rel[mcount][0]);
+        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+        //       MR_rel[mcount][0]);
         n = 0;
         flag_s = true; 
 
         if (fabs(diff0_s) < 0.005) {
-          cout << "fabs(diff_s)  br. c." << endl;
+          //cout << "fabs(diff_s)  br. c." << endl;
           n = 0;
           break;
         }
@@ -267,7 +270,7 @@ main(){
   
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
       diffs.push_back(diff_s);
-      cout << "diffs size = " << diffs.size() << endl;
+      //cout << "diffs size = " << diffs.size() << endl;
       ds = diffs.size();
 
       if (!one && slope > 1.5 /*&& diffs.size() > 100*/ && diff_s >= -0.01) { 
@@ -281,7 +284,7 @@ main(){
       if (!one && ds >= 2 && (diffs[ds-1] > 0 && diffs[ds-2] > 0 && 
           diffs[ds-1] > diffs[ds-2]) || (diffs[ds-1] < 0 && diffs[ds-2] < 0 &&
           diffs[ds-1] < diffs[ds-2])) {
-        cout << "Turn around\n";
+        //cout << "Turn around\n";
         slope_step /= -10;
         if (slope_step < 1e-5) 
           slope_step *= 100;
@@ -296,13 +299,13 @@ main(){
       }
 
       if (fabs(diff_s) <= 0.005) {
-        cout << "fabs(diff_s)  br. c." << endl;
+        //cout << "fabs(diff_s)  br. c." << endl;
         n = 0;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
-        cout << "diff0_s * diff_s > 0" << endl;
+        //cout << "diff0_s * diff_s > 0" << endl;
         n = 0;
         continue;
       }
@@ -310,7 +313,7 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        cout << "slope_step < x br.c." << endl;
+        //cout << "slope_step < x br.c." << endl;
         n = 0;
         break;
       }
