@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.12)  23 SEP 2018 19:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.12)  25 SEP 2018 15:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -298,45 +298,10 @@ Package color Info: Driver file: pdftex.def on input line 147.
 Package: transparent 2016/05/16 v1.1 Transparency via pdfTeX's color stack (HO)
 
 )
-(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
-Package: enumitem 2011/09/28 v3.5.2 Customized lists
-\labelindent=\skip55
-\enit@outerparindent=\dimen131
-\enit@toks=\toks24
-\enit@inbox=\box29
-\enitdp@description=\count118
-) (./MP.aux)
-\openout1 = `MP.aux'.
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2016/05/15 v2.6 Conversion with epstopdf on the fly (HO)
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
-LaTeX Font Info:    ... okay on input line 25.
-
-(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count119
-\scratchdimen=\dimen132
-\scratchbox=\box30
-\nofMPsegments=\count120
-\nofMParguments=\count121
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count122
-\MPscratchDim=\dimen133
-\MPnumerator=\count123
-\makeMPintoPDFobject=\count124
-\everyMPtoPDFconversion=\toks26
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -352,11 +317,49 @@ G,.JBIG2,.JB2,.eps]
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-))
-\AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring OFF on input line 25.
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip55
+\enit@outerparindent=\dimen131
+\enit@toks=\toks24
+\enit@inbox=\box29
+\enitdp@description=\count118
+) (./MP.aux)
+\openout1 = `MP.aux'.
 
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 26.
+LaTeX Font Info:    ... okay on input line 26.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count119
+\scratchdimen=\dimen132
+\scratchbox=\box30
+\nofMPsegments=\count120
+\nofMParguments=\count121
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count122
+\MPscratchDim=\dimen133
+\MPnumerator=\count123
+\makeMPintoPDFobject=\count124
+\everyMPtoPDFconversion=\toks26
+)
+\AtBeginShipoutBox=\box31
+Package hyperref Info: Link coloring OFF on input line 26.
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -364,9 +367,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count125
 )
-LaTeX Info: Redefining \ref on input line 25.
-LaTeX Info: Redefining \pageref on input line 25.
-LaTeX Info: Redefining \nameref on input line 25.
+LaTeX Info: Redefining \ref on input line 26.
+LaTeX Info: Redefining \pageref on input line 26.
+LaTeX Info: Redefining \nameref on input line 26.
 
 (./MP.out) (./MP.out)
 \@outlinefile=\write3
@@ -427,124 +430,80 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.43 
+l.44 
       [1] [2] [3]
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <12> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 111.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 112.
 
 
-[4]
-Underfull \hbox (badness 10000) in paragraph at lines 116--119
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 124--125
-
- []
-
-[5] [6] [7]
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 226
+[4] [5] [6] [7] [8]
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 232
 .
-LaTeX Font Info:    No file OMScmss.fd. on input line 226.
+LaTeX Font Info:    No file OMScmss.fd. on input line 232.
 
 
 LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 226.
+(Font)              for symbol `textbraceleft' on input line 232.
 
-[8]
-Package epstopdf Info: Source file: <graphs/mrr_corr_eos.eps>
-(epstopdf)                    date: 2018-09-11 17:41:15
-(epstopdf)                    size: 21060 bytes
-(epstopdf)             Output file: <graphs/mrr_corr_eos-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-09-11 17:41:15
-(epstopdf)                    size: 13806 bytes
-(epstopdf)             Command: <repstopdf --outfile=graphs/mrr_corr_eos-eps-co
-nverted-to.pdf graphs/mrr_corr_eos.eps>
-(epstopdf)             \includegraphics on input line 239.
-Package epstopdf Info: Output file is already uptodate.
-<graphs/mrr_corr_eos-eps-converted-to.pdf, id=208, 578.16pt x 289.08pt>
-File: graphs/mrr_corr_eos-eps-converted-to.pdf Graphic file (type pdf)
-<use graphs/mrr_corr_eos-eps-converted-to.pdf>
-Package pdftex.def Info: graphs/mrr_corr_eos-eps-converted-to.pdf  used on inpu
-t line 239.
-(pdftex.def)             Requested size: 372.19685pt x 186.09566pt.
-Package epstopdf Info: Source file: <graphs/eos_recon.eps>
-(epstopdf)                    date: 2018-09-11 17:41:15
-(epstopdf)                    size: 28761 bytes
-(epstopdf)             Output file: <graphs/eos_recon-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-09-11 17:41:15
-(epstopdf)                    size: 18110 bytes
-(epstopdf)             Command: <repstopdf --outfile=graphs/eos_recon-eps-conve
-rted-to.pdf graphs/eos_recon.eps>
-(epstopdf)             \includegraphics on input line 245.
-Package epstopdf Info: Output file is already uptodate.
-<graphs/eos_recon-eps-converted-to.pdf, id=209, 867.24pt x 361.35pt>
-File: graphs/eos_recon-eps-converted-to.pdf Graphic file (type pdf)
-<use graphs/eos_recon-eps-converted-to.pdf>
-Package pdftex.def Info: graphs/eos_recon-eps-converted-to.pdf  used on input l
-ine 245.
-(pdftex.def)             Requested size: 465.24431pt x 193.85242pt.
- [9 <./graphs/mrr_corr_eos-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <graphs/test_mrr_eos.eps>
-(epstopdf)                    date: 2018-09-21 09:06:03
-(epstopdf)                    size: 48002 bytes
-(epstopdf)             Output file: <graphs/test_mrr_eos-eps-converted-to.pdf>
-(epstopdf)                    date: 2018-09-21 09:06:03
-(epstopdf)                    size: 26172 bytes
-(epstopdf)             Command: <repstopdf --outfile=graphs/test_mrr_eos-eps-co
-nverted-to.pdf graphs/test_mrr_eos.eps>
-(epstopdf)             \includegraphics on input line 266.
-Package epstopdf Info: Output file is already uptodate.
-<graphs/test_mrr_eos-eps-converted-to.pdf, id=236, 794.97pt x 361.35pt>
-File: graphs/test_mrr_eos-eps-converted-to.pdf Graphic file (type pdf)
-<use graphs/test_mrr_eos-eps-converted-to.pdf>
-Package pdftex.def Info: graphs/test_mrr_eos-eps-converted-to.pdf  used on inpu
-t line 266.
-(pdftex.def)             Requested size: 465.24431pt x 211.47987pt.
- [10 <./graphs/eos_recon-eps-converted-to.pdf>] [11 <./graphs/test_mrr_eos-eps-
-converted-to.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 336.
+[9] [10] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 344.
  [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 336.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 344.
+ (./MP.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 344.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 344.
 
-(./MP.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 336.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 336.
-Package rerunfilecheck Info: File `MP.out' has not changed.
-(rerunfilecheck)             Checksum: 54CCDDEA6C08DB87AF6E85959C691B90;1174.
 
+Package rerunfilecheck Warning: File `MP.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `MP.out':
+(rerunfilecheck)             Before: C146FB71FC9F8AD35792DDD28FB45B69;1348
+(rerunfilecheck)             After:  B0D0497BC0D4E10494C797E86D82F6FC;1281.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 336.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 344.
  ) 
 Here is how much of TeX's memory you used:
- 7125 strings out of 494923
- 103202 string characters out of 6180742
- 193994 words of memory out of 5000000
- 10267 multiletter control sequences out of 15000+600000
+ 7115 strings out of 494923
+ 102933 string characters out of 6180742
+ 194330 words of memory out of 5000000
+ 10265 multiletter control sequences out of 15000+600000
  11352 words of font info for 42 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 28i,11n,28p,1378b,435s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texli
-ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmss17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmssi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on MP.pdf (13 pages, 218674 bytes).
+ 29i,11n,28p,1378b,375s stack positions out of 5000i,500n,10000p,200000b,80000s
+pdfTeX warning (dest): name{subsection.2.10} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.8.3} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.8.2} has been referenced but does n
+ot exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{subsubsection.2.8.1} has been referenced but does n
+ot exist, replaced by a fixed one
+
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmss17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmss8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ssi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on MP.pdf (13 pages, 176595 bytes).
 PDF statistics:
- 391 PDF objects out of 1000 (max. 8388607)
- 287 compressed objects within 3 object streams
- 71 named destinations out of 1000 (max. 500000)
- 152 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 317 PDF objects out of 1000 (max. 8388607)
+ 285 compressed objects within 3 object streams
+ 79 named destinations out of 1000 (max. 500000)
+ 153 words of extra memory for PDF output out of 10000 (max. 10000000)
 

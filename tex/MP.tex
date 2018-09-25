@@ -1,3 +1,4 @@
+% !TeX TS-program = 
 \documentclass[12pt]{article}
 \usepackage{graphicx}
 \usepackage{wrapfig}
@@ -16,11 +17,11 @@
 \usepackage{color}
 \usepackage{transparent}
 \graphicspath{{graphs/}}
-
+\usepackage{epstopdf}
 \usepackage{enumitem}
 \setlength{\parindent}{0pt}
 
-
+\epstopdfsetup{outdir=./}
 
 \begin{document}
 	\pagestyle{empty}
@@ -115,31 +116,36 @@ Generally, a neutron star can be divided into four zones: The inner and outer co
 	E_N(A,Z)/A\simeq E_0 + S_0 \delta^2
 \end{equation*}
 which is a heavily simplified nuclear mass formula. Terms were neglected until only the symmetry energy $S_0$ and the energy per nucleon in a symmetric system $E_0$ are left. $\delta=(N-Z)/A$ is also a remnant from the mass formula. At neutron drip, $\mu_n = E_0 + (2\delta + \delta^2)S_0 = 0$ and therefore $\delta_\text{ND} = \sqrt{1-(E_0/S_0)}-1$. From the beta equilibrium condition and an estimate for the electron chemical potential the drip density is about $\rho_\text{ND}\simeq 2.2\cdot 10^{11}$\,g/cm$^3$. \\
-As for the EOS, at roughly neutron drip density it is dominated by strong nucleon-nucleon interactions. There are various types of calculations and models for such a many-body system; for example, in \cite{DouchinHaensel(2001)} Douchin and Haensel use the Skyrme-Lyon forces within a liquid drop model for nucleons.\\
-
-Up to here, the EOS can be determined through nuclear calculations as discussed above. Below neutron drip however, it is not possible any longer to confirm a theoretical EOS with experimental values.
- 
+As for the EOS, at roughly neutron drip density it is dominated by strong nucleon-nucleon interactions. There are various types of calculations and models for such a many-body system; for example, in \cite{DouchinHaensel(2001)} Douchin and Haensel use the Skyrme-Lyon [SLy] forces within a liquid drop model for nucleons. Likely, in this bottom region of the crust, nuclei are shaped differently to minimize their surface energy. This was first proposed by Ravenhall et al. 1983 \cite{Ravenhall et al.(1983)}, where three basic shapes were used for demonstration. In the domain of the low-density phase, the higher-density phase should form spherical bubbles that turn into rods when descending further into the star. Eventually, both phases should be mixed to equal parts, nuclear matter arranged in planes. From here the process is ``reverted''; first, rods of the first phase emerge, turning into bubbles again until only the second, high-density phase is present. This phase transition is often referred to as pasta phase due to the similarities between shapes. 
 \paragraph{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho_{core}$} The \textit{outer core} or \textit{neutron fluid} does no longer consist of a lattice. Remaining charge neutral, this region  
-is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons.
-\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition.\\
+is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons. In the above discussed liquid drop/SLy model, the crust-core transition appears in the EOS as a (weak) first-order phase transition. The jump in density is in the range $1\%$.\\
+The ground state of nuclear matter can be calculated from the nuclear Hamiltonian \cite{NeutronStars1}. The EOS is determined a little easier; starting from total energy density together with conditions for fixed baryon density and electrical neutrality, Lagrange multipliers give the equilibrium conditions for the chemical potentials. For neutrinos these can be set to zero as they escape the star. Evaluating the first law of thermodynamics at equilibrium leads to the pressure. This calculation can be extended to account for particle fractions varying with density.
+\paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition. As a simple model, $npe\mu$ matter can be extended with a hyperon fraction. This would soften the EOS due to a pressure drop. High-energy neutrons can convert to hyperons, resulting in a lower energy state (which contributes to the pressure) but a higher mass \cite{NeutronStars1}. 
 
 
-% Superluminal & Ultrabaric
-% jumps
-% Paper by Douchin and Haensel 2001
-% theories about core?
 
 % Stiffness of EOS
 % Dependence of R on M
 
 
+\subsection{General constraints}
+
+There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the causality limit. An EOS might be ultrabaric and still causal: the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. However, if the EOS starts below the ultrabaric line and fulfills the causality condition, it will never cross that line. If its slope increases so that $dP/d\epsilon>1$, the EOS becomes \textit{superluminal}. While a superluminal EOS is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such EOS all have other significant disadvantages leaving them irrelevant. 
 
 
+\subsection{Stability, the mass-radius relation and a third family}
 
-\subsection{The third family}
-
-Most equations of state, plugged into the Tolman-Oppenheimer-Volkoff [TOV] equation (more on that in \ref{TOV}), will produce a relation between mass and radius [MRR] with a single maximum. From there on to lower radii the configurations become unstable due to a sign change in $dM/d\rho_c$ \cite{Harrison1965}. In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, these stars are generally referred to as "high mass twins" or "twin stars". \\
-The main arguments against a third family would be instability to oscillations (resulting in explosion oder black hole formation) and distribution of Fermi pressure among more flavors \cite{GlennKett}. Most theories resolve around quark core formation and a pasta-like phase transition from hadronic to quark matter analogue to the zone between crust and core. 
+The term \textit{stability} is generally used in the context of stability towards perturbations, i.e. radial oscillation modes. This can be read off the mass-radius relation: If the curve reaches a critical point, the slope changes sign and the lowest stable mode switches its stability. Reading from the right, a counter-clockwise change of slope at a critical point leads to instability of a mode. This can be seen in \ref{fig:third_stable}.
+\begin{figure}
+	\centering
+%	\includegraphics[width=1\textwidth]{graphs/third_and_stable.eps}
+	\caption{Mass-radius relation with a third stable branch and stability of lowest modes. Taken from \cite{Schertler et al.(2000)}.}
+	\label{fig:third_stable}
+\end{figure}
+At points A, C and E, the maximum masses and minimum radii for one family each, the fundamental mode becomes unstable ($n=0$). $n$ is the number of radial nodes. When a new family starts with its lowest mass, $n=0$ regains stability. A branch is required to have all modes stable against oscillation to be physically relevant as a family. \\
+A branch usually ends when the EOS becomes sufficiently soft. A phase transition can then lead to a sudden increase in slope, causing the MRR to rise again, to a new branch. For example, a white dwarf is stabilized by the Pauli principle; if it crosses a certain mass limit, it collapses to a neutron star until strong interaction and degeneracy block further compactification. In \ref{fig:third_stable} the neutron star branch hosts mixed phase cores, i.e. nuclear along with quark matter. Their high-mass twins (more below) do have a mixed phase region, but their core consists of pure quark matter. The interior structure is heavily influenced by the EOS for all three regions, while the hadronic phase EOS is assumed to be known relatively well. \\
+In 1966 Wheeler showed that, if the EOS was smooth, there would only remain a white dwarf and a neutron star branch in the MRR that would contain stable configurations. However, in 2000 Glendenning and Kettner discovered a class of EOSs that in contrast to Wheeler's work produced a third stable branch in the MRR \cite{GlennKett}. These stars would have the same masses as neutron stars (depending on the exact EOS, this might hold for a certain mass window) but significantly smaller radii. Therefore, these stars are generally referred to as "high mass twins" or "twin stars". \\
+The main arguments against a third family would be instability to oscillations (resulting in explosion oder black hole formation) and distribution of Fermi pressure among more flavors \cite{GlennKett}. Most theories resolve around quark core formation and a pasta-like phase transition from hadronic/mixed phase to quark matter analogue to the zone between crust and core. 
 
 
 
@@ -236,13 +242,13 @@ Here, a different and more simplistic approach to this problem is developed. Thi
 The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given EOS. This process will be repeated until the end of the MRR file.
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphs/mrr_corr_eos}
+%	\includegraphics[width=0.8\textwidth]{graphs/mrr_corr_eos}
 	\caption{corresponding points in MRR and EOS. Point in EOS resembles values in the center of the star.}
 	\label{fig:mce}
 \end{figure}
 \begin{figure}
 	\centering
-	\includegraphics[width=1\textwidth]{graphs/eos_recon}
+%	\includegraphics[width=1\textwidth]{graphs/eos_recon}
 	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) Successfully varied green line, red line for next mass}
 	\label{fig:recon}
 \end{figure}
@@ -263,7 +269,7 @@ The first code test will take place with a simple polytropic EOS such as
 Using the TOV solver, an MRR is generated. For this simple case, RK4 was reduced to Euler's method and the step size is not adaptive. The MRR seen in Fig. \ref{fig:test} will be the first one to be reconstructed. 
 \begin{figure}
 	\centering
-	\includegraphics[width=1\textwidth]{graphs/test_mrr_eos}
+%	\includegraphics[width=1\textwidth]{graphs/test_mrr_eos}
 	\caption{Test case}
 	\label{fig:test}
 \end{figure}
@@ -325,6 +331,8 @@ The curves both consist of 100 data points which will be read in by the reconstr
 	\bibitem{Baym et al.(1971)} Baym, G., Pethick, C., \& Sutherland, P.\ 1971, Astrophys. J., \textbf{170}, 299 
 	\bibitem{HaenselPichon(1994} Haensel, P., \& Pichon, B.\ 1994, A\&A, \textbf{283}, 313 
 	\bibitem{DouchinHaensel(2001)} Douchin, F., \& Haensel, P.\ 2001, A\&A, \textbf{380}, 151 
+	\bibitem{Ravenhall et al.(1983)} Ravenhall, D.~G., Pethick, C.~J., \& Wilson, J.~R.\ 1983, Physical Review Letters, 50, 2066 
+	\bibitem{Schertler et al.(2000)} Schertler, K., Greiner, C., Schaffner-Bielich, J., \& Thoma2, M.~H.\ 2000, Nuclear Physics A, \textbf{677}, 463 
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
 	\bibitem{Lindblom(1992)} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
 	\bibitem{NeutronStars1} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel

@@ -76,7 +76,7 @@ main(){
   double p_init  = 0.0;
   double p_end   = 0.0;
   double p_dur   = 0.0;
-  double slope   = 0.3;
+  double slope   = 0.1;
   double slope_step = -0.01;
 
   bool   flag_s  = false;
@@ -104,12 +104,11 @@ main(){
 
   vector<double> masses;
   vector<double> radii;
-  vector<double> diffs;
 
+  vector<double> diffs;
   double ds;
   double p, e;
-  int    indx;
-  double lambda, eps0, epsm, epsp, epst;
+  int indx;
 
   // File I/O
  
@@ -137,10 +136,12 @@ main(){
     mcount++;
   }
 
+  //cout << mcount << endl;
+
   // Initialization
 
-  // p_init  = 0.00001 + mcount * 0.00001;
-  p_init  = 4e-5;
+  p_init  = 0.00001 + mcount * 0.00001;
+  // p_init  = 4e-5;
   e_rec   = pow(p_init/10., 0.6);
   t[0]    = 0.0000000001;
   p_dur   = p_init;
@@ -165,6 +166,7 @@ main(){
     if (!one) {
       alpha.push_back(alpha[indx] + 1000 * pstep);
       alpha.push_back(alpha[indx+1] + 1000 * pstep / slope);
+      // cout << "alpha pushed back\n";
     }
 
     indx = alpha.size() - 2; 
@@ -173,13 +175,14 @@ main(){
       slope += slope_step;
       pstep = 1e-6;
       alpha3_old = alpha[indx+1];
-      // slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
+      //slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) 
                        / (slope + slope_step); 
   
       flag = false;
       p_end = p_dur - 5 * pstep;
-           
+      // cout << "p_end: " << p_end << " " << p_dur*0.8 << endl;
+      
       while (p_end >= 0.8 * p_dur) {
         p_end += pstep; 
         cout << p_end << endl;
@@ -189,7 +192,8 @@ main(){
         // Initializing
 	for (i1 = 0; i1 < N; i1++) {
 	  y[0][i1] = y_0[i1];
-       	}
+          // cout << y[0][i1] << endl;
+	}
 
 	for (i1 = 0; y[i1][0] > 0; i1++) {
           tov_euler(y[i1], t[i1], y_tau, tau, &alpha);
@@ -199,6 +203,8 @@ main(){
  	  } 
 
           t[i1+1] = t[i1] + tau;
+          // cout << t[i1+1] << " " << y[i1+1][0] 
+          //      << " " << y[i1+1][1] << endl;
         }
         
 // *************************************************************************
@@ -209,6 +215,7 @@ main(){
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
           // printf("diff0 mass %g %g\n", pstep, diff0);
+          n = 0;
           flag = true;
           masses.push_back(y[i1-1][1]);
           continue;
@@ -216,8 +223,11 @@ main(){
 
         else {
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
+
           printf("diff mass %g %g %g %g\n", pstep, diff, 
                  y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+
+          n = 0;
           masses.push_back(y[i1-1][1]);
 
           if (diff * diff0 > 0) {
@@ -227,7 +237,7 @@ main(){
 
           pstep /= 10.0;
           if (pstep < 1e-9) {
-            // cout << "pstep < x br. c." << endl;
+            //cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -235,48 +245,40 @@ main(){
           continue;
         }
 
-        if (p_end > 5*p_dur) {
-          pstep /= -10;
-          continue;
-        }
       } // end p_end < p_dur loop
 
 // *************************************************************************
 
       radii.push_back(t[i1-1]);
-       masses.clear(); 
+/*!*/ masses.clear(); 
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        eps0 = pow(diff0_s, 2) + lambda * (slope - slope_old);
-        // printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
-        //        MR_rel[mcount][0]);
+        //printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
+        //       MR_rel[mcount][0]);
+        n = 0;
         flag_s = true; 
 
         if (fabs(diff0_s) < 0.005) {
           //cout << "fabs(diff_s)  br. c." << endl;
+          n = 0;
           break;
         }
         
         diffs.push_back(diff_s);
         continue;
       }
-    
-     if (!one && slope > 5 /*&& diffs.size() > 100*/ && diff_s >= -0.01) { 
-        t[i1-1] += y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]); 
-        //       = MR_rel[mcount][0]-diff_s/2;
-      }
-
+  
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
       diffs.push_back(diff_s);
-      // cout << "diffs size = " << diffs.size() << endl;
+      //cout << "diffs size = " << diffs.size() << endl;
       ds = diffs.size();
-/*
-      if (!one && slope > 1.5 && diff_s >= -0.01) { 
+
+      if (!one && slope > 1.5 /*&& diffs.size() > 100*/ && diff_s >= -0.01) { 
         t[i1-1] += y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]); 
-        //       = MR_rel[mcount][0]-diff_s/2;
+        // = MR_rel[mcount][0]-diff_s/2;
       }
-*/
+
       printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
              MR_rel[mcount][0]);
       
@@ -299,11 +301,13 @@ main(){
 
       if (fabs(diff_s) <= 0.005) {
         //cout << "fabs(diff_s)  br. c." << endl;
+        n = 0;
         break;
       }
 
       if (diff0_s * diff_s > 0) {  
         //cout << "diff0_s * diff_s > 0" << endl;
+        n = 0;
         continue;
       }
 
@@ -311,10 +315,14 @@ main(){
 
       if (slope_step < 1e-6) {
         //cout << "slope_step < x br.c." << endl;
+        n = 0;
         break;
       }
 
+      n = 0;
+  
       alpha[indx+1] = alpha3_old;
+
     } // end slope loop
  
 // *************************************************************************
@@ -325,6 +333,9 @@ main(){
   store.push_back(y[i1-1][1]/1.4766);
   mcount++;
   masses.clear();
+  //reconstruction.push_back(alpha);
+  //pao_store.push_back(p_end);
+  //n = 0;
    
   e_rec = line(p_end, &alpha);
 
@@ -339,10 +350,14 @@ main(){
   alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope;
   indx = alpha.size() - 2;
 
-  slope = 0.2;
+  slope = 0.1;
   slope_step = -0.01;
   diffs.clear();
 
+
+  // cout << alpha[0] << " " << alpha[1] << " " 
+  //      << alpha[2] << " " << alpha[3] << endl;
+ 
   one = false;
 
   } // end mcount loop
@@ -359,18 +374,19 @@ main(){
 double line(double p, vector<double> *alpha) {
   int i;
 
-  //cout << one << endl;
+  cout << one << endl;
 
   if (one || p < (*alpha)[0]) {
-    return pow(p/10., 3./5.);
     cout << "known eos\n";
+    return pow(p/10., 3./5.);
   }
 
-  if (!one) {
-    for (i = 2; i < alpha->size(); i += 2) {
-      if (p < (*alpha)[i]) { 
-        break;
-      }
+  for (i = 2; i < alpha->size(); i += 2) {
+    if (one) 
+      cout << i << "looking for p interval???\n";
+    
+    if (p < (*alpha)[i]) { 
+      break;
     }
   }
 

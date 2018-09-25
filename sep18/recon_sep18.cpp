@@ -9,7 +9,7 @@ using namespace std;
 // Global parameters
 
 const int N       = 2;
-const int num_steps = 1000000;
+const int num_steps = 10000000;
 double    *y;
 double    p_end   = 0.0;
 const double tau  = 0.0001;
@@ -154,25 +154,26 @@ main(){
     indx = alpha.size()-2;
 
     // *********************************************************************
+    // This happens only once per mass chosen from the input file
 
     // calculate eps for the initial slope (slope from previous mcount 
     // solution) and a value below and above to determine whether slope_step 
     // should be positive or negative 
-    // eps is a variable not a function
+    // eps is a variable not a function! 
 
     getR();
     diff0_s = Rcomp - MR_rel[mcount][0];            // vvvvv
     eps0 = diff0_s*diff0_s + lambda*(slope-slope_old)*(slope-slope_old);
     printf("diff0 slope radius %f %f\n", slope, diff0_s);
+
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(1.2*slope); 
-    //    ^^^^^^-energy density                                  ^^^
-    getR();
+    getR();                                         //           ^^^
     dplus = Rcomp - MR_rel[mcount][0];              // vvvvvvvvv
     epsp = dplus*dplus + lambda*(slope*1.2-slope_old)*(slope*1.2-slope_old);
+
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(0.8*slope); 
-    //    Unit-wise, all fine                                    ^^^
-    getR();
-    dminus = Rcomp - MR_rel[mcount][0];               // vvvvvvvvv
+    getR();                                         //           ^^^
+    dminus = Rcomp - MR_rel[mcount][0];             //   vvvvvvvvv
     epsm = dminus*dminus + lambda*(slope*0.8-slope_old)*(slope*0.8-slope_old);
 
     if ((epsm - eps0) * (epsp - eps0) < 0) { 
@@ -245,7 +246,7 @@ main(){
     // after first round set lambda to some reasonable value 
     // (one might play around with this number)
 
-    lambda = 5e-2;
+    lambda = 1e-1;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
