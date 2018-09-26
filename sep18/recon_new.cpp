@@ -43,7 +43,7 @@ main(){
   // double y[num_steps+1][N];
 
   double** y;
-  y = (double**)malloc((num_steps+1)*sizeof(double *));
+  y = (double**)malloc((num_steps+1)*sizeof(double*));
   if (y == NULL) {
     cout << "Fehler!" << endl; 
     exit(0);
@@ -98,14 +98,6 @@ main(){
   vector<double> pao_store;
   vector<vector<double>> reconstruction;
 
-//bool   one      = true;
-  bool   two      = false;
-  int    n        = 0;
-  double m_deriv_old = 0.0;
-  double m_deriv  = 0.0;
-  double mass     = 0.0;
-  double mass_old = 0.0;
-
   vector<double> masses;
   vector<double> radii;
   vector<double> diffs;
@@ -114,6 +106,7 @@ main(){
   double p, e;
   int    indx;
   double lambda, eps0, epsm, epsp, epst;
+  double Rcomp, Mcomp; 
 
   // File I/O
  
@@ -209,11 +202,11 @@ main(){
         cout << "Slope after mass: " << slope << endl; 
         cout << "  P_end for mass: " << p_end << endl;
         
-        Rcomp = t[i1-1] + y[i1-1]*tau/(y[i1-2][0]-y[i1-1][0]);
-        Mcomp =y[i1-1][1] + (y[][]-y[][])/tau * (Rcomp-t[i1-1]); 
+        Rcomp = t[i1-1] + y[i1-1][0]*tau/(y[i1-2][0]-y[i1-1][0]);
+        Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]); 
 
         if (!flag) {
-          diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
+          diff0 = Mcomp / 1.4766 - MR_rel[mcount][1];
           // printf("diff0 mass %g %g\n", pstep, diff0);
           flag = true;
           masses.push_back(y[i1-1][1]);
@@ -221,7 +214,7 @@ main(){
         }
 
         else {
-          diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
+          diff = Mcomp / 1.4766 - MR_rel[mcount][1];
           printf("diff mass %g %g %g %g\n", pstep, diff, 
                  y[i1-1][1]/1.4766, MR_rel[mcount][1]);
           masses.push_back(y[i1-1][1]);
@@ -253,8 +246,8 @@ main(){
        masses.clear(); 
 
       if (!flag_s) {
-        diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        eps0 = pow(diff0_s, 2) + lambda * (slope - slope_old);
+        diff0_s = Rcomp - MR_rel[mcount][0];
+        // eps0 = pow(diff0_s, 2) + lambda * (slope - slope_old);
         // printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
         //        MR_rel[mcount][0]);
         flag_s = true; 
@@ -267,13 +260,13 @@ main(){
         diffs.push_back(diff_s);
         continue;
       }
-    
-     if (!one && slope > 5 /*&& diffs.size() > 100*/ && diff_s >= -0.01) { 
+/*    
+     if (!one && slope > 5 && diffs.size() > 100 && diff_s >= -0.01) { 
         t[i1-1] += y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]); 
         //       = MR_rel[mcount][0]-diff_s/2;
       }
-
-      diff_s = t[i1 - 1] - MR_rel[mcount][0];
+*/
+      diff_s = Rcomp - MR_rel[mcount][0];
       diffs.push_back(diff_s);
       // cout << "diffs size = " << diffs.size() << endl;
       ds = diffs.size();
@@ -289,7 +282,7 @@ main(){
       if (!one && ds >= 2 && (diffs[ds-1] > 0 && diffs[ds-2] > 0 && 
           diffs[ds-1] > diffs[ds-2]) || (diffs[ds-1] < 0 && diffs[ds-2] < 0 &&
           diffs[ds-1] < diffs[ds-2])) {
-        //cout << "Turn around\n";
+        cout << "Turn around\n";
         slope_step /= -10;
         if (slope_step < 1e-5) 
           slope_step *= 100;
