@@ -39,7 +39,7 @@ void f_times_tau(double *y_t, double t,
 
 // function calculates one tov star for given eos (alpha) 
 // and central pressure (y_0)
-int tov(double* y_0,double p_cut,vector<double> *alpha);
+int tov(double* y_0, double p_cut,vector<double> *alpha);
 
 // calculates the optimum star for a given slope
 void getR();

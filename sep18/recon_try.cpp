@@ -9,15 +9,27 @@ using namespace std;
 
 // Global parameters
 
-const int N = 2;
-const int num_steps = 200000;
+const int N         = 2;
+const int num_steps = 20000000;
+int       mcount    = 0;
+int       indx      = 2;
+bool      one       = true;
+double    slope_old = 0.0;
+double    Rcomp     = 0.0;
+double    Mcomp     = 0.0;
+double    lambda    = 0.0;
+double    tau       = 0.01;
+double    p_end     = 0.0;
+double    p_dur     = 0.0;
+double    slope     = 0.3;
 
-
-// workaround only
-bool one = true;
-
-
-
+vector<double>         alpha(4);
+vector<double>         masses;
+vector<vector<double>> MR_rel;
+double*  t;
+double** y;
+//double y_0[N];
+//double y_tau[N];
 
 // Function heads
 
@@ -29,27 +41,29 @@ void tov_euler(double *y_t, double t,
 void f_times_tau(double *y_t, double t, 
                  double *f_times_tau, double tau, vector<double> *alpha);
 
+void star();
 
 // Main function
 
 main(){
+ 
+  int i1, i2;
 
-  // Variables
+  t = (double*)malloc((num_steps+1)*sizeof(double));
 
-  int    i1, i2;  
-  double tau     = 0.01;
+  if (t == NULL) {
+    cout << "Fehler!" << endl; 
+    exit(0);
+  }
 
-  // malloc this
-  // double y[num_steps+1][N];
-
-  double** y;
   y = (double**)malloc((num_steps+1)*sizeof(double *));
+
   if (y == NULL) {
     cout << "Fehler!" << endl; 
     exit(0);
   }
 
-  for(i1 = 0; i1 <= num_steps+1; i1++) {
+  for (i1 = 0; i1 <= num_steps+1; i1++) {
     y[i1] = (double*)malloc(N*sizeof(double));
     if (y[i1] == NULL) {
       cout << "Fehler!" << endl; 
@@ -57,30 +71,16 @@ main(){
     }
   }
 
-  double* t;
-  t = (double*)malloc((num_steps+1)*sizeof(double));
-  if (t == NULL) {
-    cout << "Fehler!" << endl; 
-    exit(0);
-  }
+  // Variables
 
-  double y_0[N];
-  double y_tau[N];
-//  double t[num_steps+1];
-  double p0      = 0.0;
-  int    P       = 0;
+//  double y_0[N];
+//  double y_tau[N];
   double M, R;
-  int    mcount  = 0;
-  int    m_max   = 0;
-
-  vector<double> alpha(4);
   vector<double> one_MR(2);
-  vector<vector<double>> MR_rel;
 
   double p_init  = 0.0;
-  double p_end   = 0.0;
-  double p_dur   = 0.0;
-  double slope   = 0.3;
+
+//  double slope   = 0.3;
   double slope_step = -0.01;
 
   bool   flag_s  = false;
@@ -94,26 +94,17 @@ main(){
   double e_rec;
   double pstep;
 
-  vector<double> store;
-  vector<double> pao_store;
-  vector<vector<double>> reconstruction;
+//  vector<double> store;
+//  vector<double> pao_store;
+//  vector<vector<double>> reconstruction;
 
-//bool   one      = true;
-  bool   two      = false;
-  int    n        = 0;
-  double m_deriv_old = 0.0;
-  double m_deriv  = 0.0;
-  double mass     = 0.0;
-  double mass_old = 0.0;
-
-  vector<double> masses;
   vector<double> radii;
   vector<double> diffs;
 
   double ds;
   double p, e;
   int    indx;
-  double lambda, eps0, epsm, epsp, epst;
+  double eps0, epsm, epsp, epst;
 
   // File I/O
  
@@ -154,7 +145,7 @@ main(){
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 
   indx     = 2;
-
+  lambda   = 0;
   // cout << "Slope before mcount loop: " << slope << endl;
 
   while (mcount < MR_rel.size()) {
@@ -179,7 +170,11 @@ main(){
       // slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) 
                        / (slope + slope_step); 
-  
+ 
+      star();
+     // cout << Rcomp << endl;
+
+/*
       flag  = false;
       p_end = p_dur - 5 * pstep;
            
@@ -204,13 +199,8 @@ main(){
           t[i1+1] = t[i1] + tau;
         }
         
-// *************************************************************************
-
         cout << "Slope after mass: " << slope << endl; 
         cout << "  P_end for mass: " << p_end << endl;
-        
-        Rcomp = t[i1-1] + y[i1-1]*tau/(y[i1-2][0]-y[i1-1][0]);
-        Mcomp =y[i1-1][1] + (y[][]-y[][])/tau * (Rcomp-t[i1-1]); 
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
@@ -235,7 +225,8 @@ main(){
           if (pstep < 1e-9) {
             // cout << "pstep < x br. c." << endl;
             break;
-          }
+          }  vector<double> masses;
+
 
           p_end -= 10.0 * pstep;
           continue;
@@ -246,15 +237,15 @@ main(){
           continue;
         }
       } // end p_end < p_dur loop
-
+*/
 // *************************************************************************
 
       radii.push_back(t[i1-1]);
-       masses.clear(); 
+      masses.clear(); 
 
       if (!flag_s) {
         diff0_s = t[i1 - 1] - MR_rel[mcount][0];
-        eps0 = pow(diff0_s, 2) + lambda * (slope - slope_old);
+        // eps0 = pow(diff0_s, 2) + lambda * (slope - slope_old);
         // printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
         //        MR_rel[mcount][0]);
         flag_s = true; 
@@ -327,17 +318,15 @@ main(){
   masses.clear();
   radii.clear();
 
-  store.push_back(y[i1-1][1]/1.4766);
+//  store.push_back(y[i1-1][1]/1.4766);
   mcount++;
-  masses.clear();
    
   e_rec = line(p_end, &alpha);
 
   cout << "out: " << t[i1-1] << "," << y[i1-1][1]/1.4766 
        << "," << e_rec << "," << p_end
        << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
-       << "," << mcount << "," << reconstruction.size() 
-       << "," << slope << endl;
+       << "," << mcount << "," << slope << endl;
 
   p_dur = p_end;
   alpha[indx] = p_end;
@@ -354,19 +343,10 @@ main(){
 
 // *************************************************************************
 
-  for (i2 = 0; i2 <= num_steps+1; i2++) 
-    free(y[i2]);
-  free(y);
-  y = NULL;
-  free(t);
-  t = NULL;
-
   return 0;
 }
 
-
 // Functions
-
 
 double line(double p, vector<double> *alpha) {
   int i;
@@ -409,6 +389,105 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * line(y_t[0], alpha);
 }
+
+void star() {
+  int i1, i2;
+  bool flag = false;
+  double diffx, diff0, diff = 0.0;
+  double pstep = 1e-6;
+  double y_tau[2];
+  double y_0[2];
+
+  p_end = p_dur - 5*pstep; 
+
+  while (p_end >= 0.8 * p_dur) {
+    // loop
+    p_end += pstep; 
+    y_0[0] = p_end;
+    y_0[1] = 0.0;
+
+    // initializing
+    for (i1 = 0; i1 < N; i1++) {
+        y[0][i1] = y_0[i1];
+    }
+
+    // calculation
+    for (i1 = 0; y[i1][0] > 0; i1++) {
+      tov_euler(y[i1], t[i1], y_tau, tau, &alpha);
+
+      for (i2 = 0; i2 < N; i2++) {
+        y[i1+1][i2] = y_tau[i2];
+      } 
+
+      t[i1+1] = t[i1] + tau;
+    }
+    
+    // corrections
+    //Rcomp = t[i1-1] + y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]);
+    //Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]);
+
+    cout << "Slope after mass: " << slope << endl; 
+    cout << "  P_end for mass: " << p_end << endl;
+
+    // check0
+    if (!flag) {
+      diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
+      // printf("diff0 mass %g %g\n", pstep, diff0);
+      if (fabs(diff0) < 1e-6)
+        break;
+      flag = true;
+      // masses.push_back(y[i1-1][1]);
+      continue;
+    }
+
+    // check
+    else {
+      diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
+      printf("diff mass %g %g %g %g\n", pstep, diff, 
+             y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+      // masses.push_back(y[i1-1][1]);
+   /* ******************************
+
+      if (diff > 0.0) {
+        if (fabs(diffx-diff) > 0) {  // > 0??
+          diff = diffx;
+          break;
+        }
+      }
+      diff = diffx;
+      if (fabs(diff) < 1e-6)
+        break;
+
+   */// ******************************
+      if (diff * diff0 > 0) {
+        continue;
+      }
+      pstep /= 10.0;
+      if (pstep < 1e-9) {
+        break;
+      }
+      p_end -= 10.0 * pstep;
+      continue;
+    }
+
+    if (p_end > 5*p_dur) {
+      pstep /= -10;
+      continue;
+    }  
+  } // end p_end < p_dur loop
+
+//  Rcomp = t[i1-1] + y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]);
+//  Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]);
+//  Mcomp /= 1.4766;
+  return;
+}
+
+
+
+
+
+
+
 
 /*
           // will this do the job?
