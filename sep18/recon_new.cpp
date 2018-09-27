@@ -17,8 +17,6 @@ const int num_steps = 200000;
 bool one = true;
 
 
-
-
 // Function heads
 
 double line(double p, vector<double> *alpha);
@@ -66,12 +64,8 @@ main(){
 
   double y_0[N];
   double y_tau[N];
-//  double t[num_steps+1];
-  double p0      = 0.0;
-  int    P       = 0;
   double M, R;
   int    mcount  = 0;
-  int    m_max   = 0;
 
   vector<double> alpha(4);
   vector<double> one_MR(2);
@@ -80,7 +74,7 @@ main(){
   double p_init  = 0.0;
   double p_end   = 0.0;
   double p_dur   = 0.0;
-  double slope   = 0.3;
+  double slope   = 1;
   double slope_step = -0.01;
 
   bool   flag_s  = false;
@@ -102,10 +96,9 @@ main(){
   vector<double> radii;
   vector<double> diffs;
 
-  double ds;
+  double ds, rs, ms;
   double p, e;
   int    indx;
-  double lambda, eps0, epsm, epsp, epst;
   double Rcomp, Mcomp; 
 
   // File I/O
@@ -153,17 +146,14 @@ main(){
   while (mcount < MR_rel.size()) {
     pstep  = 1e-6;
     flag_s = false;
-    
-    // eps stuff to be added! 
-
-    indx = alpha.size() - 2;
+    indx   = alpha.size() - 2;
 
     if (!one) {
       alpha.push_back(alpha[indx] + 1000 * pstep);
       alpha.push_back(alpha[indx+1] + 1000 * pstep / slope);
     }
 
-    indx = alpha.size() - 2; 
+    indx   = alpha.size() - 2; 
 
     while (slope > 0) {
       slope     += slope_step;
@@ -178,8 +168,7 @@ main(){
            
       while (p_end >= 0.8 * p_dur) {
         p_end += pstep; 
-        cout << p_end << endl;
-	y_0[0] = p_end;
+        y_0[0] = p_end;
 	y_0[1] = 0.0;
 
         // Initializing
@@ -199,14 +188,14 @@ main(){
         
 // *************************************************************************
 
-        cout << "Slope after mass: " << slope << endl; 
-        cout << "  P_end for mass: " << p_end << endl;
+     //   cout << "Slope after mass: " << slope << endl; 
+     //   cout << "  P_end for mass: " << p_end << endl;
         
-        Rcomp = t[i1-1] + y[i1-1][0]*tau/(y[i1-2][0]-y[i1-1][0]);
-        Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]); 
+//        Rcomp = t[i1-1] + y[i1-1][0]*tau/(y[i1-2][0]-y[i1-1][0]);
+//        Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]); 
 
         if (!flag) {
-          diff0 = Mcomp / 1.4766 - MR_rel[mcount][1];
+          diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
           // printf("diff0 mass %g %g\n", pstep, diff0);
           flag = true;
           masses.push_back(y[i1-1][1]);
@@ -214,9 +203,9 @@ main(){
         }
 
         else {
-          diff = Mcomp / 1.4766 - MR_rel[mcount][1];
-          printf("diff mass %g %g %g %g\n", pstep, diff, 
-                 y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+          diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
+          //printf("diff mass %g %g %g %g\n", pstep, diff, 
+          //       y[i1-1][1]/1.4766, MR_rel[mcount][1]);
           masses.push_back(y[i1-1][1]);
 
           if (diff * diff0 > 0) {
@@ -243,11 +232,10 @@ main(){
 // *************************************************************************
 
       radii.push_back(t[i1-1]);
-       masses.clear(); 
+      masses.clear(); 
 
       if (!flag_s) {
-        diff0_s = Rcomp - MR_rel[mcount][0];
-        // eps0 = pow(diff0_s, 2) + lambda * (slope - slope_old);
+        diff0_s = t[i1-1] - MR_rel[mcount][0];
         // printf("diff0 radius %f %f %f %f\n", slope_step, diff0_s, t[i1 - 1],
         //        MR_rel[mcount][0]);
         flag_s = true; 
@@ -260,29 +248,23 @@ main(){
         diffs.push_back(diff_s);
         continue;
       }
-/*    
+/*
      if (!one && slope > 5 && diffs.size() > 100 && diff_s >= -0.01) { 
         t[i1-1] += y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]); 
         //       = MR_rel[mcount][0]-diff_s/2;
       }
 */
-      diff_s = Rcomp - MR_rel[mcount][0];
+      diff_s = t[i1-1] - MR_rel[mcount][0];
       diffs.push_back(diff_s);
-      // cout << "diffs size = " << diffs.size() << endl;
       ds = diffs.size();
-/*
-      if (!one && slope > 1.5 && diff_s >= -0.01) { 
-        t[i1-1] += y[i1-1][0] * tau / (y[i1-2][0]-y[i1-1][0]); 
-        //       = MR_rel[mcount][0]-diff_s/2;
-      }
-*/
-      printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-             MR_rel[mcount][0]);
-      
+
+      //printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1-1],
+      //       MR_rel[mcount][0]);
+     
       if (!one && ds >= 2 && (diffs[ds-1] > 0 && diffs[ds-2] > 0 && 
           diffs[ds-1] > diffs[ds-2]) || (diffs[ds-1] < 0 && diffs[ds-2] < 0 &&
           diffs[ds-1] < diffs[ds-2])) {
-        cout << "Turn around\n";
+        //cout << "Turn around\n";
         slope_step /= -10;
         if (slope_step < 1e-5) 
           slope_step *= 100;
@@ -297,7 +279,7 @@ main(){
       }
 
       if (fabs(diff_s) <= 0.005) {
-        //cout << "fabs(diff_s)  br. c." << endl;
+        //  cout << "fabs(diff_s)  br. c." << endl;
         break;
       }
 
@@ -308,12 +290,12 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        //cout << "slope_step < x br.c." << endl;
+        //  cout << "slope_step < x br.c." << endl;
         break;
       }
 
       alpha[indx+1] = alpha3_old;
-    } // end slope loop
+    }   // end slope loop
  
 // *************************************************************************
 
@@ -326,11 +308,10 @@ main(){
    
   e_rec = line(p_end, &alpha);
 
-  cout << "out: " << t[i1-1] << "," << y[i1-1][1]/1.4766 
+  cout/* << "out: "*/ << t[i1-1] << "," << y[i1-1][1]/1.4766 
        << "," << e_rec << "," << p_end
        << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
-       << "," << mcount << "," << reconstruction.size() 
-       << "," << slope << endl;
+       << "," << mcount << "," << slope << endl;
 
   p_dur = p_end;
   alpha[indx] = p_end;
@@ -349,10 +330,8 @@ main(){
 
   for (i2 = 0; i2 <= num_steps+1; i2++) 
     free(y[i2]);
-  free(y);
-  y = NULL;
-  free(t);
-  t = NULL;
+  free(y); y = NULL;
+  free(t); t = NULL;
 
   return 0;
 }
@@ -402,6 +381,14 @@ void f_times_tau(double *y_t, double t,
                    (-2*y_t[1] * t + pow(t, 2.)) * tau;
   f_times_tau[1] = tau * 4 * M_PI * pow(t, 2.) * line(y_t[0], alpha);
 }
+
+
+
+
+
+
+
+
 
 /*
           // will this do the job?

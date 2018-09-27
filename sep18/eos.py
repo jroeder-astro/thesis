@@ -14,7 +14,7 @@ def eos(p):
 x1 = []
 y1 = []
 
-with open('recon_new_save.out', 'r') as csvfile:
+with open('what', 'r') as csvfile:
     plots = csv.reader(csvfile, delimiter=',')
     for row in plots:
         x1.append(float(row[3]))
