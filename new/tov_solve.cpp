@@ -6,6 +6,7 @@ using namespace std;
 
 const int N = 2;
 const int num_steps = 100000;
+double m = 30;
 
 double eos(double p);
 
@@ -30,7 +31,7 @@ main(){
   vector<double> R;
   vector<double> M;
 
-  for (P = 0; P < 100; P++) {
+  for (P = 0; P < 1000; P++) {
     p0 = 0.00001 + P * 0.00001;
     y_0[0] = p0; 
     y_0[1] = 0.0;
@@ -62,6 +63,9 @@ main(){
 }
 
 double eos(double p) {
+  if (p > 0.0001)
+    return (p - 0.0001) * m + 0.0001;
+
   return pow(p/10., 3./5.);
 }
 

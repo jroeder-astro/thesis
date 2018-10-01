@@ -1,3 +1,3 @@
 run:
-	g++ -std=c++11 -o recon_new recon_new.cpp;
-	./recon_new
+	g++ -std=c++11 -o recon_test recon_test.cpp;
+	./recon_test

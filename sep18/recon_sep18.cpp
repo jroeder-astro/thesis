@@ -434,9 +434,9 @@ void getR() {
   } // end p_end < p_dur loop
 
   // why the re-calculation? too much?
-  Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
-  Mcomp = y[(i1-1)*N+1] + (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
-  Mcomp /= 1.4766;
+//  Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
+//  Mcomp = y[(i1-1)*N+1] + (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
+//  Mcomp /= 1.4766;
 
   return;
 }
