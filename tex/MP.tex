@@ -248,9 +248,16 @@ The main additions will be the split of the pressure range into segments, each r
 
 
 \subsection{The inverse problem}
-
-The first one to propose an inverted approach to the so-called ``stellar structure problem'' was L. Lindblom in 1992 \cite{Lindblom(1992)}. The ``standard'' version of this problem is just an integration of the TOV equations with a set EOS and central pressure, determining the total mass and radius (values of the variables at the surface). Lindblom presents an MRR-EOS-pair to be uniquely linked by an abstract map. This gives rise to the possibility of using that map in the other direction, i.e. from MRR to EOS. His ``traditional'' solution of the inverse problem works as follows:\\
-Instead of integrating the TOV equations from the core towards the surface with initial values $p=p_c$ and $r=0$, use $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, assume the EOS to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\}. Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. By representing the TOV equations for this small region as a power series, and inverting that, one can obtain \{$\epsilon_{i+1}, p_{i+1}$\} as a function of previously calculated quantities. This algorithm is repeated for the rest of the MRR, using an interpolation method to link \{$\epsilon_{i+1}, p_{i+1}$\} to the known EOS.\\
+The ``standard'' problem of stellar structure is an integration of the TOV equations with a given EOS and central pressure, determining the total mass and radius (values of the variables at the surface). 
+The inversion of this ``standard'' problem was originally brought up by Gerlach in 1968, in a paper investigating the possibility of a third stable family \cite{Gerlach(1968)}; another well-established method was developed by Lindblom. Both methods shall be recalled here.\\
+Just like any new published approach to that problem, Gerlach assumes the EOS to be known below a certain density. In order to determine the changes in density and mass for the core region of unknown type for the next configuration, he sets up variations for the TOV equation \ref{eq:tov}:
+\begin{align}
+	\frac{d\Delta\rho}{dr} &= A(r) \Delta\rho + B\Delta m \\
+	\frac{d\Delta m}{dr} &= 4\pi r^2\Delta \rho
+\end{align}
+Note that Gerlach used $\rho$ instead of $\epsilon$ in his equations. He solves the inverse problem in two steps from here. First, he requires the changes made to a star's surface in terms of radius and mass to be somehow related to changes at the beginning of the core region, here in terms of density and mass. Next, he specifically calculates $\Delta \rho$ and $\Delta m$ for the core, which are required to smoothly fit to the core surface. Gerlach follows these steps by putting the above equations in matrix form and including an iterative method, as well as setting up proper matching conditions. \\
+Lindblom on the other hand presents an MRR-EOS-pair to be uniquely linked by an abstract map \cite{Lindblom(1992)}. This gives rise to the possibility of using that map in the other direction, i.e. from MRR to EOS. His ``traditional'' solution of the inverse problem works as follows:\\
+Instead of integrating the TOV equations from the core towards the surface with initial values $p=p_c$ and $r=0$, Lindblom uses $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, the EOS is assumed to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\} (as Gerlach did). Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. By representing the TOV equations for this small region as a power series, and inverting that, one can obtain \{$\epsilon_{i+1}, p_{i+1}$\} as a function of previously calculated quantities. This algorithm is repeated for the rest of the MRR, using an interpolation method to link \{$\epsilon_{i+1}, p_{i+1}$\} to the known EOS.\\
 Here, a different and more simplistic approach to this problem is developed. This new method does not require the star to be integrated from crust to core, but will merely be a modification of the standard problem. This leads to a kind of ``trial and error'' type of solution, as section \ref{recon_method_sec} will explain more detailed.
 
 
@@ -356,6 +363,7 @@ The curves both consist of 100 data points which will be read in by the reconstr
 	\bibitem{Schertler et al.(2000)} Schertler, K., Greiner, C., Schaffner-Bielich, J., \& Thoma2, M.~H.\ 2000, Nuclear Physics A, \textbf{677}, 463 
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
 	\bibitem{Lindblom(1992)} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
+	\bibitem{Gerlach(1968)} Gerlach, U.~H.\ 1968, Physical Review, \textbf{172}, 1325 
 	\bibitem{NeutronStars1} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
 	
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.

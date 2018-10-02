@@ -19,5 +19,5 @@
 \contentsline {subsection}{\numberline {2.9}The inverse problem}{9}{subsection.2.9}
 \contentsline {section}{\numberline {3}Reconstruction method}{10}{section.3}
 \contentsline {subsection}{\numberline {3.1}General goal}{10}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Pressure intervals}{10}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Test case}{11}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.2}Pressure intervals}{12}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Test case}{12}{subsection.3.3}
