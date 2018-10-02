@@ -1,19 +1,19 @@
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
-\contentsline {section}{\numberline {2}Theoretical background}{3}{section.2}
-\contentsline {subsection}{\numberline {2.1}Compact stars}{3}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}The Tolman-Oppenheimer-Volkoff equation}{3}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}The equation of state and neutron star structure}{4}{subsection.2.3}
-\contentsline {paragraph}{$\rho \leq 10^6$}{5}{section*.2}
-\contentsline {paragraph}{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$}{5}{section*.3}
-\contentsline {paragraph}{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$}{5}{section*.4}
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Theoretical background}{2}{section.2}
+\contentsline {subsection}{\numberline {2.1}Compact stars}{2}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}The Tolman-Oppenheimer-Volkoff equation}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}The equation of state and neutron star structure}{3}{subsection.2.3}
+\contentsline {paragraph}{$\rho \leq 10^6$}{4}{section*.2}
+\contentsline {paragraph}{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$}{4}{section*.3}
+\contentsline {paragraph}{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$}{4}{section*.4}
 \contentsline {paragraph}{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho _{core}$}{5}{section*.5}
-\contentsline {paragraph}{$\rho \geq \rho _{core}$}{6}{section*.6}
-\contentsline {subsection}{\numberline {2.4}General constraints}{6}{subsection.2.4}
+\contentsline {paragraph}{$\rho \geq \rho _{core}$}{5}{section*.6}
+\contentsline {subsection}{\numberline {2.4}General constraints}{5}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Stability, the mass-radius relation and a third family}{6}{subsection.2.5}
 \contentsline {subsection}{\numberline {2.6}Fermi gas equation of state}{7}{subsection.2.6}
 \contentsline {subsection}{\numberline {2.7}Numerical solution}{8}{subsection.2.7}
 \contentsline {subsubsection}{\numberline {2.7.1}Method}{8}{subsubsection.2.7.1}
-\contentsline {subsubsection}{\numberline {2.7.2}Adaptive step size}{8}{subsubsection.2.7.2}
+\contentsline {subsubsection}{\numberline {2.7.2}Adaptive step size}{9}{subsubsection.2.7.2}
 \contentsline {subsubsection}{\numberline {2.7.3}Implementation}{9}{subsubsection.2.7.3}
 \contentsline {subsection}{\numberline {2.8}From TOV solver to reconstruction}{9}{subsection.2.8}
 \contentsline {subsection}{\numberline {2.9}The inverse problem}{9}{subsection.2.9}

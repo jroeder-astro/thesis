@@ -9,8 +9,8 @@
 \usepackage{amssymb}
 %\usepackage{ngerman}
 \usepackage[ansinew]{inputenc}
-\usepackage[left=2cm,top=1cm]{geometry}
-
+\usepackage[left=3cm,top=3cm,bottom=3cm]{geometry}
+%,right=2cm,bottom=2cm
 \renewcommand{\familydefault}{\sfdefault}
 
 % vector graphics test
@@ -19,14 +19,19 @@
 \graphicspath{{graphs/}}
 \usepackage{epstopdf}
 \usepackage{enumitem}
+\usepackage{fancyhdr}
 \setlength{\parindent}{0pt}
 
 \epstopdfsetup{outdir=./}
 
 \begin{document}
 	\pagestyle{empty}
+	\pagenumbering{roman}
 	%\textasciitilde
 
+\title{Constructing the Equation of State for Compact Stars}
+\author{Jan R\"{o}der}
+\date{\today}
 
 \begin{titlepage}
     \centering
@@ -38,11 +43,24 @@
 
 %headline!!!
 
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+
 
 \tableofcontents
 \pagebreak
 
-
+\pagenumbering{arabic}
 \section{Introduction}
 
 To this day, the nature of the equation of state [EOS] for neutron stars is highly debated. Previously discussed EOSs have emerged from
@@ -130,15 +148,18 @@ The ground state of nuclear matter can be calculated from the nuclear Hamiltonia
 
 \subsection{General constraints}
 
-There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the causality limit. An EOS might be ultrabaric and still causal: the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. However, if the EOS starts below the ultrabaric line and fulfills the causality condition, it will never cross that line. If its slope increases so that $dP/d\epsilon>1$, the EOS becomes \textit{superluminal}. While a superluminal EOS is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such EOS all have other significant disadvantages leaving them irrelevant. 
+%There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the causality limit. An EOS might be ultrabaric and still causal: the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. However, if the EOS starts below the ultrabaric line and fulfills the causality condition, it will never cross that line. If its slope increases so that $dP/d\epsilon>1$, the EOS becomes \textit{superluminal}. While a superluminal EOS is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such EOS all have other significant disadvantages leaving them irrelevant. 
 
+
+
+There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the superluminal limit even though an EOS might be ultrabaric and still subluminal. A physically relevent EOS cannot be superluminal either, the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. The confusion of the two terms arises because an EOS starts fulfilling both conditions, it will never cross the ultrabaric line. If its slope increases so that $dP/d\epsilon>1$, the EOS becomes \textit{superluminal}. While a superluminal EOS is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such EOS all have other significant disadvantages leaving them irrelevant. 
 
 \subsection{Stability, the mass-radius relation and a third family}
 
 The term \textit{stability} is generally used in the context of stability towards perturbations, i.e. radial oscillation modes. This can be read off the mass-radius relation: If the curve reaches a critical point, the slope changes sign and the lowest stable mode switches its stability. Reading from the right, a counter-clockwise change of slope at a critical point leads to instability of a mode. This can be seen in \ref{fig:third_stable}.
-\begin{figure}
+\begin{figure} [h]
 	\centering
-%	\includegraphics[width=1\textwidth]{graphs/third_and_stable.eps}
+	\includegraphics[width=1\textwidth]{graphs/third_and_stable.eps}
 	\caption{Mass-radius relation with a third stable branch and stability of lowest modes. Taken from \cite{Schertler et al.(2000)}.}
 	\label{fig:third_stable}
 \end{figure}
@@ -240,15 +261,15 @@ Here, a different and more simplistic approach to this problem is developed. Thi
 \subsection{General goal}
 
 The goal is to reconstruct the EOS with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an EOS corresponding to a given mass in the MRR (Fig. \ref{fig:mce}). From there, the EOS can be constructed without further constraint. Here, a straight line is added to the end of the EOS, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given EOS and will calculate a mass with the (now small) piece of straight line and the EOS. If the mass does not fit the corresponding one in the MRR that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given EOS. This process will be repeated until the end of the MRR file.
-\begin{figure}
+\begin{figure} [h]
 	\centering
-%	\includegraphics[width=0.8\textwidth]{graphs/mrr_corr_eos}
+	\includegraphics[width=0.8\textwidth]{graphs/mrr_corr_eos}
 	\caption{corresponding points in MRR and EOS. Point in EOS resembles values in the center of the star.}
 	\label{fig:mce}
 \end{figure}
-\begin{figure}
+\begin{figure} [h]
 	\centering
-%	\includegraphics[width=1\textwidth]{graphs/eos_recon}
+	\includegraphics[width=1\textwidth]{graphs/eos_recon}
 	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) Successfully varied green line, red line for next mass}
 	\label{fig:recon}
 \end{figure}
@@ -267,9 +288,9 @@ The first code test will take place with a simple polytropic EOS such as
 	\epsilon(p) = \left(\frac{p}{10}\right)^{3/5}
 \end{equation*}
 Using the TOV solver, an MRR is generated. For this simple case, RK4 was reduced to Euler's method and the step size is not adaptive. The MRR seen in Fig. \ref{fig:test} will be the first one to be reconstructed. 
-\begin{figure}
+\begin{figure} [h]
 	\centering
-%	\includegraphics[width=1\textwidth]{graphs/test_mrr_eos}
+	\includegraphics[width=1\textwidth]{graphs/test_mrr_eos}
 	\caption{Test case}
 	\label{fig:test}
 \end{figure}
@@ -286,10 +307,6 @@ The curves both consist of 100 data points which will be read in by the reconstr
 
 
 
-
-\pagebreak
-\pagebreak
-
 %%%ALTERNATIVE BILDUMGEBUNG
 % \begin{figure}[h]
 % \begin{center}
@@ -303,35 +320,39 @@ The curves both consist of 100 data points which will be read in by the reconstr
 
 \hspace{15pt}
 
-\begin{table}[h!]
-  \centering
-  %\caption{Caption for the table.}
-  \label{tab:2}
-  \begin{tabular}{|c||c|}
-  \hline
-    Messung der Fadenlänge & $l$ (m)\\
-    \hline\hline
-    1 &   \\ \hline
-    2 &   \\ \hline
-    3 &   \\ \hline
-    4 &   \\ \hline
-    5 &   \\ \hline
-    Mittelwert $\bar{l}$ &  \\ \hline
-    Standardabweichung $\sigma_l$ &  \\ \hline
-  \end{tabular}
-\end{table}
+%\begin{table}[h!]
+%  \centering
+%  \caption{Caption for the table.}
+%  \label{tab:2}
+%  \begin{tabular}{|c||c|}
+%  \hline
+%    Messung der Fadenlänge & $l$ (m)\\
+%    \hline\hline
+%    1 &   \\ \hline
+%    2 &   \\ \hline
+%    3 &   \\ \hline
+%    4 &   \\ \hline
+%    5 &   \\ \hline
+%    Mittelwert $\bar{l}$ &  \\ \hline
+%    Standardabweichung $\sigma_l$ &  \\ \hline
+%  \end{tabular}
+%\end{table}
 
+
+
+
+\clearpage
 %{1965gtgc.book.....H}
 \begin{thebibliography}{2}
 	\bibitem{Mazzali et al.(2007)} Mazzali, P.~A., R{\"o}pke, F.~K., Benetti, S., \& Hillebrandt, W.\ 2007, Science, \textbf{315}, 825 
 	\bibitem{Glendenning} Glendenning, N. K., Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
 	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
-	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, 663 p. 252
+	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, \textbf{663}, p. 252
 	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
 	\bibitem{Baym et al.(1971)} Baym, G., Pethick, C., \& Sutherland, P.\ 1971, Astrophys. J., \textbf{170}, 299 
 	\bibitem{HaenselPichon(1994} Haensel, P., \& Pichon, B.\ 1994, A\&A, \textbf{283}, 313 
 	\bibitem{DouchinHaensel(2001)} Douchin, F., \& Haensel, P.\ 2001, A\&A, \textbf{380}, 151 
-	\bibitem{Ravenhall et al.(1983)} Ravenhall, D.~G., Pethick, C.~J., \& Wilson, J.~R.\ 1983, Physical Review Letters, 50, 2066 
+	\bibitem{Ravenhall et al.(1983)} Ravenhall, D.~G., Pethick, C.~J., \& Wilson, J.~R.\ 1983, Physical Review Letters, \textbf{50}, 2066 
 	\bibitem{Schertler et al.(2000)} Schertler, K., Greiner, C., Schaffner-Bielich, J., \& Thoma2, M.~H.\ 2000, Nuclear Physics A, \textbf{677}, 463 
 	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
 	\bibitem{Lindblom(1992)} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
