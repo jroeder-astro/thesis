@@ -172,15 +172,21 @@ main(){
     eps0 = diff0_s*diff0_s + lambda*(slope-slope_old)*(slope-slope_old);
     printf("diff0 slope radius %f %f\n", slope, diff0_s);
 
+    cout << "1st getR() done\n";
+
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(1.2*slope); 
     getR();                                         //           ^^^
     dplus = Rcomp - MR_rel[mcount][0];              // vvvvvvvvv
     epsp = dplus*dplus + lambda*(slope*1.2-slope_old)*(slope*1.2-slope_old);
 
+    cout << "2nd getR() done\n";
+
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(0.8*slope); 
     getR();                                         //           ^^^
     dminus = Rcomp - MR_rel[mcount][0];             //   vvvvvvvvv
     epsm = dminus*dminus + lambda*(slope*0.8-slope_old)*(slope*0.8-slope_old);
+
+    cout << "3rd getR() done\n";
 
     if ((epsm - eps0) * (epsp - eps0) < 0) { 
       if (epsp < eps0) 
@@ -196,6 +202,8 @@ main(){
         slope_step = -0.05; 
     }
 
+    cout << "slope_step set\n";
+
     first = false;
     
     // *********************************************************************
@@ -205,6 +213,7 @@ main(){
 
       if (slope <= 0) {
         // break;
+        cout << "slope_step sign flip bc. slope <= 0\n";
         slope_step /= -10; 
         slope = slope_old;
       }
@@ -213,19 +222,29 @@ main(){
       // slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
 
+      cout << "alphas set\n";
+
       // actual calculation
       getR();
+      cout << "getR() done\n";
 
-      if (p_end > alpha[indx-2]*5.0) 
+      if (p_end > alpha[indx-2]*5.0) {
+        cout << "p_end > alpha[indx-2]*5.0\n";
         continue;
-      if (fabs(diff) > 1e-4) 
+      }
+
+      if (fabs(diff) > 1e-4) {
+        cout << "fabs(diff) > 1e-4\n";
         continue;
+      }
 
       diff_s = Rcomp - MR_rel[mcount][0];
       epsp   = diff_s*diff_s + lambda*(slope-slope_old)*(slope-slope_old);
       printf("diff radius %g %g %g %g %g %g %g %g \n",
              epsp, slope, slope_step, diff_s, Rcomp, MR_rel[mcount][0],
              Mcomp, MR_rel[mcount][1]);
+
+      cout << "diff_s set, epsp re-evaluated\n";
 
       if (fabs(diff_s) < 0.00001) {
         // cout << "fabs(diff_s) break condition" << endl;
