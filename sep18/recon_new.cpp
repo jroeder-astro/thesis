@@ -188,11 +188,11 @@ main(){
         
 // *************************************************************************
 
-     //   cout << "Slope after mass: " << slope << endl; 
-     //   cout << "  P_end for mass: " << p_end << endl;
-        
-//        Rcomp = t[i1-1] + y[i1-1][0]*tau/(y[i1-2][0]-y[i1-1][0]);
-//        Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]); 
+   //   cout << "Slope after mass: " << slope << endl; 
+   //   cout << "  P_end for mass: " << p_end << endl;
+
+   //   Rcomp = t[i1-1] + y[i1-1][0]*tau/(y[i1-2][0]-y[i1-1][0]);
+   //   Mcomp = y[i1-1][1] + (y[i1-1][1]-y[i1-2][1])/tau * (Rcomp-t[i1-1]); 
 
         if (!flag) {
           diff0 = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
@@ -257,10 +257,12 @@ main(){
       diff_s = t[i1-1] - MR_rel[mcount][0];
       diffs.push_back(diff_s);
       ds = diffs.size();
+    
+      if (mcount > 20) {
+        printf("diff radius %f %f %f %f %f\n", slope_step, diff_s, t[i1-1],
+               MR_rel[mcount][0], slope);
+      }     
 
-      //printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1-1],
-      //       MR_rel[mcount][0]);
-     
       if (!one && ds >= 2 && (diffs[ds-1] > 0 && diffs[ds-2] > 0 && 
           diffs[ds-1] > diffs[ds-2]) || (diffs[ds-1] < 0 && diffs[ds-2] < 0 &&
           diffs[ds-1] < diffs[ds-2])) {
@@ -273,13 +275,19 @@ main(){
       }
 
       if (!one && diffs.size() > 150) {
+        if (slope > 3. || slope < -3.)
+          break;
+
         slope += 5*slope_step;
+        if (mcount > 20)
+          cout << "slope increased by 5 steps\n";
         diffs.clear();
         continue;
       }
 
       if (fabs(diff_s) <= 0.005) {
-        //  cout << "fabs(diff_s)  br. c." << endl;
+        if (mcount > 20)
+          cout << "fabs(diff_s)  br. c." << endl;
         break;
       }
 
@@ -290,7 +298,8 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        //  cout << "slope_step < x br.c." << endl;
+        if (mcount > 20)
+          cout << "slope_step < x br.c." << endl;
         break;
       }
 

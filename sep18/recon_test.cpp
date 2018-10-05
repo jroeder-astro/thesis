@@ -58,9 +58,11 @@ main(){
   double p0      = 0.0;
   int    P       = 0;
   double M, R;
-  double pbest,ebest;
+  double pbest, ebest;
 
   vector<double> one_MR(3);
+  vector<double> result_one(7);
+  vector<vector<double>> result;
 
   // moved a few variables to the global section so that 
   // I can use them in functions without passing them on (just lazy)
@@ -90,11 +92,15 @@ main(){
   double e_rec;
   double pstep;
   int    indx    = 2;
+  double pold, eold;
+  double d0, dplus, dminus;
 
 
   // File I/O
 
-  FILE *fres = fopen("results_sep18.out","w"); 
+//  FILE *fres = fopen("results_sep18.out","w"); 
+
+
   FILE *MRR = fopen("mr_sep18.out", "r");
   double pcenter;
   if (MRR == NULL)
@@ -142,15 +148,22 @@ main(){
  
   lambda   = 0;
 
+  cout << "about to start mcount loop\n";
 
   while (mcount < 50) {
     pstep  = 1e-7;
     flag_s = false;
     slope_step  = -0.05;
-    double pold = alpha[alpha.size()-2];
-    double eold = alpha[alpha.size()-1];
-    double d0, dplus, dminus;
   
+    cout << "alpha.size() = " << alpha.size() << endl;
+    cout << "alpha[alpha.size()-2] = " << alpha[alpha.size()-2] << endl;
+    cout << "alpha[alpha.size()-1] = " << alpha[alpha.size()-1] << endl;
+
+    pold = alpha[alpha.size()-2];
+    eold = alpha[alpha.size()-1];
+  
+    cout << "pold, eold set\n";
+
     // alpha contains more parameters now
     if (!first) {  
       alpha.push_back(pold + 1000 * pstep);
@@ -277,25 +290,58 @@ main(){
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
     indx = alpha.size()-2;
 
-    fprintf(fres,"%e,%e,%e,%e,%e,%e,%e\n", MR_rel[mcount][0], Rcomp, 
-            MR_rel[mcount][1], Mcomp, p_end, line(p_end,p_dur,&alpha), slope);
+    result_one[0] = MR_rel[mcount][0];
+    result_one[1] = Rcomp;
+    result_one[2] = MR_rel[mcount][1];
+    result_one[3] = Mcomp;
+    result_one[4] = p_end;
+    result_one[5] = line(p_end, p_dur, &alpha);
+    result_one[6] = slope;
 
-    fflush(fres);
+    result.push_back(result_one);
+
+//  fprintf(fres,"%e,%e,%e,%e,%e,%e,%e\n", MR_rel[mcount][0], Rcomp, 
+//          MR_rel[mcount][1], Mcomp, p_end, line(p_end,p_dur,&alpha), slope);
+//  fflush(fres);
 
     cout << "Radius: " << MR_rel[mcount][0] << " , " << Rcomp << endl;
     cout << "Mass:   " << MR_rel[mcount][1] << " , " << Mcomp << endl;
     cout << "central pressure: " <<  p_end  << endl;
     cout << "slope: "  << slope  << endl;
     cout << "i1 = " << what << endl;
-
+    
+    cout << "mcount = " << mcount << endl;
     mcount++;
+    cout << "mcount increased. mcount = " << mcount << endl;
+
   } // end mcount loop
- 
+
+
+  FILE *fres = fopen("results_sep18.out","w"); 
+
+  for (i2 = 0; i2 < result.size(); i2++) {
+    fprintf(fres, "%e,%e,%e,%e,%e,%e,%e\n", result[i2][0], result[i2][1], 
+            result[i2][2], result[i2][3], result[i2][4], 
+            result[i2][5], result[i2][6]);
+  }
+  
+  fclose(fres);
+
+//  fprintf(fres,"%e,%e,%e,%e,%e,%e,%e\n", MR_rel[mcount][0], Rcomp, 
+//          MR_rel[mcount][1], Mcomp, p_end, line(p_end,p_dur,&alpha), slope);
+
+//  fflush(fres);
+
+
+
+
+
+
+
   for (i2 = 0; i2 <= num_steps+1; i2++) 
     free(y[i2]);
   free(y); y = NULL;
-  free(t); t = NULL; 
-  fclose(fres);
+  free(t); t = NULL;
   return 0;
 }
 
