@@ -37,8 +37,7 @@ void f_times_tau(double *y_t, double t,
                  double *f_times_tau, double tau, double p_cut, 
                  vector<double> *alpha);
 
-// function calculates one tov star for given eos (alpha) 
-// and central pressure (y_0)
+// function calculates one tov star for given eos (alpha)  and central pressure (y_0)
 int tov(double* y_0, double p_cut,vector<double> *alpha);
 
 // calculates the optimum star for a given slope
@@ -246,7 +245,7 @@ main(){
     // after first round set lambda to some reasonable value 
     // (one might play around with this number)
 
-    lambda = 1e-1;
+    lambda = 1e-2;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
@@ -274,13 +273,12 @@ main(){
 
 // Functions
 
-
 int tov(double* y_0, double p_cut, vector<double> *alpha) {
   int i1, i2;
   double y_tau[N];
 
-  // Initializing
 
+  // Initializing
   for (i1 = 0; i1 < N; i1++) {
     y[i1] = y_0[i1];
   }
