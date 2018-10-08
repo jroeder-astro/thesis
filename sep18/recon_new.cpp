@@ -151,7 +151,7 @@ main(){
 
   // cout << "Slope before mcount loop: " << slope << endl;
 
-  while (mcount < 24) {
+  while (mcount < 17) {
     pstep  = 1e-6;
     flag_s = false;
     indx   = alpha.size() - 2;
@@ -174,20 +174,19 @@ main(){
       }
 
       pstep      = 1e-6;
-      // alpha3_old = alpha[indx+1];
+      alpha3_old = alpha[indx+1];
       // slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) 
-                       / (slope + slope_step); 
-  
-     
+                       / (slope /*+ slope_step*/); 
+          //                     ^^^^^^^^^^^^^^
+         // CHECK     CHECK     CHECK     CHECK     CHECK
+
 //      cout << "slope = " << slope << endl;
 //      cout << "slope + slope_step = " << slope + slope_step << endl;
 //      cout << "(a[i]-a[i-2]) / (a[i+1] - a[i-1]) = "
 //           << (alpha[indx]-alpha[indx-2])/(alpha[indx+1]-alpha[indx-1]) 
 //           << endl;
 //      cout << "(p_end-p_bef) / (e_rec-e_bef)" << (p_end-) / (e_rec) << endl;
-
-
 
       flag  = false;
       p_end = p_dur - 5 * pstep;
@@ -237,13 +236,15 @@ main(){
           masses.push_back(y[i1-1][1]);
 
           if (diff * diff0 > 0) {
-            // cout << "diff * diff0 > 0" << endl;
+            //if (mcount == 13) 
+            //  cout << "diff * diff0 > 0" << endl;
             continue;
           }
 
           pstep /= 10.0;
           if (pstep < 1e-9) {
-            // cout << "pstep < x br. c." << endl;
+            if (mcount == 13) 
+              cout << "pstep < x br. c." << endl;
             break;
           }
 
@@ -282,8 +283,8 @@ main(){
       diff_s = t[i1-1] - MR_rel[mcount][0];
       diffs.push_back(diff_s);
       ds = diffs.size();
-    
-      if (mcount > 15) {
+   
+      if (mcount == 13){
         printf("diff radius %f %f %f %f %f\n", slope_step, diff_s, t[i1-1],
                MR_rel[mcount][0], slope);
       }     
@@ -299,7 +300,7 @@ main(){
 
         if (slope_step < 1e-5) {
           slope_step *= 100;
-          cout << "slope_step multiplied by 10\n";
+          // cout << "slope_step multiplied by 10\n";
         }
 
         diffs.clear();
@@ -320,14 +321,14 @@ main(){
         }
 
         slope += 5*slope_step;
-        if (mcount > 15)
+        if (mcount > 13)
           cout << "slope increased by 5 steps\n";
         diffs.clear();
         continue;
       }
 
       if (fabs(diff_s) <= 0.005) {
-        if (mcount > 15)
+        if (mcount > 13)
           cout << "fabs(diff_s)  br. c." << endl;
         break;
       }
@@ -339,12 +340,12 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        if (mcount > 15)
-          cout << "slope_step < x br.c." << endl;
+        if (mcount > 13)
+           cout << "slope_step < x br.c." << endl;
         break;
       }
 
-      // alpha[indx+1] = alpha3_old;
+      alpha[indx+1] = alpha3_old;
     }   // end slope loop
  
 // *************************************************************************
@@ -365,17 +366,23 @@ main(){
        << "," << MR_rel[mcount-1][0] << "," << MR_rel[mcount-1][1]
        << "," << mcount << "," << slope << endl;
 
+  cout << "a-1= " << alpha[indx-4] << endl;
+  cout << "a0 = " << alpha[indx-3] << endl;
+
+  cout << "a1 = " << alpha[indx-2] << endl;
+  cout << "a2 = " << alpha[indx-1] << endl;
+  cout << "a3 = " << alpha[indx] << endl;
+  cout << "a4 = " << alpha[indx+1] << endl;
+
   cout << "slope = " << slope << endl;
   cout << "slope + slope_step = " << slope + slope_step << endl;
   cout << "(a[i]-a[i-2]) / (a[i+1] - a[i-1]) = "
        << (alpha[indx]-alpha[indx-2])/(alpha[indx+1]-alpha[indx-1]) << endl;
-
   cout << (p_end-alpha[indx-2])/(e_rec-alpha[indx-1]) << endl;
-  
+  cout << "e_rec = " << e_rec << " e_rec_old = " << e_rec_old << endl;
   cout << "p_end = " << p_end << " p_end_old = " << p_end_old << endl;
   cout << "(p_end-p_end_old)/(e_rec-e_rec_old) = "
        << (p_end-p_end_old)/(e_rec-e_rec_old) << endl;
-  
 
   cout << "*****************************************\n";
 
@@ -393,9 +400,8 @@ main(){
 
   plots.push_back(plot_s);
  // for (i2 = 0; i2 < plots.size(); i2++) { 
-    fprintf(out, "%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n", plot_s[0], plot_s[1],
-            plot_s[2], plot_s[3], plot_s[4], plot_s[5], 
-            plot_s[6], plot_s[7]);
+  fprintf(out, "%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf\n", plot_s[0], plot_s[1],
+          plot_s[2], plot_s[3], plot_s[4], plot_s[5], plot_s[6], plot_s[7]);
  //  }
 
   p_dur = p_end;
@@ -406,12 +412,6 @@ main(){
   slope_old  = slope;
   slope      = 0.2;
   slope_step = -0.01;
-/*
-  if (mcount > 21) {
-    slope    = -0.5;
-    slope_step = -0.01;
-  }
-*/
   diffs.clear();
 
   one = false;
@@ -430,7 +430,8 @@ main(){
     fprintf(out, "%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf", plots[i2][0], plots[i2][1],
             plots[i2][2], plots[i2][3], plots[i2][4], plots[i2][5], 
             plots[i2][6], plots[i2][7]);
-  }*/
+  }
+*/
   fclose(out);
 
   return 0;
