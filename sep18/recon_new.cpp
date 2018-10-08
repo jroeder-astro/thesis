@@ -151,7 +151,7 @@ main(){
 
   // cout << "Slope before mcount loop: " << slope << endl;
 
-  while (mcount < 17) {
+  while (mcount < 30) {
     pstep  = 1e-6;
     flag_s = false;
     indx   = alpha.size() - 2;
@@ -177,7 +177,7 @@ main(){
       alpha3_old = alpha[indx+1];
       // slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) 
-                       / (slope /*+ slope_step*/); 
+                       / (slope + slope_step); 
           //                     ^^^^^^^^^^^^^^
          // CHECK     CHECK     CHECK     CHECK     CHECK
 
@@ -284,7 +284,7 @@ main(){
       diffs.push_back(diff_s);
       ds = diffs.size();
    
-      if (mcount == 13){
+      if (mcount == 16){
         printf("diff radius %f %f %f %f %f\n", slope_step, diff_s, t[i1-1],
                MR_rel[mcount][0], slope);
       }     
@@ -307,17 +307,17 @@ main(){
         continue;
       }
 //!!
-/*      if (!flag_hm) {
+      if (!flag_hm) {
         flag_hm = true;
         break;
       }
-*/
+
       if (!one && diffs.size() > 150) {
         if (slope > 4. || slope < -4.) {
 //!!    
-          break; 
-   //       slope = slope_old * 0.99;
-   //       flag_hm = false;
+          //break; 
+          slope = slope_old * 0.99;
+          flag_hm = false;
         }
 
         slope += 5*slope_step;
