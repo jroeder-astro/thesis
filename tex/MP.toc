@@ -3,22 +3,22 @@
 \contentsline {subsection}{\numberline {2.1}Compact stars}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}The Tolman-Oppenheimer-Volkoff equation}{2}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}The equation of state and neutron star structure}{3}{subsection.2.3}
-\contentsline {paragraph}{$\rho \leq 10^6$}{4}{section*.2}
-\contentsline {paragraph}{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$}{4}{section*.3}
-\contentsline {paragraph}{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$}{4}{section*.4}
-\contentsline {paragraph}{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho _{core}$}{5}{section*.5}
-\contentsline {paragraph}{$\rho \geq \rho _{core}$}{5}{section*.6}
+\contentsline {paragraph}{$\rho \leq 10^6$}{4}{section*.11}
+\contentsline {paragraph}{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$}{4}{section*.12}
+\contentsline {paragraph}{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$}{4}{section*.13}
+\contentsline {paragraph}{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho _{core}$}{5}{section*.14}
+\contentsline {paragraph}{$\rho \geq \rho _{core}$}{5}{section*.15}
 \contentsline {subsection}{\numberline {2.4}General constraints}{5}{subsection.2.4}
 \contentsline {subsection}{\numberline {2.5}Stability, the mass-radius relation and a third family}{6}{subsection.2.5}
 \contentsline {subsection}{\numberline {2.6}Yet another compact family?}{7}{subsection.2.6}
 \contentsline {subsection}{\numberline {2.7}Fermi gas equation of state}{8}{subsection.2.7}
-\contentsline {subsection}{\numberline {2.8}Numerical solution}{9}{subsection.2.8}
-\contentsline {subsubsection}{\numberline {2.8.1}Method}{9}{subsubsection.2.8.1}
+\contentsline {subsection}{\numberline {2.8}Numerical solution}{10}{subsection.2.8}
+\contentsline {subsubsection}{\numberline {2.8.1}Method}{10}{subsubsection.2.8.1}
 \contentsline {subsubsection}{\numberline {2.8.2}Adaptive step size}{10}{subsubsection.2.8.2}
-\contentsline {subsubsection}{\numberline {2.8.3}Implementation}{10}{subsubsection.2.8.3}
+\contentsline {subsubsection}{\numberline {2.8.3}Implementation}{11}{subsubsection.2.8.3}
 \contentsline {subsection}{\numberline {2.9}From TOV solver to reconstruction}{11}{subsection.2.9}
 \contentsline {subsection}{\numberline {2.10}The inverse problem}{11}{subsection.2.10}
 \contentsline {section}{\numberline {3}Reconstruction method}{12}{section.3}
 \contentsline {subsection}{\numberline {3.1}General goal}{12}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Pressure intervals}{12}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Test case}{13}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.2}Pressure intervals}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Test case}{14}{subsection.3.3}

@@ -177,7 +177,7 @@ main(){
       alpha3_old = alpha[indx+1];
       // slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = e_rec + (alpha[indx]-alpha[indx-2]) 
-                       / (slope + slope_step); 
+                       / (slope /*+ slope_step*/); 
           //                     ^^^^^^^^^^^^^^
          // CHECK     CHECK     CHECK     CHECK     CHECK
 
@@ -284,7 +284,7 @@ main(){
       diffs.push_back(diff_s);
       ds = diffs.size();
    
-      if (mcount == 16){
+      if (mcount == 13){
         printf("diff radius %f %f %f %f %f\n", slope_step, diff_s, t[i1-1],
                MR_rel[mcount][0], slope);
       }     
@@ -307,17 +307,17 @@ main(){
         continue;
       }
 //!!
-      if (!flag_hm) {
+/*      if (!flag_hm) {
         flag_hm = true;
         break;
       }
-
+*/
       if (!one && diffs.size() > 150) {
         if (slope > 4. || slope < -4.) {
 //!!    
-          //break; 
-          slope = slope_old * 0.99;
-          flag_hm = false;
+          break; 
+          //slope = slope_old * 0.99;
+          //flag_hm = false;
         }
 
         slope += 5*slope_step;
@@ -328,7 +328,7 @@ main(){
       }
 
       if (fabs(diff_s) <= 0.005) {
-        if (mcount > 13)
+        if (mcount >= 13)
           cout << "fabs(diff_s)  br. c." << endl;
         break;
       }
@@ -340,7 +340,7 @@ main(){
       slope_step /= 10;
 
       if (slope_step < 1e-6) {
-        if (mcount > 13)
+        if (mcount >= 13)
            cout << "slope_step < x br.c." << endl;
         break;
       }
