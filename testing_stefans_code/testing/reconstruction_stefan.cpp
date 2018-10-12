@@ -96,12 +96,46 @@ main(){
   fclose(MRR);
   MRR = NULL;
 
+/*
+  // check for maxima in MRR
+
+  vector<int> maxmin;
+  double maxdiff0 = MR_rel[1][1] - MR_rel[0][1];
+  double maxdiff  = 0;
+  int    mmindx   = 0;
+  for (i1 = 2; i1 < MR_rel.size(); i1++) {
+    maxdiff = MR_rel[i1][1] - MR_rel[i1-1];
+    if (maxdiff * maxdiff0 < 0) {
+      max.push_back(i1);
+      maxdiff0 = maxdiff;
+    }
+  }
+*/
+
+  // set initial mcount
+
   for (i1 = 0; i1 < MR_rel.size(); i1++) {
     if (MR_rel[i1][1] >= 1)
       break;
   }
   mcount=i1+1; 
 
+/*
+  // read external eos
+
+  FILE *exteos = fopen("exteos.dat", "r");
+  if (exteos == NULL)
+    exit(0);
+  while (1) {
+    if (fscanf(exteos, "%lf %lf", &e, &p) == EOF)
+      break;
+    alpha.push_back(e);
+    alpha.push_back(p);
+  }
+  fclose(exteos);
+
+  // ALPHA HAS TO BE REDEFINED!!!
+*/
 
   // Initialization
 
@@ -123,6 +157,16 @@ main(){
   lambda = 0;
 
   while (mcount < 40) {
+
+  /*
+    if (mcount == maxmin[mmindx]) {
+      // set lambda differently or destroy lambda completely
+      // mmindx += 2; 
+      // += 1 would mean the minimum... do we want that or the next max.?
+      // only skip unstable branch?
+    }
+  */
+
     pstep=1e-7;
     flag_s = false;
     slope_step=-0.05;
@@ -319,7 +363,7 @@ void getR() {
   double diff0,diff=0.0;
   double pstep = 1e-7;
   p_end = alpha[indx-2]-pstep;
-  while (p_end >= 0.8 * p_dur) {i
+  while (p_end >= 0.8 * p_dur) {
 
     if(p_end>alpha[indx-2]*5.0) 
       break;
@@ -370,7 +414,7 @@ void getR() {
 
       pstep /= 10.0;
       diff=0.0;
-      if (pstep < 1e-10) {
+      if (pstep < 1e-9) {
 //           cout << "pstep < x breaking condition" << endl;
         break;
       }

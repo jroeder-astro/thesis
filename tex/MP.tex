@@ -22,7 +22,7 @@
 \usepackage{fancyhdr}
 \setlength{\parindent}{0pt}
 
-\epstopdfsetup{outdir=./}
+%\epstopdfsetup{outdir=./}
 
 
 % Abbreviations
@@ -83,7 +83,7 @@
 \section{Introduction}
 
 To this day, the nature of the \ac{eos} for neutron stars is highly debated. Previously discussed \ac*{eos} have emerged from various topics and models of physics. Each one has different parameters determining its impact on calculations. \\
-For the past years, it has been common to derive an \ac*{eos} from a theory and then use it to construct a \ac*{mrr}. That way, it was somewhat possible to investigate what impact the state of matter in different regions of the star has on a whole sequence. Since science lacks observational information about neutron star radii it has only been possible to put constraints on theories.\\
+For the past years, it has been common to derive an \ac*{eos} from a theory and then use it to construct a \ac{mrr}. That way, it was somewhat possible to investigate what impact the state of matter in different regions of the star has on a whole sequence. Since science lacks observational information about neutron star radii it has only been possible to put constraints on theories.\\
 This method of constructing \ac*{mrr} has one major limitation: One cannot put an arbitrary number of theories into one \ac*{eos}. That would result in a problem impossible to solve, even for computers. Therefore, the motivation is to minimize the number of parameters and constraints in the future to find a model that is both solvable and preserves the highest physical relevance.\\
 The approach chosen in this thesis inverts the above process. Instead of using an \ac*{eos} to calculate masses and radii, the latter now take over the role as input parameters. For compact stars up to a certain mass, the \ac*{eos} will be assumed to be known well enough. Above that mass a numerical reconstruction will take place, determining the \ac*{eos} from a variety of \ac*{mrr}. Using the \ac*{mrr} as input leaves us with only the low-density region to impose an \ac*{eos} in. As explained in \ref{eos_and_struct}, we have in fact the possibility to model this region sufficiently well. If future measurements grant a decent number of data points on the \ac*{mrr}, an inverse algorithm has the potential to probe the highest densities in the universe. Due to the unique relation of \ac*{mrr} and \ac*{eos} this would mean a significant contribution to the investigation of high-density phase diagrams of, for example, quark matter. The enormous amount of energy needed to create matter at such densities exceeds everything possible by humanity; therefore a neutron star would be a welcome laboratory. \\
 The first instrument about to attempt neutron star radius measurements is the NICER experiment located at the International Space Station. It will detect x-ray emissions directly from the neutron star's surface and capture the rotational period to determine the radius with a precision of few hundred meters. With that information from multiple neutron stars it could potentially be possible to draw a coarse \ac*{mrr}, with actual data. At that point, \ac*{eos} reconstruction will likely become a crucial part of neutron star physics.
@@ -301,7 +301,7 @@ The RK4 algorithm will be implemented so that it can be easily modified any time
 
 \subsection{From TOV solver to reconstruction}
 
-After implementing the TOV equations together with the integration method, one can now generate a \ac*{mrr} by looping over several $p_c$ and using one \ac*{eos} only. This \ac*{mrr} will be used for testing the final reconstruction code, which will consist of the TOV solver extended with the reconstruction algorithm explained below.\\
+After implementing the TOV equations together with the integration method, one can now generate an \ac*{mrr} by looping over several $p_c$ and using one \ac*{eos} only. This \ac*{mrr} will be used for testing the final reconstruction code, which will consist of the TOV solver extended with the reconstruction algorithm explained below.\\
 The main additions will be the split of the pressure range into segments, each requiring their own part of the \ac*{eos}, as well as a segment determining the ``correctness'' of calculated mass and radius. The code will work not as ``inversely'' as was proposed before; the stars will still be integrated from the core towards the surface. However, the reconstruction no longer uses one single \ac*{eos}.
 
 
@@ -346,6 +346,27 @@ The goal is to reconstruct the \ac*{eos} with as few biasing and imposing of mat
 For the first mass in the file that is supposed to be reconstructed, the code will use the given \ac*{eos} over the complete pressure interval $p_c$ to 0. That way, the first mass can be reproduced exactly in a test case. $p_c$ will be the last pressure value of the given \ac*{eos} interval. From there, lines will be added to that end point; in the program, a flag labelled ``one'' will be set to false after the first mass was calculated. \\
 From this point on it is important to determine which \ac*{eos} will be used for what pressure interval inside the star. The second mass to be calculated will use the given \ac*{eos} and one single line after it; masses number three and above then also need a line, but before finishing with the given \ac*{eos} the previously determined lines are supposed to fill in the rest of the pressure range. \\
 The line currently subject to variation will start at the central pressure ($p_c$) and will end at the last pressure a star was reconstructed for. This is resembled by the end point of the last previous line (or in the special case, the last pressure of the given \ac*{eos}). The last given \ac*{eos} pressure is saved in the very beginning as $p_{init}$, marking the point from which the given \ac*{eos} will finish up the mass calculation.
+
+
+\subsection{Linear interpolation}
+
+Four parameters are needed to calculate one line equation (two points in a two-dimensional plane). In the code, every \ac*{eos} point consists of a pressure and an energy density value. The parameters needed for one line are stored in an array $\alpha$: 
+\begin{equation*}
+	\left(\alpha_0,\,\alpha_1,\,\alpha_2,\,\alpha_3\right) = \left(p_1,\,\varepsilon_{1},\,p_2,\,\varepsilon_{2}\right)
+\end{equation*}
+Inserting this array into $y = mx+b$ or rather $\varepsilon = mp+b$, the line equation looks as follows:
+\begin{equation} \label{eq:e(p)_line}
+	\varepsilon(p) = \left(p-\alpha_1\right)\frac{\alpha_3-\alpha_1}{\alpha_2-\alpha_0}+\alpha_0
+\end{equation}
+where $m=\Delta\epsilon/\Delta p$ and $b$ is the y axis point.
+While one line is being varied, $\alpha_0$ and $\alpha_1$ stay fixed as they are the last line's end point. Calculating the mass, $\alpha_2$ is varied at fixed $\alpha_3$. If the corresponding radius does not fit, $\alpha_3$ is shifted through a slope change. If mass and radius have been reconstructed with sufficient precision, the $\alpha$ array is extended by two in order to fit in the next end point to be varied. The \ac*{eos} function always checks which interval the current pressure lies in to determine the $\alpha$ for further calculation. The array will be extended to index values high above three; here, zero to three were chosen. In the actual program, $(\alpha_0,\alpha_1)$ resembles the known \ac*{eos} region's end. In order to generalize equation \ref{eq:e(p)_line}, in index $i$ is introduced and initialized with alpha.size()$-2$. In the above special case, alpha.size() (C function) would equal to four. The subscripts in \ref{eq:e(p)_line} are now rewritten with $i$:
+\begin{equation} \label{eq:e(p)_indx}
+\varepsilon(p) = \left(p-\alpha_{i-1}\right)\frac{\alpha_{i+1}-\alpha_{i-1}}{\alpha_i-\alpha_{i-2}}+\alpha_{i-2}
+\end{equation}
+That way, the array can be more easily accessed an used by the code even with continuous extension.\\
+Centering the whole reconstruction around the $\alpha$ array also immediately makes external \ac*{eos} input possible. An \ac*{eos} table read in by the code along with an \ac*{mrr} would be stored in $\alpha$ and used for the calculation with either the same linear function as the rest, or with another interpolation method. Note that the external table would need the energy density density in one column (many \ac*{eos} use the matter oder baryon density instead).
+
+ 
 
 \subsection{Test case}
 
