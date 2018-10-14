@@ -21,6 +21,7 @@ double eps0,epsp,epsm,slope_old=0,lambda;
 vector<double> alpha(4);
 vector<vector<double>> MR_rel;
 int    mcount  = 0;
+double p_init;
 
 // Function heads
 
@@ -60,7 +61,7 @@ main(){
 
   y=(double*)malloc(N*num_steps*sizeof(double));
 
-  double p_init  = 0.0;
+  p_init  = 0.0;
   double slope   = 1.00;
   double slope_step = -0.05;
 
@@ -70,11 +71,11 @@ main(){
   bool   flag    = false;
   double diff0   = 0.0;
   double diff    = 0.0;
-  bool first = true;
+  bool   first   = true;
   double alpha3_old;
   double e_rec;
   double pstep;
-  int indx=2;
+  int    indx    = 2;
 
 
   // File I/O
@@ -85,7 +86,6 @@ main(){
   if (MRR == NULL)
     exit(0);
   while (1) {
- // mr.out also contains the corresponding pressures now
     if (fscanf(MRR, "%lf %lf %lf %*f", &R, &M, &pcenter) == EOF)
       break;
     one_MR[0] = R;
@@ -133,23 +133,43 @@ main(){
     alpha.push_back(p);
   }
   fclose(exteos);
+  exteos = NULL;
 
-  // ALPHA HAS TO BE REDEFINED!!!
+  // (hopefully) determine the mass up to which eos is known
+  // together with central pressure
+
+  indx = alpha.size() - 2;
+  for (int x = 0; x < indx; x += 2) {
+    y_0[0] = alpha[indx-x];
+    y_0[1] = 0.0;
+    tov(y_0, 0, &alpha);
+    if (y[i1-1][1]/1.4766 < 1)
+      break;
+  }
+  p_init = alpha[indx-x];
+
+  // pushing alpha out for further calculation
+
+  indx = alpha.size() - 2;
+  alpha.push_back(5 * alpha[indx-2]);
+  alpha.push_back(alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope);
+  indx += 2;
 */
 
   // Initialization
 
   p_init   = MR_rel[mcount-1][2];
   p_dur    = MR_rel[mcount-1][2];
-  e_rec    = line(p_dur,p_dur, &alpha);
+  e_rec    = line(p_dur, p_dur, &alpha);
   t[0]     = 0.0000000001;
   first    = true;
-  alpha[0] = p_init;
+  alpha[0] = p_init;     // this has to be rewritten using indx
   alpha[1] = e_rec;
   indx     = alpha.size()-2;
   alpha[2] = 5 * p_init;
   alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
   indx     = 2;
+  
 
 // code optimizes a function eps = (R-R_wanted)**2 + lambda*(slope-slope_before)**2 do avoid big jumps in the slope
 // as the slope_before is not known in the first round, use lambda=0 for optimization
@@ -217,8 +237,11 @@ main(){
    
     while (slope > 0.0) {
       slope += slope_step;
-      if(slope<=0) 
-        break;
+
+      if(slope<=0) {
+        slope_step *= -1;
+        slope += slope_step;
+      }
 
       alpha3_old = alpha[indx+1];
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
@@ -226,8 +249,10 @@ main(){
 
       getR();
 
-      if(p_end>alpha[indx-2]*5.0) 
+      if(p_end>alpha[indx-2]*5.0) {
+        cout << p_end-alpha[indx-2]*5.0 << endl;
         continue;
+      }
       if(fabs(diff)>1e-4) 
         continue;
 
@@ -272,7 +297,6 @@ main(){
 
     fprintf(fres,"%e %e %e %e %e %e %e\n",MR_rel[mcount][0],Rcomp,MR_rel[mcount][1],Mcomp,p_end,line(p_end,p_dur,&alpha),slope);
  
-
     fflush(fres);
 
     cout << "Radius: " << MR_rel[mcount][0] << " , " << Rcomp << endl;
@@ -321,6 +345,8 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 
 double line(double p,double p_cut, vector<double> *alpha) {
   int i;
+
+  // comment this out for external eos input
   if(p <= p_cut) 
     return pow(p/10.,0.6);
 
@@ -372,7 +398,9 @@ void getR() {
     y_0[0] = p_end; 
     y_0[1] = 0.0;
 
-    i1 = tov(y_0,p_dur,&alpha);
+    i1 = tov(y_0, p_dur, &alpha);   
+    // Would it not have to be p_init???
+    // i1 = tov(y_0, p_init, &alpha);   
 
 // end of mass calculation
     Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
@@ -413,7 +441,7 @@ void getR() {
       }
 
       pstep /= 10.0;
-      diff=0.0;
+      diff = 0.0;
       if (pstep < 1e-9) {
 //           cout << "pstep < x breaking condition" << endl;
         break;
