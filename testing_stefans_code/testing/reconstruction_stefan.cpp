@@ -239,8 +239,8 @@ main(){
       slope += slope_step;
 
       if(slope<=0) {
-        slope_step *= -1;
-        slope += slope_step;
+        slope_step -= slope_step;
+        slope_step/=10;
       }
 
       alpha3_old = alpha[indx+1];
@@ -275,10 +275,21 @@ main(){
       slope_step /= -10;
       eps0=epsp;
 
-      if (fabs(slope_step) < 1e-6) {
+      if (mcount < 18 && fabs(slope_step) < 1e-6) {
         cout << "slope_step break condition" << endl;
         break;
       }
+
+      if (mcount > 18 && fabs(diff_s) > 0.3) {
+        slope_step /= -10;
+        if (fabs(slope_step) < 1e-9) {
+          cout << "slope_step break condition II" << endl;
+          break;
+        }
+      }
+
+
+
 //      slope-=10.*slope_step;
 
 //      alpha[indx+1] = alpha3_old;
@@ -303,6 +314,7 @@ main(){
     cout << "Mass:   " << MR_rel[mcount][1] << " , " << Mcomp << endl;
     cout << "central pressure: " << p_end << endl;
     cout << "slope: " << slope << endl;
+    cout << "mcount: " << mcount << endl;
 
     mcount++;
   } // end mcount loop
