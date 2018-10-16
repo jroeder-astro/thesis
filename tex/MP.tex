@@ -194,7 +194,7 @@ The ground state of nuclear matter can be calculated from the nuclear Hamiltonia
 
 There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the superluminal limit even though an \ac*{eos} might be ultrabaric and still subluminal. A physically relevant \ac*{eos} cannot be superluminal either, the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. The confusion of the two terms arises because an \ac*{eos} starts fulfilling both conditions, it will never cross the ultrabaric line. If its slope increases so that $dP/d\epsilon>1$, the \ac*{eos} becomes \textit{superluminal}. While a superluminal \ac*{eos} is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such \ac*{eos} all have other significant disadvantages leaving them irrelevant. 
 
-\subsection{Stability, the mass-radius relation and a third family}
+\subsection{Stability, mass-radius relation and third family}
 
 The term \textit{stability} is generally used in the context of stability towards perturbations, i.e. radial oscillation modes. This can be read off the mass-radius relation: If the curve reaches a critical point, the slope changes sign and the lowest stable mode switches its stability. Reading from the right, a counter-clockwise change of slope at a critical point leads to instability of a mode. This can be seen in \ref{fig:third_stable}.
 \begin{figure} [h]
@@ -358,15 +358,33 @@ Inserting this array into $y = mx+b$ or rather $\varepsilon = mp+b$, the line eq
 \begin{equation} \label{eq:e(p)_line}
 	\varepsilon(p) = \left(p-\alpha_1\right)\frac{\alpha_3-\alpha_1}{\alpha_2-\alpha_0}+\alpha_0
 \end{equation}
-where $m=\Delta\epsilon/\Delta p$ and $b$ is the y axis point.
+where $m=\Delta\varepsilon/\Delta p$ and $b$ is the y axis point.
 While one line is being varied, $\alpha_0$ and $\alpha_1$ stay fixed as they are the last line's end point. Calculating the mass, $\alpha_2$ is varied at fixed $\alpha_3$. If the corresponding radius does not fit, $\alpha_3$ is shifted through a slope change. If mass and radius have been reconstructed with sufficient precision, the $\alpha$ array is extended by two in order to fit in the next end point to be varied. The \ac*{eos} function always checks which interval the current pressure lies in to determine the $\alpha$ for further calculation. The array will be extended to index values high above three; here, zero to three were chosen. In the actual program, $(\alpha_0,\alpha_1)$ resembles the known \ac*{eos} region's end. In order to generalize equation \ref{eq:e(p)_line}, in index $i$ is introduced and initialized with alpha.size()$-2$. In the above special case, alpha.size() (C function) would equal to four. The subscripts in \ref{eq:e(p)_line} are now rewritten with $i$:
 \begin{equation} \label{eq:e(p)_indx}
 \varepsilon(p) = \left(p-\alpha_{i-1}\right)\frac{\alpha_{i+1}-\alpha_{i-1}}{\alpha_i-\alpha_{i-2}}+\alpha_{i-2}
 \end{equation}
 That way, the array can be more easily accessed an used by the code even with continuous extension.\\
-Centering the whole reconstruction around the $\alpha$ array also immediately makes external \ac*{eos} input possible. An \ac*{eos} table read in by the code along with an \ac*{mrr} would be stored in $\alpha$ and used for the calculation with either the same linear function as the rest, or with another interpolation method. Note that the external table would need the energy density density in one column (many \ac*{eos} use the matter oder baryon density instead).
+Centering the whole reconstruction around the $\alpha$ array also immediately makes external \ac*{eos} input possible. An \ac*{eos} table read in by the code along with an \ac*{mrr} would be stored in $\alpha$ and used for the calculation with either the same linear function as the rest, or with another interpolation method. Note that the external table would need the energy density density in one column (many \ac*{eos} use the matter or baryon density instead).
 
- 
+\subsection{Indirect radius check}
+
+Upon finishing the calculation for a star, the code is to check mass and radius. This can either be done by directly comparing the calculated values with the input (in the following, direct method) or by choosing an indirect way of doing so. The direct method can be described as a search for the root of a function $f_\text{dir}$:
+\begin{equation*}
+	f_\text{dir} = R_\text{calc}-R_\text{want}
+\end{equation*}
+While the direct method somewhat works in the low-density region, it quickly starts suffering from big slope jumps for the reconstructed lines. Some \ac*{mrr} points are found corresponding to values above the wanted \ac*{eos} curve, continuing with only very slight changes in slope until points below the \ac*{eos} are used. From there, a slope jump pushes the next point above the curve again. The jumps get bigger exponentially up to a point where the code cannot push above the \ac*{eos} again; from here, none of the produced values are of use. \\
+A way to work around these jumps is by choosing an indirect method function $f_\text{ind}$:
+\begin{equation*}
+	f_\text{ind} = \left(R_\text{calc}-R_\text{want}\right)^2 + \lambda\cdot \left(\xi_\text{curr} - \xi_\text{prev}\right)^2
+\end{equation*}  
+Instead of trying to find the roots of $f_\text{dir}$, the code is supposed to find extrema of $f_\text{ind}$. The functions are related as 
+\begin{equation*}
+	f_\text{ind} \sim \int f_\text{dir}
+\end{equation*}
+$\lambda$ is an ``importance parameter''. In order to avoid big jumps in the slope $\xi_\text{curr}$ with respect to $\xi_\text{prev}$, $\lambda$ is set to some value. That way, $\xi_\text{curr}$ will not deviate more from $\xi_\text{prev}$ than $\lambda$ allows. Before the variation of a slope, a star is calculated once with the current slope and with a higher and lower one, respectively. The direction of the slope variation is then determined by the behaviour of $f_\text{ind}$.\\
+Some time in the future, the program should be capable of modelling first-order phase transitions in the \ac*{eos}. Such a transition requires a jump in the slope and discontinuities in the \ac*{eos}. It is obvious that the indirect method is biased towards smooth \ac*{eos} without any unusual progression $-$ ruling out the possibility to model a phase transition from the beginning. That can be dealt with by tracking extremal points in the \ac*{mrr} while reading it in as input. When the reconstruction part of the code reaches the first mass behind a maximum, the algorithm is changed from $f_\text{ind}$ to $f_\text{dir}$ by setting $\lambda = 0$. $\xi_\text{curr}$ may now freely deviate from $\xi_\text{prev}$ to find the \ac*{eos} points during and after the transition. \\
+Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily as there is less control over how the calculation deals with the extra degree of freedom. Especially, the minimal radius changes have to be taken into account: often, the slope may change significantly, while leaving the radius either unchanged or changing it in the order of $10^{-5}$\,km. 
+
 
 \subsection{Test case}
 
@@ -390,6 +408,10 @@ The curves both consist of 100 data points which will be read in by the reconstr
 \end{figure}
 
 
+
+\section{Results}
+
+\subsection{Issues}
 
 
 

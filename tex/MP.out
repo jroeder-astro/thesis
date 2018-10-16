@@ -4,7 +4,7 @@
 \BOOKMARK [2][-]{subsection.2.2}{The Tolman-Oppenheimer-Volkoff equation}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{The equation of state and neutron star structure}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{General constraints}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.5}{Stability, the mass-radius relation and a third family}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.5}{Stability, mass-radius relation and third family}{section.2}% 7
 \BOOKMARK [2][-]{subsection.2.6}{Yet another compact family?}{section.2}% 8
 \BOOKMARK [2][-]{subsection.2.7}{Fermi gas equation of state}{section.2}% 9
 \BOOKMARK [2][-]{subsection.2.8}{Numerical solution}{section.2}% 10
@@ -17,4 +17,7 @@
 \BOOKMARK [2][-]{subsection.3.1}{General goal}{section.3}% 17
 \BOOKMARK [2][-]{subsection.3.2}{Pressure intervals}{section.3}% 18
 \BOOKMARK [2][-]{subsection.3.3}{Linear interpolation}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.4}{Test case}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.4}{Indirect radius check}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.5}{Test case}{section.3}% 21
+\BOOKMARK [1][-]{section.4}{Results}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Issues}{section.4}% 23
