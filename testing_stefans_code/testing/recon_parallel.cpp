@@ -3,6 +3,7 @@
 #include<math.h>
 #include<stdlib.h>
 #include<fstream>
+#include<omp.h>
 using namespace std;
 
 
@@ -340,6 +341,9 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 
       // Integration
       // cout << "doing Euler\n";
+
+  #pragma omp parallel
+  #pragma omp for
 
   for (i1 = 0; y[i1*N] > 0; i1++) {
     tov_euler(&y[i1*N], t[i1], y_tau, tau, p_cut, alpha);
