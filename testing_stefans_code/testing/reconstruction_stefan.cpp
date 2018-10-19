@@ -259,8 +259,8 @@ main(){
 
       diff_s = Rcomp - MR_rel[mcount][0];
       epsp = diff_s*diff_s +lambda*(slope-slope_old)*(slope-slope_old);
-      printf("diff radius %g %g %g %g %g %g %g %g \n",epsp,slope,slope_step, diff_s, 
-      Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1]);
+      printf("diff radius %g %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step, diff_s, 
+      Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1], y[0]);
 
       if (fabs(diff_s) < 0.000001) {
 //        cout << "fabs(diff_s) break condition" << endl;
@@ -289,19 +289,16 @@ main(){
         }
       }
 
-
-
 //      slope-=10.*slope_step;
 
 //      alpha[indx+1] = alpha3_old;
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda=1e-3;
-    slope_old=slope;
-    alpha[indx]=y[0];
-    alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) 
-                       / slope ; 
+    lambda = 1e-3;
+    slope_old = slope;
+    alpha[indx] = y[0];
+    alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
 //  alpha[indx+1]=line(y[0],p_dur,&alpha);
 
 
@@ -412,10 +409,10 @@ void getR() {
     y_0[1] = 0.0;
 
     i1 = tov(y_0, p_dur, &alpha);   
-    // Would it not have to be p_init???
-    // i1 = tov(y_0, p_init, &alpha);   
+ // Would it not have to be p_init???
+ // i1 = tov(y_0, p_init, &alpha);   
 
-// end of mass calculation
+ // end of mass calculation
     Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
     Mcomp = y[(i1-1)*N+1] + 
             (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
@@ -446,7 +443,7 @@ void getR() {
       diff = diffx;
       if(fabs(diff)<1e-6) 
         break;
-//          printf("diff mass %g %g %g %g %g %g\n",pstep,slope,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
+//  printf("diff mass %g %g %g %g %g %g\n",pstep,slope,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
 
       if (diff * diff0 > 0) {
           // cout << diff * diff0 << endl;

@@ -4,6 +4,7 @@
 #include<stdlib.h>
 #include<fstream>
 #include<omp.h>
+#include<atomic>
 using namespace std;
 
 
@@ -333,19 +334,47 @@ main(){
 int tov(double* y_0,double p_cut,vector<double> *alpha) {
   int i1,i2;
   double y_tau[N];
+  atomic<bool> go = {true};
+  unsigned int give = 0;
+  unsigned int i, stop;
 
-       // Initializing
+  // Initializing
   for (i1 = 0; i1 < N; i1++) {
     y[i1] = y_0[i1];
   }
-
-      // Integration
-      // cout << "doing Euler\n";
-
+  i1 = 0;
+/*
   #pragma omp parallel
-  #pragma omp for
+  {
+    #pragma omp critical
+    {
+      i = give;
+      give += num_steps/omp_get_num_threads();
+      stop = give;
+  
+      if (omp_get_thread_num() == omp_get_num_threads()-1)
+        stop = num_steps;
+    }
 
-  for (i1 = 0; y[i1*N] > 0; i1++) {
+
+    while (i < stop && go) {
+      if (y[i1*N] < 0) go.store(false, memory_order_seq_cst);
+      i++;
+      tov_euler(&y[i1*N], t[i1], y_tau, tau, p_cut, alpha);
+
+      for (i2 = 0; i2 < N; i2++) {
+        y[(i1+1)*N+i2] = y_tau[i2];
+      }
+
+      t[i1+1] = t[i1] + tau;
+      i1++;
+    }
+  }
+
+*/
+
+  for (i1 = 0; i1 <= num_steps; i1++) {
+    if (y[i1*N] < 0) break;
     tov_euler(&y[i1*N], t[i1], y_tau, tau, p_cut, alpha);
 
     for (i2 = 0; i2 < N; i2++) {
@@ -355,6 +384,7 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
     t[i1+1] = t[i1] + tau;
   }
 
+  cout << "i1 = " << i1 << endl;
   return i1;
 }
 
