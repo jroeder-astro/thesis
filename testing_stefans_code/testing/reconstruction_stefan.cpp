@@ -248,7 +248,15 @@ main(){
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
 
+
+ cout << "before getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
+
+
       getR();
+
+
+ cout << " after getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
+
 
       if(p_end>alpha[indx-2]*5.0) {
         cout << p_end-alpha[indx-2]*5.0 << endl;

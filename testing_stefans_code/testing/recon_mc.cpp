@@ -25,7 +25,7 @@ int    mcount  = 0;
 double p_init;
 
 
-vector<double> mc;
+vector<double> mc(1600);
 
 
 // Function heads
@@ -146,6 +146,10 @@ main(){
   
   lambda = 0;
 
+
+  double psave, esave;
+
+
   while (mcount < 40) {
 
     pstep = 1e-7;
@@ -164,12 +168,13 @@ main(){
     cout << "about to enter n loop\n";
     n = 200;
 
-    while (n <= 1600) {
+    while (n <= mc.size()) {
 
       monte_carlo(n);
-      cout << mc[1] << endl;
+      cout << mc.size() << endl;
       alpha[indx+1] = mc[1];
-      cout << alpha[indx-2] << endl;
+
+      cout << "alpha[indx-2] = " << alpha[indx-2] << endl;
       getR();  
       diff0_s = Rcomp - MR_rel[mcount][0];
 
@@ -188,6 +193,8 @@ main(){
 
         if (fabs(diff_s) < fabs(diff0_s)) {
           diff0_s = diff_s;
+          psave = alpha[indx];
+          esave = alpha[indx+1];
         }
       } 
 
@@ -201,41 +208,12 @@ main(){
     Rcomp = diff0_s + MR_rel[mcount][0];
     printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
  
+    alpha[indx] = psave;
+    alpha[indx+1] = esave;
 
-/*
-    getR();
-    diff0_s=Rcomp-MR_rel[mcount][0];
-    eps0 = diff0_s*diff0_s +lambda*(slope-slope_old)*(slope-slope_old);
-    printf("diff0 slope radius %f %f\n", slope, diff0_s);
-
-    alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(1.2*slope) ; 
-    getR();
-    dplus=Rcomp-MR_rel[mcount][0];
-    epsp = dplus*dplus +lambda*(slope*1.2-slope_old)*(slope*1.2-slope_old);
-
-    alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/(0.8*slope) ; 
-    getR();
-    dminus=Rcomp-MR_rel[mcount][0];
-    epsm = dminus*dminus +lambda*(slope*0.8-slope_old)*(slope*0.8-slope_old);
-
-    if((epsm-eps0)*(epsp-eps0)<0) { 
-      if(epsp<eps0) 
-        slope_step = 0.05; 
-      else 
-        slope_step = -0.05; 
-    }
-
-    else {
-      if(epsm>epsp) 
-        slope_step = 0.05; 
-      else 
-        slope_step = -0.05; 
-    }
-*/
-
-/*
-   first = false;
-   while (slope > 0.0) {
+    first = false;
+/* 
+  while (slope > 0.0) {
       slope += slope_step;
 
       if(slope<=0) {
@@ -274,13 +252,13 @@ main(){
 
     } // end slope loop
 */
-    //  lambda=1e-3;
-    //  slope_old=slope;
-    //  alpha[indx]=y[0];
-    //  alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) 
+    // lambda=1e-3;
+    // slope_old=slope;
+    // alpha[indx]=y[0];
+    // alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) 
     //                  / slope ; 
 
-    slope = (alpha[indx+1] - alpha[indx-1] ) / (alpha[indx]-alpha[indx-2]); 
+    // slope = (alpha[indx+1] - alpha[indx-1] ) / (alpha[indx]-alpha[indx-2]); 
 
     indx=alpha.size()-2;
 
@@ -371,11 +349,19 @@ void f_times_tau(double *y_t, double t,
 void getR() {
   double y_0[N];
   int i1;
-  bool flag = false;
-  double diff0,diff=0.0;
-  double pstep = 1e-7;
+//  bool flag = false;
+//  double diff0,diff=0.0;
+//  double pstep = 1e-7;
   p_end = alpha[indx-2];  // hmmm not sure about this
   //  while (p_end >= 0.8 * p_dur) {
+
+
+
+  for (i1 = 0; i1 < alpha.size(); i1++) {
+    cout << "alpha[i1] = " << alpha[i1] << endl;
+  }
+
+    cout << "p_end = " << p_end << endl;
 
     y_0[0] = p_end; 
     y_0[1] = 0.0;
@@ -446,18 +432,10 @@ void monte_carlo(int n) {
   time_t t;
   struct tm tm;
   srand(time(NULL)); 
-/*
-  double p_max = 0, p_min = 0, e_max = 0, e_min = 0;    
 
-  p_max = alpha[indx-2] + 1e-5;
-  p_min = alpha[indx-2] - 1e-5
-  e_max = alpha[indx-1] + 0.03;
-  e_min = alphs[indx-1] - 0.03;
-*/
-  if (n > mc.size())
-    mc.push_back(n-mc.size());
+  cout << "mc.size() , n : " << mc.size() << " , "<< n << endl;
 
-  for (int mc_c = 0; mc_c <= n; mc_c += 2) {
+  for (int mc_c = 0; mc_c < n; mc_c += 2) {
     mc[mc_c] = (double)rand()/(double)RAND_MAX * 2e-5 + alpha[indx-2];
     mc[mc_c+1] = (double)rand()/(double)RAND_MAX * 0.06 + alpha[indx-1];
   }
