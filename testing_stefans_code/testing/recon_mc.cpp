@@ -25,7 +25,7 @@ int    mcount  = 0;
 double p_init;
 
 
-vector<double> mc(1600);
+vector<double> mc(25600);
 
 
 // Function heads
@@ -168,8 +168,6 @@ main(){
     cout << "about to enter n loop\n";
     n = 200;
 
-    while (n <= mc.size()) {
-
       monte_carlo(n);
       cout << mc.size() << endl;
       alpha[indx+1] = mc[1];
@@ -179,6 +177,22 @@ main(){
       diff0_s = Rcomp - MR_rel[mcount][0];
 
       printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
+      printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
+
+      printf("diff0_s = %lf\n", diff0_s);
+
+
+    while (n <= mc.size()) {
+
+      monte_carlo(n);
+      cout << mc.size() << endl;
+      alpha[indx+1] = mc[1];
+
+      //cout << "alpha[indx-2] = " << alpha[indx-2] << endl;
+      //printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
+      //printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
+
+      //printf("diff0_s = %lf\n", diff0_s);
 
       for (num = 2; num < n; num += 2) {
         alpha[indx+1] = mc[num + 1];
@@ -189,13 +203,17 @@ main(){
         getR();
         diff_s = Rcomp - MR_rel[mcount][0];
 
-        printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
+        //printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
+        //printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
+        //printf("diff0_s = %lf\n", diff0_s);
+        //printf("diff_s  = %lf\n", diff_s);
 
         if (fabs(diff_s) < fabs(diff0_s)) {
-          diff0_s = diff_s;
-          psave = alpha[indx];
-          esave = alpha[indx+1];
-        }
+          diff0_s = fabs(diff_s);
+          psave = mc[num];
+          esave = mc[num+1];
+          cout << "esave if: " << esave << "   psave if: " << psave << endl;
+       }
       } 
 
       if (fabs(diff0_s) < 0.00001) {
@@ -207,9 +225,12 @@ main(){
 
     Rcomp = diff0_s + MR_rel[mcount][0];
     printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
- 
+    printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
+
     alpha[indx] = psave;
     alpha[indx+1] = esave;
+
+    // cout << "esave: " << esave << "   psave: " << psave << endl;
 
     first = false;
 /* 
@@ -352,7 +373,7 @@ void getR() {
 //  bool flag = false;
 //  double diff0,diff=0.0;
 //  double pstep = 1e-7;
-  p_end = alpha[indx-2];  // hmmm not sure about this
+  p_end = alpha[indx];  // hmmm not sure about this
   //  while (p_end >= 0.8 * p_dur) {
 
 
