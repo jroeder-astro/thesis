@@ -25,7 +25,7 @@ int    mcount  = 0;
 double p_init;
 
 
-vector<double> mc(25600);
+vector<double> mc(400);
 
 
 // Function heads
@@ -168,6 +168,8 @@ main(){
     cout << "about to enter n loop\n";
     n = 200;
 
+      // generate initial diff0_s
+
       monte_carlo(n);
       cout << mc.size() << endl;
       alpha[indx+1] = mc[1];
@@ -176,18 +178,18 @@ main(){
       getR();  
       diff0_s = Rcomp - MR_rel[mcount][0];
 
-      printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
-      printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
+      printf("Rcomp_bef: %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
+      printf("Mcomp_bef: %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
 
       printf("diff0_s = %lf\n", diff0_s);
 
 
     while (n <= mc.size()) {
-
+      // generate points
       monte_carlo(n);
       cout << mc.size() << endl;
       alpha[indx+1] = mc[1];
-
+      cout << "indx = " << indx << endl;
       //cout << "alpha[indx-2] = " << alpha[indx-2] << endl;
       //printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
       //printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
@@ -195,6 +197,7 @@ main(){
       //printf("diff0_s = %lf\n", diff0_s);
 
       for (num = 2; num < n; num += 2) {
+        // run through all monte-carlo generated e/p pairs
         alpha[indx+1] = mc[num + 1];
         alpha[indx] = mc[num];
         printf("a[i+1] : %lf\n", alpha[indx+1]);
@@ -205,10 +208,11 @@ main(){
 
         //printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
         //printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
-        //printf("diff0_s = %lf\n", diff0_s);
-        //printf("diff_s  = %lf\n", diff_s);
+        printf("diff0_s = %lf\n", diff0_s);
+        printf("diff_s  = %lf\n", diff_s);
 
         if (fabs(diff_s) < fabs(diff0_s)) {
+          // if diff is better than before, save it
           diff0_s = fabs(diff_s);
           psave = mc[num];
           esave = mc[num+1];
@@ -224,9 +228,10 @@ main(){
     }
 
     Rcomp = diff0_s + MR_rel[mcount][0];
-    printf("Rcomp : %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
-    printf("Mcomp : %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
+    printf("Rcomp_aft: %lf; MR_rel: %f\n", Rcomp, MR_rel[mcount][0]);
+    printf("Mcomp_aft: %lf; MR_rel: %f\n", Mcomp, MR_rel[mcount][1]);
 
+    // use best e & p for future calculation
     alpha[indx] = psave;
     alpha[indx+1] = esave;
 
@@ -332,11 +337,16 @@ double line(double p,double p_cut, vector<double> *alpha) {
   int i;
 
   // comment this out for external eos input
-  if(p <= p_cut) 
+  if(p <= p_cut) {
+    // cout << "normal eos\n";
     return pow(p/10.,0.6);
+  }
 
   for(i=2;i<alpha->size();i+=2) {
-    if(p < (*alpha)[i]) break;
+    if(p < (*alpha)[i]) {
+      // cout << "p = " << p << "  alpha[i] = " << (*alpha)[i] << endl;
+      break;
+    }
   }
 
   double e =  (p - (*alpha)[i-2]) * 
