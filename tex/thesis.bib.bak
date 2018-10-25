@@ -1,0 +1,46 @@
+% This file was created with JabRef 2.10.
+% Encoding: UTF-8
+
+
+@Article{Alford:2017qgh,
+  Title                    = {{Compact stars with sequential QCD phase transitions}},
+  Author                   = {Alford, Mark G. and Sedrakian, Armen},
+  Journal                  = {Phys. Rev. Lett.},
+  Year                     = {2017},
+  Number                   = {16},
+  Pages                    = {161104},
+  Volume                   = {119},
+
+  Archiveprefix            = {arXiv},
+  Doi                      = {10.1103/PhysRevLett.119.161104},
+  Eprint                   = {1706.01592},
+  Primaryclass             = {astro-ph.HE},
+  Slaccitation             = {%%CITATION = ARXIV:1706.01592;%%}
+}
+
+@Article{Mazzali:2007et,
+  Title                    = {{A Common Explosion Mechanism for Type Ia Supernovae}},
+  Author                   = {Mazzali, Paolo A. and Ropke, Friedrich K. and Benetti,
+ Stefano and Hillebrandt, Wolfgang},
+  Journal                  = {Science},
+  Year                     = {2007},
+  Pages                    = {825},
+  Volume                   = {315},
+
+  Archiveprefix            = {arXiv},
+  Doi                      = {10.1126/SCIENCE.1136259},
+  Eprint                   = {astro-ph/0702351},
+  Primaryclass             = {astro-ph},
+  Slaccitation             = {%%CITATION = ASTRO-PH/0702351;%%}
+}
+
+@Proceedings{2000csnp.conf.....G,
+  Title                    = {{Compact stars : nuclear physics, particle physics, and general relativity}},
+  Year                     = {2000},
+  Editor                   = {{Glendenning}, N.~K.},
+
+  Adsnote                  = {Provided by the SAO/NASA Astrophysics Data System},
+  Adsurl                   = {http://adsabs.harvard.edu/abs/2000csnp.conf.....G},
+  Booktitle                = {Compact stars : nuclear physics, particle physics, and general relativity / Norman K. Glendenning. New York : Springer, 2000. (Astronomy and astrophysics library)}
+}
+

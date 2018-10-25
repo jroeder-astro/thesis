@@ -24,5 +24,6 @@
 \contentsline {subsection}{\numberline {3.3}Linear interpolation}{13}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Indirect radius check}{14}{subsection.3.4}
 \contentsline {subsection}{\numberline {3.5}Test case}{15}{subsection.3.5}
-\contentsline {section}{\numberline {4}Results}{16}{section.4}
-\contentsline {subsection}{\numberline {4.1}Issues}{16}{subsection.4.1}
+\contentsline {section}{\numberline {4}Results}{15}{section.4}
+\contentsline {subsection}{\numberline {4.1}Issues}{15}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Radius and slope control}{16}{subsubsection.4.1.1}

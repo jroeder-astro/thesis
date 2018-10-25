@@ -3,9 +3,9 @@ import numpy as np
 import csv
 from numpy import *
 
-#from matplotlib import rc
-#rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-#rc('text', usetex=True)
+
+plt.rcParams["text.usetex"] =True
+
 
 def eos(p):
     return np.power(p/10., 3./5.)
@@ -42,9 +42,9 @@ plt.xticks([])
 plt.legend()
 
 plt.subplot(2,2,(2,4))
-plt.plot(x2, y2, label='EOS')
-plt.plot([0.0004],[0.0022974],'go')
-plt.ylabel('$\epsilon(p)$',fontsize = 20)
+plt.plot(x2,y2, label='EOS')
+plt.plot([0.0004], [0.0022974],'go')
+plt.ylabel('$\varepsilon(p)$',fontsize = 20)
 plt.xlabel('$p$',fontsize = 20)
 plt.yticks([])
 plt.xticks([])
