@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.11)  25 OCT 2018 15:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.11)  26 OCT 2018 09:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -489,7 +489,7 @@ s-converted-to.pdf graphs/third_and_stable.eps>
 (epstopdf)             \includegraphics on input line 202.
 Package epstopdf Info: Output file is already uptodate.
 
-<graphs/third_and_stable-eps-converted-to.pdf, id=252, 396.48125pt x 250.9375pt
+<graphs/third_and_stable-eps-converted-to.pdf, id=257, 396.48125pt x 250.9375pt
 >
 File: graphs/third_and_stable-eps-converted-to.pdf Graphic file (type pdf)
  <use graphs/third_and_stable-eps-converted-to.pdf>
@@ -497,14 +497,14 @@ Package pdftex.def Info: graphs/third_and_stable-eps-converted-to.pdf used on i
 nput line 202.
 (pdftex.def)             Requested size: 349.43457pt x 221.16644pt.
  [6 <./graphs/third_and_stable-eps-converted-to.pdf>]
-<graphs/EoS_letter.pdf, id=320, 528.97626pt x 400.49625pt>
+<graphs/EoS_letter.pdf, id=325, 528.97626pt x 400.49625pt>
 File: graphs/EoS_letter.pdf Graphic file (type pdf)
 
 <use graphs/EoS_letter.pdf>
 Package pdftex.def Info: graphs/EoS_letter.pdf used on input line 218.
 (pdftex.def)             Requested size: 205.29256pt x 155.42902pt.
 
-<graphs/mass_radius_stiff2SC.pdf, id=322, 849.1725pt x 596.2275pt>
+<graphs/mass_radius_stiff2SC.pdf, id=327, 849.1725pt x 596.2275pt>
 File: graphs/mass_radius_stiff2SC.pdf Graphic file (type pdf)
 
 <use graphs/mass_radius_stiff2SC.pdf>
@@ -512,7 +512,7 @@ Package pdftex.def Info: graphs/mass_radius_stiff2SC.pdf used on input line 219
 .
 (pdftex.def)             Requested size: 214.03026pt x 150.27559pt.
 
-<graphs/profiles.pdf, id=337, 849.1725pt x 596.2275pt>
+<graphs/profiles.pdf, id=342, 849.1725pt x 596.2275pt>
 File: graphs/profiles.pdf Graphic file (type pdf)
 
 <use graphs/profiles.pdf>
@@ -547,7 +547,7 @@ Package epstopdf Info: Source file: <graphs/mrr_corr_eos.eps>
 nverted-to.pdf graphs/mrr_corr_eos.eps>
 (epstopdf)             \includegraphics on input line 330.
 Package epstopdf Info: Output file is already uptodate.
- <graphs/mrr_corr_eos-eps-converted-to.pdf, id=454, 578.16pt x 289.08pt>
+ <graphs/mrr_corr_eos-eps-converted-to.pdf, id=459, 578.16pt x 289.08pt>
 File: graphs/mrr_corr_eos-eps-converted-to.pdf Graphic file (type pdf)
 
 <use graphs/mrr_corr_eos-eps-converted-to.pdf>
@@ -565,7 +565,7 @@ rted-to.pdf graphs/eos_recon.eps>
 (epstopdf)             \includegraphics on input line 336.
 Package epstopdf Info: Output file is already uptodate.
 
-<graphs/eos_recon-eps-converted-to.pdf, id=461, 867.24pt x 361.35pt>
+<graphs/eos_recon-eps-converted-to.pdf, id=466, 867.24pt x 361.35pt>
 File: graphs/eos_recon-eps-converted-to.pdf Graphic file (type pdf)
 
 <use graphs/eos_recon-eps-converted-to.pdf>
@@ -581,7 +581,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [12] [13 <./graphs/mrr_corr_eos-eps-converted-to.pdf>] [14 <./graphs/eos_recon-
 eps-converted-to.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 380--383
+Underfull \hbox (badness 10000) in paragraph at lines 388--391
 
  []
 
@@ -593,41 +593,36 @@ Package epstopdf Info: Source file: <graphs/test_mrr_eos.eps>
 (epstopdf)                    size: 26172 bytes
 (epstopdf)             Command: <repstopdf --outfile=graphs/test_mrr_eos-eps-co
 nverted-to.pdf graphs/test_mrr_eos.eps>
-(epstopdf)             \includegraphics on input line 395.
+(epstopdf)             \includegraphics on input line 403.
 Package epstopdf Info: Output file is already uptodate.
-<graphs/test_mrr_eos-eps-converted-to.pdf, id=556, 794.97pt x 361.35pt>
+<graphs/test_mrr_eos-eps-converted-to.pdf, id=562, 794.97pt x 361.35pt>
 File: graphs/test_mrr_eos-eps-converted-to.pdf Graphic file (type pdf)
 
 <use graphs/test_mrr_eos-eps-converted-to.pdf>
 Package pdftex.def Info: graphs/test_mrr_eos-eps-converted-to.pdf used on input
- line 395.
+ line 403.
 (pdftex.def)             Requested size: 436.79155pt x 198.54462pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[15] [16 <./graphs/test_mrr_eos-eps-converted-to.pdf>] (./MP.bbl) [17]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 490.
+ [15] [16 <./graphs/test_mrr_eos-eps-converted-to.pdf>] (./MP.bbl) [17]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 493.
  [18
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 490.
-
-(./MP.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 490.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 490.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 493.
+ (./MP.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 493.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 493.
 Package rerunfilecheck Info: File `MP.out' has not changed.
-(rerunfilecheck)             Checksum: 33F0104F185A3928FB5667CB0E741FC8;1677.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 490.
+(rerunfilecheck)             Checksum: 5F5643D250AAA2B00EA8172A28964AB3;1758.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 493.
  ) 
 Here is how much of TeX's memory you used:
- 7826 strings out of 493038
- 112994 string characters out of 6136795
+ 7828 strings out of 493038
+ 113024 string characters out of 6136795
  213368 words of memory out of 5000000
- 11124 multiletter control sequences out of 15000+600000
+ 11125 multiletter control sequences out of 15000+600000
  10449 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,13n,43p,1535b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,13n,43p,1536b,418s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
@@ -640,10 +635,10 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 >
-Output written on MP.pdf (20 pages, 606165 bytes).
+Output written on MP.pdf (20 pages, 607070 bytes).
 PDF statistics:
- 700 PDF objects out of 1000 (max. 8388607)
- 538 compressed objects within 6 object streams
- 104 named destinations out of 1000 (max. 500000)
- 228 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 706 PDF objects out of 1000 (max. 8388607)
+ 544 compressed objects within 6 object streams
+ 105 named destinations out of 1000 (max. 500000)
+ 236 words of extra memory for PDF output out of 10000 (max. 10000000)
 

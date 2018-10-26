@@ -17,8 +17,9 @@
 \BOOKMARK [2][-]{subsection.3.1}{General goal}{section.3}% 17
 \BOOKMARK [2][-]{subsection.3.2}{Pressure intervals}{section.3}% 18
 \BOOKMARK [2][-]{subsection.3.3}{Linear interpolation}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.4}{Indirect radius check}{section.3}% 20
-\BOOKMARK [2][-]{subsection.3.5}{Test case}{section.3}% 21
-\BOOKMARK [1][-]{section.4}{Results}{}% 22
-\BOOKMARK [2][-]{subsection.4.1}{Issues}{section.4}% 23
-\BOOKMARK [3][-]{subsubsection.4.1.1}{Radius and slope control}{subsection.4.1}% 24
+\BOOKMARK [2][-]{subsection.3.4}{Alternative method: Monte Carlo}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.5}{Indirect radius check}{section.3}% 21
+\BOOKMARK [2][-]{subsection.3.6}{Test case}{section.3}% 22
+\BOOKMARK [1][-]{section.4}{Results}{}% 23
+\BOOKMARK [2][-]{subsection.4.1}{Issues}{section.4}% 24
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Radius and slope control}{subsection.4.1}% 25
