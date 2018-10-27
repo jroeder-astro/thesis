@@ -1,4 +1,3 @@
-% This file was created with JabRef 2.10.
 % Encoding: UTF-8
 
 
@@ -44,3 +43,312 @@
   Booktitle                = {Compact stars : nuclear physics, particle physics, and general relativity / Norman K. Glendenning. New York : Springer, 2000. (Astronomy and astrophysics library)}
 }
 
+@Article{Pandharipande1976,
+  author  = {Pandharipande, V. R. and Pines, D. and Smith, R. A.},
+  title   = {Neutron star structure: theory, observation, and speculation.},
+  journal = {\apj},
+  year    = {1976},
+  volume  = {208},
+  pages   = {550-566},
+  month   = sep,
+  doi     = {10.1086/154637},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Shapiro Teukolsky 1983" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 4 abstracts, starting with number 1.  Total number selected: 4.
+
+@Book{Shapiro1983,
+  title     = {Black holes, white dwarfs, and neutron stars: The physics of compact objects},
+  year      = {1983},
+  author    = {Shapiro, S. L. and Teukolsky, S. A.},
+  abstract  = {The physical properties of the astronomical compact objects are explored
+on a theoretical and observational basis in a textbook designed for a
+one-semester beginning-graduate-level astrophysics course. Overlapping
+topics from solid-state, nuclear, and particle physics, relativity
+theory, and hydrodynamics are considered. Subjects discussed include
+star deaths and the formation of the compact objects, the cold equation
+of state below and above neutron dip, white dwarfs and their cooling,
+perturbations of fluid configurations, rotation and magnetic fields,
+pulsars, compact X-ray sources, accretion onto compact objects,
+gravitational radiation, supermassive stars, stellar collapse, and
+supernova explosions.
+},
+  booktitle = {Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, 663 p.},
+  keywords  = {Astrophysics, Black Holes (Astronomy), Neutron Stars, Textbooks, White Dwarf Stars, Accretion Disks, Elementary Particle Interactions, Gravitational Collapse, Gravitational Waves, Magnetohydrodynamic Stability, Nuclear Interactions, Pulsars, Relativity, Stellar Evolution, Stellar Magnetic Fields, Stellar Rotation, Stellar Temperature, Supermassive Stars, Supernovae, X Ray Sources},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Harrison Thorne Wakano Wheeler 1965" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Book{Harrison1965,
+  title     = {Gravitation Theory and Gravitational Collapse},
+  year      = {1965},
+  author    = {Harrison, B. K. and Thorne, K. S. and Wakano, M. and Wheeler, J. A.},
+  booktitle = {Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Baym Pethick Sutherland 1971" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Article{Baym1971,
+  author   = {Baym, G. and Pethick, C. and Sutherland, P.},
+  title    = {The Ground State of Matter at High Densities: Equation of State and Stellar Models},
+  journal  = {\apj},
+  year     = {1971},
+  volume   = {170},
+  pages    = {299},
+  month    = dec,
+  abstract = {The equation of state of zero-temperature matter in complete nuclear
+equilibrium is given for mass densities below 5 X 1014 g . We
+redetermine, taking into account the effect of the Coulomb lattice and
+using more recent nuclear mass extrapolations, the sequence of
+equilibrium nuclides present at mass densities betv en 10' and 4.3 X
+1011 g , the point of neutron drip; and calculate the equation of state
+here. For densities between 4.3 X 1011 and 5 X 1014 g the equation of
+state is taken from the calculations of Baym, Bethe, and Pethick;
+included is an extension of the equation of state to still higher
+densities, taken from the calculations of Pandharipande, which include
+the effects of hyperons. We calculate zero-temperature white-dwarf and
+neutron-star models for the equation of state. The maximum stable
+white-dwarf mass, the Chandrasekhar limit, is 1.00 io. The lightest
+stable neutron star has a mass 0.0925 M0 and a central density 1.55 X
+1014 g cm-3 neutron stars between 0.0925 and 0.11 M0 are entirely solid.
+Moments of inertia, surface deformations, and mass quadrupole moments
+are calculated for slowly rotating neutron stars.
+},
+  doi      = {10.1086/151216},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Haensel Pichon 1994" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Article{Haensel1994,
+  author   = {Haensel, P. and Pichon, B.},
+  title    = {Experimental nuclear masses and the ground state of cold dense matter},
+  journal  = {\aap},
+  year     = {1994},
+  volume   = {283},
+  pages    = {313-318},
+  month    = mar,
+  abstract = {We study the consequences of recent progress in the experimental
+determination of masses of neutron rich nuclei for our knowledge of the
+ground state of cold dense matter. The most recent experimental data
+determine the ground state of cold dense matter up to rho approximately
+equal to 10$^{11}$ g cm$^{-3}$. The composition and the
+equation of state of the ground state of matter, in this density
+interval, are calculated.
+},
+  eprint   = {nucl-th/9310003},
+  keywords = {Cold Neutrons, Condensed Matter Physics, Ground State, Neutron Stars, Stellar Mass, Stellar Temperature, Nuclear Physics, Stellar Structure, Temperature Effects},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Douchin Haensel 2001" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Article{Douchin2001,
+  author   = {Douchin, F. and Haensel, P.},
+  title    = {A unified equation of state of dense matter and neutron star structure},
+  journal  = {\aap},
+  year     = {2001},
+  volume   = {380},
+  pages    = {151-167},
+  month    = dec,
+  abstract = {An equation of state (EOS) of neutron star matter, describing both the
+neutron star crust and the liquid core, is calculated. It is based on
+the effective nuclear interaction SLy of the Skyrme type, which is
+particularly suitable for the application to the calculation of the
+properties of very neutron rich matter (Chabanat et al. 1997, 1998). The
+structure of the crust, and its EOS, is calculated in the T=0
+approximation, and under the assumption of the ground state composition.
+The crust-core transition is a very weakly first-order phase transition,
+with relative density jump of about one percent. The EOS of the liquid
+core is calculated assuming (minimal) npemu composition. Parameters of
+static neutron stars are calculated and compared with existing
+observational data on neutron stars. The minimum and maximum masses of
+static neutron stars are 0.094 M$_{sun}$ and 2.05 M$_{sun}$,
+respectively. Effects of rotation on the minimum and the maximum mass of
+neutron stars are briefly discussed.
+},
+  doi      = {10.1051/0004-6361:20011402},
+  eprint   = {astro-ph/0111092},
+  keywords = {DENSE MATTER, EQUATION OF STATE, STARS: NEUTRON},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Ravenhall Pethick Wilson 1983" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Article{Ravenhall1983,
+  author   = {Ravenhall, D. G. and Pethick, C. J. and Wilson, J. R.},
+  title    = {Structure of Matter below Nuclear Saturation Density},
+  journal  = {Physical Review Letters},
+  year     = {1983},
+  volume   = {50},
+  pages    = {2066-2069},
+  month    = jun,
+  abstract = {It is found that just below nuclear saturation density more stable forms
+of dense matter exist than the near-spherical nuclei or bubbles
+customarily assumed. Because of the large effect of the Coulomb lattice
+energy, cylindrical and planar geometries can occur, both as nuclei and
+as bubbles. It is suggested that in order to approximate more
+complicated kinds of short-range order, the dimensionality should be
+regarded as a continuous variable ranging from d=3 (spheres) to d=1
+(planes). The dependence of d on density is illustrated, and its
+dependence on nuclear models discussed.
+},
+  doi      = {10.1103/PhysRevLett.50.2066},
+  keywords = {Nuclear matter, Phase transitions: general studies, Late stages of stellar evolution},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Schertler Greiner Schaffner-Bielich 2000" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Article{Schertler2000,
+  author   = {Schertler, K. and Greiner, C. and Schaffner-Bielich, J. and Thoma2, M. H.},
+  title    = {Quark phases in neutron stars and a third family of compact stars as signature for phase transitions$^{1}$},
+  journal  = {Nuclear Physics A},
+  year     = {2000},
+  volume   = {677},
+  pages    = {463-490},
+  month    = sep,
+  abstract = {The appearance of quark phases in the dense interior of neutron stars
+provides one possibility to soften the equation of state (EOS) of
+neutron star matter at high densities. This softening leads to more
+compact equilibrium configurations of neutron stars compared to pure
+hadronic stars of the same mass. We investigate the question to which
+amount the compactness of a neutron star can be attributed to the
+presence of a quark phase. For this purpose we employ several hadronic
+EOS in the framework of the relativistic mean-field (RMF) model and an
+extended MIT bag model to describe the quark phase. We find that -
+almost independent of the model parameters - the radius of a pure
+hadronic neutron star gets typically reduced by 20-30\% if a pure quark
+phase in the center of the star does exist. For some EOS we furthermore
+find the possibility of a third family of compact stars which may exist
+besides the two known families of white dwarfs and neutron stars. We
+show how an experimental proof of the existence of a third family by
+mass and radius measurements may provide a unique signature for a phase
+transition inside neutron stars.
+},
+  doi      = {10.1016/S0375-9474(00)00305-5},
+  eprint   = {astro-ph/0001467},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Glendenning Kettner 2000" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 1 abstracts, starting with number 1.  Total number selected: 1.
+
+@Article{Glendenning2000,
+  author   = {Glendenning, N. K. and Kettner, C.},
+  title    = {Possible third family of compact stars more dense than neutron stars},
+  journal  = {\aap},
+  year     = {2000},
+  volume   = {353},
+  pages    = {L9-L12},
+  month    = jan,
+  abstract = {The work of J. A. Wheeler in the mid 1960's showed that for smooth
+equations of state no stable stellar configurations with central
+densities above that corresponding to the limiting mass of `neutron
+stars' (in the generic sense including hybrids) were stable.
+Accordingly, there has been no reason to expect that a stable degenerate
+family of stars with higher density than the known white dwarfs and
+neutron stars might exist. Nevertheless, we have found a class of
+equations of state that describe a first order phase transition and are
+insufficiently smooth to obey the conditional theorem of Wheeler. We
+identify the attributes that give rise to a third family of stable dense
+stars, discuss how such a higher density family of stars could be formed
+in nature, and how the promising new exploration of oscillations in the
+X-ray brightness of accreting neutron stars might provide a means of
+identifying them.
+},
+  eprint   = {astro-ph/9807155},
+  keywords = {EQUATION OF STATE, STARS: NEUTRON},
+}
+
+@Article{Gerlach1968,
+  author   = {Gerlach, U. H.},
+  title    = {Equation of State at Supranuclear Densities and the Existence of a Third Family of Superdense Stars},
+  journal  = {Physical Review},
+  year     = {1968},
+  volume   = {172},
+  pages    = {1325-1330},
+  month    = aug,
+  abstract = {This paper presents a method for deducing the equation of state of
+``cold'' matter at supranuclear densities from astronomical data. In
+particular, from the masses and the radii of a sequence of superdense
+stars composed of degenerate matter, one can determine the equation of
+state. The relationship between the equation of state and the
+mass-radius curve is used to construct an equation of state that allows
+a third family of superdense stars.
+},
+  doi      = {10.1103/PhysRev.172.1325},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Lindblom 1992" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 21 abstracts, starting with number 1.  Total number selected: 21.
+
+@Article{Lindblom1992,
+  author        = {Lindblom, L.},
+  title         = {Determining the nuclear equation of state from neutron-star masses and radii},
+  journal       = {\apj},
+  year          = {1992},
+  volume        = {398},
+  pages         = {569-573},
+  month         = oct,
+  __markedentry = {[jangor:]},
+  abstract      = {A method is developed for determining the nuclear equation of state
+directly from a knowledge of the masses and radii of neutron stars. This
+analysis assumes only that equilibrium neutron-star matter has the
+stress-energy tensor of an isotropic fluid with a barotropic equation of
+state, and that general relativity describes a neutron star's internal
+gravitational field. We present numerical examples which illustrate how
+well this method will determine the equation of state when the
+appropriate observational data become available.
+},
+  doi           = {10.1086/171882},
+  keywords      = {Equations Of State, Neutron Stars, Nuclear Astrophysics, Stellar Mass, Barotropism, Computational Astrophysics, Radii, Stellar Interiors, Stellar Physics},
+}
+<h3>Query Results from the ADS Database</h3>
+<form method="POST" action="http://adsabs.harvard.edu/cgi-bin/nph-basic_connect">
+<input name="data_type" value="BIBTEXPLUS" type="hidden"><input name="start_nr" value="1" type="hidden"><input name="nr_to_return" value="200" type="hidden"><input name="qsearch" value="Haensel Potekhin Yakovlev" size="60" maxlength="120">  <input type="submit" value="Search again"></form><p>
+
+
+Retrieved 5 abstracts, starting with number 1.  Total number selected: 5.
+
+@Proceedings{Haensel2007,
+  title         = {Neutron Stars 1 : Equation of State and Structure},
+  year          = {2007},
+  editor        = {{Haensel}, P. and {Potekhin}, A.~Y. and {Yakovlev}, D.~G.},
+  volume        = {326},
+  series        = {Astrophysics and Space Science Library},
+  __markedentry = {[jangor:6]},
+  booktitle     = {Astrophysics and Space Science Library},
+  keywords      = {NEUTRON STARS, CORES, PLASMA PHYSICS, MAGNETIC FIELDS, CRUST},
+  pages         = {Haensel},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}

@@ -6,9 +6,8 @@ using namespace std;
 main() {
 
   double e, p, u1, u2;
-  double mfm = 0; // MeV/fm^3
-  double cgs = 0;
-
+  double convert = (1.3234)*(1e-6); // MeV/fm^3
+  
   FILE *eos = fopen("table.csv", "r");
   FILE *out = fopen("output.dat", "w");
 
@@ -17,9 +16,9 @@ main() {
   while (1) {
     if (fscanf(eos, "%lf %lf %lf %lf", &e, &p, &u1, &u2) == EOF )
       break;
-   // e *= ;
-   // p *= ;
-    printf("%3.6lf,%3.6lf\n", e, p);
+    e *= convert;
+    p *= convert;
+    fprintf(out, "%5.20lf,%5.20lf\n", e, p);
   }
 
   fclose(eos); eos = NULL;
