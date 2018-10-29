@@ -1,5 +1,6 @@
 % !TeX TS-program = 
 \documentclass[12pt]{article}
+\usepackage{cite} 
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{subfigure}
@@ -22,6 +23,9 @@
 \usepackage{fancyhdr}
 \setlength{\parindent}{0pt}
 
+
+%\usepackage{aastex62}
+
 %\epstopdfsetup{outdir=./}
 
 
@@ -34,7 +38,92 @@
 %	citecolor=black,
 }
 
+
+\def\aj{\ref@jnl{AJ}}                   % Astronomical Journal
+\def\actaa{\ref@jnl{Acta Astron.}}      % Acta Astronomica
+\def\araa{\ref@jnl{ARA\&A}}             % Annual Review of Astron and Astrophys
+\def\apj{\ref@jnl{ApJ}}                 % Astrophysical Journ%al
+%   ^^^^         ^^^^^ these do not seem to work properly... ??jnlApJ
+\def\apjl{\ref@jnl{ApJ}}                % Astrophysical Journal, Letters
+\def\apjs{\ref@jnl{ApJS}}               % Astrophysical Journal, Supplement
+\def\ao{\ref@jnl{Appl.~Opt.}}           % Applied Optics
+\def\apss{\ref@jnl{Ap\&SS}}             % Astrophysics and Space Science
+\def\aap{\ref@jnl{A\&A}}                % Astronomy and Astrophysics
+\def\aapr{\ref@jnl{A\&A~Rev.}}          % Astronomy and Astrophysics Reviews
+\def\aaps{\ref@jnl{A\&AS}}              % Astronomy and Astrophysics, Supplement
+\def\azh{\ref@jnl{AZh}}                 % Astronomicheskii Zhurnal
+\def\baas{\ref@jnl{BAAS}}               % Bulletin of the AAS
+\def\bac{\ref@jnl{Bull. astr. Inst. Czechosl.}}
+% Bulletin of the Astronomical Institutes of Czechoslovakia 
+\def\caa{\ref@jnl{Chinese Astron. Astrophys.}}
+% Chinese Astronomy and Astrophysics
+\def\cjaa{\ref@jnl{Chinese J. Astron. Astrophys.}}
+% Chinese Journal of Astronomy and Astrophysics
+\def\icarus{\ref@jnl{Icarus}}           % Icarus
+\def\jcap{\ref@jnl{J. Cosmology Astropart. Phys.}}
+% Journal of Cosmology and Astroparticle Physics
+\def\jrasc{\ref@jnl{JRASC}}             % Journal of the RAS of Canada
+\def\memras{\ref@jnl{MmRAS}}            % Memoirs of the RAS
+\def\mnras{\ref@jnl{MNRAS}}             % Monthly Notices of the RAS
+\def\na{\ref@jnl{New A}}                % New Astronomy
+\def\nar{\ref@jnl{New A Rev.}}          % New Astronomy Review
+\def\pra{\ref@jnl{Phys.~Rev.~A}}        % Physical Review A: General Physics
+\def\prb{\ref@jnl{Phys.~Rev.~B}}        % Physical Review B: Solid State
+\def\prc{\ref@jnl{Phys.~Rev.~C}}        % Physical Review C
+\def\prd{\ref@jnl{Phys.~Rev.~D}}        % Physical Review D
+\def\pre{\ref@jnl{Phys.~Rev.~E}}        % Physical Review E
+\def\prl{\ref@jnl{Phys.~Rev.~Lett.}}    % Physical Review Letters
+\def\pasa{\ref@jnl{PASA}}               % Publications of the Astron. Soc. of Australia
+\def\pasp{\ref@jnl{PASP}}               % Publications of the ASP
+\def\pasj{\ref@jnl{PASJ}}               % Publications of the ASJ
+\def\rmxaa{\ref@jnl{Rev. Mexicana Astron. Astrofis.}}%
+% Revista Mexicana de Astronomia y Astrofisica
+\def\qjras{\ref@jnl{QJRAS}}             % Quarterly Journal of the RAS
+\def\skytel{\ref@jnl{S\&T}}             % Sky and Telescope
+\def\solphys{\ref@jnl{Sol.~Phys.}}      % Solar Physics
+\def\sovast{\ref@jnl{Soviet~Ast.}}      % Soviet Astronomy
+\def\ssr{\ref@jnl{Space~Sci.~Rev.}}     % Space Science Reviews
+\def\zap{\ref@jnl{ZAp}}                 % Zeitschrift fuer Astrophysik
+\def\nat{\ref@jnl{Nature}}              % Nature
+\def\iaucirc{\ref@jnl{IAU~Circ.}}       % IAU Cirulars
+\def\aplett{\ref@jnl{Astrophys.~Lett.}} % Astrophysics Letters
+\def\apspr{\ref@jnl{Astrophys.~Space~Phys.~Res.}}
+% Astrophysics Space Physics Research
+\def\bain{\ref@jnl{Bull.~Astron.~Inst.~Netherlands}} 
+% Bulletin Astronomical Institute of the Netherlands
+\def\fcp{\ref@jnl{Fund.~Cosmic~Phys.}}  % Fundamental Cosmic Physics
+\def\gca{\ref@jnl{Geochim.~Cosmochim.~Acta}}   % Geochimica Cosmochimica Acta
+\def\grl{\ref@jnl{Geophys.~Res.~Lett.}} % Geophysics Research Letters
+\def\jcp{\ref@jnl{J.~Chem.~Phys.}}      % Journal of Chemical Physics
+\def\jgr{\ref@jnl{J.~Geophys.~Res.}}    % Journal of Geophysics Research
+\def\jqsrt{\ref@jnl{J.~Quant.~Spec.~Radiat.~Transf.}}
+% Journal of Quantitiative Spectroscopy and Radiative Transfer
+\def\memsai{\ref@jnl{Mem.~Soc.~Astron.~Italiana}}
+% Mem. Societa Astronomica Italiana
+\def\nphysa{\ref@jnl{Nucl.~Phys.~A}}   % Nuclear Physics A
+\def\physrep{\ref@jnl{Phys.~Rep.}}   % Physics Reports
+\def\physscr{\ref@jnl{Phys.~Scr}}   % Physica Scripta
+\def\planss{\ref@jnl{Planet.~Space~Sci.}}   % Planetary Space Science
+\def\procspie{\ref@jnl{Proc.~SPIE}}   % Proceedings of the SPIE
+
+\let\astap=\aap
+\let\apjlett=\apjl
+\let\apjsupp=\apjs
+\let\applopt=\ao
+
+
+
+
+
+%% BEGIN OF THE ACTUAL DOCUMENT %%
+
 \begin{document}
+	
+%\let\jnl@style=\rm
+%\def\ref@jnl#1{{\jnl@style#1}}
+
+	
+	
 	\pagestyle{empty}
 	\pagenumbering{roman}
 	%\textasciitilde
@@ -115,7 +204,7 @@ The first instrument about to attempt neutron star radius measurements is the NI
 
 \subsection{Compact stars}
 
-At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$ \cite{Mazzali et al.2007}. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their \ac*{eos} is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
+At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$ \cite{Mazzali:2007et}. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their \ac*{eos} is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
 If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova explosion. The type of remnant left behind is called neutron star, and the matter out of which it is formed is always of the same composition and state. Therefore, in contrast to white dwarfs, there is one unique \ac*{eos} to describe all neutron stars. \\
 Both kinds of compact stars are subject to fast neutrino and photon cooling. After at most a few million years temperatures will have dropped several orders of magnitude below $1$\,MeV, so that on the nuclear scale the star can be  treated as cold. 
 
@@ -425,6 +514,8 @@ During development of the code, various smaller and bigger issues had to be deal
 While the direct method \ref{eq:direct} somewhat works in the low-density region, it quickly starts suffering from big slope jumps for the reconstructed lines. Some \ac*{mrr} points are found corresponding to values above the wanted \ac*{eos} curve, continuing with only very slight changes in slope until points below the \ac*{eos} are used for calculation. From there, a slope jump pushes the next point above the curve again. These jumps get bigger and pile up to a point where the code cannot push the current energy density above the \ac*{eos} again; from here, none of the produced values are of use as now all further points strongly deviate from the \ac*{eos}.\\
 Initially, the indirect method \ref{eq:indirect} was chosen to ensure that the slope would not contain big jumps. This however has a huge impact on runtime, but as efficiency was not the main goal, optimization was postponed. The biggest problem is, ironically, the precision needed to avoid slope jumps. At some point, the code will calculate in slope steps so small that radius changes start to become exceedingly rare. As discussed by various researchers, the radius does not depend on a specific parameter and often requires drastic changes in various values used in the calculation. Here, the slope is often the only parameter that would have any impact in the first place; the mass is relatively easy to find along with a rather accurate central pressure. The indirect method included the $\lambda$ parameter in order to connect a radius check with a condition regarding the slope with respect to the previous one. $\lambda$ is to determine the maximum deviation of a reconstructed point from the curve, here is however no way of determining a ``perfect'' $\lambda$ other than trial and error. The parameter remains slightly arbitrary even though it can be motivated with a smoothness assumption. What that means for phase transitions has been discussed in \ref{indradch}: a transition has immediate effect on the \ac*{mrr} so that the code can be modified based on input analysis. When the reconstruction reaches the point of transition, $\lambda$ is used to modify the algorithm accordingly. \\
 Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily as there is less control over how the calculation deals with the extra degree of freedom. If in the rest of the reconstruction small errors appeared, the calculation will probably not find a decent radius at all. If now the constraints are loosened, precision in evaluating the dimensions and properties of the phase transitions are sacrificed.
+%citetest
+also lets have fun with \cite{Alford:2017qgh}
 
 
 
@@ -463,8 +554,8 @@ Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily a
 %\end{table}
 
 
-\bibliography{test}
-\bibliographystyle{revtex41}
+\bibliography{thesis}
+\bibliographystyle{plain}
 
 
 \clearpage
