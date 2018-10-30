@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.12)  28 OCT 2018 11:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.5.12)  30 OCT 2018 09:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -500,7 +500,7 @@ df>
 s-converted-to.pdf graphs/third_and_stable.eps>
 (epstopdf)             \includegraphics on input line 291.
 Package epstopdf Info: Output file is already uptodate.
-<graphs/third_and_stable-eps-converted-to.pdf, id=257, 396.48125pt x 250.9375pt
+<graphs/third_and_stable-eps-converted-to.pdf, id=259, 396.48125pt x 250.9375pt
 >
 File: graphs/third_and_stable-eps-converted-to.pdf Graphic file (type pdf)
 <use graphs/third_and_stable-eps-converted-to.pdf>
@@ -508,18 +508,18 @@ Package pdftex.def Info: graphs/third_and_stable-eps-converted-to.pdf  used on
 input line 291.
 (pdftex.def)             Requested size: 349.43457pt x 221.16644pt.
  [6 <./graphs/third_and_stable-eps-converted-to.pdf>]
-<graphs/EoS_letter.pdf, id=325, 528.97626pt x 400.49625pt>
+<graphs/EoS_letter.pdf, id=327, 528.97626pt x 400.49625pt>
 File: graphs/EoS_letter.pdf Graphic file (type pdf)
 <use graphs/EoS_letter.pdf>
 Package pdftex.def Info: graphs/EoS_letter.pdf  used on input line 307.
 (pdftex.def)             Requested size: 205.29256pt x 155.42902pt.
-<graphs/mass_radius_stiff2SC.pdf, id=327, 849.1725pt x 596.2275pt>
+<graphs/mass_radius_stiff2SC.pdf, id=329, 849.1725pt x 596.2275pt>
 File: graphs/mass_radius_stiff2SC.pdf Graphic file (type pdf)
 <use graphs/mass_radius_stiff2SC.pdf>
 Package pdftex.def Info: graphs/mass_radius_stiff2SC.pdf  used on input line 30
 8.
 (pdftex.def)             Requested size: 214.03026pt x 150.27559pt.
-<graphs/profiles.pdf, id=342, 849.1725pt x 596.2275pt>
+<graphs/profiles.pdf, id=344, 849.1725pt x 596.2275pt>
 File: graphs/profiles.pdf Graphic file (type pdf)
 <use graphs/profiles.pdf>
 Package pdftex.def Info: graphs/profiles.pdf  used on input line 315.
@@ -553,7 +553,7 @@ Package epstopdf Info: Source file: <graphs/mrr_corr_eos.eps>
 nverted-to.pdf graphs/mrr_corr_eos.eps>
 (epstopdf)             \includegraphics on input line 419.
 Package epstopdf Info: Output file is already uptodate.
-<graphs/mrr_corr_eos-eps-converted-to.pdf, id=459, 578.16pt x 289.08pt>
+<graphs/mrr_corr_eos-eps-converted-to.pdf, id=461, 578.16pt x 289.08pt>
 File: graphs/mrr_corr_eos-eps-converted-to.pdf Graphic file (type pdf)
 <use graphs/mrr_corr_eos-eps-converted-to.pdf>
 Package pdftex.def Info: graphs/mrr_corr_eos-eps-converted-to.pdf  used on inpu
@@ -569,7 +569,7 @@ Package epstopdf Info: Source file: <graphs/eos_recon.eps>
 rted-to.pdf graphs/eos_recon.eps>
 (epstopdf)             \includegraphics on input line 425.
 Package epstopdf Info: Output file is already uptodate.
-<graphs/eos_recon-eps-converted-to.pdf, id=466, 867.24pt x 361.35pt>
+<graphs/eos_recon-eps-converted-to.pdf, id=468, 867.24pt x 361.35pt>
 File: graphs/eos_recon-eps-converted-to.pdf Graphic file (type pdf)
 <use graphs/eos_recon-eps-converted-to.pdf>
 Package pdftex.def Info: graphs/eos_recon-eps-converted-to.pdf  used on input l
@@ -598,7 +598,7 @@ Package epstopdf Info: Source file: <graphs/test_mrr_eos.eps>
 nverted-to.pdf graphs/test_mrr_eos.eps>
 (epstopdf)             \includegraphics on input line 492.
 Package epstopdf Info: Output file is already uptodate.
-<graphs/test_mrr_eos-eps-converted-to.pdf, id=562, 794.97pt x 361.35pt>
+<graphs/test_mrr_eos-eps-converted-to.pdf, id=564, 794.97pt x 361.35pt>
 File: graphs/test_mrr_eos-eps-converted-to.pdf Graphic file (type pdf)
 <use graphs/test_mrr_eos-eps-converted-to.pdf>
 Package pdftex.def Info: graphs/test_mrr_eos-eps-converted-to.pdf  used on inpu
@@ -606,11 +606,11 @@ t line 492.
 (pdftex.def)             Requested size: 436.79155pt x 198.54462pt.
 [15] [16 <./graphs/test_mrr_eos-eps-converted-to.pdf>] (./MP.bbl
 
-LaTeX Warning: Reference `@' on page 17 undefined on input line 18.
+LaTeX Warning: Reference `@' on page 17 undefined on input line 17.
 
 [17]
 
-LaTeX Warning: Reference `@' on page 18 undefined on input line 29.
+LaTeX Warning: Reference `@' on page 18 undefined on input line 34.
 
 ) [18]pdfTeX warning (ext4): destination with the same identifier (name{cite.Pa
 ndharipande1976}) has been already used, duplicate ignored
@@ -650,10 +650,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 584.
  ) 
 Here is how much of TeX's memory you used:
- 7988 strings out of 494923
- 114785 string characters out of 6180742
- 208898 words of memory out of 5000000
- 11064 multiletter control sequences out of 15000+600000
+ 7991 strings out of 494923
+ 114839 string characters out of 6180742
+ 208935 words of memory out of 5000000
+ 11066 multiletter control sequences out of 15000+600000
  10449 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  29i,13n,43p,1536b,472s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -669,10 +669,10 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 >
-Output written on MP.pdf (21 pages, 610855 bytes).
+Output written on MP.pdf (21 pages, 611554 bytes).
 PDF statistics:
- 716 PDF objects out of 1000 (max. 8388607)
- 553 compressed objects within 6 object streams
- 109 named destinations out of 1000 (max. 500000)
+ 718 PDF objects out of 1000 (max. 8388607)
+ 555 compressed objects within 6 object streams
+ 110 named destinations out of 1000 (max. 500000)
  236 words of extra memory for PDF output out of 10000 (max. 10000000)
 

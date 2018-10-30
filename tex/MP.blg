@@ -1,23 +1,23 @@
 This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
 Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: MP.aux
-White space in argument---line 49 of file MP.aux
- : \citation{Baym
- :                et al.1971}
-I'm skipping whatever remains of this command
 White space in argument---line 50 of file MP.aux
  : \citation{Baym
  :                et al.1971}
 I'm skipping whatever remains of this command
-White space in argument---line 57 of file MP.aux
+White space in argument---line 51 of file MP.aux
+ : \citation{Baym
+ :                et al.1971}
+I'm skipping whatever remains of this command
+White space in argument---line 58 of file MP.aux
  : \citation{Ravenhall
  :                     et al.1983}
 I'm skipping whatever remains of this command
-White space in argument---line 67 of file MP.aux
+White space in argument---line 68 of file MP.aux
  : \citation{Schertler
  :                     et al.2000}
 I'm skipping whatever remains of this command
-White space in argument---line 68 of file MP.aux
+White space in argument---line 69 of file MP.aux
  : \citation{Schertler
  :                     et al.2000}
 I'm skipping whatever remains of this command
@@ -30,45 +30,45 @@ Warning--I didn't find a database entry for "HaenselPichon1994"
 Warning--I didn't find a database entry for "DouchinHaensel2001"
 Warning--I didn't find a database entry for "GlennKett"
 Warning--I didn't find a database entry for "AlfordSedrakian2017"
-You've used 5 entries,
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            551 strings with 4979 characters,
-and the built_in function-call counts, 1609 in all, are:
-= -- 155
-> -- 68
+            560 strings with 5131 characters,
+and the built_in function-call counts, 1920 in all, are:
+= -- 186
+> -- 81
 < -- 0
-+ -- 27
-- -- 22
-* -- 124
-:= -- 282
-add.period$ -- 15
-call.type$ -- 5
-change.case$ -- 26
++ -- 32
+- -- 26
+* -- 147
+:= -- 335
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 31
 chr.to.int$ -- 0
-cite$ -- 5
-duplicate$ -- 55
-empty$ -- 129
-format.name$ -- 22
-if$ -- 328
+cite$ -- 6
+duplicate$ -- 66
+empty$ -- 154
+format.name$ -- 26
+if$ -- 393
 int.to.chr$ -- 0
-int.to.str$ -- 5
-missing$ -- 5
-newline$ -- 28
-num.names$ -- 10
-pop$ -- 16
+int.to.str$ -- 6
+missing$ -- 6
+newline$ -- 33
+num.names$ -- 12
+pop$ -- 19
 preamble$ -- 1
-purify$ -- 21
+purify$ -- 25
 quote$ -- 0
-skip$ -- 36
+skip$ -- 44
 stack$ -- 0
-substring$ -- 121
-swap$ -- 5
+substring$ -- 144
+swap$ -- 6
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 20
+type$ -- 24
 warning$ -- 0
-while$ -- 15
-width$ -- 6
-write$ -- 57
+while$ -- 18
+width$ -- 7
+write$ -- 68
 (There were 5 error messages)
