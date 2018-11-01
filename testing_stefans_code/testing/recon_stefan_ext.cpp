@@ -76,7 +76,7 @@ main(){
   double alpha3_old;
   double e_rec;
   double pstep;
-  int    indx    = 2;
+//  int    indx    = 2;
   double convert = (1.3234)*(1e-6);
 
   // File I/O
@@ -173,8 +173,8 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
  
   indx = alpha.size() - 2;
   cout << "indx: " << indx << endl;
-  alpha.push_back(5 * alpha[indx-2]);
-  alpha.push_back(alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope);
+  alpha.push_back(5 * alpha[indx]);
+  alpha.push_back(alpha[indx+1] + (alpha[indx+2]-alpha[indx]) / slope);
   indx += 2;
   cout << "pushed alpha\n";
 
@@ -227,7 +227,7 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
 // calculate eps for the initial slope (slope from previous mcount solution)  
 // and a value below and above to determine whether slope_step should be positive or negative 
 
-    cout << "before getR()\n";
+//    cout << "before getR()\n";
 
     getR();
     diff0_s=Rcomp-MR_rel[mcount][0];
@@ -267,7 +267,7 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
     while (slope > 0.0) {
       slope += slope_step;
 
-      cout << "in slope loop\n";
+//      cout << "in slope loop\n";
 
       if(slope<=0) {
         slope_step -= slope_step;
@@ -280,13 +280,13 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
 
 
- cout << "before getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
+// cout << "before getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
 
 
       getR();
 
 
- cout << " after getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
+// cout << " after getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
 
 
       if(p_end>alpha[indx-2]*5.0) {
@@ -375,11 +375,11 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
   }
 
   for (i2 = 0; i2 < alpha->size(); i2++) {
-    cout << (*alpha)[i2] << endl;
+//    cout << (*alpha)[i2] << endl;
   }
 
       // Integration
-  cout << "doing Euler\n";
+//  cout << "doing Euler\n";
 
   for (i1 = 0; y[i1*N] > 0; i1++) {
     
@@ -390,11 +390,11 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 
     for (i2 = 0; i2 < N; i2++) {
       y[(i1+1)*N+i2] = y_tau[i2];
-      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
+//      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
     }
 
     t[i1+1] = t[i1] + tau;
-    cout << "t[i1+1]: " << t[i1+1] << endl;
+//   cout << "t[i1+1]: " << t[i1+1] << endl;
   }
   
   return i1;
