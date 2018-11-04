@@ -39,79 +39,6 @@
 }
 
 
-\def\aj{\ref@jnl{AJ}}                   % Astronomical Journal
-\def\actaa{\ref@jnl{Acta Astron.}}      % Acta Astronomica
-\def\araa{\ref@jnl{ARA\&A}}             % Annual Review of Astron and Astrophys
-\def\apj{\ref@jnl{ApJ}}                 % Astrophysical Journ%al
-%   ^^^^         ^^^^^ these do not seem to work properly... ??jnlApJ
-\def\apjl{\ref@jnl{ApJ}}                % Astrophysical Journal, Letters
-\def\apjs{\ref@jnl{ApJS}}               % Astrophysical Journal, Supplement
-\def\ao{\ref@jnl{Appl.~Opt.}}           % Applied Optics
-\def\apss{\ref@jnl{Ap\&SS}}             % Astrophysics and Space Science
-\def\aap{\ref@jnl{A\&A}}                % Astronomy and Astrophysics
-\def\aapr{\ref@jnl{A\&A~Rev.}}          % Astronomy and Astrophysics Reviews
-\def\aaps{\ref@jnl{A\&AS}}              % Astronomy and Astrophysics, Supplement
-\def\azh{\ref@jnl{AZh}}                 % Astronomicheskii Zhurnal
-\def\baas{\ref@jnl{BAAS}}               % Bulletin of the AAS
-\def\bac{\ref@jnl{Bull. astr. Inst. Czechosl.}}
-% Bulletin of the Astronomical Institutes of Czechoslovakia 
-\def\caa{\ref@jnl{Chinese Astron. Astrophys.}}
-% Chinese Astronomy and Astrophysics
-\def\cjaa{\ref@jnl{Chinese J. Astron. Astrophys.}}
-% Chinese Journal of Astronomy and Astrophysics
-\def\icarus{\ref@jnl{Icarus}}           % Icarus
-\def\jcap{\ref@jnl{J. Cosmology Astropart. Phys.}}
-% Journal of Cosmology and Astroparticle Physics
-\def\jrasc{\ref@jnl{JRASC}}             % Journal of the RAS of Canada
-\def\memras{\ref@jnl{MmRAS}}            % Memoirs of the RAS
-\def\mnras{\ref@jnl{MNRAS}}             % Monthly Notices of the RAS
-\def\na{\ref@jnl{New A}}                % New Astronomy
-\def\nar{\ref@jnl{New A Rev.}}          % New Astronomy Review
-\def\pra{\ref@jnl{Phys.~Rev.~A}}        % Physical Review A: General Physics
-\def\prb{\ref@jnl{Phys.~Rev.~B}}        % Physical Review B: Solid State
-\def\prc{\ref@jnl{Phys.~Rev.~C}}        % Physical Review C
-\def\prd{\ref@jnl{Phys.~Rev.~D}}        % Physical Review D
-\def\pre{\ref@jnl{Phys.~Rev.~E}}        % Physical Review E
-\def\prl{\ref@jnl{Phys.~Rev.~Lett.}}    % Physical Review Letters
-\def\pasa{\ref@jnl{PASA}}               % Publications of the Astron. Soc. of Australia
-\def\pasp{\ref@jnl{PASP}}               % Publications of the ASP
-\def\pasj{\ref@jnl{PASJ}}               % Publications of the ASJ
-\def\rmxaa{\ref@jnl{Rev. Mexicana Astron. Astrofis.}}%
-% Revista Mexicana de Astronomia y Astrofisica
-\def\qjras{\ref@jnl{QJRAS}}             % Quarterly Journal of the RAS
-\def\skytel{\ref@jnl{S\&T}}             % Sky and Telescope
-\def\solphys{\ref@jnl{Sol.~Phys.}}      % Solar Physics
-\def\sovast{\ref@jnl{Soviet~Ast.}}      % Soviet Astronomy
-\def\ssr{\ref@jnl{Space~Sci.~Rev.}}     % Space Science Reviews
-\def\zap{\ref@jnl{ZAp}}                 % Zeitschrift fuer Astrophysik
-\def\nat{\ref@jnl{Nature}}              % Nature
-\def\iaucirc{\ref@jnl{IAU~Circ.}}       % IAU Cirulars
-\def\aplett{\ref@jnl{Astrophys.~Lett.}} % Astrophysics Letters
-\def\apspr{\ref@jnl{Astrophys.~Space~Phys.~Res.}}
-% Astrophysics Space Physics Research
-\def\bain{\ref@jnl{Bull.~Astron.~Inst.~Netherlands}} 
-% Bulletin Astronomical Institute of the Netherlands
-\def\fcp{\ref@jnl{Fund.~Cosmic~Phys.}}  % Fundamental Cosmic Physics
-\def\gca{\ref@jnl{Geochim.~Cosmochim.~Acta}}   % Geochimica Cosmochimica Acta
-\def\grl{\ref@jnl{Geophys.~Res.~Lett.}} % Geophysics Research Letters
-\def\jcp{\ref@jnl{J.~Chem.~Phys.}}      % Journal of Chemical Physics
-\def\jgr{\ref@jnl{J.~Geophys.~Res.}}    % Journal of Geophysics Research
-\def\jqsrt{\ref@jnl{J.~Quant.~Spec.~Radiat.~Transf.}}
-% Journal of Quantitiative Spectroscopy and Radiative Transfer
-\def\memsai{\ref@jnl{Mem.~Soc.~Astron.~Italiana}}
-% Mem. Societa Astronomica Italiana
-\def\nphysa{\ref@jnl{Nucl.~Phys.~A}}   % Nuclear Physics A
-\def\physrep{\ref@jnl{Phys.~Rep.}}   % Physics Reports
-\def\physscr{\ref@jnl{Phys.~Scr}}   % Physica Scripta
-\def\planss{\ref@jnl{Planet.~Space~Sci.}}   % Planetary Space Science
-\def\procspie{\ref@jnl{Proc.~SPIE}}   % Proceedings of the SPIE
-
-\let\astap=\aap
-\let\apjlett=\apjl
-\let\apjsupp=\apjs
-\let\applopt=\ao
-
-
 
 
 
@@ -170,7 +97,7 @@
 \pagebreak
 \pagenumbering{arabic}
 \section{Introduction}
-\cite{Glendenning2000}
+
 To this day, the nature of the \ac{eos} for neutron stars is highly debated. Previously discussed \ac*{eos} have emerged from various topics and models of physics. Each one has different parameters determining its impact on calculations. \\
 For the past years, it has been common to derive an \ac*{eos} from a theory and then use it to construct a \ac{mrr}. That way, it was somewhat possible to investigate what impact the state of matter in different regions of the star has on a whole sequence. Since science lacks observational information about neutron star radii it has only been possible to put constraints on theories.\\
 This method of constructing \ac*{mrr} has one major limitation: One cannot put an arbitrary number of theories into one \ac*{eos}. That would result in a problem impossible to solve, even for computers. Therefore, the motivation is to minimize the number of parameters and constraints in the future to find a model that is both solvable and preserves the highest physical relevance.\\
@@ -257,14 +184,14 @@ Most generally, an \ac*{eos} determines the relation between a set of quantities
 with, in this case, pressure $p$, Volume $V$ and Temperature $T$. The nature of $f$ (the actual \ac*{eos}) is then derived from a model (e.g. nuclear or quark) to properly describe the state of matter at hand, be it a fluid, solid or of an exotic type. Here, starting on the outside of a neutron star, states are still in or not far from the range of what can be experimentally observed. Towards the inner regions, exotic states and their impact on the \ac*{eos} are still subject to investigation. A number of nuclear or fluid \ac*{eos} have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single \ac*{eos} for the whole neutron star would be of great interest, one usually determines the \ac*{eos} piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
 The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.\\
 Generally, a neutron star can be divided into four zones: The inner and outer core, with inner and outer crust above it. These zones have fundamentally different properties. These zones are usually defined through their range of densities. For example, (one finds the original version of this proposal in \cite{Pandharipande1976} and \cite{ShapiroTeukolsky}), with $[\rho] =$\,g/cm$^3$:
-\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and magnetic fields can have big impact on the equation of state here. The surface may partly consist of accreted matter of unknown composition, followed by a layer of iron that marks the beginning of the actual neutron star. In this region, the \ac*{eos} is well approximated by Baym et al. \cite{Baym et al.1971} [BPS]. BPS bases calculations on a lattice configuration of nuclei as expected from a lower-density domain. This leads to significant error with respect to the ground state neutron numbers of neutron-rich nuclei further below the surface, as their masses could not be measured with sufficient precision at the time \cite{Baym et al.1971} \cite{NeutronStars1}. 
+\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and magnetic fields can have big impact on the equation of state here. The surface may partly consist of accreted matter of unknown composition, followed by a layer of iron that marks the beginning of the actual neutron star. In this region, the \ac*{eos} is well approximated by Baym et al. \cite{Baym1971} [BPS]. BPS bases calculations on a lattice configuration of nuclei as expected from a lower-density domain. This leads to significant error with respect to the ground state neutron numbers of neutron-rich nuclei further below the surface, as their masses could not be measured with sufficient precision at the time \cite{Baym1971} \cite{NeutronStars1}. 
 \paragraph{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$} Descending into the \textit{outer crust} a Coulomb lattice forms within a relativistic electron gas. Due to charge neutrality, $n_{electrons} = Z \cdot n_{nuclei}$; for the pressure holds $P = P_e + P_L$ \cite{NeutronStars1}, where $P_L$ resembles a correction made to account for Coulomb interactions. Upon reaching higher densities, neutronization becomes energetically favorable. In order to determine the nucleus contribution to the energy of one Wigner-Seitz cell in the lattice, BPS subtracting electron rest energies from the atomic masses. The difference between BPS and Haensel et al. \cite{HaenselPichon1994} [HP] is the model for electron screening effects. BPS used the electron binding energies as such a model, while HP subtracted those as well and imposed electron density uniformities \cite{NeutronStars1} instead.
 \paragraph{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$} In the \textit{inner crust} neutron-rich nuclei from a lattice; as the densities increases, neutron drip takes place. Now, there is not only an electron gas, but also a superfluid neutron gas formed by the dripped-out neutrons. A density estimate for the drip to start is performed in \cite{NeutronStars1} starting from
 \begin{equation*}
 	E_N(A,Z)/A\simeq E_0 + S_0 \delta^2
 \end{equation*}
 which is a heavily simplified nuclear mass formula. Terms were neglected until only the symmetry energy $S_0$ and the energy per nucleon in a symmetric system $E_0$ are left. $\delta=(N-Z)/A$ is also a remnant from the mass formula. At neutron drip, $\mu_n = E_0 + (2\delta + \delta^2)S_0 = 0$ and therefore $\delta_\text{ND} = \sqrt{1-(E_0/S_0)}-1$. From the beta equilibrium condition and an estimate for the electron chemical potential the drip density is about $\rho_\text{ND}\simeq 2.2\cdot 10^{11}$\,g/cm$^3$. \\
-As for the \ac*{eos}, at roughly neutron drip density it is dominated by strong nucleon-nucleon interactions. There are various types of calculations and models for such a many-body system; for example, in \cite{DouchinHaensel2001} Douchin and Haensel use the Skyrme-Lyon [SLy] forces within a liquid drop model for nucleons. Likely, in this bottom region of the crust, nuclei are shaped differently to minimize their surface energy. This was first proposed by Ravenhall et al. 1983 \cite{Ravenhall et al.1983}, where three basic shapes were used for demonstration. In the domain of the low-density phase, the higher-density phase should form spherical bubbles that turn into rods when descending further into the star. Eventually, both phases should be mixed to equal parts, nuclear matter arranged in planes. From here the process is ``reverted''; first, rods of the first phase emerge, turning into bubbles again until only the second, high-density phase is present. This phase transition is often referred to as pasta phase due to the similarities between shapes. 
+As for the \ac*{eos}, at roughly neutron drip density it is dominated by strong nucleon-nucleon interactions. There are various types of calculations and models for such a many-body system; for example, in \cite{DouchinHaensel2001} Douchin and Haensel use the Skyrme-Lyon [SLy] forces within a liquid drop model for nucleons. Likely, in this bottom region of the crust, nuclei are shaped differently to minimize their surface energy. This was first proposed by Ravenhall et al. 1983 \cite{Ravenhall1983}, where three basic shapes were used for demonstration. In the domain of the low-density phase, the higher-density phase should form spherical bubbles that turn into rods when descending further into the star. Eventually, both phases should be mixed to equal parts, nuclear matter arranged in planes. From here the process is ``reverted''; first, rods of the first phase emerge, turning into bubbles again until only the second, high-density phase is present. This phase transition is often referred to as pasta phase due to the similarities between shapes. 
 \paragraph{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho_{core}$} The \textit{outer core} or \textit{neutron fluid} does no longer consist of a lattice. Remaining charge neutral, this region  
 is dominated by a neutron superfluid along with a proton superfluid. The charge of the latter is evened out by electrons. In the above discussed liquid drop/SLy model, the crust-core transition appears in the \ac*{eos} as a (weak) first-order phase transition. The jump in density is in the range $1\%$.\\
 The ground state of nuclear matter can be calculated from the nuclear Hamiltonian \cite{NeutronStars1}. The \ac*{eos} is determined a little easier; starting from total energy density together with conditions for fixed baryon density and electrical neutrality, Lagrange multipliers give the equilibrium conditions for the chemical potentials. For neutrinos these can be set to zero as they escape the star. Evaluating the first law of thermodynamics at equilibrium leads to the pressure. This calculation can be extended to account for particle fractions varying with density.
@@ -289,7 +216,7 @@ The term \textit{stability} is generally used in the context of stability toward
 \begin{figure} [h]
 	\centering
 	\includegraphics[width=0.8\textwidth]{graphs/third_and_stable.eps}
-	\caption{Mass-radius relation with a third stable branch and stability of lowest modes. Taken from \cite{Schertler et al.2000}.}
+	\caption{Mass-radius relation with a third stable branch and stability of lowest modes. Taken from \cite{Schertler2000}.}
 	\label{fig:third_stable}
 \end{figure}
 At points A, C and E, the maximum masses and minimum radii for one family each, the fundamental mode becomes unstable ($n=0$). $n$ is the number of radial nodes. When a new family starts with its lowest mass, $n=0$ regains stability. A branch is required to have all modes stable against oscillation to be physically relevant as a family. \\
@@ -512,10 +439,9 @@ During development of the code, various smaller and bigger issues had to be deal
 \subsubsection{Radius and slope control}
 
 While the direct method \ref{eq:direct} somewhat works in the low-density region, it quickly starts suffering from big slope jumps for the reconstructed lines. Some \ac*{mrr} points are found corresponding to values above the wanted \ac*{eos} curve, continuing with only very slight changes in slope until points below the \ac*{eos} are used for calculation. From there, a slope jump pushes the next point above the curve again. These jumps get bigger and pile up to a point where the code cannot push the current energy density above the \ac*{eos} again; from here, none of the produced values are of use as now all further points strongly deviate from the \ac*{eos}.\\
-Initially, the indirect method \ref{eq:indirect} was chosen to ensure that the slope would not contain big jumps. This however has a huge impact on runtime, but as efficiency was not the main goal, optimization was postponed. The biggest problem is, ironically, the precision needed to avoid slope jumps. At some point, the code will calculate in slope steps so small that radius changes start to become exceedingly rare. As discussed by various researchers, the radius does not depend on a specific parameter and often requires drastic changes in various values used in the calculation. Here, the slope is often the only parameter that would have any impact in the first place; the mass is relatively easy to find along with a rather accurate central pressure. The indirect method included the $\lambda$ parameter in order to connect a radius check with a condition regarding the slope with respect to the previous one. $\lambda$ is to determine the maximum deviation of a reconstructed point from the curve, here is however no way of determining a ``perfect'' $\lambda$ other than trial and error. The parameter remains slightly arbitrary even though it can be motivated with a smoothness assumption. What that means for phase transitions has been discussed in \ref{indradch}: a transition has immediate effect on the \ac*{mrr} so that the code can be modified based on input analysis. When the reconstruction reaches the point of transition, $\lambda$ is used to modify the algorithm accordingly. \\
+Initially, the indirect method \ref{eq:indirect} was chosen to ensure that the slope would not contain big jumps. This however has a huge impact on runtime, but as efficiency was not the main goal, optimization was postponed. The biggest problem is, ironically, the precision needed to avoid slope jumps. At some point, the code will calculate in slope steps so small that radius changes start to become exceedingly rare. As discussed by various researchers, the radius does not depend on a specific parameter and often requires drastic changes in various values used in the calculation. Here, the slope is often the only parameter that would have any impact in the first place; the mass is relatively easy to find along with a rather accurate central pressure. The indirect method included the $\lambda$ parameter in order to connect a radius check with a condition regarding the slope with respect to the previous one. $\lambda$ is to determine the maximum deviation of a reconstructed point from the curve, here is however no way of determining a ``perfect'' $\lambda$ other than trial and error. The parameter remains rather arbitrary even though it can be motivated with a smoothness assumption. What that means for phase transitions has been discussed in \ref{indradch}: a transition has immediate effect on the \ac*{mrr}, the code can therefore be modified based on input analysis. When the reconstruction reaches the point of transition, $\lambda$ is used to modify the algorithm accordingly. \\
 Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily as there is less control over how the calculation deals with the extra degree of freedom. If in the rest of the reconstruction small errors appeared, the calculation will probably not find a decent radius at all. If now the constraints are loosened, precision in evaluating the dimensions and properties of the phase transitions are sacrificed.
-%citetest
-also lets have fun with \cite{Alford:2017qgh}
+
 
 
 
@@ -553,32 +479,32 @@ also lets have fun with \cite{Alford:2017qgh}
 %  \end{tabular}
 %\end{table}
 
-
+\pagebreak
 \bibliography{thesis}
-\bibliographystyle{plain}
+\bibliographystyle{unsrt}
 
 
 \clearpage
 %{1965gtgc.book.....H}
-\begin{thebibliography}{2}
+%\begin{thebibliography}{2}
 %	\bibitem{Mazzali et al.2007} Mazzali, P.~A., R{\"o}pke, F.~K., Benetti, S., \& Hillebrandt, W.\ 2007, Science, \textbf{315}, 825 
 %	\bibitem{Glendenning} Glendenning, N. K., Compact Stars: Nuclear Physics, Particle Physics, and General Relativity, Springer-Verlag New York, 2000, 1997
-	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
-	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, \textbf{663}, p. 252
-	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
-	\bibitem{Baym et al.1971} Baym, G., Pethick, C., \& Sutherland, P.\ 1971, Astrophys. J., \textbf{170}, 299 
-	\bibitem{HaenselPichon1994} Haensel, P., \& Pichon, B.\ 1994, A\&A, \textbf{283}, 313 
-	\bibitem{DouchinHaensel2001} Douchin, F., \& Haensel, P.\ 2001, A\&A, \textbf{380}, 151 
-	\bibitem{Ravenhall et al.1983} Ravenhall, D.~G., Pethick, C.~J., \& Wilson, J.~R.\ 1983, Physical Review Letters, \textbf{50}, 2066 
-	\bibitem{Schertler et al.2000} Schertler, K., Greiner, C., Schaffner-Bielich, J., \& Thoma2, M.~H.\ 2000, Nuclear Physics A, \textbf{677}, 463 
-	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
-	\bibitem{Lindblom1992} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
-	\bibitem{Gerlach1968} Gerlach, U.~H.\ 1968, Physical Review, \textbf{172}, 1325 
-	\bibitem{AlfordSedrakian2017} Alford, M., \& Sedrakian, A.\ 2017, Physical Review Letters, \textbf{119}, 161104 
-	\bibitem{NeutronStars1} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
+%	\bibitem{Pandharipande1976} Pandharipande, V.~R., Pines, D., \& Smith, R.~A.\ 1976, Astrophys. J., \textbf{208}, 550 
+%	\bibitem{ShapiroTeukolsky} Shapiro, S.~L., \& Teukolsky, S.~A.\ 1983, Research supported by the National Science Foundation.~New York, Wiley-Interscience, 1983, \textbf{663}, p. 252
+%	\bibitem{Harrison1965} Harrison, B.~K., Thorne, K.~S., Wakano, M., \& Wheeler, J.~A.\ 1965, Gravitation Theory and Gravitational Collapse, Chicago: University of Chicago Press, 1965
+%	\bibitem{Baym et al.1971} Baym, G., Pethick, C., \& Sutherland, P.\ 1971, Astrophys. J., \textbf{170}, 299 
+%	\bibitem{HaenselPichon1994} Haensel, P., \& Pichon, B.\ 1994, A\&A, \textbf{283}, 313 
+%	\bibitem{DouchinHaensel2001} Douchin, F., \& Haensel, P.\ 2001, A\&A, \textbf{380}, 151 
+%	\bibitem{Ravenhall et al.1983} Ravenhall, D.~G., Pethick, C.~J., \& Wilson, J.~R.\ 1983, Physical Review Letters, \textbf{50}, 2066 
+%	\bibitem{Schertler et al.2000} Schertler, K., Greiner, C., Schaffner-Bielich, J., \& Thoma2, M.~H.\ 2000, Nuclear Physics A, \textbf{677}, 463 
+%	\bibitem{GlennKett} Glendenning, N.~K., \& Kettner, C.\ 2000, A\&A, 353, L9 
+%	\bibitem{Lindblom1992} Lindblom, L.\ 1992, Astrophys. J., \textbf{398}, 569
+%	\bibitem{Gerlach1968} Gerlach, U.~H.\ 1968, Physical Review, \textbf{172}, 1325 
+%	\bibitem{AlfordSedrakian2017} Alford, M., \& Sedrakian, A.\ 2017, Physical Review Letters, \textbf{119}, 161104 
+%	\bibitem{NeutronStars1} Haensel, P., Potekhin, A.~Y., \& Yakovlev, D.~G.\ 2007, Astrophysics and Space Science Library, 326, Haensel
 	
 %\bibitem{Eichler} H. J. Eichler, H.-D. Kronfeldt, J. Sahm, \textit{Das Neue Physikalische Grundpraktikum}, Springer-Verlag, Berlin-Heidelberg, 2001.
 %\bibitem{Kuchling} H. Kuchling, \textit{Taschenbuch der Physik, 21. Auflage}, Fachbuchverlag Leipzig, 2014.
-\end{thebibliography}
+%\end{thebibliography}
 
 \end{document}

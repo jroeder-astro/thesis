@@ -1,31 +1,4 @@
-\begin{thebibliography}{1}
-
-\bibitem{Alford:2017qgh}
-Mark~G. Alford and Armen Sedrakian.
-\newblock {Compact stars with sequential QCD phase transitions}.
-\newblock {\em Phys. Rev. Lett.}, 119(16):161104, 2017.
-
-\bibitem{Gerlach1968}
-U.~H. Gerlach.
-\newblock Equation of state at supranuclear densities and the existence of a
-  third family of superdense stars.
-\newblock {\em Physical Review}, 172:1325--1330, August 1968.
-
-\bibitem{Glendenning}
-N.~K. {Glendenning}, editor.
-\newblock {\em {Compact stars : nuclear physics, particle physics, and general
-  relativity}}, 2000.
-
-\bibitem{Glendenning2000}
-N.~K. Glendenning and C.~Kettner.
-\newblock Possible third family of compact stars more dense than neutron stars.
-\newblock {\em A\&A}, 353:L9--L12, January 2000.
-
-\bibitem{Lindblom1992}
-L.~Lindblom.
-\newblock Determining the nuclear equation of state from neutron-star masses
-  and radii.
-\newblock {\em ApJ}, 398:569--573, October 1992.
+\begin{thebibliography}{10}
 
 \bibitem{Mazzali:2007et}
 Paolo~A. Mazzali, Friedrich~K. Ropke, Stefano Benetti, and Wolfgang
@@ -33,9 +6,76 @@ Paolo~A. Mazzali, Friedrich~K. Ropke, Stefano Benetti, and Wolfgang
 \newblock {A Common Explosion Mechanism for Type Ia Supernovae}.
 \newblock {\em Science}, 315:825, 2007.
 
+\bibitem{Glendenning}
+N.~K. {Glendenning}, editor.
+\newblock {\em {Compact stars : nuclear physics, particle physics, and general
+  relativity}}, 2000.
+
 \bibitem{Pandharipande1976}
 V.~R. Pandharipande, D.~Pines, and R.~A. Smith.
 \newblock Neutron star structure: theory, observation, and speculation.
 \newblock {\em ApJ}, 208:550--566, September 1976.
+
+\bibitem{ShapiroTeukolsky}
+S.~L. Shapiro and S.~A. Teukolsky.
+\newblock {\em {Black holes, white dwarfs, and neutron stars: The physics of
+  compact objects}}.
+\newblock 1983.
+
+\bibitem{Baym1971}
+G.~Baym, C.~Pethick, and P.~Sutherland.
+\newblock The ground state of matter at high densities: Equation of state and
+  stellar models.
+\newblock {\em ApJ}, 170:299, December 1971.
+
+\bibitem{NeutronStars1}
+P.~{Haensel}, A.~Y. {Potekhin}, and D.~G. {Yakovlev}, editors.
+\newblock {\em Neutron Stars 1 : Equation of State and Structure}, volume 326
+  of {\em Astrophysics and Space Science Library}, 2007.
+
+\bibitem{HaenselPichon1994}
+P.~Haensel and B.~Pichon.
+\newblock Experimental nuclear masses and the ground state of cold dense
+  matter.
+\newblock {\em A\&A}, 283:313--318, March 1994.
+
+\bibitem{DouchinHaensel2001}
+F.~Douchin and P.~Haensel.
+\newblock A unified equation of state of dense matter and neutron star
+  structure.
+\newblock {\em A\&A}, 380:151--167, December 2001.
+
+\bibitem{Ravenhall1983}
+D.~G. Ravenhall, C.~J. Pethick, and J.~R. Wilson.
+\newblock Structure of matter below nuclear saturation density.
+\newblock {\em Physical Review Letters}, 50:2066--2069, June 1983.
+
+\bibitem{Schertler2000}
+K.~Schertler, C.~Greiner, J.~Schaffner-Bielich, and M.~H. Thoma2.
+\newblock Quark phases in neutron stars and a third family of compact stars as
+  signature for phase transitions$^{1}$.
+\newblock {\em Nuclear Physics A}, 677:463--490, September 2000.
+
+\bibitem{GlennKett}
+N.~K. Glendenning and C.~Kettner.
+\newblock Possible third family of compact stars more dense than neutron stars.
+\newblock {\em A\&A}, 353:L9--L12, January 2000.
+
+\bibitem{Gerlach1968}
+U.~H. Gerlach.
+\newblock Equation of state at supranuclear densities and the existence of a
+  third family of superdense stars.
+\newblock {\em Physical Review}, 172:1325--1330, August 1968.
+
+\bibitem{AlfordSedrakian2017}
+Mark~G. Alford and Armen Sedrakian.
+\newblock {Compact stars with sequential QCD phase transitions}.
+\newblock {\em Phys. Rev. Lett.}, 119(16):161104, 2017.
+
+\bibitem{Lindblom1992}
+L.~Lindblom.
+\newblock Determining the nuclear equation of state from neutron-star masses
+  and radii.
+\newblock {\em ApJ}, 398:569--573, October 1992.
 
 \end{thebibliography}

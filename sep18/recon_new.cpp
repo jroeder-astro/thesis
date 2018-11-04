@@ -404,6 +404,8 @@ main(){
           plot_s[2], plot_s[3], plot_s[4], plot_s[5], plot_s[6], plot_s[7]);
  //  }
 
+  fflush(out);
+
   p_dur = p_end;
   alpha[indx] = p_end;
   alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope;

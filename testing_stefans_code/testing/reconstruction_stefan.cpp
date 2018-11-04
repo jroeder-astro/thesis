@@ -249,13 +249,13 @@ main(){
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
 
 
- cout << "before getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
+ // cout << "before getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
 
 
       getR();
 
 
- cout << " after getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
+ // cout << " after getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
 
 
       if(p_end>alpha[indx-2]*5.0) {
@@ -284,7 +284,7 @@ main(){
       slope_step /= -10;
       eps0=epsp;
 
-      if (mcount < 18 && fabs(slope_step) < 1e-6) {
+      if (fabs(slope_step) < 1e-6) {
         cout << "slope_step break condition" << endl;
         break;
       }
@@ -303,7 +303,7 @@ main(){
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = 1e-3;
+    lambda = 1e-2;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
