@@ -34,7 +34,7 @@ plt.plot(x2,y2,label='recon')
 
 
 plt.title('Equation of State\nReconstruction Algorithms')
-plt.ylabel('$\epsilon(p)$ /MeV/fm$^3$')
-plt.xlabel('$p$ /MeV/fm$^3$')
+plt.ylabel('$\epsilon(p)$ /MeV/fm$^3$', fontsize=20)
+plt.xlabel('$p$ /MeV/fm$^3$', fontsize=20)
 plt.legend(loc=4)
 plt.show()
