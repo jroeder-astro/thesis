@@ -215,7 +215,7 @@ There are two major conditions for any equation of state to be physically accept
 The term \textit{stability} is generally used in the context of stability towards perturbations, i.e. radial oscillation modes. This can be read off the mass-radius relation: If the curve reaches a critical point, the slope changes sign and the lowest stable mode switches its stability. Reading from the right, a counter-clockwise change of slope at a critical point leads to instability of a mode. This can be seen in \ref{fig:third_stable}.
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphs/third_and_stable.eps}
+	\includegraphics[width=0.8\textwidth]{graphs_pdf/third_and_stable}
 	\caption{Mass-radius relation with a third stable branch and stability of lowest modes. Taken from \cite{Schertler2000}.}
 	\label{fig:third_stable}
 \end{figure}
@@ -231,15 +231,15 @@ In 2017 M. Alford and A. Sedrakian were the first to argue what effects a multip
 In order to construct an \ac*{mrr} Alford and Sedrakian put together a piecewise \ac*{eos} consisting of one for nuclear (hadronic) matter up to saturation density and one for above densities. The latter part is allowed to have two first-order phase transitions, with a constant speed of sound per quark phase. The \ac*{eos} then looks as follows:
 \begin{figure} [h]
 	\centering
-	\subfigure[Constructed \ac*{eos}]{\includegraphics[width=0.47\textwidth]{graphs/EoS_letter.pdf}} 
-	\subfigure[Corresponding \ac*{mrr}]{\includegraphics[width=0.49\textwidth]{graphs/mass_radius_stiff2SC.pdf}}
+	\subfigure[Constructed \ac*{eos}]{\includegraphics[width=0.46\textwidth]{graphs_pdf/EoS_letter}} 
+	\subfigure[Corresponding \ac*{mrr}]{\includegraphics[width=0.5\textwidth]{graphs_pdf/mass_radius_stiff2SC}}
 	\caption{(a) Constructed \ac*{eos} for a second quark matter phase transition. (b) \ac*{mrr} corresponding to stiff two-flavor color superconducting [2CS] and color-flavor-locked [CFL]. Taken from \cite{AlfordSedrakian2017}.}
 	\label{fig:fourth_eos_alfsed}
 \end{figure}
 From figure \ref{fig:fourth_eos_alfsed} a) four of the six parameters determining the \ac*{eos} can be read off: the transition pressures $P_{1,2}$ as well as $\Delta\varepsilon_{1,2}$, the energy density jumps. The remaining parameters are the phases' sound speeds. Figure \ref{fig:fourth_eos_alfsed} b) shows an \ac*{mrr} for four different energy density jump ratios and stiff quark phase \ac*{eos}. The sound speeds $s_1$ and $s_2$ have been set to 0.7 and 1, respectively. For jump ratios above of about 0.15, a fourth branch of compact stars separates from the twin stars located around 12.5\,km. White dwarfs are not shown, the very right branch is made of neutron stars. Within a certain ratio range triplet configurations arise: one mass, but three possible radii, depending on the star's composition. This is well visualized in fig. \ref{fig:composition}. If the phase transitions are sufficiently weakly first order, no instability arises, leaving the \ac*{mrr} with an extended twin star branch. From there, the fourth family emerges, completely vanishing when both transitions are strong enough, making both quark phases unstable.
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=0.7\textwidth]{graphs/profiles.pdf}
+	\includegraphics[width=0.8\textwidth]{graphs_pdf/profiles}
 	\caption{States of matter for a triplet configuration. $M=1.975$\,$M_\odot$, $\Delta\varepsilon_{1}/\Delta\varepsilon_{2}=0.23$. Pressure in dyn/cm$^2$, N stands for Nuclear Phase. Taken from \cite{AlfordSedrakian2017}.}
 	\label{fig:composition}
 \end{figure}
@@ -343,13 +343,13 @@ Here, a different and more simplistic approach to this problem is developed. Thi
 The goal is to reconstruct the \ac*{eos} with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an \ac*{eos} corresponding to a given mass in the \ac*{mrr} (Fig. \ref{fig:mce}). From there, the \ac*{eos} can be constructed without further constraint. Here, a straight line is added to the end of the \ac*{eos}, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given \ac*{eos} and will calculate a mass with the (now small) piece of straight line and the \ac*{eos}. If the mass does not fit the corresponding one in the \ac*{mrr} that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given \ac*{eos}. This process will be repeated until the end of the \ac*{mrr} file.
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphs/mrr_corr_eos}
+	\includegraphics[width=0.8\textwidth]{graphs_pdf/mrr_corr_eos_new}
 	\caption{corresponding points in \ac*{mrr} and \ac*{eos}. Point in \ac*{eos} resembles values in the center of the star.}
 	\label{fig:mce}
 \end{figure}
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=1\textwidth]{graphs/eos_recon}
+	\includegraphics[width=1\textwidth]{graphs_pdf/eos_lines_recon_schematic}
 	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) Successfully varied green line, red line for next mass}
 	\label{fig:recon}
 \end{figure}
@@ -388,9 +388,11 @@ Alternatively, a Monte Carlo reconstruction would technically be capable of draw
  That way, the mass-radius points generated by the code would not have to be the same as those in the input data. Curve comparison should indeed take place using interpolation of points as an \ac*{mrr} does not follow a type of function that could be used fit it to the data. \\
 This method is of course of highly numerical nature. However, in the past statistical approaches have often been of great success, which is why here a Monte Carlo method could potentially be used as a comparison. 
 
+\subsection{Optimal radius and mass for a given slope}
 
+Before comparing the radius, the optimum mass can easily be obtained by fixing a slope for the \ac*{eos} and varying the central pressure in small steps. Here it proved to be convenient to use an indirect check instead of a direct comparison to the input mass. After the first calculation, an initial difference between input and outcome is stored. The difference for the next central pressure will be multiplied with the initial one; variation takes place until the multiplication outcome flips the sign. Then, the pressure step is decreased and variation also switches direction. This can be repeated until a desired precision is reached. The radius corresponding to the optimum mass will be given to the main function along with it. 
 
-\subsection{Indirect radius check} \label{indradch}
+\subsection{Direct and indirect radius check} \label{indradch}
 
 Upon finishing the calculation for a star, the code is to check mass and radius. This can either be done by directly comparing the calculated values with the input (in the following, direct method) or by choosing an indirect way of doing so. The direct method can be described as search for the root of a function $f_\text{dir}$:
 \begin{equation*} \label{eq:direct}
@@ -407,31 +409,6 @@ Instead of trying to find the roots of $f_\text{dir}$, the code is now supposed 
 $\lambda$ is an ``importance parameter''. In order to avoid big jumps in the slope $\xi_\text{curr}$ with respect to $\xi_\text{prev}$, $\lambda$ is set to some value. That way, $\xi_\text{curr}$ will not deviate more from $\xi_\text{prev}$ than $\lambda$ allows. Before the variation of a slope, a star is calculated once with the current slope and with a higher and lower one, respectively. The slope variation direction is then determined by the behaviour of $f_\text{ind}$. After the first reconstruction $\lambda$ is set to a value above zero while initially using $\lambda = 0$ as there is no slope from before to use. \\
 Some time in the future, the program should be capable of modelling first-order phase transitions in the \ac*{eos}. Such a transition requires a jump in the slope and discontinuities in the \ac*{eos}. It is obvious that the indirect method is biased towards smooth \ac*{eos} without any unusual progression $-$ ruling out the possibility to model a phase transition from the beginning. That can be dealt with by tracking extremal points in the \ac*{mrr} while reading it in as input. When the reconstruction part of the code reaches the first mass behind a maximum, the algorithm is changed from $f_\text{ind}$ to $f_\text{dir}$ by setting $\lambda = 0$. $\xi_\text{curr}$ may now freely deviate from $\xi_\text{prev}$ to find the \ac*{eos} points during and after the transition. \\
 
-
-
-\subsection{Test case}
-
-The first code test will take place with a simple polytropic \ac*{eos} such as
-\begin{equation*}
-	\epsilon(p) = \left(\frac{p}{10}\right)^{3/5}
-\end{equation*}
-Using the TOV solver, an \ac*{mrr} is generated. For this simple case, RK4 was reduced to Euler's method and the step size is not adaptive. The \ac*{mrr} seen in Fig. \ref{fig:test} will be the first one to be reconstructed. 
-\begin{figure} [h]
-	\centering
-	\includegraphics[width=1\textwidth]{graphs/test_mrr_eos}
-	\caption{Test case}
-	\label{fig:test}
-\end{figure}
-The curves both consist of 100 data points which will be read in by the reconstruction code. The result can be seen in \ref{fig:recon_test}.
-\begin{figure}
-	\centering
-%	\includegraphics[width=1\textwidth]{graphs/recon_test_mrr_eos}
-	\caption{Reconstruction test}
-	\label{fig:recon_test}
-\end{figure}
-
-
-
 \section{Results}
 
 \subsection{Issues}
@@ -444,6 +421,26 @@ While the direct method \ref{eq:direct} somewhat works in the low-density region
 Initially, the indirect method \ref{eq:indirect} was chosen to ensure that the slope would not contain big jumps. This however has a huge impact on runtime, but as efficiency was not the main goal, optimization was postponed. The biggest problem is, ironically, the precision needed to avoid slope jumps. At some point, the code will calculate in slope steps so small that radius changes start to become exceedingly rare. As discussed by various researchers, the radius does not depend on a specific parameter and often requires drastic changes in various values used in the calculation. Here, the slope is often the only parameter that would have any impact in the first place; the mass is relatively easy to find along with a rather accurate central pressure. The indirect method included the $\lambda$ parameter in order to connect a radius check with a condition regarding the slope with respect to the previous one. $\lambda$ is to determine the maximum deviation of a reconstructed point from the curve, here is however no way of determining a ``perfect'' $\lambda$ other than trial and error. The parameter remains rather arbitrary even though it can be motivated with a smoothness assumption. What that means for phase transitions has been discussed in \ref{indradch}: a transition has immediate effect on the \ac*{mrr}, the code can therefore be modified based on input analysis. When the reconstruction reaches the point of transition, $\lambda$ is used to modify the algorithm accordingly. \\
 Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily as there is less control over how the calculation deals with the extra degree of freedom. If in the rest of the reconstruction small errors appeared, the calculation will probably not find a decent radius at all. If now the constraints are loosened, precision in evaluating the dimensions and properties of the phase transitions are sacrificed.
 
+\subsection{Test case}
+
+The first code test will take place with a simple polytropic \ac*{eos} such as
+\begin{equation*}
+\epsilon(p) = \left(\frac{p}{10}\right)^{3/5}
+\end{equation*}
+Using the TOV solver, an \ac*{mrr} is generated. The \ac*{mrr} seen in Fig. \ref{fig:test} will be the first one to be reconstructed. 
+\begin{figure} [h]
+	\centering
+	\includegraphics[width=1\textwidth]{graphs_pdf/testcase_mrr_eos}
+	\caption{Test case}
+	\label{fig:test}
+\end{figure}
+The curves both consist of 100 data points which will be read in by the reconstruction code. The result can be seen in \ref{fig:recon_test}.
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{graphs_pdf/testcase_recon_stefan_fail}
+	\caption{Reconstruction test}
+	\label{fig:recon_test}
+\end{figure}
 
 
 
@@ -482,11 +479,11 @@ Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily a
 %\end{table}
 
 \pagebreak
+\clearpage
 \bibliography{thesis}
 \bibliographystyle{unsrt}
 
 
-\clearpage
 %{1965gtgc.book.....H}
 %\begin{thebibliography}{2}
 %	\bibitem{Mazzali et al.2007} Mazzali, P.~A., R{\"o}pke, F.~K., Benetti, S., \& Hillebrandt, W.\ 2007, Science, \textbf{315}, 825 

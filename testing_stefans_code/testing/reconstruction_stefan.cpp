@@ -420,7 +420,7 @@ void getR() {
  // Would it not have to be p_init???
  // i1 = tov(y_0, p_init, &alpha);   
 
- // end of mass calculation
+ // end of mass calnulation
     Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
     Mcomp = y[(i1-1)*N+1] + 
             (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);

@@ -10,7 +10,7 @@ def eos(p):
 x1 = []
 y1 = []
 
-with open('results', 'rb') as csvfile:
+with open('out.dat', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter=' ')
     for row in plots:
         x1.append(float(row[4]))
@@ -19,11 +19,17 @@ with open('results', 'rb') as csvfile:
 x2 = [a*P for a in x1]
 y2 = [b*P for b in y1]
 
-p1 = np.arange(0., 0.00018, 0.00000001)
-plt.plot(p1*P, eos(p1)*P, label='known EOS')
-plt.plot(x2,y2,'bo',label='reconstruction')
+x3 = []
+y3 = []
 
-plt.ylabel('$\epsilon$(p)/MeVfm$^{-3}$', fontsize=15)
-plt.xlabel('p/MeVfm$^{-3}$', fontsize=15)
-plt.legend(loc=2, prop={'size':14})
+
+p1 = np.arange(0., 0.00025, 0.00000001)
+plt.plot(p1*P, eos(p1)*P, label='known')
+plt.plot(x2,y2,label='recon')
+
+
+plt.title('Equation of State\nReconstruction Algorithms')
+plt.ylabel('$\epsilon(p)$ /MeV/fm$^3$')
+plt.xlabel('$p$ /MeV/fm$^3$')
+plt.legend(loc=4)
 plt.show()

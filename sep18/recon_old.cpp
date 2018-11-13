@@ -228,7 +228,7 @@ main(){
         n = 0;
       
 //        if (reconstruction.size() >= 17) {
-          //cout << "Slope after mass: " << slope << endl; 
+          cout << "Slope after mass: " << slope << endl; 
 //        }
   
         // cout << " P_end for mass:  " <<p_end<< endl;
@@ -247,13 +247,13 @@ main(){
           diff = y[i1-1][1] / 1.4766 - MR_rel[mcount][1];
 /*!*/
 //          if (reconstruction.size() >= 17) {
-            // printf("diff mass %g %g %g %g\n", pstep, diff, 
-            //        y[i1-1][1]/1.4766, MR_rel[mcount][1]);
+            printf("diff mass %g %g %g %g\n", pstep, diff, 
+                   y[i1-1][1]/1.4766, MR_rel[mcount][1]);
 //          }
 
           n = 0;
           masses.push_back(y[i1-1][1]);
-
+/*
           // will this do the job?
           if (masses.size() > 2 && reconstruction.size() >= 7) {
             if ((masses[masses.size()-1] - masses[masses.size()-2]) * 
@@ -287,7 +287,7 @@ main(){
               continue;
             }
           }
-
+*/
           if (diff * diff0 > 0) {
             // cout << "diff * diff0 > 0" << endl;
             continue;
@@ -320,8 +320,8 @@ main(){
       diff_s = t[i1 - 1] - MR_rel[mcount][0];
 /*!*/    
 //      if (reconstruction.size() >= 17) {
-        // printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
-        //        MR_rel[mcount][0]);
+        printf("diff radius %f %f %f %f\n", slope_step, diff_s, t[i1 - 1],
+               MR_rel[mcount][0]);
 //      }
 
 

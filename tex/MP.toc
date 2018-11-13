@@ -23,8 +23,9 @@
 \contentsline {subsection}{\numberline {3.2}Pressure intervals}{12}{subsection.3.2}
 \contentsline {subsection}{\numberline {3.3}Linear interpolation}{13}{subsection.3.3}
 \contentsline {subsection}{\numberline {3.4}Alternative method: Monte Carlo}{14}{subsection.3.4}
-\contentsline {subsection}{\numberline {3.5}Indirect radius check}{15}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Test case}{16}{subsection.3.6}
-\contentsline {section}{\numberline {4}Results}{17}{section.4}
-\contentsline {subsection}{\numberline {4.1}Issues}{17}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}Radius and slope control}{17}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {3.5}Optimal radius and mass for a given slope}{15}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Direct and indirect radius check}{15}{subsection.3.6}
+\contentsline {section}{\numberline {4}Results}{16}{section.4}
+\contentsline {subsection}{\numberline {4.1}Issues}{16}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Radius and slope control}{16}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {4.2}Test case}{17}{subsection.4.2}

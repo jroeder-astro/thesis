@@ -2,14 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
-#from numpy import *
-
-K = np.power(10., -5.)
-P = 1.324*np.power(10., -6.)
-Q = np.power(P, -2./3.)
+P = 7.55616208*np.power(10., 5.)
 
 def eos(p):
-    return np.power(p*P/(Q*10.), 3./5.)
+    return np.power(p/(10.), 3./5.)
 
 x1 = []
 y1 = []
@@ -25,32 +21,22 @@ with open('out.dat', 'r') as csvfile:
         y2.append(float(row[2]))
         x2.append(float(row[3]))
 
-x3 = [] 
-y3 = []
-
 x3 = [a*P for a in x2]
 y3 = [b*P for b in y2]
 
-#plt.plot(x2, y2, 'bo', label='recon')
-
-#p1 = np.arange(0., 0.0005, 0.00000001)
-#plt.plot(p1*P, eos(p1), label='known')
-
-plt.figure(figsize=(11,5))
+plt.figure(figsize=(8,4))
 
 plt.subplot(2,2,(1,3))
 plt.plot(x1, y1, label='MRR')
-plt.ylabel('$M(R)$ /M$_\odot$', fontsize=20)
-plt.xlabel('$R$ /km', fontsize=20)
-plt.legend()
+plt.ylabel('M(R)/M$_\odot$', fontsize=15)
+plt.xlabel('R/km', fontsize=15)
+plt.legend(prop={'size':14})
 
 plt.subplot(2,2,(2,4))
 plt.plot(x3, y3, label='EOS')
-plt.ylabel('$\epsilon(p)$ /MeV/fm$^3$', fontsize=20)
-plt.xlabel('$p$ /MeV/fm$^3$', fontsize=20)
-plt.legend(loc=4)
+plt.ylabel('$\epsilon$(p)/MeVfm$^{-3}$', fontsize=15)
+plt.xlabel('p/MeVfm$^{-3}$', fontsize=15)
+plt.legend(loc=2, prop={'size':14})
 
-plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
 plt.tight_layout()
 plt.show()

@@ -30,7 +30,8 @@ main(){
   vector<double> M;
   vector<double> enden;
   vector<double> press;
-  vector<double> alpha;
+  vector<double> alpha/*(2)*/;
+//  alpha[0]=0.0001; alpha[1]=0.0001;
   double e, p;
   double conv = 7.55616208*(1e+5);
 
@@ -64,19 +65,23 @@ main(){
         y[i1+1][i2] = y_tau[i2];
       }
     
-      t[i1+1] = t[i1] + tau;
+      t[i1+1] = t[i1] + tau; 
+/*
+      if (y[i1][0] < alpha[0] && P == 500) {
+        printf("%5.30lf,%5.20lf\n", y[i1][0], eos(y[i1][0], &alpha));
+      }
+*/
     }
     
     M.push_back(y[i1-1][1]/1.4766);
     R.push_back(t[i1-1]);
-    enden.push_back(eos(p0, &alpha)*conv);
-    press.push_back(p0*conv);
+    enden.push_back(eos(p0, &alpha)/* *conv */);
+    press.push_back(p0/* *conv */);
   }
-  
+
   for (i1 = 0; i1 < M.size(); i1++) {
     printf("%5.10lf,%5.10lf,%5.10lf,%5.10lf\n", 
            R[i1], M[i1], enden[i1], press[i1]);
-    //cout << R[i1] << "," << M[i1] << endl;
   }
 
   return 0;
@@ -84,7 +89,11 @@ main(){
 
 double eos(double p, vector<double> *alpha) {
   int i;
-
+/*
+  if (p < (*alpha)[0]) {
+    printf("%5.30lf,%5.20lf\n", p,e);
+  }
+*/
   for (i = 2; i < alpha->size(); i += 2) {
     if (p < (*alpha)[i])
       break;
