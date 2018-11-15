@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.11)  13 NOV 2018 09:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.10.11)  15 NOV 2018 12:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -475,33 +475,29 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.95 \end{acronym}
-                   [1] [2]
+l.93 	\acro{mrr}[MRR]{mass-radius relation}
+                                            [1] [2]
 Package acronym Info: Label `acro:eos' newly defined as it shall be overridden
 although it is yet undefined on input line 101.
 Package acronym Info: Label `acro:mrr' newly defined as it shall be overridden
 although it is yet undefined on input line 102.
  [1] [2] [3] [4] [5]
-<graphs_pdf/third_and_stable.pdf, id=265, 396.48125pt x 250.9375pt>
+[6] [7] <graphs_pdf/third_and_stable.pdf, id=274, 396.48125pt x 250.9375pt>
 File: graphs_pdf/third_and_stable.pdf Graphic file (type pdf)
 
 <use graphs_pdf/third_and_stable.pdf>
 Package pdftex.def Info: graphs_pdf/third_and_stable.pdf used on input line 218
 .
 (pdftex.def)             Requested size: 349.43457pt x 221.16644pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[6] [7 <./graphs_pdf/third_and_stable.pdf>]
-<graphs_pdf/EoS_letter.pdf, id=340, 528.97626pt x 400.49625pt>
+ [8 <./graphs_pdf/third_and_stable.pdf>]
+<graphs_pdf/EoS_letter.pdf, id=343, 528.97626pt x 400.49625pt>
 File: graphs_pdf/EoS_letter.pdf Graphic file (type pdf)
 
 <use graphs_pdf/EoS_letter.pdf>
 Package pdftex.def Info: graphs_pdf/EoS_letter.pdf used on input line 234.
 (pdftex.def)             Requested size: 200.92703pt x 152.12292pt.
 
-<graphs_pdf/mass_radius_stiff2SC.pdf, id=342, 849.1725pt x 596.2275pt>
+<graphs_pdf/mass_radius_stiff2SC.pdf, id=345, 849.1725pt x 596.2275pt>
 File: graphs_pdf/mass_radius_stiff2SC.pdf Graphic file (type pdf)
 
 <use graphs_pdf/mass_radius_stiff2SC.pdf>
@@ -509,21 +505,18 @@ Package pdftex.def Info: graphs_pdf/mass_radius_stiff2SC.pdf used on input line
  235.
 (pdftex.def)             Requested size: 218.39577pt x 153.3415pt.
 
-<graphs_pdf/profiles.pdf, id=357, 849.1725pt x 596.2275pt>
+<graphs_pdf/profiles.pdf, id=360, 849.1725pt x 596.2275pt>
 File: graphs_pdf/profiles.pdf Graphic file (type pdf)
 
 <use graphs_pdf/profiles.pdf>
 Package pdftex.def Info: graphs_pdf/profiles.pdf used on input line 242.
 (pdftex.def)             Requested size: 349.43457pt x 245.34642pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+ [9]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8] [9 <./graphs_pdf/EoS_letter.pdf> <./graphs_pdf/mass_radius_stiff2SC.pdf>]
-[10 <./graphs_pdf/profiles.pdf>] [11] [12]
+[10 <./graphs_pdf/EoS_letter.pdf> <./graphs_pdf/mass_radius_stiff2SC.pdf>]
+[11 <./graphs_pdf/profiles.pdf>] [12] [13]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 335.
 
 
@@ -532,8 +525,8 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 335.
-
-<graphs_pdf/mrr_corr_eos_new.pdf, id=469, 578.16pt x 289.08pt>
+ [14]
+<graphs_pdf/mrr_corr_eos_new.pdf, id=479, 578.16pt x 289.08pt>
 File: graphs_pdf/mrr_corr_eos_new.pdf Graphic file (type pdf)
 
 <use graphs_pdf/mrr_corr_eos_new.pdf>
@@ -541,24 +534,24 @@ Package pdftex.def Info: graphs_pdf/mrr_corr_eos_new.pdf used on input line 346
 .
 (pdftex.def)             Requested size: 349.43457pt x 174.71529pt.
 
-<graphs_pdf/eos_lines_recon_schematic.pdf, id=476, 867.24pt x 361.35pt>
+<graphs_pdf/eos_lines_recon_schematic.pdf, id=486, 867.24pt x 361.35pt>
 File: graphs_pdf/eos_lines_recon_schematic.pdf Graphic file (type pdf)
 
 <use graphs_pdf/eos_lines_recon_schematic.pdf>
 Package pdftex.def Info: graphs_pdf/eos_lines_recon_schematic.pdf used on input
  line 352.
 (pdftex.def)             Requested size: 436.79155pt x 181.99785pt.
- [13]
+ [15]
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14 <./graphs_pdf/mrr_corr_eos_new.pdf>] [15 <./graphs_pdf/eos_lines_recon_sche
-matic.pdf>] [16] [17]
+[16 <./graphs_pdf/mrr_corr_eos_new.pdf>] [17 <./graphs_pdf/eos_lines_recon_sche
+matic.pdf>] [18] [19]
 Underfull \hbox (badness 10000) in paragraph at lines 408--411
 
  []
 
-[18] [19] <graphs_pdf/testcase_mrr_eos.pdf, id=611, 578.16pt x 289.08pt>
+[20] [21] <graphs_pdf/testcase_mrr_eos.pdf, id=619, 578.16pt x 289.08pt>
 File: graphs_pdf/testcase_mrr_eos.pdf Graphic file (type pdf)
 
 <use graphs_pdf/testcase_mrr_eos.pdf>
@@ -566,20 +559,27 @@ Package pdftex.def Info: graphs_pdf/testcase_mrr_eos.pdf used on input line 433
 .
 (pdftex.def)             Requested size: 436.79155pt x 218.393pt.
 
-<graphs_pdf/testcase_recon_stefan_fail.pdf, id=613, 462.52798pt x 346.89601pt>
+<graphs_pdf/testcase_recon_stefan_fail.pdf, id=621, 462.52798pt x 346.89601pt>
 File: graphs_pdf/testcase_recon_stefan_fail.pdf Graphic file (type pdf)
 
 <use graphs_pdf/testcase_recon_stefan_fail.pdf>
 Package pdftex.def Info: graphs_pdf/testcase_recon_stefan_fail.pdf used on inpu
 t line 440.
 (pdftex.def)             Requested size: 436.79155pt x 327.61201pt.
- [20 <./graphs_pdf/testcase_mrr_eos.pdf>] [21 <./graphs_pdf/testcase_recon_stef
-an_fail.pdf>] (./MP.bbl [22
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[22] [23 <./graphs_pdf/testcase_mrr_eos.pdf> <./graphs_pdf/testcase_recon_stefa
+n_fail.pdf
+
+pdfTeX warning: /usr/bin/pdflatex (file ./graphs_pdf/testcase_recon_stefan_fail
+.pdf): PDF inclusion: multiple pdfs with page group included in a single page
+>] (./MP.bbl [24
 
 ])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 509.
-
-[23]
+ [25]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 509.
  (./MP.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 509.
@@ -589,13 +589,13 @@ Package rerunfilecheck Info: File `MP.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 509.
  ) 
 Here is how much of TeX's memory you used:
- 7909 strings out of 493038
- 114151 string characters out of 6136795
- 215168 words of memory out of 5000000
+ 7911 strings out of 493038
+ 114165 string characters out of 6136795
+ 214171 words of memory out of 5000000
  11208 multiletter control sequences out of 15000+600000
  10449 words of font info for 39 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 30i,13n,43p,1537b,481s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,13n,43p,1537b,482s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
@@ -608,10 +608,10 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 >
-Output written on MP.pdf (26 pages, 611462 bytes).
+Output written on MP.pdf (28 pages, 612893 bytes).
 PDF statistics:
- 780 PDF objects out of 1000 (max. 8388607)
- 591 compressed objects within 6 object streams
- 111 named destinations out of 1000 (max. 500000)
+ 787 PDF objects out of 1000 (max. 8388607)
+ 596 compressed objects within 6 object streams
+ 113 named destinations out of 1000 (max. 500000)
  249 words of extra memory for PDF output out of 10000 (max. 10000000)
 
