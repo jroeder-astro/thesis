@@ -39,7 +39,7 @@
 }
 \renewcommand{\baselinestretch}{1.3}
 
-
+%\setlength{\intextsep}{12pt plus 2.0pt minus 2.0pt}
 
 
 %% BEGIN OF THE ACTUAL DOCUMENT %%
@@ -101,8 +101,7 @@
 To this day, the nature of the \ac{eos} for neutron stars is highly debated. Previously discussed \ac*{eos} have emerged from various topics and models of physics. Each one has different parameters determining its impact on calculations. \\
 For the past years, it has been common to derive an \ac*{eos} from a theory and then use it to construct a \ac{mrr}. That way, it was somewhat possible to investigate what impact the state of matter in different regions of the star has on a whole sequence. Since science lacks observational information about neutron star radii it has only been possible to put constraints on theories.\\
 This method of constructing \ac*{mrr} has one major limitation: One cannot put an arbitrary number of theories into one \ac*{eos}. That would result in a problem impossible to solve, even for computers. Therefore, the motivation is to minimize the number of parameters and constraints in the future to find a model that is both solvable and preserves the highest physical relevance.\\
-The approach chosen in this thesis inverts the above process. Instead of using an \ac*{eos} to calculate masses and radii, the latter now take over the role as input parameters. For compact stars up to a certain mass, the \ac*{eos} will be assumed to be known well enough. Above that mass a numerical reconstruction will take place, determining the \ac*{eos} from a variety of \ac*{mrr}. Using the \ac*{mrr} as input leaves us with only the low-density region to impose an \ac*{eos} in. As explained in \ref{eos_and_struct}, we have in fact the possibility to model this region sufficiently well. If future measurements grant a decent number of data points on the \ac*{mrr}, an inverse algorithm has the potential to probe the highest densities in the universe. Due to the unique relation of \ac*{mrr} and \ac*{eos} this would mean a significant contribution to the investigation of high-density phase diagrams of, for example, quark matter. The enormous amount of energy needed to create matter at such densities exceeds everything possible by humanity; therefore a neutron star would be a welcome laboratory. \\
-The first instrument about to attempt neutron star radius measurements is the NICER experiment located at the International Space Station. It will detect x-ray emissions directly from the neutron star's surface and capture the rotational period to determine the radius with a precision of few hundred meters. With that information from multiple neutron stars it could potentially be possible to draw a coarse \ac*{mrr}, with actual data. At that point, \ac*{eos} reconstruction will likely become a crucial part of neutron star physics.
+The approach chosen in this thesis inverts the above process. Instead of using an \ac*{eos} to calculate masses and radii, the latter now take over the role as input parameters. For compact stars up to a certain mass, the \ac*{eos} will be assumed to be known well enough. Above that mass a numerical reconstruction will take place, determining the \ac*{eos} from a \ac*{mrr}. Using the \ac*{mrr} as input leaves us with only the low-density region to impose an \ac*{eos} in; we do in fact have the possibility to model this region sufficiently well. If future measurements grant a decent number of data points on the \ac*{mrr}, an inverse algorithm has the potential to probe the highest densities in the universe. Due to the unique relation of \ac*{mrr} and \ac*{eos} this would mean a significant contribution to the investigation of high-density phase diagrams of, for example, quark matter. The enormous amount of energy needed to create matter at such densities exceeds everything possible by humanity; therefore a neutron star would be a welcome laboratory. The first instrument dedicated entirely to neutron star measurements is the NICER experiment located at the International Space Station. Measuring x-ray emissions directly from the star's surface and the rotational period, the radius can be determined with a precision of few hundred meters. Hopefully, a coarse \ac*{mrr} can be drwan with actual data. At that point, \ac*{eos} reconstruction will likely become a crucial part of neutron star physics.
 
 
 
@@ -144,9 +143,9 @@ power of length.\\
 The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
 Further, the space-time shall not evolve in time, therefore staying spherically symmetric (i.e. it is stationary). In terms of the energy-momentum tensor we are left with:
 \begin{equation}\label{eq:hydro}
-	T_{\mu\nu}=\left(\epsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
+	T_{\mu\nu}=\left(\varepsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
 \end{equation}
-Where $\epsilon$ is the energy density, $P$ is the pressure and $u_\mu$ is the 4-velocity. \\
+Where $\varepsilon$ is the energy density, $P$ is the pressure and $u_\mu$ is the 4-velocity. \\
 Spherical symmetry leads to a certain form of the metric,
 \begin{equation} \label{eq:line_element}
 	ds^2 = e^{2\varPhi} dt^2 - e^{2\lambda}dr^2 - r^2(d\theta^2+\sin^2d\phi^2)
@@ -154,7 +153,7 @@ Spherical symmetry leads to a certain form of the metric,
 containing spherical coordinates $r, \theta, \phi$ and a time-like coordinate $t$. Equation \ref{eq:line_element} becomes the line element for a flat space-time if the exponents in the first two coefficients become zero, from which follows the role of the exponent terms as curvature description in the radial and the time ``directions''. To be precise, $\varPhi$ is directly related to gravitational redshift, and $\lambda$ determines the change of proper length due to curvature.\\
 This gives us the stress-energy tensor components:
 \begin{equation}
-	T_{\mu\nu} = diag(\epsilon e^{2\varPhi}  , \ P e^{2\lambda},\ Pr^2,\ Pr^2sin^2(\theta))
+	T_{\mu\nu} = diag(\varepsilon e^{2\varPhi}  , \ P e^{2\lambda},\ Pr^2,\ Pr^2sin^2(\theta))
 \end{equation}
 One now imposes conservation of energy and momentum, 
 \begin{equation}
@@ -167,11 +166,11 @@ and puts it into the Einstein equations \ref{eq:einstein} together with the metr
 Here, $R_{\mu\nu}$ is the Ricci tensor and $R$ is the Ricci scalar. Both can be calculated from the metric $g_{\mu\nu}$. Before one can get to work to get the actual TOV equations, the metric exponential functions have to be calculated.\\
 One obtains,finally, the full TOV equation:
 \begin{equation}\label{eq:tov}
-	\frac{dP}{dr} = \frac{(\epsilon + P)(m + 4\pi r^3 P)}{2mr-r^2}
+	\frac{dP}{dr} = \frac{(\varepsilon + P)(m + 4\pi r^3 P)}{2mr-r^2}
 \end{equation}
 Together with a second equation for the mass:
 \begin{equation}\label{eq:mr}
-	\frac{dm}{dr} = 4\pi r^2\epsilon
+	\frac{dm}{dr} = 4\pi r^2\varepsilon
 \end{equation}
 
 
@@ -215,8 +214,10 @@ There are two major conditions for any equation of state to be physically accept
 The term \textit{stability} is generally used in the context of stability towards perturbations, i.e. radial oscillation modes. This can be read off the mass-radius relation: If the curve reaches a critical point, the slope changes sign and the lowest stable mode switches its stability. Reading from the right, a counter-clockwise change of slope at a critical point leads to instability of a mode. This can be seen in \ref{fig:third_stable}.
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphs_pdf/third_and_stable}
+	\bigskip
+	\includegraphics[width=0.9\textwidth]{graphs_pdf/third_and_stable}
 	\caption{Mass-radius relation with a third stable branch and stability of lowest modes. Taken from \cite{Schertler2000}.}
+	\bigskip
 	\label{fig:third_stable}
 \end{figure}
 At points A, C and E, the maximum masses and minimum radii for one family each, the fundamental mode becomes unstable ($n=0$). $n$ is the number of radial nodes. When a new family starts with its lowest mass, $n=0$ regains stability. A branch is required to have all modes stable against oscillation to be physically relevant as a family. \\
@@ -230,16 +231,18 @@ The first to discover the general possibility of a third family was Gerlach in 1
 In 2017 M. Alford and A. Sedrakian were the first to argue what effects a multiple phase QCD diagram would yield for new families of compact stars (\cite{AlfordSedrakian2017} and references therein). Up to that point a quark core was always assumed to consist of only one phase. \\ 
 In order to construct an \ac*{mrr} Alford and Sedrakian put together a piecewise \ac*{eos} consisting of one for nuclear (hadronic) matter up to saturation density and one for above densities. The latter part is allowed to have two first-order phase transitions, with a constant speed of sound per quark phase. The \ac*{eos} then looks as follows:
 \begin{figure} [h]
+	\bigskip
 	\centering
 	\subfigure[Constructed \ac*{eos}]{\includegraphics[width=0.46\textwidth]{graphs_pdf/EoS_letter}} 
 	\subfigure[Corresponding \ac*{mrr}]{\includegraphics[width=0.5\textwidth]{graphs_pdf/mass_radius_stiff2SC}}
 	\caption{(a) Constructed \ac*{eos} for a second quark matter phase transition. (b) \ac*{mrr} corresponding to stiff two-flavor color superconducting [2CS] and color-flavor-locked [CFL]. Taken from \cite{AlfordSedrakian2017}.}
+	\bigskip
 	\label{fig:fourth_eos_alfsed}
 \end{figure}
 From figure \ref{fig:fourth_eos_alfsed} a) four of the six parameters determining the \ac*{eos} can be read off: the transition pressures $P_{1,2}$ as well as $\Delta\varepsilon_{1,2}$, the energy density jumps. The remaining parameters are the phases' sound speeds. Figure \ref{fig:fourth_eos_alfsed} b) shows an \ac*{mrr} for four different energy density jump ratios and stiff quark phase \ac*{eos}. The sound speeds $s_1$ and $s_2$ have been set to 0.7 and 1, respectively. For jump ratios above of about 0.15, a fourth branch of compact stars separates from the twin stars located around 12.5\,km. White dwarfs are not shown, the very right branch is made of neutron stars. Within a certain ratio range triplet configurations arise: one mass, but three possible radii, depending on the star's composition. This is well visualized in fig. \ref{fig:composition}. If the phase transitions are sufficiently weakly first order, no instability arises, leaving the \ac*{mrr} with an extended twin star branch. From there, the fourth family emerges, completely vanishing when both transitions are strong enough, making both quark phases unstable.
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphs_pdf/profiles}
+	\includegraphics[width=0.9\textwidth]{graphs_pdf/profiles}
 	\caption{States of matter for a triplet configuration. $M=1.975$\,$M_\odot$, $\Delta\varepsilon_{1}/\Delta\varepsilon_{2}=0.23$. Pressure in dyn/cm$^2$, N stands for Nuclear Phase. Taken from \cite{AlfordSedrakian2017}.}
 	\label{fig:composition}
 \end{figure}
@@ -251,13 +254,13 @@ From figure \ref{fig:fourth_eos_alfsed} a) four of the six parameters determinin
 This \ac*{eos} will serve as a test case for the reconstruction algorithm (the constant in the polytrope will be set arbitrarily when using it as a first test). For a detailed version of this derivation, see \cite{Glendenning}. \\
 Here, $p=k$ ($c=1$) and therefore $E=\sqrt{k^2+m^2}$. With that, the energy density, pressure and density become:
 \begin{align}
-	\epsilon &= \frac{\gamma}{2\pi ^2}\int_{0}^{k_F} k^2\sqrt{k^2+m^2} \ dk \\
+	\varepsilon &= \frac{\gamma}{2\pi ^2}\int_{0}^{k_F} k^2\sqrt{k^2+m^2} \ dk \\
 	p &=  \frac{\gamma}{6\pi ^2} \int_{0}^{k_F} \frac{k^4}{\sqrt{k^2+m^2}} \ dk \\
 	\rho &= \frac{\gamma}{2\pi ^2}\int_{0}^{k_F} k^2 \ dk
 \end{align}
 Setting the chemical potential to $\mu = \sqrt{k_F^2+m^2}$ (the Fermi energy), the solutions to these integrals read
 \begin{align} \label{eq:eorho_solved}
-	\epsilon &= \frac{1}{4\pi^2} \left[  \mu k_F \left(\mu^2-\frac{m^2}{2}\right)-\frac{m^4}{2} \ln \left(\frac{\mu +k_F}{m}\right)   \right] \\
+	\varepsilon &= \frac{1}{4\pi^2} \left[  \mu k_F \left(\mu^2-\frac{m^2}{2}\right)-\frac{m^4}{2} \ln \left(\frac{\mu +k_F}{m}\right)   \right] \\
 	p &= \frac{1}{12\pi^2} \left[  \mu k_F \left(\mu^2-\frac{5m^2}{2}\right)-\frac{3m^4}{2} \ln \left(\frac{\mu +k_F}{m}\right)   \right] \\
 	\rho &= \frac{k_F^3}{3\pi^2} \label{eq:rho}
 \end{align}
@@ -272,7 +275,7 @@ Numerically, it is convenient to calculate limits of equations \ref{eq:eorho_sol
 \end{equation}
 Which is a polytropic type of equation. By absorbing densities into the energy density, one can get
 \begin{equation}
-	p = K\cdot\epsilon^\gamma
+	p = K\cdot\varepsilon^\gamma
 \end{equation}
 which is common to use for simple star models, especially white dwarfs. 
 
@@ -317,8 +320,8 @@ The RK4 algorithm will be implemented so that it can be easily modified any time
 
 \subsection{From TOV solver to reconstruction}
 
-After implementing the TOV equations together with the integration method, one can now generate an \ac*{mrr} by looping over several $p_c$ and using one \ac*{eos} only. This \ac*{mrr} will be used for testing the final reconstruction code, which will consist of the TOV solver extended with the reconstruction algorithm explained below.\\
-The main additions will be the split of the pressure range into segments, each requiring their own part of the \ac*{eos}, as well as a segment determining the ``correctness'' of calculated mass and radius. The code will work not as ``inversely'' as was proposed before; the stars will still be integrated from the core towards the surface. However, the reconstruction no longer uses one single \ac*{eos}.
+After implementing the TOV equations together with the integration method, one can now generate an \ac*{mrr} by looping over several central pressures using one \ac*{eos} only. This \ac*{mrr} will be used for testing the final reconstruction code, which will consist of the TOV solver extended with the reconstruction algorithm explained below.\\
+The main additions will be the splitting of the pressure range into segments, each requiring their own part of the \ac*{eos}, as well as a segment determining the ``correctness'' of calculated mass and radius. The code will work not as ``inversely'' as proposed below; the stars will still be integrated from the core towards the surface. However, the reconstruction no longer uses one single \ac*{eos} but rather constructs its own.
 
 
 \subsection{The inverse problem} \label{inv}
@@ -335,7 +338,7 @@ Lindblom on the other hand presents an \ac*{mrr}-\ac*{eos}-pair to be uniquely l
 Instead of integrating the TOV equations from the core towards the surface with initial values $p=p_c$ and $r=0$, Lindblom uses $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, the \ac*{eos} is assumed to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\} (as Gerlach did). Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. By representing the TOV equations for this small region as a power series, and inverting that, one can obtain \{$\epsilon_{i+1}, p_{i+1}$\} as a function of previously calculated quantities. This algorithm is repeated for the rest of the \ac*{mrr}, using an interpolation method to link \{$\epsilon_{i+1}, p_{i+1}$\} to the known \ac*{eos}.\\
 Here, a different and more simplistic approach to this problem is developed. This new method does not require the star to be integrated from crust to core, but will merely be a modification of the standard problem. This leads to a kind of ``trial and error'' type of solution, as section \ref{recon_method_sec} will explain more detailed.
 
-
+\pagebreak
 \section{Reconstruction method} \label{recon_method_sec}
 
 \subsection{General goal}
@@ -343,14 +346,18 @@ Here, a different and more simplistic approach to this problem is developed. Thi
 The goal is to reconstruct the \ac*{eos} with as few biasing and imposing of mathematical form as possible. Therefore, the only pre-determined input is an \ac*{eos} corresponding to a given mass in the \ac*{mrr} (Fig. \ref{fig:mce}). From there, the \ac*{eos} can be constructed without further constraint. Here, a straight line is added to the end of the \ac*{eos}, that is, in the high density region (Fig. \ref{fig:recon} b). The ODE solver starts at a point near the end of the given \ac*{eos} and will calculate a mass with the (now small) piece of straight line and the \ac*{eos}. If the mass does not fit the corresponding one in the \ac*{mrr} that was read in previously, the starting point on the line will be shifted to a higher pressure by a small step. At some very high pressure, a cut-off can be applied due to un-physical energy densities. If the starting point reaches the cut-off and the correct mass was not found, the slope of the line is varied. The latter also happens when the radius that corresponds to the calculated mass does not fit the one corresponding to the radius in the file. in Fig. \ref{fig:recon} c) the slope and end point of the green line have been successfully varied and the next mass and radius are reconstructed using the variation of the red line. The green line is now a part of the given \ac*{eos}. This process will be repeated until the end of the \ac*{mrr} file.
 \begin{figure} [h]
 	\centering
-	\includegraphics[width=0.8\textwidth]{graphs_pdf/mrr_corr_eos_new}
+	\bigskip
+	\includegraphics[width=0.9\textwidth]{graphs_pdf/mrr_corr_eos_new}
 	\caption{corresponding points in \ac*{mrr} and \ac*{eos}. Point in \ac*{eos} resembles values in the center of the star.}
+	\bigskip
 	\label{fig:mce}
 \end{figure}
 \begin{figure} [h]
 	\centering
+	\bigskip
 	\includegraphics[width=1\textwidth]{graphs_pdf/eos_lines_recon_schematic}
 	\caption{a) Given polytropic equation of state, b) added a constructed straight line, c) Successfully varied green line, red line for next mass}
+	\bigskip
 	\label{fig:recon}
 \end{figure}
 
@@ -390,7 +397,7 @@ This method is of course of highly numerical nature. However, in the past statis
 
 \subsection{Optimal radius and mass for a given slope}
 
-Before comparing the radius, the optimum mass can easily be obtained by fixing a slope for the \ac*{eos} and varying the central pressure in small steps. Here it proved to be convenient to use an indirect check instead of a direct comparison to the input mass. After the first calculation, an initial difference between input and outcome is stored. The difference for the next central pressure will be multiplied with the initial one; variation takes place until the multiplication outcome flips the sign. Then, the pressure step is decreased and variation also switches direction. This can be repeated until a desired precision is reached. The radius corresponding to the optimum mass will be given to the main function along with it. 
+Before comparing the radius to the input, the optimum mass can easily be obtained by fixing a slope for the \ac*{eos} and varying the central pressure in small steps. The latter has no significant impact on the radius. Here it proved to be convenient to use an indirect check instead of a direct comparison to the input mass. After the first calculation, an initial difference between input and outcome is stored. The difference for the next central pressure will be multiplied with the initial one; variation takes place until the multiplication outcome flips the sign. Then, the pressure step is decreased and variation also switches direction. This can be repeated until a desired precision is reached. The radius corresponding to the optimum mass will be given to the main function along with it. 
 
 \subsection{Direct and indirect radius check} \label{indradch}
 
@@ -409,6 +416,7 @@ Instead of trying to find the roots of $f_\text{dir}$, the code is now supposed 
 $\lambda$ is an ``importance parameter''. In order to avoid big jumps in the slope $\xi_\text{curr}$ with respect to $\xi_\text{prev}$, $\lambda$ is set to some value. That way, $\xi_\text{curr}$ will not deviate more from $\xi_\text{prev}$ than $\lambda$ allows. Before the variation of a slope, a star is calculated once with the current slope and with a higher and lower one, respectively. The slope variation direction is then determined by the behaviour of $f_\text{ind}$. After the first reconstruction $\lambda$ is set to a value above zero while initially using $\lambda = 0$ as there is no slope from before to use. \\
 Some time in the future, the program should be capable of modelling first-order phase transitions in the \ac*{eos}. Such a transition requires a jump in the slope and discontinuities in the \ac*{eos}. It is obvious that the indirect method is biased towards smooth \ac*{eos} without any unusual progression $-$ ruling out the possibility to model a phase transition from the beginning. That can be dealt with by tracking extremal points in the \ac*{mrr} while reading it in as input. When the reconstruction part of the code reaches the first mass behind a maximum, the algorithm is changed from $f_\text{ind}$ to $f_\text{dir}$ by setting $\lambda = 0$. $\xi_\text{curr}$ may now freely deviate from $\xi_\text{prev}$ to find the \ac*{eos} points during and after the transition. \\
 
+\pagebreak
 \section{Results}
 
 \subsection{Issues}
@@ -425,26 +433,48 @@ Setting $\lambda = 0$ of course bears the risk ``finding'' wrong points easily a
 
 The first code test will take place with a simple polytropic \ac*{eos} such as
 \begin{equation*}
-\epsilon(p) = \left(\frac{p}{10}\right)^{3/5}
+\varepsilon(p) = \left(\frac{p}{10}\right)^{3/5}
 \end{equation*}
 Using the TOV solver, an \ac*{mrr} is generated. The \ac*{mrr} seen in Fig. \ref{fig:test} will be the first one to be reconstructed. 
 \begin{figure} [h]
 	\centering
+	\bigskip
 	\includegraphics[width=1\textwidth]{graphs_pdf/testcase_mrr_eos}
-	\caption{Test case}
+	\caption{Test case MRR and EOS}
+	\bigskip
 	\label{fig:test}
 \end{figure}
-The curves both consist of 100 data points which will be read in by the reconstruction code. The result can be seen in \ref{fig:recon_test}.
-\begin{figure}
+The curves both consist of 100 data points which will be read in by the reconstruction code. The result can be seen in \ref{fig:recon_test}: The radius was checked indirectly, also the mass has been calculated to an optimal value. Clearly, up to a density of about $100$\,MeV\,fm$^{-3}$ the code worked rather fine. In terms of computation time this was one of the longest runs as precision was achieved within the comparisons of mass and radius to the input while calculating the \ac*{tov} equations without an adaptive step size nor with even a Runge-Kutta method (but Euler's instead). It is questionable if an RK4 algorithm would bring significant improvement to the obvious failure at higher densities; most likely it will mainly increase the computation time rather than the precision of the result. Considering how well the reconstruction algorithm worked in the low-density region, the sudden deviation of $3$\,GeV\,fm$^{-3}$ in energy density paired with a $25$\,MeV\,fm$^{-3}$ pressure jump is likely not a precision issue. The exact reason for the problem remains unclear as there do not seem to be fundamental issues regarding the algorithm as a whole. \\
+\begin{figure} [h]
 	\centering
+	\bigskip
 	\includegraphics[width=1\textwidth]{graphs_pdf/testcase_recon_stefan_fail}
 	\caption{Reconstruction test}
+	\bigskip
 	\label{fig:recon_test}
+\end{figure}
+Figure \ref{fig:recon_test_2} shows the result for a code without indirect radius check. At first glance, the program proceeded giving results above $100$\,MeV\,fm$^{-3}$. However, a closer look reveals sudden drops in slope to negative values, which is obviously unphysical. These drops occur after the code ran into a limit $|\text{slope}|=4$ which was implemented to prevent large jumps (instead of an indirect radius comparison involving $\lambda$). Above about $110$\,MeV\,fm$^{-3}$ the variable ``slope'' is still in an absolutely expected region, but calculating it from the pressures and energy densities stored in the $\alpha$ array yields negative values. This issue could not be resolved as it seems to appear for no apparent reason, especially since up to that point the program does what it should, giving masses and radii with surprising precision compared to the input.
+
+\begin{figure} [h]
+	\centering
+	\bigskip
+	\includegraphics[width=1\textwidth]{graphs_pdf/testcase_recon_me_negslope}
+	\caption{Reconstruction test}
+	\bigskip
+	\label{fig:recon_test_2}
 \end{figure}
 
 
-
-
+\subsection{Second equation of state}
+In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
+\begin{figure} [h]
+	\centering
+	\bigskip
+	\includegraphics[width=1\textwidth]{graphs_pdf/second_mrr_eos}
+	\caption{A second \ac*{eos} together with the \ac*{mrr} it produces}
+	\bigskip
+	\label{fig:othertest}
+\end{figure}
 
 
 %%%ALTERNATIVE BILDUMGEBUNG
