@@ -10,7 +10,7 @@ def eos(p):
 x1 = []
 y1 = []
 
-with open('results', 'rb') as csvfile:
+with open('results_l3', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter=' ')
     for row in plots:
         x1.append(float(row[4]))

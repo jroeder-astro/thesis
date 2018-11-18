@@ -108,7 +108,7 @@ double eos(double p, vector<double> *alpha) {
 void tov_euler(double *y_t, double t, 
                double *y_t_plus_tau, double tau, vector<double> *alpha) {
   int i1;
-  
+ 
   double k1[N];
   f_times_tau(y_t, t, k1, tau, alpha);
 

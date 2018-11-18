@@ -80,7 +80,7 @@ main(){
 
   // File I/O
 
-  FILE *fres = fopen("results","w"); 
+  FILE *fres = fopen("results_l3","w"); 
   FILE *MRR = fopen("mr.out", "r");
   double pcenter;
   if (MRR == NULL)
@@ -303,7 +303,7 @@ main(){
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = 1e-2;
+    lambda = 1e-3;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 

@@ -454,7 +454,6 @@ The curves both consist of 100 data points which will be read in by the reconstr
 	\label{fig:recon_test}
 \end{figure}
 Figure \ref{fig:recon_test_2} shows the result for a code without indirect radius check. At first glance, the program proceeded giving results above $100$\,MeV\,fm$^{-3}$. However, a closer look reveals sudden drops in slope to negative values, which is obviously unphysical. These drops occur after the code ran into a limit $|\text{slope}|=4$ which was implemented to prevent large jumps (instead of an indirect radius comparison involving $\lambda$). Above about $110$\,MeV\,fm$^{-3}$ the variable ``slope'' is still in an absolutely expected region, but calculating it from the pressures and energy densities stored in the $\alpha$ array yields negative values. This issue could not be resolved as it seems to appear for no apparent reason, especially since up to that point the program does what it should, giving masses and radii with surprising precision compared to the input.
-
 \begin{figure} [h]
 	\centering
 	\bigskip

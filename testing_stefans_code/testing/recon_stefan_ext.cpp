@@ -12,7 +12,7 @@ const int N = 2;
 const int num_steps = 10000000;
 double *y;
 double p_end   = 0.0;
-const double tau  = 0.0001;
+const double tau  = 0.01;
 double t[num_steps+1];
 double p_dur   = 0.0;
 double Rcomp,Mcomp;
@@ -91,50 +91,30 @@ main(){
       break;
     one_MR[0] = R;
     one_MR[1] = M;
-    alpha.push_back(p*convert);
-    alpha.push_back(e*convert);
+//    alpha.push_back(p*convert);
+//    alpha.push_back(e*convert);
     MR_rel.push_back(one_MR);
   }
   fclose(MRR);
   MRR = NULL;
   cout << "read mrr\n";
   cout << "a.size(): " << alpha.size() << endl;
-/*
-  // check for maxima in MRR
 
-  vector<int> maxmin;
-  double maxdiff0 = MR_rel[1][1] - MR_rel[0][1];
-  double maxdiff  = 0;
-  int    mmindx   = 0;
-  for (i1 = 2; i1 < MR_rel.size(); i1++) {
-    maxdiff = MR_rel[i1][1] - MR_rel[i1-1];
-    if (maxdiff * maxdiff0 < 0) {
-      max.push_back(i1);
-      maxdiff0 = maxdiff;
-    }
-  }
-*/
-
-  // set initial mcount
+  cout << "MR_rel.size(): " << MR_rel.size() << endl;
 
   for (i1 = 0; i1 < MR_rel.size(); i1++) {
-    if (MR_rel[i1][1] >= 1.22) {
-      p_init = alpha[2*i1];
-      p_dur = p_init;
+    if (MR_rel[i1][1] >= 1.5) {
+//      p_init = alpha[2*i1];
+//      p_dur = p_init;
       break;
     }
   }
 
   mcount = i1+1; 
   cout << "initial mcount: " << mcount << endl;
-  for (int i3 = 2*i1+2; i3 < alpha.size(); i1++) {
-    //cout <<"yeet\n";
-    alpha.pop_back();
-  }
- cout << "a.size(): " << alpha.size() << endl;
 
   // read external eos
-/*
+
   FILE *exteos = fopen("output.dat", "r");
   if (exteos == NULL)
     exit(0);
@@ -148,29 +128,20 @@ main(){
   fclose(exteos);
   exteos = NULL;
 
-  // (hopefully) determine the mass up to which eos is known
-  // together with central pressure
-
-  indx = alpha.size() - 2;
-  for (int x = 0; x < indx; x += 2) {
-    cout << "calc star \n" << endl;
-    y_0[0] = alpha[indx-x];
-    y_0[1] = 0.0;
-    tov(y_0, 0, &alpha);
-    if (y[(i1-1)*N+1]/1.4766 > 1)
-      break;
+  for (int i3 = 2*i1+2; i3 < alpha.size(); i1++) {
+    // removing all the parts from alpha that we do not need
+    alpha.pop_back();
   }
-  p_init = alpha[indx-x];
-  p_cut  = alpha[indx-x];
-*/
-  cout << "p_init = " << p_init << endl;
-for (i2 = 0; i2 < alpha.size(); i2++) {
-    cout << alpha[i2] << endl;
-  }
+  cout << "a.size(): " << alpha.size() << endl;
 
- 
-  // pushing alpha out for further calculation
- 
+  p_init = alpha[0] + 0.00001 + mcount * 0.00001;
+  p_dur = p_init;
+
+  // adjusting alpha so that the last two fixed values are the central
+  // values of the last star that we assume to know the EOS for
+  alpha[indx] = p_init;
+  alpha[indx+1] = line(p_dur, p_dur, &alpha);
+
   indx = alpha.size() - 2;
   cout << "indx: " << indx << endl;
   alpha.push_back(5 * alpha[indx]);
@@ -180,8 +151,15 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
 
   // Initialization
 
-//  p_init   = MR_rel[mcount-1][2];
-//  p_dur    = MR_rel[mcount-1][2];
+  //  p_init   = MR_rel[mcount-1][2];
+  //  p_dur    = MR_rel[mcount-1][2];
+  //  p_init = alpha[indx-2];
+ 
+
+  for (i2 = 0; i2 < alpha.size(); i2++) {
+    cout << alpha[i2] << endl;
+  }
+
   e_rec    = line(p_dur, p_dur, &alpha);
   t[0]     = 0.0000000001;
   first    = true;
@@ -192,6 +170,8 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
 //  alpha[3] = e_rec + (alpha[2]-alpha[0]) / slope;
 //  indx     = 2;
   cout << "initialized\n";
+
+
 
 // code optimizes a function eps = (R-R_wanted)**2 + lambda*(slope-slope_before)**2 do avoid big jumps in the slope
 // as the slope_before is not known in the first round, use lambda=0 for optimization
@@ -209,7 +189,7 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
     }
   */
 
-  cout << "in while loop\n";
+    cout << "in mcount while loop\n";
 
     pstep=1e-7;
     flag_s = false;
@@ -224,10 +204,11 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
       alpha.push_back(eold + 1000*pstep / slope);
     }
     indx=alpha.size()-2;
+
 // calculate eps for the initial slope (slope from previous mcount solution)  
 // and a value below and above to determine whether slope_step should be positive or negative 
 
-//    cout << "before getR()\n";
+    cout << "before getR()\n";
 
     getR();
     diff0_s=Rcomp-MR_rel[mcount][0];
@@ -334,7 +315,7 @@ for (i2 = 0; i2 < alpha.size(); i2++) {
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = 1e-3;
+    lambda = 1e-2;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
@@ -369,17 +350,13 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
   int i1,i2;
   double y_tau[N];
 
-       // Initializing
+  // Initializing
   for (i1 = 0; i1 < N; i1++) {
     y[i1] = y_0[i1];
   }
 
-  for (i2 = 0; i2 < alpha->size(); i2++) {
-//    cout << (*alpha)[i2] << endl;
-  }
-
-      // Integration
-//  cout << "doing Euler\n";
+  // Integration
+  //  cout << "doing Euler\n";
 
   for (i1 = 0; y[i1*N] > 0; i1++) {
     
@@ -390,11 +367,11 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 
     for (i2 = 0; i2 < N; i2++) {
       y[(i1+1)*N+i2] = y_tau[i2];
-//      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
+      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
     }
 
     t[i1+1] = t[i1] + tau;
-//   cout << "t[i1+1]: " << t[i1+1] << endl;
+    cout << "t[i1+1]: " << t[i1+1] << endl;
   }
   
   return i1;
@@ -405,17 +382,16 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 double line(double p, double p_cut, vector<double> *alpha) {
   int i;
 
- // comment this out for external eos input
- // if(p <= p_cut) 
- //   return pow(p/10.,0.6);
+  // comment this out for external eos input
+  // if(p <= p_cut) 
+  //   return pow(p/10.,0.6);
 
-  for(i=2;i<alpha->size();i+=2) {
+  for(i=2;i < alpha->size(); i+=2) {
     if(p<(*alpha)[i]) break;
   }
 
-  double e =  (p - (*alpha)[i-2]) * 
-         ((*alpha)[i+1]-(*alpha)[i-1])/((*alpha)[i]-(*alpha)[i-2]) 
-          + (*alpha)[i-1] ;
+  double e =  (*alpha)[i-1] + (p - (*alpha)[i-2]) * 
+         ((*alpha)[i+1]-(*alpha)[i-1])/((*alpha)[i]-(*alpha)[i-2]);
   return e;
 }
 
@@ -447,9 +423,18 @@ void getR() {
   bool flag = false;
   double diff0,diff=0.0;
   double pstep = 1e-7;
+
+  for (int i2 = 0; i2 < alpha.size(); i2++) {
+    cout << alpha[i2] << endl;
+  }
+
+  indx = alpha.size()-2;
+
   p_end = alpha[indx-2]-pstep;
   while (p_end >= 0.8 * p_dur) {
-
+ 
+    cout << "In p while loop in getR()\n";
+    cout << "p_dur = " << p_dur << endl;
     if(p_end>alpha[indx-2]*5.0) 
       break;
     p_end += pstep;
@@ -461,6 +446,21 @@ void getR() {
  // Would it not have to be p_init???
  // i1 = tov(y_0, p_init, &alpha);   
 
+    cout << "mass calculated\n";
+
+/*
+
+    The code runs into a segmentation fault here as i1 will exceed the
+    array sizes of both t and y. The values for radius and mass calculated
+    by the tov functions make no sense whatsoever especially since in the 
+    TOV solver it worked fine. During calculation, the mass does not 
+    increase enough for each step, and the radius increases too fast, but
+    at some point runs into negative values instead of increasing further.
+
+    m about 0.15 at r about 36; from there m decreases again
+
+*/
+
  // end of mass calculation
     Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
     Mcomp = y[(i1-1)*N+1] + 
@@ -469,7 +469,7 @@ void getR() {
 
     if (!flag) {
       diff0 = Mcomp - MR_rel[mcount][1];
-
+      cout << "diff0 set\n";
       if(fabs(diff0)<1e-6) 
         break;
 
@@ -483,6 +483,7 @@ void getR() {
 
     else {
       double diffx = Mcomp - MR_rel[mcount][1];
+      cout << "diffx set";
       if(diff>0.0) {
         if(fabs(diffx-diff)>0) {
           diff=diffx;
@@ -492,7 +493,7 @@ void getR() {
       diff = diffx;
       if(fabs(diff)<1e-6) 
         break;
-//  printf("diff mass %g %g %g %g %g %g\n",pstep,slope,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
+  printf("diff mass %g %g %g %g %g \n",pstep,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
 
       if (diff * diff0 > 0) {
           // cout << diff * diff0 << endl;
@@ -502,7 +503,7 @@ void getR() {
       pstep /= 10.0;
       diff = 0.0;
       if (pstep < 1e-9) {
-//           cout << "pstep < x breaking condition" << endl;
+        cout << "pstep < x breaking condition" << endl;
         break;
       }
  
@@ -516,5 +517,8 @@ void getR() {
   Mcomp = y[(i1-1)*N+1] + (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
   Mcomp /= 1.4766;
 
+  cout << "getR() finished\n";
+
   return;
 }
+
