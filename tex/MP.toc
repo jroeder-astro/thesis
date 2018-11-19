@@ -29,4 +29,6 @@
 \contentsline {subsection}{\numberline {4.1}Issues}{22}{subsection.4.1}
 \contentsline {subsubsection}{\numberline {4.1.1}Radius and slope control}{22}{subsubsection.4.1.1}
 \contentsline {subsection}{\numberline {4.2}Test case}{23}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}Second equation of state}{24}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.3}Varying the $\lambda $ parameter}{24}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}MRR-EOS map uniqueness}{25}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Second equation of state}{25}{subsection.4.5}

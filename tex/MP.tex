@@ -463,6 +463,29 @@ Figure \ref{fig:recon_test_2} shows the result for a code without indirect radiu
 	\label{fig:recon_test_2}
 \end{figure}
 
+\subsection{Varying the $\lambda$ parameter}
+Figure \ref{fig:recon_test} was made with $\lambda = 10^{-2}$. Varying $\lambda$ has significant impact on precision. With no changes made otherwise, decreasing $\lambda$ to, for example, $10^{-3}$, leads to a strong deviation from the desired curve, whereas an increase in $\lambda$ rapidly leads to an unreasonably long computation time. 
+
+
+% --- INSERT PLOT: DIFFERENT LAMBDAS --- %
+
+\subsection{MRR-EOS map uniqueness}
+As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness linking \ac*{eos} and \ac*{mrr} to construct his inverse algorithm. It seems peculiar that the radius, with given $\lambda$, only deviates from the input by a few meters, barely visible when shown in a plot. In contrast the \ac*{eos} can deviate visibly from the desired input curve.
+
+
+% --- INSERT PLOT: COMPARISON OF MRR AND EOS DEVIATION --- %
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Second equation of state}
 In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
