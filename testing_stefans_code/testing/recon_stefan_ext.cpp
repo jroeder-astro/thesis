@@ -370,6 +370,11 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
       cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
     }
 
+/*
+    Weird things are being calculated here: the radius increases
+    too fast whereas the mass almost does not increase at all
+*/
+
     t[i1+1] = t[i1] + tau;
     cout << "t[i1+1]: " << t[i1+1] << endl;
   }

@@ -7,6 +7,9 @@ P = 7.55616208*np.power(10., 5.)
 def eos(p):
     return np.power(p/(10.), 3./5.)
 
+def inv(e):
+    return 10.*np.power(e, 5./3.)
+
 Rl2 = []
 Ml2 = []
 el2 = []
@@ -16,7 +19,6 @@ Rl25 = []
 Ml25 = []
 el25 = []
 pl25 = []
-
 
 Rl3 = []
 Ml3 = []
@@ -69,22 +71,30 @@ pl2n = [a*P for a in pl2]
 el25n = [a*P for a in el25]
 pl25n = [a*P for a in pl25]
 
+
+eRatL3 = [a/eos(b) for a in el3n and b in pl3n]
+epInvL3 = [inv(a) for a in el3n]
+pRatL3 = [a/b for a in pl3n and b in epInvL3]
+
+
 p1 = np.arange(0., 0.00025, 0.00000001)
 
-plt.subplot(2,2,(1,3))
-plt.plot(Rd, Md, label = 'MRR input')
-plt.plot(Rl2, Ml2,label = 'MRR $\lambda = 0.01$')
-plt.plot(Rl25, Ml25,label = 'MRR $\lambda = 0.05$')
-plt.plot(Rl3, Ml3,label = 'MRR $\lambda = 0.001$')
-plt.ylabel('M/M$_\odot$', fontsize=15)
-plt.xlabel('R/km', fontsize=15)
-plt.legend(loc=3,prop={'size':12})
+#plt.subplot(2,2,(1,3))
+#plt.plot(Rd, Md, label = 'MRR input')
+#plt.plot(Rl2, Ml2,label = 'MRR $\lambda = 0.01$')
+#plt.plot(Rl25, Ml25,label = 'MRR $\lambda = 0.05$')
+#plt.plot(Rl3, Ml3,label = 'MRR $\lambda = 0.001$')
+#plt.ylabel('M/M$_\odot$', fontsize=15)
+#plt.xlabel('R/km', fontsize=15)
+#plt.legend(loc=3,prop={'size':12})
 
-plt.subplot(2,2,(2,4))
-plt.plot(p1*P, eos(p1)*P, label = 'EOS input')
+#plt.subplot(2,2,(2,4))
+#plt.plot(p1*P, eos(p1)*P, label = 'EOS input')
 #plt.plot(pl2n, el2n, label ='EOS $\lambda = 0.01$')
-plt.plot(pl25n, el25n, label ='EOS $\lambda = 0.05$')
-plt.plot(pl3n, el3n, label ='EOS $\lambda = 0.001$')
+#plt.plot(pl25n, el25n, label ='EOS $\lambda = 0.05$')
+
+plt.plot(pRatL3, eRatL3, label ='EOS $\lambda = 0.001$')
+
 plt.ylabel('$\epsilon$(p)/GeVfm$^{-3}$', fontsize=15)
 plt.xlabel('p/GeVfm$^{-3}$', fontsize=15)
 plt.legend(loc=2,prop={'size':12})
