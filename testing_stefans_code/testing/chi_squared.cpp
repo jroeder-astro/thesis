@@ -19,7 +19,7 @@ main() {
 
 // *** FILE I/O: reconstruction output***
 
-  FILE *recon = fopen("results_l2_7", "r");
+  FILE *recon = fopen("results_l2_8", "r");
   if (recon == NULL) 
     exit(0);
   else
