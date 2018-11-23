@@ -71,13 +71,21 @@ pl2n = [a*P for a in pl2]
 el25n = [a*P for a in el25]
 pl25n = [a*P for a in pl25]
 
+edn =  [P*eos(a) for a in pl25]
+eRatL25 = []
+endind = len(edn)
+for i in range(endind):
+    eRatL25.append(el25n[i]/edn[i])
 
-eRatL3 = [a/eos(b) for a in el3n and b in pl3n]
-epInvL3 = [inv(a) for a in el3n]
-pRatL3 = [a/b for a in pl3n and b in epInvL3]
+
+#eRatL3 = [a/eos(b) for a in el3n and b in pl3n]
+#epInvL3 = [inv(a) for a in el3n]
+#pRatL3 = [a/b for a in pl3n and b in epInvL3]
 
 
 p1 = np.arange(0., 0.00025, 0.00000001)
+oneX = [0, 180]
+oneY = [1, 1]
 
 #plt.subplot(2,2,(1,3))
 #plt.plot(Rd, Md, label = 'MRR input')
@@ -93,10 +101,10 @@ p1 = np.arange(0., 0.00025, 0.00000001)
 #plt.plot(pl2n, el2n, label ='EOS $\lambda = 0.01$')
 #plt.plot(pl25n, el25n, label ='EOS $\lambda = 0.05$')
 
-plt.plot(pRatL3, eRatL3, label ='EOS $\lambda = 0.001$')
-
-plt.ylabel('$\epsilon$(p)/GeVfm$^{-3}$', fontsize=15)
-plt.xlabel('p/GeVfm$^{-3}$', fontsize=15)
+plt.plot(pl25n, eRatL25, label ='EOS ratio $\lambda = 0.05$')
+plt.plot(oneX, oneY, 'b--')
+plt.ylabel('$\epsilon$(p)/$\epsilon_{default}$', fontsize=15)
+plt.xlabel('p/MeVfm$^{-3}$', fontsize=15)
 plt.legend(loc=2,prop={'size':12})
 
 plt.tight_layout()

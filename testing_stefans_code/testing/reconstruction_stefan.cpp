@@ -238,6 +238,8 @@ main(){
     while (slope > 0.0) {
       slope += slope_step;
 
+// FIRST PIECE TO KILL
+
       if(slope<=0) {
         slope_step -= slope_step;
         slope_step /= 10;
@@ -288,6 +290,9 @@ main(){
         cout << "slope_step break condition" << endl;
         break;
       }
+
+
+// SECOND PIECE TO KILL
 
       if (mcount > 18 && fabs(diff_s) > 0.3) {
         slope_step /= -10;
