@@ -80,7 +80,7 @@ main(){
 
   // File I/O
 
-  FILE *fres = fopen("results_l2_7_wo1","w"); 
+  FILE *fres = fopen("results_l2_63","w"); 
   FILE *MRR = fopen("mr.out", "r");
   double pcenter;
   if (MRR == NULL)
@@ -239,13 +239,13 @@ main(){
       slope += slope_step;
 
 // FIRST PIECE TO KILL
-/*
+
       if(slope<=0) {
         slope_step -= slope_step;
         slope_step /= 10;
         slope += slope_step;
       }
-*/
+
       alpha3_old = alpha[indx+1];
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
@@ -308,7 +308,7 @@ main(){
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = 7e-2;
+    lambda = (6.3)*(1e-2);
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 

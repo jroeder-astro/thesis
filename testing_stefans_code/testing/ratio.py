@@ -77,12 +77,6 @@ endind = len(edn)
 for i in range(endind):
     eRatL25.append(el25n[i]/edn[i])
 
-
-#eRatL3 = [a/eos(b) for a in el3n and b in pl3n]
-#epInvL3 = [inv(a) for a in el3n]
-#pRatL3 = [a/b for a in pl3n and b in epInvL3]
-
-
 p1 = np.arange(0., 0.00025, 0.00000001)
 oneX = [0, 180]
 oneY = [1, 1]
