@@ -35,21 +35,36 @@ main(){
   double e, p;
   double conv = 7.55616208*(1e+5);
 
-  FILE *input = fopen("output.dat", "r");
+  double d0, d1, d2, d3, d6;
+
+  FILE *input = fopen("results_l2_8", "r");
   if (input == NULL) exit(0);
+//  else cout << "input file open\n";
 
   while (1) {
-    if (fscanf(input, "%lf,%lf", &e, &p) == EOF)
+    if (fscanf(input, "%lf %lf %lf %lf %lf %lf %lf", 
+        &d0, &d1, &d2, &d3, &p, &e, &d6) == EOF)
       break;
     alpha.push_back(p);
     alpha.push_back(e);
   }
 
+//  for (i1 = 1; i1 < alpha.size(); i1+=2) {
+//    cout << alpha[i1] << endl;
+//  }
+
   fclose(input);
   input = NULL;
 
+//  cout << "input read\n";
+
   for (P = 0; P < 1000; P++) {
     p0 = alpha[0] + 0.00001 + P * 0.00001;
+
+    if (p0 > alpha[alpha.size()-2]) {
+      break;
+    }
+
     y_0[0] = p0; 
     y_0[1] = 0.0;
     t[0] = 0.00000000001;
@@ -72,6 +87,8 @@ main(){
       }
 */
     }
+
+//    cout << "pressure loop done\n";    
     
     M.push_back(y[i1-1][1]/1.4766);
     R.push_back(t[i1-1]);

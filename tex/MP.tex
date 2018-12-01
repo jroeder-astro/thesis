@@ -464,39 +464,52 @@ Figure \ref{fig:recon_test_2} shows the result for a code without indirect radiu
 \end{figure}
 
 \subsection{Varying the $\lambda$ parameter}
-Figure \ref{fig:recon_test} was made with $\lambda = 10^{-2}$. Varying $\lambda$ has significant impact on precision. With no changes made otherwise, decreasing $\lambda$ to, for example, $10^{-3}$, leads to a strong deviation from the desired curve, whereas an increase in $\lambda$ rapidly leads to an unreasonably long computation time. 
+Figure \ref{fig:recon_test} was made with $\lambda = 10^{-2}$. Varying $\lambda$ has significant impact on precision. With no changes made otherwise, decreasing $\lambda$ to, for example, $10^{-3}$, leads to a strong deviation from the desired curve, whereas an increase in $\lambda$ rapidly leads to an unreasonably long computation time. In order to find ``good'' values for $\lambda$, ten were chosen between 0.045 and 0.08. Below $\lambda = 5\cdot10^{-2}$ the \ac*{eos} look like \ref{fig:recon_test} and were not plotted again. \ref{fig:lambda_vary} shows the other results. \\
+By looking at fig. \ref{fig:lambda_vary} a correlation between precision loss towards higher radii and sudden drops in the \ac*{eos} can be seen immediately. This is technically plausible as lower energy density causes larger radius (otherwise, the increased gravitational pull would lead to a smaller radius). It however remains unclear why there is no distinct range for $\lambda$ to produce a ``good'' reconstruction; the ```failed'' runs are distributed randomly over the range of used $\lambda$. This arbitrariness is concerning as a certain range of working $\lambda$ would have made sense at least numerically if not physically. The results show a strong tendency to a trial-and-error based way of finding a well-working value which can in no way be motivated by any numerical or physical law.
 
-
-% --- INSERT PLOT: DIFFERENT LAMBDAS --- %
+\begin{figure} [h]
+	\centering
+%	\bigskip
+	\includegraphics[width=0.8\textwidth]{graphs_pdf/mrr_eos_lambda_varied_upright}
+	\caption{EOS and MRR for various values of $\lambda$. The precision was not changed.}
+%	\bigskip
+	\label{fig:lambda_vary}
+\end{figure}
 
 \subsection{MRR-EOS map uniqueness}
-As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness linking \ac*{eos} and \ac*{mrr} to construct his inverse algorithm. It seems peculiar that the radius, with given $\lambda$, only deviates from the input by a few meters, barely visible when shown in a plot. In contrast the \ac*{eos} can deviate visibly from the desired input curve.
-
-
-% --- INSERT PLOT: COMPARISON OF MRR AND EOS DEVIATION --- %
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection{Second equation of state}
-In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
+As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness linking \ac*{eos} and \ac*{mrr} to construct his inverse algorithm. It seems peculiar that the radius, with given $\lambda$, only deviates from the input by a few meters, barely visible when shown in a plot. In contrast the \ac*{eos} can deviate visibly from the desired input curve. However, as can be seen in fig. \ref{fig:eos_ratio}, for the \ac*{eos} without obviously unphysical behavior the maximum deviation is about 10\,\%. To obtain fig. \ref{fig:eos_ratio}, energy densities were calculated with the original \ac*{eos} and the reconstructed pressures. The reconstructed energy densities were then divided by these ``default'' ones. For comparison to unity the blue dashed line (division of original \ac*{eos} by itself) was drawn together with the ratios.
+ 
 \begin{figure} [h]
 	\centering
 	\bigskip
-	\includegraphics[width=1\textwidth]{graphs_pdf/second_mrr_eos}
-	\caption{A second \ac*{eos} together with the \ac*{mrr} it produces}
+	\includegraphics[width=1\textwidth]{graphs_pdf/mrr_eos_ratios}
+	\caption{Ratio plots for the EOS that did not show peculiar behavior}
 	\bigskip
-	\label{fig:othertest}
+	\label{fig:eos_ratio}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\subsection{Second equation of state}
+%In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
+%\begin{figure} [h]
+%	\centering
+%	\bigskip
+%	\includegraphics[width=1\textwidth]{graphs_pdf/second_mrr_eos}
+%	\caption{A second \ac*{eos} together with the \ac*{mrr} it produces}
+%	\bigskip
+%	\label{fig:othertest}
+%\end{figure}
 
 
 %%%ALTERNATIVE BILDUMGEBUNG
