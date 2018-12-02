@@ -37,7 +37,7 @@ main(){
 
   double d0, d1, d2, d3, d6;
 
-  FILE *input = fopen("results_l2_8", "r");
+  FILE *input = fopen("results_l2_5", "r");
   if (input == NULL) exit(0);
 //  else cout << "input file open\n";
 
@@ -58,8 +58,8 @@ main(){
 
 //  cout << "input read\n";
 
-  for (P = 0; P < 1000; P++) {
-    p0 = alpha[0] + 0.00001 + P * 0.00001;
+  for (P = 0; P < 10000; P++) {
+    p0 = alpha[0] + 0.00001 + P * 0.000001;
 
     if (p0 > alpha[alpha.size()-2]) {
       break;
@@ -106,11 +106,11 @@ main(){
 
 double eos(double p, vector<double> *alpha) {
   int i;
-/*
+
   if (p < (*alpha)[0]) {
-    printf("%5.30lf,%5.20lf\n", p,e);
+    return pow(p/10., 3./5.);
   }
-*/
+
   for (i = 2; i < alpha->size(); i += 2) {
     if (p < (*alpha)[i])
       break;

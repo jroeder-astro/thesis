@@ -91,7 +91,8 @@
 \begin{acronym} [MRR]
 	\acro{eos}[EOS]{equation of state}
 	\acro{mrr}[MRR]{mass-radius relation}
-	\acro{tov}[TOV]{Tolman-Oppenheimer-Volkoff}
+	\acro{ode}[ODE] {ordinary differential equation}
+	\acro{tov}[TOV]{Tolman-Oppenheimer-Volkoff equations}
 \end{acronym}
 
 \pagebreak
@@ -136,12 +137,10 @@ Both kinds of compact stars are subject to fast neutrino and photon cooling. Aft
 
 
 
-\subsection{The Tolman-Oppenheimer-Volkoff equation} \label{TOV}
+\subsection{The Tolman-Oppenheimer-Volkoff equations} \label{TOV}
 
-The equation used for determining the structure of compact stars will here be the TOV equation. To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a 
-power of length.\\
-The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. 
-Further, the space-time shall not evolve in time, therefore staying spherically symmetric (i.e. it is stationary). In terms of the energy-momentum tensor we are left with:
+The structure of compact stars will be determined by the \ac{tov}. To make analytical and numerical calculations easier, the unit system is chosen to be $c=G=1$, so that every unit is a power of length.\\
+The derivation is based off the assumption that the star matter can be described as a perfect/ideal fluid. Further, the space-time shall not evolve in time, therefore staying spherically symmetric (i.e. it is stationary). In terms of the energy-momentum tensor we are left with:
 \begin{equation}\label{eq:hydro}
 	T_{\mu\nu}=\left(\varepsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
 \end{equation}
@@ -163,8 +162,8 @@ and puts it into the Einstein equations \ref{eq:einstein} together with the metr
 \begin{equation} \label{eq:einstein}
 	R_{\mu\nu} - \frac{1}{2} g_{\mu\nu} R = 8\pi \,T_{\mu\nu}
 \end{equation}
-Here, $R_{\mu\nu}$ is the Ricci tensor and $R$ is the Ricci scalar. Both can be calculated from the metric $g_{\mu\nu}$. Before one can get to work to get the actual TOV equations, the metric exponential functions have to be calculated.\\
-One obtains,finally, the full TOV equation:
+Here, $R_{\mu\nu}$ is the Ricci tensor and $R$ is the Ricci scalar. Both can be calculated from the metric $g_{\mu\nu}$. Before one can get to work to get the actual \ac{tov} equations, the metric exponential functions have to be calculated.\\
+One obtains, finally, the full \ac*{tov} equation:
 \begin{equation}\label{eq:tov}
 	\frac{dP}{dr} = \frac{(\varepsilon + P)(m + 4\pi r^3 P)}{2mr-r^2}
 \end{equation}
@@ -183,7 +182,7 @@ Most generally, an \ac*{eos} determines the relation between a set of quantities
 with, in this case, pressure $p$, Volume $V$ and Temperature $T$. The nature of $f$ (the actual \ac*{eos}) is then derived from a model (e.g. nuclear or quark) to properly describe the state of matter at hand, be it a fluid, solid or of an exotic type. Here, starting on the outside of a neutron star, states are still in or not far from the range of what can be experimentally observed. Towards the inner regions, exotic states and their impact on the \ac*{eos} are still subject to investigation. A number of nuclear or fluid \ac*{eos} have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single \ac*{eos} for the whole neutron star would be of great interest, one usually determines the \ac*{eos} piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
 The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.\\
 Generally, a neutron star can be divided into four zones: The inner and outer core, with inner and outer crust above it. These zones have fundamentally different properties. These zones are usually defined through their range of densities. For example, (one finds the original version of this proposal in \cite{Pandharipande1976} and \cite{ShapiroTeukolsky}), with $[\rho] =$\,g/cm$^3$:
-\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and magnetic fields can have big impact on the equation of state here. The surface may partly consist of accreted matter of unknown composition, followed by a layer of iron that marks the beginning of the actual neutron star. In this region, the \ac*{eos} is well approximated by Baym et al. \cite{Baym1971} [BPS]. BPS bases calculations on a lattice configuration of nuclei as expected from a lower-density domain. This leads to significant error with respect to the ground state neutron numbers of neutron-rich nuclei further below the surface, as their masses could not be measured with sufficient precision at the time \cite{Baym1971} \cite{NeutronStars1}. 
+\paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and magnetic fields can have big impact on the equation of state here. The surface may partly consist of accreted matter of unknown composition, followed by a layer of iron that marks the beginning of the actual neutron star. In this region, the \ac*{eos} is well approximated by Baym et al. \cite{Baym1971} (BPS). BPS bases calculations on a lattice configuration of nuclei as expected from a lower-density domain. This leads to significant error with respect to the ground state neutron numbers of neutron-rich nuclei further below the surface, as their masses could not be measured with sufficient precision at the time \cite{Baym1971} \cite{NeutronStars1}. 
 \paragraph{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$} Descending into the \textit{outer crust} a Coulomb lattice forms within a relativistic electron gas. Due to charge neutrality, $n_{electrons} = Z \cdot n_{nuclei}$; for the pressure holds $P = P_e + P_L$ \cite{NeutronStars1}, where $P_L$ resembles a correction made to account for Coulomb interactions. Upon reaching higher densities, neutronization becomes energetically favorable. In order to determine the nucleus contribution to the energy of one Wigner-Seitz cell in the lattice, BPS subtracting electron rest energies from the atomic masses. The difference between BPS and Haensel et al. \cite{HaenselPichon1994} [HP] is the model for electron screening effects. BPS used the electron binding energies as such a model, while HP subtracted those as well and imposed electron density uniformities \cite{NeutronStars1} instead.
 \paragraph{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$} In the \textit{inner crust} neutron-rich nuclei from a lattice; as the densities increases, neutron drip takes place. Now, there is not only an electron gas, but also a superfluid neutron gas formed by the dripped-out neutrons. A density estimate for the drip to start is performed in \cite{NeutronStars1} starting from
 \begin{equation*}
@@ -282,9 +281,7 @@ which is common to use for simple star models, especially white dwarfs.
 
 \subsection{Numerical solution}
 
-\subsubsection{Method}
-
-The TOV equations come in the form of a first-order ordinary differential equation system (ODE). In order to obtain sufficient precision, a 4th-order Runge-Kutta algorithm shall be used to solve said ODE. By looking at both equations, our ODE system is given in the form:
+The TOV equations come in the form of a first-order \ac{ode} system. In order to obtain sufficient precision, a 4th-order Runge-Kutta algorithm can be used to solve said \ac{ode}. By looking at both equations, our \ac{ode} system is given in the form:
 \begin{equation}\label{eq:ode}
 	\dot{y}(t) = f(y(t), t)
 \end{equation}
@@ -293,7 +290,7 @@ where $\dot{y}(t)$ is a two component "vector":
 	\dot{y}(t) =  \left( \begin{array}{c}dP/dr\\dm/dr\end{array} \right)
 \end{equation}
 $f(y(t), t)$ then contains the right hand side of equations \ref{eq:tov} and \ref{eq:mr}. \\
-Numerically, solving the ODE is achieved by approximation of a step $\tau$ in the function variable $t$ (in TOV, this is the radius $r$) with derivatives of the function that is the ODE solution ($y$). 
+Numerically, solving the ODE is achieved by approximation of a step $\tau$ in the function variable $t$ (in \ac{tov}, this is the radius $r$) with derivatives of the function that is the ODE solution ($y$). 
 \begin{equation}
 	y(t+\tau) = y(t) + \frac{1}{6} (k_1 + 2k_2 + 2k_3 + k_4)
  \end{equation}
@@ -309,33 +306,30 @@ For simpler test versions of the code, it is convenient to reduce the RK4 algori
 
 \subsubsection{Adaptive step size}
 
-In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If said change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ adjustion. If the check is successful, the program will accept the step result and proceed with the next one. 
+If mass and radius calculation algorithms do not yield a sufficient precision, the step size within the \ac*{tov} solver can be implemented as an adaptive variable instead of a constant. Step size adaption works as follows: In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If this change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ is adjusted again. If the check is successful, the program will accept the step result and proceed with the next one. 
 
 \subsubsection{Implementation}
 
-In the actual program (written in C), the left hand side of our ODE system is implemented as a two-dimensional array of form y[N][x]. 
-N will be two, for the whole program, as we will not add other equations to the system. The $k_i$ are all one-dimensional arrays; that way $x$ is only reflecting the step count. $x$ will therefore be in range zero up to the number of iteration steps. We set an arbitrary maximum step amount to prevent segmentation faults.\\
-The RK4 algorithm will be implemented so that it can be easily modified any time to another order of Runge-Kutta or even Euler.
+In the actual program (written in C), the left hand side of our \ac{ode} system is implemented as a two-dimensional array of form y[N][x]. N will be two, for the whole program, as we will not add other equations to the system. $k_i$ are all one-dimensional arrays; that way $x$ is only reflecting the step count. $x$ will therefore be in range zero up to the number of iteration steps. We set an arbitrary maximum step amount to prevent segmentation faults. The RK4 algorithm will be implemented easily modifiable at any time to another order of Runge-Kutta or even Euler.
 
 
 \subsection{From TOV solver to reconstruction}
 
-After implementing the TOV equations together with the integration method, one can now generate an \ac*{mrr} by looping over several central pressures using one \ac*{eos} only. This \ac*{mrr} will be used for testing the final reconstruction code, which will consist of the TOV solver extended with the reconstruction algorithm explained below.\\
+After implementing the \ac{tov} equations together with the integration method, one can now generate an \ac*{mrr} by looping over several central pressures using one \ac*{eos} only. This \ac*{mrr} will be used for testing the final reconstruction code, which will consist of the \ac{tov} solver extended with the reconstruction algorithm explained below.\\
 The main additions will be the splitting of the pressure range into segments, each requiring their own part of the \ac*{eos}, as well as a segment determining the ``correctness'' of calculated mass and radius. The code will work not as ``inversely'' as proposed below; the stars will still be integrated from the core towards the surface. However, the reconstruction no longer uses one single \ac*{eos} but rather constructs its own.
 
 
 \subsection{The inverse problem} \label{inv}
 The ``standard'' problem of stellar structure is an integration of the TOV equations with a given \ac*{eos} and central pressure, determining the total mass and radius (values of the variables at the surface). 
-The inversion of this ``standard'' problem was originally brought up by Gerlach in 1968, in a paper investigating the possibility of a third stable family \cite{Gerlach1968}; another well-established method was developed by Lindblom. Both methods shall be recalled here.\\
-Just like any newly published approach to the problem, Gerlach assumes the \ac*{eos} to be known below a certain density. In order to determine the changes in density and mass for the core region of unknown type for the next configuration, he sets up variations for the TOV equation \ref{eq:tov}:
+The inversion of this ``standard'' problem was originally brought up by Gerlach in 1968, in a paper investigating the possibility of a third stable family \cite{Gerlach1968}. Another well-established method was developed by Lindblom. Both methods shall be recalled here.\\
+Just like any other published approach to the problem, Gerlach assumes the \ac*{eos} to be known below a certain density. In order to determine the changes in density and mass for the core region of unknown type for the next configuration, he sets up variations for the \ac{tov} equation \ref{eq:tov}:
 \begin{align}
 	\frac{d\Delta\rho}{dr} &= A(r) \Delta\rho + B\Delta m \\
 	\frac{d\Delta m}{dr} &= 4\pi r^2\Delta \rho
 \end{align}
-Note that Gerlach used $\rho$ instead of $\epsilon$ in his equations. \\
-From here he solves the inverse problem in two steps. First, he requires the changes made to a star's surface in terms of radius and mass to be somehow related to changes at the beginning of the core region, here in terms of density and mass. Next, he specifically calculates $\Delta \rho$ and $\Delta m$ for the core, which are required to smoothly fit to the core surface. Gerlach follows these steps by putting the above equations in matrix form and including an iterative method, as well as setting up proper matching conditions. \\
+Note that Gerlach used $\rho$ instead of $\epsilon$ in his equations. From here he solves the inverse problem in two steps. First, he requires the changes made to a star's surface in terms of radius and mass to be related to changes at the beginning of the core region, here in terms of density and mass. Next, he specifically calculates $\Delta \rho$ and $\Delta m$ for the core, which are required to smoothly fit to the core surface. Gerlach puts the above equations in matrix form and includes an iterative method, together with proper matching conditions. \\
 Lindblom on the other hand presents an \ac*{mrr}-\ac*{eos}-pair to be uniquely linked by an abstract map \cite{Lindblom1992}. This gives rise to the possibility of using that map in the other direction, i.e. from \ac*{mrr} to \ac*{eos}. His ``traditional'' solution of the inverse problem works as follows:\\
-Instead of integrating the TOV equations from the core towards the surface with initial values $p=p_c$ and $r=0$, Lindblom uses $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, the \ac*{eos} is assumed to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\} (as Gerlach did). Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. By representing the TOV equations for this small region as a power series, and inverting that, one can obtain \{$\epsilon_{i+1}, p_{i+1}$\} as a function of previously calculated quantities. This algorithm is repeated for the rest of the \ac*{mrr}, using an interpolation method to link \{$\epsilon_{i+1}, p_{i+1}$\} to the known \ac*{eos}.\\
+Instead of integrating the \ac{tov} equations from the core towards the surface with initial values $p=p_c$ and $r=0$, Lindblom uses $M=m(R_{surface})=m(R)$ and $R$ as starting point to the calculation. Also, the \ac*{eos} is assumed to be known up to some pair \{$\epsilon_i, p_i$\} corresponding to a star \{$M_i, R_i$\} (as Gerlach did). Looking at the next star, \{$M_{i+1}, R_{i+1}$\} are set as initial values and integration takes place until \{$\epsilon, p$\} reach \{$\epsilon_i, p_i$\}. At this point, a core \{$m_{i+1}, r_{i+1}$\} is left to be integrated. Expanding the TOV equations in this small region as a power series and inverting that, \{$\epsilon_{i+1}, p_{i+1}$\} can be obtained as a function of previously calculated quantities. This process is repeated for the rest of the \ac*{mrr}, linking \{$\epsilon_{i+1}, p_{i+1}$\} to the known \ac*{eos} by interpolation.\\
 Here, a different and more simplistic approach to this problem is developed. This new method does not require the star to be integrated from crust to core, but will merely be a modification of the standard problem. This leads to a kind of ``trial and error'' type of solution, as section \ref{recon_method_sec} will explain more detailed.
 
 \pagebreak
@@ -449,7 +443,7 @@ The curves both consist of 100 data points which will be read in by the reconstr
 	\centering
 	\bigskip
 	\includegraphics[width=1\textwidth]{graphs_pdf/testcase_recon_stefan_fail}
-	\caption{Reconstruction test}
+	\caption{Reconstruction test with a code containing all discussed algorithm modifications and $\lambda=10^{-2}$}
 	\bigskip
 	\label{fig:recon_test}
 \end{figure}
@@ -463,11 +457,12 @@ Figure \ref{fig:recon_test_2} shows the result for a code without indirect radiu
 	\label{fig:recon_test_2}
 \end{figure}
 
-\subsection{Varying the $\lambda$ parameter}
+\subsubsection{Varying the $\lambda$ parameter}
 Figure \ref{fig:recon_test} was made with $\lambda = 10^{-2}$. Varying $\lambda$ has significant impact on precision. With no changes made otherwise, decreasing $\lambda$ to, for example, $10^{-3}$, leads to a strong deviation from the desired curve, whereas an increase in $\lambda$ rapidly leads to an unreasonably long computation time. In order to find ``good'' values for $\lambda$, ten were chosen between 0.045 and 0.08. Below $\lambda = 5\cdot10^{-2}$ the \ac*{eos} look like \ref{fig:recon_test} and were not plotted again. \ref{fig:lambda_vary} shows the other results. \\
-By looking at fig. \ref{fig:lambda_vary} a correlation between precision loss towards higher radii and sudden drops in the \ac*{eos} can be seen immediately. This is technically plausible as lower energy density causes larger radius (otherwise, the increased gravitational pull would lead to a smaller radius). It however remains unclear why there is no distinct range for $\lambda$ to produce a ``good'' reconstruction; the ```failed'' runs are distributed randomly over the range of used $\lambda$. This arbitrariness is concerning as a certain range of working $\lambda$ would have made sense at least numerically if not physically. The results show a strong tendency to a trial-and-error based way of finding a well-working value which can in no way be motivated by any numerical or physical law.
+By looking at fig. \ref{fig:lambda_vary} a correlation between precision loss towards higher radii and sudden drops in the \ac*{eos} can be seen immediately. This is technically plausible as lower energy density causes larger radius (otherwise, the increased gravitational pull would lead to a smaller radius). It however remains unclear why there is no distinct range for $\lambda$ to produce a ``good'' reconstruction; the ```failed'' runs are distributed randomly over the range of used $\lambda$. This arbitrariness is concerning as a certain range of working $\lambda$ would have made sense at least numerically if not physically. The results show a strong tendency to a trial-and-error based way of finding a well-working value which can in no way be motivated by any numerical or physical law, which might be the biggest issue the code currently has. \\
+Looking at the sudden dropping \ac*{eos}, correspondence to their \ac*{mrr} is questionable. For that reason, the \ac*{eos} were re-entered into the \ac*{tov} solver as a table paired with the polytropic low density region. That way correspondence could be confirmed.
 
-\begin{figure} [h]
+\begin{figure}
 	\centering
 %	\bigskip
 	\includegraphics[width=0.8\textwidth]{graphs_pdf/mrr_eos_lambda_varied_upright}
@@ -475,14 +470,14 @@ By looking at fig. \ref{fig:lambda_vary} a correlation between precision loss to
 %	\bigskip
 	\label{fig:lambda_vary}
 \end{figure}
-
-\subsection{MRR-EOS map uniqueness}
+\pagebreak
+\subsubsection{MRR-EOS map uniqueness}
 As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness linking \ac*{eos} and \ac*{mrr} to construct his inverse algorithm. It seems peculiar that the radius, with given $\lambda$, only deviates from the input by a few meters, barely visible when shown in a plot. In contrast the \ac*{eos} can deviate visibly from the desired input curve. However, as can be seen in fig. \ref{fig:eos_ratio}, for the \ac*{eos} without obviously unphysical behavior the maximum deviation is about 10\,\%. To obtain fig. \ref{fig:eos_ratio}, energy densities were calculated with the original \ac*{eos} and the reconstructed pressures. The reconstructed energy densities were then divided by these ``default'' ones. For comparison to unity the blue dashed line (division of original \ac*{eos} by itself) was drawn together with the ratios.
  
 \begin{figure} [h]
 	\centering
 	\bigskip
-	\includegraphics[width=1\textwidth]{graphs_pdf/mrr_eos_ratios}
+	\includegraphics[width=1\textwidth]{graphs_pdf/eos_ratios}
 	\caption{Ratio plots for the EOS that did not show peculiar behavior}
 	\bigskip
 	\label{fig:eos_ratio}
@@ -499,17 +494,17 @@ As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness l
 
 
 
-
-%\subsection{Second equation of state}
-%In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
-%\begin{figure} [h]
-%	\centering
-%	\bigskip
-%	\includegraphics[width=1\textwidth]{graphs_pdf/second_mrr_eos}
-%	\caption{A second \ac*{eos} together with the \ac*{mrr} it produces}
-%	\bigskip
-%	\label{fig:othertest}
-%\end{figure}
+\pagebreak
+\subsection{Second equation of state}
+In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
+\begin{figure} [h]
+	\centering
+	\bigskip
+	\includegraphics[width=1\textwidth]{graphs_pdf/second_mrr_eos}
+	\caption{A second \ac*{eos} together with the \ac*{mrr} it produces}
+	\bigskip
+	\label{fig:othertest}
+\end{figure}
 
 
 %%%ALTERNATIVE BILDUMGEBUNG

@@ -80,7 +80,7 @@ main(){
 
   // File I/O
 
-  FILE *fres = fopen("results_l2_7","w"); 
+  FILE *fres = fopen("results_test","w"); 
   FILE *MRR = fopen("mr.out", "r");
   double pcenter;
   if (MRR == NULL)
@@ -239,13 +239,13 @@ main(){
       slope += slope_step;
 
 // FIRST PIECE TO KILL
-
+/*
       if(slope<=0) {
         slope_step -= slope_step;
         slope_step /= 10;
         slope += slope_step;
       }
-
+*/
       alpha3_old = alpha[indx+1];
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
@@ -273,7 +273,7 @@ main(){
       Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1], y[0]);
 
       if (fabs(diff_s) < 0.000001) {
-//        cout << "fabs(diff_s) break condition" << endl;
+        cout << "fabs(diff_s) break condition" << endl;
         break;
       }
 
@@ -293,7 +293,7 @@ main(){
 
 
 // SECOND PIECE TO KILL
-
+/*
       if (mcount > 18 && fabs(diff_s) > 0.3) {
         slope_step /= -10;
         if (fabs(slope_step) < 1e-9) {
@@ -301,14 +301,14 @@ main(){
           break;
         }
       }
-
+*/
 //      slope-=10.*slope_step;
 
 //      alpha[indx+1] = alpha3_old;
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = 7e-2;
+    lambda = 5e-2;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
