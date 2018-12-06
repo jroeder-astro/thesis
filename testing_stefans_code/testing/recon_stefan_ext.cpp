@@ -315,7 +315,7 @@ main(){
 
     } // end slope loop
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = 1e-2;
+    lambda = 5e-2;
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
@@ -367,7 +367,7 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 
     for (i2 = 0; i2 < N; i2++) {
       y[(i1+1)*N+i2] = y_tau[i2];
-      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
+/*LOL*/ //      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
     }
 
 /*
@@ -376,7 +376,7 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 */
 
     t[i1+1] = t[i1] + tau;
-    cout << "t[i1+1]: " << t[i1+1] << endl;
+    //cout << "t[i1+1]: " << t[i1+1] << endl;
   }
   
   return i1;
