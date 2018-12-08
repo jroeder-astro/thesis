@@ -63,8 +63,8 @@ main(){
   y=(double*)malloc(N*num_steps*sizeof(double));
 
   p_init  = 0.0;
-  double slope   = 1.00;
-  double slope_step = -0.05;
+  double slope   = 1;
+  double slope_step = -0.06;
 
   bool   flag_s  = false;
   double diff0_s = 0.0;
@@ -82,10 +82,12 @@ main(){
   // File I/O
 
   FILE *fres = fopen("results","w"); 
-  FILE *MRR = fopen("mr_eos.out", "r");
+  FILE *MRR  = fopen("mr_eos_alpha.out", "r");
   double pcenter;
+
   if (MRR == NULL)
     exit(0);
+
   while (1) {
     if (fscanf(MRR, "%lf,%lf,%lf,%lf", &R, &M, &e, &p) == EOF)
       break;
@@ -95,6 +97,7 @@ main(){
 //    alpha.push_back(e*convert);
     MR_rel.push_back(one_MR);
   }
+
   fclose(MRR);
   MRR = NULL;
   cout << "read mrr\n";
@@ -103,7 +106,7 @@ main(){
   cout << "MR_rel.size(): " << MR_rel.size() << endl;
 
   for (i1 = 0; i1 < MR_rel.size(); i1++) {
-    if (MR_rel[i1][1] >= 1.5) {
+    if (MR_rel[i1][1] >= 1.8) {
 //      p_init = alpha[2*i1];
 //      p_dur = p_init;
       break;
@@ -121,8 +124,8 @@ main(){
   while (1) {
     if (fscanf(exteos, "%lf,%lf", &e, &p) == EOF)
       break;
-    alpha.push_back(e);
     alpha.push_back(p);
+    alpha.push_back(e);
   }
   cout << "eos successfully read\n";
   fclose(exteos);
@@ -134,15 +137,17 @@ main(){
   }
   cout << "a.size(): " << alpha.size() << endl;
 
-  p_init = alpha[0] + 0.00001 + mcount * 0.00001;
+//  p_init = alpha[2] /* + 0.00001 */ + mcount * 0.00001;
+  p_init = alpha[alpha.size()-2];
   p_dur = p_init;
+
+  indx = alpha.size() - 2;
 
   // adjusting alpha so that the last two fixed values are the central
   // values of the last star that we assume to know the EOS for
   alpha[indx] = p_init;
   alpha[indx+1] = line(p_dur, p_dur, &alpha);
 
-  indx = alpha.size() - 2;
   cout << "indx: " << indx << endl;
   alpha.push_back(5 * alpha[indx]);
   alpha.push_back(alpha[indx+1] + (alpha[indx+2]-alpha[indx]) / slope);
@@ -193,7 +198,7 @@ main(){
 
     pstep=1e-7;
     flag_s = false;
-    slope_step=-0.05;
+    slope_step=-0.06;
     double pold= alpha[alpha.size()-2];
     double eold= alpha[alpha.size()-1];
     double d0,dplus,dminus;
@@ -229,26 +234,26 @@ main(){
 
     if((epsm-eps0)*(epsp-eps0)<0) { 
       if(epsp<eps0) 
-        slope_step = 0.05; 
+        slope_step = 0.06; 
       else 
-        slope_step = -0.05; 
+        slope_step = -0.06; 
     }
 
     else {
       if(epsm>epsp) 
-        slope_step = 0.05; 
+        slope_step = 0.06; 
       else 
-        slope_step = -0.05; 
+        slope_step = -0.06; 
     }
 
 
    first = false;
 // check wich direction to go
    
-    while (slope > 0.0) {
+    while (slope > -1.) {
       slope += slope_step;
 
-//      cout << "in slope loop\n";
+     // cout << "in slope loop\n";
 
       if(slope<=0) {
         slope_step -= slope_step;
@@ -260,18 +265,10 @@ main(){
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
 
-
-// cout << "before getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
-
-
       getR();
 
-
-// cout << " after getR(): p_end = alpha[indx-2] = " << alpha[indx-2] << endl;
-
-
       if(p_end>alpha[indx-2]*5.0) {
-        cout << p_end-alpha[indx-2]*5.0 << endl;
+       // cout << p_end-alpha[indx-2]*5.0 << endl;
         continue;
       }
       if(fabs(diff)>1e-4) 
@@ -279,8 +276,8 @@ main(){
 
       diff_s = Rcomp - MR_rel[mcount][0];
       epsp = diff_s*diff_s +lambda*(slope-slope_old)*(slope-slope_old);
-      printf("diff radius %g %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step, diff_s, 
-      Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1], y[0]);
+      printf("diff radius %g %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step,
+      diff_s, Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1], y[0]);
 
       if (fabs(diff_s) < 0.000001) {
 //        cout << "fabs(diff_s) break condition" << endl;
@@ -295,7 +292,7 @@ main(){
 // if eps is getting bigger, decrease slope step size and flip the sign
       slope_step /= -10;
       eps0=epsp;
-
+/*
       if (mcount < 18 && fabs(slope_step) < 1e-6) {
         cout << "slope_step break condition" << endl;
         break;
@@ -308,7 +305,7 @@ main(){
           break;
         }
       }
-
+*/
 //      slope-=10.*slope_step;
 
 //      alpha[indx+1] = alpha3_old;
@@ -367,7 +364,7 @@ int tov(double* y_0,double p_cut,vector<double> *alpha) {
 
     for (i2 = 0; i2 < N; i2++) {
       y[(i1+1)*N+i2] = y_tau[i2];
-/*LOL*/ //      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
+// //      cout << "y[(i1+1)*N+i2]: " << y[(i1+1)*N+i2] << endl; 
     }
 
 /*
@@ -429,17 +426,23 @@ void getR() {
   double diff0,diff=0.0;
   double pstep = 1e-7;
 
+/*
   for (int i2 = 0; i2 < alpha.size(); i2++) {
     cout << alpha[i2] << endl;
   }
+*/
 
   indx = alpha.size()-2;
 
   p_end = alpha[indx-2]-pstep;
+  
+  //cout << "p_end = " << p_end << endl; 
+  //cout << "p_dur = " << p_dur << endl; 
+
   while (p_end >= 0.8 * p_dur) {
  
-    cout << "In p while loop in getR()\n";
-    cout << "p_dur = " << p_dur << endl;
+   // cout << "In p while loop in getR()\n";
+   // cout << "p_dur = " << p_dur << endl;
     if(p_end>alpha[indx-2]*5.0) 
       break;
     p_end += pstep;
@@ -451,7 +454,7 @@ void getR() {
  // Would it not have to be p_init???
  // i1 = tov(y_0, p_init, &alpha);   
 
-    cout << "mass calculated\n";
+   // cout << "mass calculated\n";
 
 /*
 
@@ -474,21 +477,21 @@ void getR() {
 
     if (!flag) {
       diff0 = Mcomp - MR_rel[mcount][1];
-      cout << "diff0 set\n";
+      //cout << "diff0 set\n";
       if(fabs(diff0)<1e-6) 
         break;
-
+/*
       if(diff0>0) {
          printf("masses seem to go down with increasing p_center.not yet implemented\n");
          exit(0);
-      }
+      }*/
       flag = true;
       continue;
     }
 
     else {
       double diffx = Mcomp - MR_rel[mcount][1];
-      cout << "diffx set";
+      //cout << "diffx set";
       if(diff>0.0) {
         if(fabs(diffx-diff)>0) {
           diff=diffx;
@@ -508,8 +511,10 @@ void getR() {
       pstep /= 10.0;
       diff = 0.0;
       if (pstep < 1e-9) {
-        cout << "pstep < x breaking condition" << endl;
-        break;
+        //pstep *= 10;
+       // cout << "pstep < x breaking condition" << endl;
+       break;
+       //continue;
       }
  
       p_end -= 10.0 * pstep;
@@ -522,7 +527,7 @@ void getR() {
   Mcomp = y[(i1-1)*N+1] + (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
   Mcomp /= 1.4766;
 
-  cout << "getR() finished\n";
+//  cout << "getR() finished\n";
 
   return;
 }

@@ -37,13 +37,15 @@ main(){
 
   double d0, d1, d2, d3, d6;
 
-  FILE *input = fopen("results_l2_5", "r");
+  FILE *input = fopen("output.dat", "r");
   if (input == NULL) exit(0);
 //  else cout << "input file open\n";
 
   while (1) {
-    if (fscanf(input, "%lf %lf %lf %lf %lf %lf %lf", 
-        &d0, &d1, &d2, &d3, &p, &e, &d6) == EOF)
+//    if (fscanf(input, "%lf %lf %lf %lf %lf %lf %lf", 
+//        &d0, &d1, &d2, &d3, &p, &e, &d6) == EOF)
+
+    if (fscanf(input, "%lf,%lf", &e,&p) == EOF)
       break;
     alpha.push_back(p);
     alpha.push_back(e);
@@ -58,8 +60,11 @@ main(){
 
 //  cout << "input read\n";
 
-  for (P = 0; P < 10000; P++) {
-    p0 = alpha[0] + 0.00001 + P * 0.000001;
+//  for (P = 0; P <= 1000000; P++) {
+//    p0 = alpha[2] + P * 0.00001;
+
+  for (P=0; P<=alpha.size()-4; P+=4) {
+     p0 = alpha[2+P];
 
     if (p0 > alpha[alpha.size()-2]) {
       break;
@@ -106,11 +111,11 @@ main(){
 
 double eos(double p, vector<double> *alpha) {
   int i;
-
+/*
   if (p < (*alpha)[0]) {
     return pow(p/10., 3./5.);
   }
-
+*/
   for (i = 2; i < alpha->size(); i += 2) {
     if (p < (*alpha)[i])
       break;

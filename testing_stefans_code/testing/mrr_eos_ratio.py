@@ -291,7 +291,7 @@ plt.plot(pl275n, eRatL275, label ='EOS $\lambda = 0.075$')
 #plt.plot(pl28n,  eRatL28,  label ='EOS $\lambda = 0.08$')
 plt.plot(oneX, oneY, 'b--')
 
-plt.ylabel('$\epsilon_R$/$\epsilon_I$', fontsize=20)
+plt.ylabel('$\epsilon_R$/$\epsilon_D$', fontsize=20)
 
 plt.xlabel('p/MeVfm$^{-3}$', fontsize=20)
 plt.legend(loc=2,prop={'size':20})
