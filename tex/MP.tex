@@ -196,10 +196,23 @@ The ground state of nuclear matter can be calculated from the nuclear Hamiltonia
 \paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition. As a simple model, $npe\mu$ matter can be extended with a hyperon fraction. This would soften the \ac*{eos} due to a pressure drop. High-energy neutrons can convert to hyperons, resulting in a lower energy state (which contributes to the pressure) but a higher mass \cite{NeutronStars1}. 
 
 
+\begin{figure} [h]
+	\centering
+	\subfigure[Scheme of a star with enough mass to form a pure quark core after undergoing a full pasta phase transition as described above]{\includegraphics[width=0.49\linewidth]{graphs_pdf/lipari7}}
+	\subfigure[Lighter star, quark matter rods are the endpoint of the transition here]{\includegraphics[width=0.49\linewidth]{graphs_pdf/lipari8}}
+	\caption{Schematic neutron star structure for different masses, taken from \cite{1997csnp.conf.....G}.}
+	\label{fig:neutronslice}
+\end{figure}
+
+
+
+
+
+
 % Stiffness of EOS
 % Dependence of R on M
 
-
+\pagebreak
 \subsection{General constraints}
 
 %There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the causality limit. An EOS might be ultrabaric and still causal: the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. However, if the EOS starts below the ultrabaric line and fulfills the causality condition, it will never cross that line. If its slope increases so that $dP/d\epsilon>1$, the EOS becomes \textit{superluminal}. While a superluminal EOS is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such EOS all have other significant disadvantages leaving them irrelevant. 
@@ -247,7 +260,7 @@ From figure \ref{fig:fourth_eos_alfsed} a) four of the six parameters determinin
 \end{figure}
 
 
-
+\pagebreak
 \subsection{Fermi gas equation of state}
 
 This \ac*{eos} will serve as a test case for the reconstruction algorithm (the constant in the polytrope will be set arbitrarily when using it as a first test). For a detailed version of this derivation, see \cite{Glendenning}. \\
@@ -278,7 +291,7 @@ Which is a polytropic type of equation. By absorbing densities into the energy d
 \end{equation}
 which is common to use for simple star models, especially white dwarfs. 
 
-
+\pagebreak
 \subsection{Numerical solution}
 
 The TOV equations come in the form of a first-order \ac{ode} system. In order to obtain sufficient precision, a 4th-order Runge-Kutta algorithm can be used to solve said \ac{ode}. By looking at both equations, our \ac{ode} system is given in the form:
@@ -304,6 +317,7 @@ with increments $k_i$:
 All $k_i$ are of course also two component "vectors". \\
 For simpler test versions of the code, it is convenient to reduce the RK4 algorithm to RK1, or Euler's method. Also, the step size does not have to be adaptive. That way, runtime efficiency can be adjusted.
 
+\pagebreak
 \subsubsection{Adaptive step size}
 
 If mass and radius calculation algorithms do not yield a sufficient precision, the step size within the \ac*{tov} solver can be implemented as an adaptive variable instead of a constant. Step size adaption works as follows: In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If this change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ is adjusted again. If the check is successful, the program will accept the step result and proceed with the next one. 
@@ -457,6 +471,7 @@ Figure \ref{fig:recon_test_2} shows the result for a code without indirect radiu
 	\label{fig:recon_test_2}
 \end{figure}
 
+\pagebreak
 \subsubsection{Varying the $\lambda$ parameter}
 Figure \ref{fig:recon_test} was made with $\lambda = 10^{-2}$. Varying $\lambda$ has significant impact on precision. With no changes made otherwise, decreasing $\lambda$ to, for example, $10^{-3}$, leads to a strong deviation from the desired curve, whereas an increase in $\lambda$ rapidly leads to an unreasonably long computation time. In order to find ``good'' values for $\lambda$, ten were chosen between 0.045 and 0.08. Below $\lambda = 5\cdot10^{-2}$ the \ac*{eos} look like \ref{fig:recon_test} and were not plotted again. \ref{fig:lambda_vary} shows the other results. \\
 By looking at fig. \ref{fig:lambda_vary} a correlation between precision loss towards higher radii and sudden drops in the \ac*{eos} can be seen immediately. This is technically plausible as lower energy density causes larger radius (otherwise, the increased gravitational pull would lead to a smaller radius). It however remains unclear why there is no distinct range for $\lambda$ to produce a ``good'' reconstruction; the ```failed'' runs are distributed randomly over the range of used $\lambda$. This arbitrariness is concerning as a certain range of working $\lambda$ would have made sense at least numerically if not physically. The results show a strong tendency to a trial-and-error based way of finding a well-working value which can in no way be motivated by any numerical or physical law, which might be the biggest issue the code currently has. \\
