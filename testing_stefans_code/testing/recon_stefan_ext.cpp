@@ -255,10 +255,10 @@ main(){
 
      // cout << "in slope loop\n";
 
-      if(slope<=0) {
-        slope_step -= slope_step;
-        slope_step /= 10;
-        slope += slope_step;
+      if(slope <= -1) {
+        // slope -= slope_step;
+        slope_step /= -10;
+        slope += 10 * slope_step;
       }
 
       alpha3_old = alpha[indx+1];
@@ -276,8 +276,8 @@ main(){
 
       diff_s = Rcomp - MR_rel[mcount][0];
       epsp = diff_s*diff_s +lambda*(slope-slope_old)*(slope-slope_old);
-      printf("diff radius %g %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step,
-      diff_s, Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1], y[0]);
+      printf("diff radius %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step,
+      diff_s, Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1]);
 
       if (fabs(diff_s) < 0.000001) {
 //        cout << "fabs(diff_s) break condition" << endl;
@@ -292,25 +292,10 @@ main(){
 // if eps is getting bigger, decrease slope step size and flip the sign
       slope_step /= -10;
       eps0=epsp;
-/*
-      if (mcount < 18 && fabs(slope_step) < 1e-6) {
-        cout << "slope_step break condition" << endl;
-        break;
-      }
 
-      if (mcount > 18 && fabs(diff_s) > 0.3) {
-        slope_step /= -10;
-        if (fabs(slope_step) < 1e-9) {
-          cout << "slope_step break condition II" << endl;
-          break;
-        }
-      }
-*/
-//      slope-=10.*slope_step;
-
-//      alpha[indx+1] = alpha3_old;
 
     } // end slope loop
+
 // after first round set lambda to some reasonable value (one might play around with this number)
     lambda = 5e-2;
     slope_old = slope;
@@ -450,26 +435,10 @@ void getR() {
     y_0[0] = p_end; 
     y_0[1] = 0.0;
 
-    i1 = tov(y_0, p_dur, &alpha);   
- // Would it not have to be p_init???
- // i1 = tov(y_0, p_init, &alpha);   
+    i1 = tov(y_0, p_dur, &alpha);    
 
-   // cout << "mass calculated\n";
+    // cout << "mass calculated\n";
 
-/*
-
-    The code runs into a segmentation fault here as i1 will exceed the
-    array sizes of both t and y. The values for radius and mass calculated
-    by the tov functions make no sense whatsoever especially since in the 
-    TOV solver it worked fine. During calculation, the mass does not 
-    increase enough for each step, and the radius increases too fast, but
-    at some point runs into negative values instead of increasing further.
-
-    m about 0.15 at r about 36; from there m decreases again
-
-*/
-
- // end of mass calculation
     Rcomp = t[i1-1]+y[(i1-1)*N]*tau/(y[(i1-2)*N]-y[(i1-1)*N]);
     Mcomp = y[(i1-1)*N+1] + 
             (y[(i1-1)*N+1]-y[(i1-2)*N+1])/tau*(Rcomp-t[i1-1]);
@@ -501,7 +470,8 @@ void getR() {
       diff = diffx;
       if(fabs(diff)<1e-6) 
         break;
-  printf("diff mass %g %g %g %g %g \n",pstep,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
+
+  //printf("diff mass %g %g %g %g %g \n",pstep,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
 
       if (diff * diff0 > 0) {
           // cout << diff * diff0 << endl;
@@ -511,7 +481,7 @@ void getR() {
       pstep /= 10.0;
       diff = 0.0;
       if (pstep < 1e-9) {
-        //pstep *= 10;
+       //pstep *= 10;
        // cout << "pstep < x breaking condition" << endl;
        break;
        //continue;
