@@ -9,7 +9,7 @@ M25 = []
 e25 = []
 p25 = []
 
-with open('test.dat', 'rb') as csvfile:
+with open('mr_eos_com.out', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter = ',')
     for row in plots:
         R25.append(float(row[0]))
@@ -25,13 +25,13 @@ M28 = []
 e28 = []
 p28 = []
 
-with open('mrr_l2_8', 'rb') as csvfile:
-    plots = csv.reader(csvfile, delimiter = ',')
+with open('results', 'rb') as csvfile:
+    plots = csv.reader(csvfile, delimiter = ' ')
     for row in plots:
-        R28.append(float(row[0]))
-        M28.append(float(row[1]))
-        e28.append(float(row[2]))
-        p28.append(float(row[3]))
+        R28.append(float(row[1]))
+        M28.append(float(row[3]))
+        e28.append(float(row[5]))
+        p28.append(float(row[4]))
 
 e28n = [a*P for a in e28]
 p28n = [a*P for a in p28]
@@ -42,7 +42,7 @@ plt.subplot(2,2,(1,3))
 #plt.xlim(11.5, 14)
 #plt.ylim(1.1, 1.2)
 plt.plot(R25, M25, label = 'MRR')
-#plt.plot(R28, M28, label = 'MRR $\lambda = 0.08$')
+plt.plot(R28, M28, label = 'recon')
 plt.ylabel('M/M$_\odot$', fontsize=15)
 plt.xlabel('R/km', fontsize=15)
 plt.legend(prop={'size':14})
@@ -50,7 +50,7 @@ plt.legend(prop={'size':14})
 plt.subplot(2,2,(2,4))
 #plt.xlim(0, 200)
 plt.plot(p25n, e25n, label ='EOS')
-#plt.plot(p28n, e28n, label ='EOS $\lambda = 0.08$')
+plt.plot(p28n, e28n, label ='recon')
 plt.ylabel('$\epsilon$(p)/MeVfm$^{-3}$', fontsize=15)
 plt.xlabel('p/MeVfm$^{-3}$', fontsize=15)
 plt.legend(loc=2,prop={'size':14})

@@ -130,6 +130,7 @@ main(){
   cout << "eos successfully read\n";
   fclose(exteos);
   exteos = NULL;
+
 /* 
   // scan EoS
 
@@ -141,15 +142,16 @@ main(){
       break;
   }
 */
+
   for (int i3 = 2*i1+2+44; i3 < alpha.size(); i1++) {
-  // for (int i3 = 2*i2+2; i3 < alpha.size(); i1++) {
+    // for (int i3 = 2*i2+2; i3 < alpha.size(); i1++) {
     // removing all the parts from alpha that we do not need
     alpha.pop_back();
   }
 
   cout << "a.size(): " << alpha.size() << endl;
 
-//  p_init = alpha[2] /* + 0.00001 */ + mcount * 0.00001;
+  //  p_init = alpha[2] /* + 0.00001 */ + mcount * 0.00001;
   p_init = alpha[alpha.size()-2];
   p_dur = p_init;
 
@@ -172,11 +174,11 @@ main(){
   //  p_dur    = MR_rel[mcount-1][2];
   //  p_init = alpha[indx-2];
  
-
+/*
   for (i2 = 0; i2 < alpha.size(); i2++) {
     cout << alpha[i2] << endl;
   }
-
+*/
   e_rec    = line(p_dur, p_dur, &alpha);
   t[0]     = 0.0000000001;
   first    = true;
@@ -206,14 +208,18 @@ main(){
     }
   */
 
+    for (i2 = 0; i2 < alpha.size(); i2++) {
+      cout << alpha[i2] << endl;
+    }
+
     cout << "in mcount while loop\n";
 
-    pstep=1e-7;
+    pstep  = 1e-7;
     flag_s = false;
-    slope_step=-0.06;
-    double pold= alpha[alpha.size()-2];
-    double eold= alpha[alpha.size()-1];
-    double d0,dplus,dminus;
+    slope_step  =-0.06;
+    double pold = alpha[alpha.size()-2];
+    double eold = alpha[alpha.size()-1];
+    double d0, dplus, dminus;
 
 
     if (!first) {  
@@ -265,25 +271,31 @@ main(){
     while (slope > 0) {
 
       slope += slope_step;
-
+      cout << "slope = " << slope << endl;
+      cout << "slope_step = " << slope_step << endl;
      // cout << "in slope loop\n";
-/*
+
       if(slope < 0) {
-        slope -= slope_step;
+        cout << slope << endl;
+        cout << slope_step << endl;
+        slope += fabs(slope_step);
+        cout << slope << endl;
         slope_step /= 10;
+        cout << slope_step << endl;
         slope += slope_step;
+        cout << slope << endl;
       }
-*/
+
       alpha3_old = alpha[indx+1];
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
 
       getR();
-
+/*
       if(p_end>alpha[indx-2]*5.0) {
-       // cout << p_end-alpha[indx-2]*5.0 << endl;
+        cout << "wee : " <<  p_end-alpha[indx-2]*5.0 << endl;
         continue;
-      }
+      }*/
       if(fabs(diff)>1e-4) 
         continue;
 
@@ -291,15 +303,15 @@ main(){
       epsp = diff_s*diff_s +lambda*(slope-slope_old)*(slope-slope_old);
       printf("diff radius %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step,
       diff_s, Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1]);
-
-      if (fabs(diff_s) < 0.000001) {
-//        cout << "fabs(diff_s) break condition" << endl;
+                      // 0.000001
+      if (fabs(diff_s) < 0.001) {
+//      cout << "fabs(diff_s) break condition" << endl;
         break;
       }
 
       if (epsp < eps0) {  
       eps0=epsp;
-//        cout << "diff0_s * diff_s > 0" << endl;
+      cout << "diff0_s * diff_s > 0" << endl;
         continue;
       }
 // if eps is getting bigger, decrease slope step size and flip the sign
@@ -307,6 +319,7 @@ main(){
       eps0=epsp;
 
       if (fabs(slope_step) < 1e-6) {
+        cout << "yo\n";
         break;
       }
 
