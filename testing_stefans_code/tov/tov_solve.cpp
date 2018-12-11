@@ -63,8 +63,8 @@ main(){
 //  for (P = 0; P <= 1000000; P++) {
 //    p0 = alpha[2] + P * 0.00001;
 
-  for (P=0; P<=alpha.size()-4; P+=4) {
-     p0 = alpha[2+P];
+  for (P = 0; P <= alpha.size()-4; P += 4) {
+    p0 = alpha[2+P];
 
     if (p0 > alpha[alpha.size()-2]) {
       break;

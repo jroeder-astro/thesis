@@ -130,11 +130,23 @@ main(){
   cout << "eos successfully read\n";
   fclose(exteos);
   exteos = NULL;
+/* 
+  // scan EoS
 
-  for (int i3 = 2*i1+2; i3 < alpha.size(); i1++) {
+  for (i2 = 0; i2 < alpha.size()-2; i2+=2) {
+    y_0[0] = alpha[indx-i2];
+    y_0[1] = 0.0;
+    tov (y_0, 0, &alpha);
+    if (y[(i1-1)*N+1] < 1)
+      break;
+  }
+*/
+  for (int i3 = 2*i1+2+44; i3 < alpha.size(); i1++) {
+  // for (int i3 = 2*i2+2; i3 < alpha.size(); i1++) {
     // removing all the parts from alpha that we do not need
     alpha.pop_back();
   }
+
   cout << "a.size(): " << alpha.size() << endl;
 
 //  p_init = alpha[2] /* + 0.00001 */ + mcount * 0.00001;
@@ -250,17 +262,18 @@ main(){
    first = false;
 // check wich direction to go
    
-    while (slope > -1.) {
+    while (slope > 0) {
+
       slope += slope_step;
 
      // cout << "in slope loop\n";
-
-      if(slope <= -1) {
-        // slope -= slope_step;
-        slope_step /= -10;
-        slope += 10 * slope_step;
+/*
+      if(slope < 0) {
+        slope -= slope_step;
+        slope_step /= 10;
+        slope += slope_step;
       }
-
+*/
       alpha3_old = alpha[indx+1];
 //      slope = (alpha[indx]-alpha[indx-2]) / (alpha[indx+1]-alpha[indx-1]); 
       alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2])/slope; 
@@ -292,6 +305,10 @@ main(){
 // if eps is getting bigger, decrease slope step size and flip the sign
       slope_step /= -10;
       eps0=epsp;
+
+      if (fabs(slope_step) < 1e-6) {
+        break;
+      }
 
 
     } // end slope loop
