@@ -81,7 +81,7 @@ main(){
 
   // File I/O
 
-  FILE *fres = fopen("results_el2_6","w"); 
+  FILE *fres = fopen("results_el2_5_p","w"); 
   FILE *MRR  = fopen("mr_eos_alpha.out", "r");
   double pcenter;
 
@@ -106,7 +106,7 @@ main(){
   cout << "MR_rel.size(): " << MR_rel.size() << endl;
 
   for (i1 = 0; i1 < MR_rel.size(); i1++) {
-    if (MR_rel[i1][1] >= 1.8) {
+    if (MR_rel[i1][1] >= 1.7) {
 //      p_init = alpha[2*i1];
 //      p_dur = p_init;
       break;
@@ -304,7 +304,7 @@ main(){
       printf("diff radius %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step,
       diff_s, Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1]);
                       // 0.000001
-      if (fabs(diff_s) < 0.000001) {
+      if (fabs(diff_s) < 0.00001) {
 //      cout << "fabs(diff_s) break condition" << endl;
         break;
       }
@@ -318,7 +318,7 @@ main(){
       slope_step /= -10;
       eps0=epsp;
 
-      if (fabs(slope_step) < 1e-6) {
+      if (fabs(slope_step) < 1e-8) {
         cout << "yo\n";
         break;
       }
@@ -327,7 +327,7 @@ main(){
     } // end slope loop
 
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = (6)*(1e-2);
+    lambda = (5)*(1e-2);
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
@@ -501,7 +501,8 @@ void getR() {
       if(fabs(diff)<1e-6) 
         break;
 
-  //printf("diff mass %g %g %g %g %g \n",pstep,y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
+  // printf("diff mass %g %g %g %g %g \n",pstep,
+  // y[(i1-1)*N+1] / 1.4766, MR_rel[mcount][1],t[i1-1],MR_rel[mcount][0]);
 
       if (diff * diff0 > 0) {
           // cout << diff * diff0 << endl;

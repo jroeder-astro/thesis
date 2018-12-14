@@ -1,5 +1,5 @@
 % !TeX TS-program = 
-\documentclass[12pt]{article}
+\documentclass[a4paper,12pt,twoside]{article}
 \usepackage{cite} 
 \usepackage{graphicx}
 \usepackage{wrapfig}
@@ -85,7 +85,7 @@
 
 \tableofcontents
 
-
+\pagebreak
 
 \section*{List of abbreviations}
 \begin{acronym} [MRR]
@@ -95,46 +95,24 @@
 	\acro{tov}[TOV]{Tolman-Oppenheimer-Volkoff equations}
 \end{acronym}
 
-\pagebreak
+\newpage
 \pagenumbering{arabic}
 \section{Introduction}
 
-To this day, the nature of the \ac{eos} for neutron stars is highly debated. Previously discussed \ac*{eos} have emerged from various topics and models of physics. Each one has different parameters determining its impact on calculations. \\
-For the past years, it has been common to derive an \ac*{eos} from a theory and then use it to construct a \ac{mrr}. That way, it was somewhat possible to investigate what impact the state of matter in different regions of the star has on a whole sequence. Since science lacks observational information about neutron star radii it has only been possible to put constraints on theories.\\
-This method of constructing \ac*{mrr} has one major limitation: One cannot put an arbitrary number of theories into one \ac*{eos}. That would result in a problem impossible to solve, even for computers. Therefore, the motivation is to minimize the number of parameters and constraints in the future to find a model that is both solvable and preserves the highest physical relevance.\\
-The approach chosen in this thesis inverts the above process. Instead of using an \ac*{eos} to calculate masses and radii, the latter now take over the role as input parameters. For compact stars up to a certain mass, the \ac*{eos} will be assumed to be known well enough. Above that mass a numerical reconstruction will take place, determining the \ac*{eos} from a \ac*{mrr}. Using the \ac*{mrr} as input leaves us with only the low-density region to impose an \ac*{eos} in; we do in fact have the possibility to model this region sufficiently well. If future measurements grant a decent number of data points on the \ac*{mrr}, an inverse algorithm has the potential to probe the highest densities in the universe. Due to the unique relation of \ac*{mrr} and \ac*{eos} this would mean a significant contribution to the investigation of high-density phase diagrams of, for example, quark matter. The enormous amount of energy needed to create matter at such densities exceeds everything possible by humanity; therefore a neutron star would be a welcome laboratory. The first instrument dedicated entirely to neutron star measurements is the NICER experiment located at the International Space Station. Measuring x-ray emissions directly from the star's surface and the rotational period, the radius can be determined with a precision of few hundred meters. Hopefully, a coarse \ac*{mrr} can be drawn with actual data. At that point, \ac*{eos} reconstruction will likely become a crucial part of neutron star physics.
+To this day, the nature of the \ac{eos} for neutron stars is highly debated. Previously discussed \ac*{eos} have emerged from various approaches to strong interaction physics.. Each one has different parameters determining its impact on calculations. \\
+For the past years, it has been common to derive an \ac*{eos} from a model and then use it to construct a \ac{mrr}. That way, it was also somewhat possible to investigate what impact the state of matter in different regions of the star has on a whole sequence. Since science lacks observational information about neutron star radii it has only been possible to put constraints on models.\\
+This method of constructing \ac*{mrr} has one major limitation: an \ac*{eos} corresponds to a single model. Therefore, the motivation is to minimize the number of parameters and constraints in the future to construct a model that is both solvable and preserves the highest physical relevance.\\
+The approach chosen in this thesis inverts the above process. Instead of using an \ac*{eos} to calculate masses and radii, the latter now take over the role as input parameters. For compact stars up to a certain mass, the \ac*{eos} will be assumed to be known well enough. Above that mass a numerical reconstruction will take place, determining the \ac*{eos} from a \ac*{mrr}. Using the \ac*{mrr} as input leaves us with only the low-density region to impose an \ac*{eos} in; we do in fact have the possibility to model this region sufficiently well. If future measurements grant a decent number of data points on the \ac*{mrr}, an inverse algorithm has the potential to probe the highest densities in the universe without relying on a specific model. Due to the unique relation of \ac*{mrr} and \ac*{eos} this would mean a significant contribution to the investigation of high-density phase diagrams of, for example, quark matter. The enormous amount of energy needed to create matter at such densities exceeds everything possible by humanity; therefore a neutron star would be a welcome laboratory. The NICER experiment, located at the International Space Station, is dedicated entirely to neutron star measurements. Measuring X-ray emissions directly from the star's surface and the rotational period, the radius can be determined with a precision of few hundred meters. Hopefully, a coarse \ac*{mrr} can be drawn with actual data. At that point, \ac*{eos} reconstruction will likely become a crucial part of neutron star physics.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\pagebreak
+\newpage
 \section{Theoretical background}
 
 \subsection{Compact stars}
 
 At some point in a star's life, it is no longer capable of maintaining nuclear fusion in its core. Hydrogen burning first moves to a shell around the central region, further growing the previously produced helium core up to the point where helium burning ignites. Depending on the star's mass, this process can either repeat until an iron core is formed or stop at some fusion product before that. In the latter case, i.e. for star masses up to $8$\,M$_\odot$, the outer envelopes will escape the core and form a planetary nebula. What remains is a white dwarf, with an upper mass limit given by Chandrasekhar as about $1.4$\,M$_\odot$ \cite{Mazzali:2007et}. White dwarfs are the first known family of compact objects or -stars. Their interior structure depends on its progenitor star, hence their \ac*{eos} is not universally defined (\cite{Glendenning}, p. 91). Their size is of order $10^3$\,km, temperatures usually reside in the $10^4$\,K domain but can be one or two orders of magnitude higher (\cite{Glendenning}, p. 90).\\
-If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova explosion. The type of remnant left behind is called neutron star, and the matter out of which it is formed is always of the same composition and state. Therefore, in contrast to white dwarfs, there is one unique \ac*{eos} to describe all neutron stars. \\
-Both kinds of compact stars are subject to fast neutrino and photon cooling. After at most a few million years temperatures will have dropped several orders of magnitude below $1$\,MeV, so that on the nuclear scale the star can be  treated as cold. 
-
+If the fusion processes have produced an iron core, it will be compressed to densities exceeding multiple times the nuclear saturation density when the star turns into a supernova. The remnant left behind is called neutron star, formed out of the iron core. Neutron stars therefore always have the same matter composition and can be described by one \ac*{eos} universally. For white dwarfs on the other hand, composition varies depending on which burning phase the star's life ended. The \ac*{eos} for each white dwarf is therefore unique.  \\
+Both kinds of compact stars are subject to fast neutrino and photon cooling. About one minute after the supernova explosion a neutron star reaches a temperature of $1$\,MeV; after a few million years temperatures will have dropped several orders of magnitude below that. On the nuclear scale compact stars can therefore be treated as cold. 
 
 
 \subsection{The Tolman-Oppenheimer-Volkoff equations} \label{TOV}
@@ -144,7 +122,7 @@ The derivation is based off the assumption that the star matter can be described
 \begin{equation}\label{eq:hydro}
 	T_{\mu\nu}=\left(\varepsilon + P\right)u_\nu u_\mu-Pg_{\mu\nu}
 \end{equation}
-Where $\varepsilon$ is the energy density, $P$ is the pressure and $u_\mu$ is the 4-velocity. \\
+Where $\varepsilon$ is the energy density, $P$ is the pressure and $u_\mu$ is the 4-velocity of the rest frame. \\
 Spherical symmetry leads to a certain form of the metric,
 \begin{equation} \label{eq:line_element}
 	ds^2 = e^{2\varPhi} dt^2 - e^{2\lambda}dr^2 - r^2(d\theta^2+\sin^2d\phi^2)
@@ -172,7 +150,7 @@ Together with a second equation for the mass:
 	\frac{dm}{dr} = 4\pi r^2\varepsilon
 \end{equation}
 
-
+\newpage
 \subsection{The equation of state and neutron star structure} \label{eos_and_struct}
 
 Most generally, an \ac*{eos} determines the relation between a set of quantities that future dynamics of a system can be extrapolated with. Such a set is often referred to as ``state variables''. Independent of the model applied to a certain type of matter, an \ac*{eos} takes the form
@@ -180,7 +158,7 @@ Most generally, an \ac*{eos} determines the relation between a set of quantities
 	f(p,V,T)=0
 \end{equation*}
 with, in this case, pressure $p$, Volume $V$ and Temperature $T$. The nature of $f$ (the actual \ac*{eos}) is then derived from a model (e.g. nuclear or quark) to properly describe the state of matter at hand, be it a fluid, solid or of an exotic type. Here, starting on the outside of a neutron star, states are still in or not far from the range of what can be experimentally observed. Towards the inner regions, exotic states and their impact on the \ac*{eos} are still subject to investigation. A number of nuclear or fluid \ac*{eos} have been proposed, each including different aspects like interactions and states of matter, however it remains unclear how exactly a neutron star is built up. While a single \ac*{eos} for the whole neutron star would be of great interest, one usually determines the \ac*{eos} piecewise for each density region separately, imposing a phase transition between the layers. For a brief collection of models, see \cite{Pandharipande1976}.\\
-The lack of information from direct measurement doesn't particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data obtained by the NICER experiment located at ISS.\\
+The lack of information from direct measurement does not particularly improve this situation. However, for the first time, it might be possible to deduce information about the interior of a neutron star through data on neutron star radii obtained by the NICER experiment.\\
 Generally, a neutron star can be divided into four zones: The inner and outer core, with inner and outer crust above it. These zones have fundamentally different properties. These zones are usually defined through their range of densities. For example, (one finds the original version of this proposal in \cite{Pandharipande1976} and \cite{ShapiroTeukolsky}), with $[\rho] =$\,g/cm$^3$:
 \paragraph{$\rho\leq 10^6$} The \textit{surface} is the outermost region of the star, therefore temperature and magnetic fields can have big impact on the equation of state here. The surface may partly consist of accreted matter of unknown composition, followed by a layer of iron that marks the beginning of the actual neutron star. In this region, the \ac*{eos} is well approximated by Baym et al. \cite{Baym1971} (BPS). BPS bases calculations on a lattice configuration of nuclei as expected from a lower-density domain. This leads to significant error with respect to the ground state neutron numbers of neutron-rich nuclei further below the surface, as their masses could not be measured with sufficient precision at the time \cite{Baym1971} \cite{NeutronStars1}. 
 \paragraph{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$} Descending into the \textit{outer crust} a Coulomb lattice forms within a relativistic electron gas. Due to charge neutrality, $n_{electrons} = Z \cdot n_{nuclei}$; for the pressure holds $P = P_e + P_L$ \cite{NeutronStars1}, where $P_L$ resembles a correction made to account for Coulomb interactions. Upon reaching higher densities, neutronization becomes energetically favorable. In order to determine the nucleus contribution to the energy of one Wigner-Seitz cell in the lattice, BPS subtracting electron rest energies from the atomic masses. The difference between BPS and Haensel et al. \cite{HaenselPichon1994} [HP] is the model for electron screening effects. BPS used the electron binding energies as such a model, while HP subtracted those as well and imposed electron density uniformities \cite{NeutronStars1} instead.
@@ -195,7 +173,6 @@ is dominated by a neutron superfluid along with a proton superfluid. The charge 
 The ground state of nuclear matter can be calculated from the nuclear Hamiltonian \cite{NeutronStars1}. The \ac*{eos} is determined a little easier; starting from total energy density together with conditions for fixed baryon density and electrical neutrality, Lagrange multipliers give the equilibrium conditions for the chemical potentials. For neutrinos these can be set to zero as they escape the star. Evaluating the first law of thermodynamics at equilibrium leads to the pressure. This calculation can be extended to account for particle fractions varying with density.
 \paragraph{$\rho \geq \rho_{core}$} Within the \textit{inner core} lies the biggest mystery. One has no observational information about what processes happen at densities exceeding $10^{15}$\,g/cm$^3$. There are various theories about the state of matter in this region; possible are quark core formation or other types of phase transition. As a simple model, $npe\mu$ matter can be extended with a hyperon fraction. This would soften the \ac*{eos} due to a pressure drop. High-energy neutrons can convert to hyperons, resulting in a lower energy state (which contributes to the pressure) but a higher mass \cite{NeutronStars1}. 
 
-
 \begin{figure} [h]
 	\centering
 	\subfigure[Scheme of a star with enough mass to form a pure quark core after undergoing a full pasta phase transition as described above]{\includegraphics[width=0.49\linewidth]{graphs_pdf/lipari7}}
@@ -204,23 +181,11 @@ The ground state of nuclear matter can be calculated from the nuclear Hamiltonia
 	\label{fig:neutronslice}
 \end{figure}
 
-
-
-
-
-
-% Stiffness of EOS
-% Dependence of R on M
-
-\pagebreak
+\newpage
 \subsection{General constraints}
-
-%There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the causality limit. An EOS might be ultrabaric and still causal: the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. However, if the EOS starts below the ultrabaric line and fulfills the causality condition, it will never cross that line. If its slope increases so that $dP/d\epsilon>1$, the EOS becomes \textit{superluminal}. While a superluminal EOS is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such EOS all have other significant disadvantages leaving them irrelevant. 
-
-
-
 There are two major conditions for any equation of state to be physically acceptable. For one, it cannot be \textit{ultrabaric}, i.e. $P>\epsilon$. Sometimes this is confused with the superluminal limit even though an \ac*{eos} might be ultrabaric and still subluminal. A physically relevant \ac*{eos} cannot be superluminal either, the condition reads $dP/d\epsilon=(v/c_s)^2 < 1$ with effective sound speed $c_s$. The confusion of the two terms arises because an \ac*{eos} starts fulfilling both conditions, it will never cross the ultrabaric line. If its slope increases so that $dP/d\epsilon>1$, the \ac*{eos} becomes \textit{superluminal}. While a superluminal \ac*{eos} is widely thought to be acausal, that is not necessarily the case. In general neither Lorentz invariance nor causality explicitly forbid $v>c_s$ \cite{NeutronStars1}, but such \ac*{eos} all have other significant disadvantages leaving them irrelevant. 
 
+\newpage
 \subsection{Stability, mass-radius relation and third family}
 
 The term \textit{stability} is generally used in the context of stability towards perturbations, i.e. radial oscillation modes. This can be read off the mass-radius relation: If the curve reaches a critical point, the slope changes sign and the lowest stable mode switches its stability. Reading from the right, a counter-clockwise change of slope at a critical point leads to instability of a mode. This can be seen in \ref{fig:third_stable}.
@@ -238,6 +203,7 @@ In 1966 Wheeler showed that, if the \ac*{eos} was smooth, there would only remai
 The main arguments against a third family would be instability to oscillations (resulting in explosion oder black hole formation) and distribution of Fermi pressure among more flavors \cite{GlennKett}. Most theories resolve around quark core formation and a pasta-like phase transition from hadronic/mixed phase to quark matter analogue to the zone between crust and core. \\
 The first to discover the general possibility of a third family was Gerlach in 1968 \cite{Gerlach1968}; in the process of investigating his theory that some kind of sub-nuclear density interaction may have a significant impact on the \ac*{eos} and \ac*{mrr} he was also the first to explore an inverse approach to stellar structure calculation. For more on that, see \ref{inv}.
 
+\pagebreak
 \subsection{Yet another compact family?}
 
 In 2017 M. Alford and A. Sedrakian were the first to argue what effects a multiple phase QCD diagram would yield for new families of compact stars (\cite{AlfordSedrakian2017} and references therein). Up to that point a quark core was always assumed to consist of only one phase. \\ 
@@ -260,7 +226,6 @@ From figure \ref{fig:fourth_eos_alfsed} a) four of the six parameters determinin
 \end{figure}
 
 
-\pagebreak
 \subsection{Fermi gas equation of state}
 
 This \ac*{eos} will serve as a test case for the reconstruction algorithm (the constant in the polytrope will be set arbitrarily when using it as a first test). For a detailed version of this derivation, see \cite{Glendenning}. \\
@@ -291,7 +256,7 @@ Which is a polytropic type of equation. By absorbing densities into the energy d
 \end{equation}
 which is common to use for simple star models, especially white dwarfs. 
 
-\pagebreak
+
 \subsection{Numerical solution}
 
 The TOV equations come in the form of a first-order \ac{ode} system. In order to obtain sufficient precision, a 4th-order Runge-Kutta algorithm can be used to solve said \ac{ode}. By looking at both equations, our \ac{ode} system is given in the form:
@@ -317,7 +282,7 @@ with increments $k_i$:
 All $k_i$ are of course also two component "vectors". \\
 For simpler test versions of the code, it is convenient to reduce the RK4 algorithm to RK1, or Euler's method. Also, the step size does not have to be adaptive. That way, runtime efficiency can be adjusted.
 
-\pagebreak
+
 \subsubsection{Adaptive step size}
 
 If mass and radius calculation algorithms do not yield a sufficient precision, the step size within the \ac*{tov} solver can be implemented as an adaptive variable instead of a constant. Step size adaption works as follows: In order to maintain a minimum level of precision, the program checks for the change in pressure resulting from one Runge-Kutta step. If this change is too large, the step size $\tau$ is varied by a factor and the Runge-Kutta step count is reduced by one. Upon repeating the step, the same check takes place, and if necessary another $\tau$ is adjusted again. If the check is successful, the program will accept the step result and proceed with the next one. 
@@ -376,7 +341,7 @@ For the first mass in the file that is supposed to be reconstructed, the code wi
 From this point on it is important to determine which \ac*{eos} will be used for what pressure interval inside the star. The second mass to be calculated will use the given \ac*{eos} and one single line after it; masses number three and above then also need a line, but before finishing with the given \ac*{eos} the previously determined lines are supposed to fill in the rest of the pressure range. \\
 The line currently subject to variation will start at the central pressure ($p_c$) and will end at the last pressure a star was reconstructed for. This is resembled by the end point of the last previous line (or in the special case, the last pressure of the given \ac*{eos}). The last given \ac*{eos} pressure is saved in the very beginning as $p_{init}$, marking the point from which the given \ac*{eos} will finish up the mass calculation.
 
-
+\newpage
 \subsection{Linear interpolation}
 
 Four parameters are needed to calculate one line equation (two points in a two-dimensional plane). In the code, every \ac*{eos} point consists of a pressure and an energy density value. The parameters needed for one line are stored in an array $\alpha$: 
@@ -395,6 +360,7 @@ While one line is being varied, $\alpha_0$ and $\alpha_1$ stay fixed as they are
 That way, the array can be more easily accessed an used by the code even with continuous extension.\\
 Centering the whole reconstruction around the $\alpha$ array also immediately makes external \ac*{eos} input possible. An \ac*{eos} table read in by the code along with an \ac*{mrr} would be stored in $\alpha$ and used for the calculation with either the same linear function as the rest, or with another interpolation method. Note that the external table would need the energy density density in one column (many \ac*{eos} use the matter or baryon density instead).
 
+\newpage
 \subsection{Alternative method: Monte Carlo}
 
 In case the previously described algorithm is not capable of finding all correct radii and masses, an alternative shall be proposed here. \\
@@ -403,6 +369,7 @@ Alternatively, a Monte Carlo reconstruction would technically be capable of draw
  That way, the mass-radius points generated by the code would not have to be the same as those in the input data. Curve comparison should indeed take place using interpolation of points as an \ac*{mrr} does not follow a type of function that could be used fit it to the data. \\
 This method is of course of highly numerical nature. However, in the past statistical approaches have often been of great success, which is why here a Monte Carlo method could potentially be used as a comparison. 
 
+\newpage
 \subsection{Optimal radius and mass for a given slope}
 
 Before comparing the radius to the input, the optimum mass can easily be obtained by fixing a slope for the \ac*{eos} and varying the central pressure in small steps. The latter has no significant impact on the radius. Here it proved to be convenient to use an indirect check instead of a direct comparison to the input mass. After the first calculation, an initial difference between input and outcome is stored. The difference for the next central pressure will be multiplied with the initial one; variation takes place until the multiplication outcome flips the sign. Then, the pressure step is decreased and variation also switches direction. This can be repeated until a desired precision is reached. The radius corresponding to the optimum mass will be given to the main function along with it. 
@@ -471,7 +438,7 @@ Figure \ref{fig:recon_test_2} shows the result for a code without indirect radiu
 	\label{fig:recon_test_2}
 \end{figure}
 
-\pagebreak
+\newpage
 \subsubsection{Varying the $\lambda$ parameter}
 Figure \ref{fig:recon_test} was made with $\lambda = 10^{-2}$. Varying $\lambda$ has significant impact on precision. With no changes made otherwise, decreasing $\lambda$ to, for example, $10^{-3}$, leads to a strong deviation from the desired curve, whereas an increase in $\lambda$ rapidly leads to an unreasonably long computation time. In order to find ``good'' values for $\lambda$, ten were chosen between 0.045 and 0.08. Below $\lambda = 5\cdot10^{-2}$ the \ac*{eos} look like \ref{fig:recon_test} and were not plotted again. \ref{fig:lambda_vary} shows the other results. \\
 By looking at fig. \ref{fig:lambda_vary} a correlation between precision loss towards higher radii and sudden drops in the \ac*{eos} can be seen immediately. This is technically plausible as lower energy density causes larger radius (otherwise, the increased gravitational pull would lead to a smaller radius). It however remains unclear why there is no distinct range for $\lambda$ to produce a ``good'' reconstruction; the ```failed'' runs are distributed randomly over the range of used $\lambda$. This arbitrariness is concerning as a certain range of working $\lambda$ would have made sense at least numerically if not physically. The results show a strong tendency to a trial-and-error based way of finding a well-working value which can in no way be motivated by any numerical or physical law, which might be the biggest issue the code currently has. \\
@@ -479,14 +446,14 @@ Looking at the sudden dropping \ac*{eos}, correspondence to their \ac*{mrr} is q
 
 \begin{figure}
 	\centering
-%	\bigskip
+	\bigskip
 	\includegraphics[width=0.8\textwidth]{graphs_pdf/mrr_eos_lambda_varied_upright}
 	\caption{EOS and MRR for various values of $\lambda$. The precision was not changed.}
-%	\bigskip
+	\bigskip
 	\label{fig:lambda_vary}
 \end{figure}
 
-\pagebreak
+\newpage
 \subsubsection{MRR-EOS map uniqueness}
 As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness linking \ac*{eos} and \ac*{mrr} to construct his inverse algorithm. It seems peculiar that the radius, with given $\lambda$, only deviates from the input by a few meters, barely visible when shown in a plot. In contrast the \ac*{eos} can deviate visibly from the desired input curve. However, as can be seen in fig. \ref{fig:eos_ratio}, for the \ac*{eos} without obviously un-physical behaviour the maximum deviation is about 10\,\%. To obtain fig. \ref{fig:eos_ratio}, energy densities were calculated with the original \ac*{eos} and the reconstructed pressures. The reconstructed energy densities were then divided by these ``default'' ones. For comparison to unity the blue dashed line (division of original \ac*{eos} by itself) was drawn together with the ratios.
  
@@ -495,22 +462,10 @@ As mentioned in \ref{inv}, Lindblom makes explicit use abstract map uniqueness l
 	\bigskip
 	\includegraphics[width=1\textwidth]{graphs_pdf/mrr_eos_ratios}
 	\caption{Ratio plots for the EOS that did not show peculiar behaviour. $\varepsilon_R$: reconstructed energy density, $\varepsilon_D$: default energy density}
-	\bigskip
 	\label{fig:eos_ratio}
 \end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-\pagebreak
+\newpage
 \subsection{Second equation of state}
 In order to have another \ac*{eos} to test the program with, the following one was chosen due to the fact that energy density and pressure were given:
 \begin{figure} [h]
@@ -521,6 +476,8 @@ In order to have another \ac*{eos} to test the program with, the following one w
 	\bigskip
 	\label{fig:othertest}
 \end{figure}
+
+
 
 
 %%%ALTERNATIVE BILDUMGEBUNG
@@ -554,7 +511,7 @@ In order to have another \ac*{eos} to test the program with, the following one w
 %  \end{tabular}
 %\end{table}
 
-\pagebreak
+\newpage
 \clearpage
 \bibliography{thesis}
 \bibliographystyle{unsrt}
