@@ -5,20 +5,20 @@
 \BOOKMARK [2][-]{subsection.2.3}{The equation of state and neutron star structure}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{General constraints}{section.2}% 6
 \BOOKMARK [2][-]{subsection.2.5}{Stability, mass-radius relation and third family}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.6}{Yet another compact family?}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.6}{A fourth compact family?}{section.2}% 8
 \BOOKMARK [2][-]{subsection.2.7}{Fermi gas equation of state}{section.2}% 9
-\BOOKMARK [2][-]{subsection.2.8}{Numerical solution}{section.2}% 10
-\BOOKMARK [3][-]{subsubsection.2.8.1}{Adaptive step size}{subsection.2.8}% 11
-\BOOKMARK [3][-]{subsubsection.2.8.2}{Implementation}{subsection.2.8}% 12
-\BOOKMARK [2][-]{subsection.2.9}{From TOV solver to reconstruction}{section.2}% 13
-\BOOKMARK [2][-]{subsection.2.10}{The inverse problem}{section.2}% 14
-\BOOKMARK [1][-]{section.3}{Reconstruction method}{}% 15
-\BOOKMARK [2][-]{subsection.3.1}{General goal}{section.3}% 16
-\BOOKMARK [2][-]{subsection.3.2}{Pressure intervals}{section.3}% 17
-\BOOKMARK [2][-]{subsection.3.3}{Linear interpolation}{section.3}% 18
-\BOOKMARK [2][-]{subsection.3.4}{Alternative method: Monte Carlo}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.5}{Optimal radius and mass for a given slope}{section.3}% 20
-\BOOKMARK [2][-]{subsection.3.6}{Direct and indirect radius check}{section.3}% 21
+\BOOKMARK [2][-]{subsection.2.8}{The inverse problem}{section.2}% 10
+\BOOKMARK [1][-]{section.3}{Reconstruction method}{}% 11
+\BOOKMARK [2][-]{subsection.3.1}{General goal}{section.3}% 12
+\BOOKMARK [2][-]{subsection.3.2}{Pressure intervals}{section.3}% 13
+\BOOKMARK [2][-]{subsection.3.3}{Linear interpolation}{section.3}% 14
+\BOOKMARK [2][-]{subsection.3.4}{Numerical solution}{section.3}% 15
+\BOOKMARK [3][-]{subsubsection.3.4.1}{Adaptive step size}{subsection.3.4}% 16
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Implementation}{subsection.3.4}% 17
+\BOOKMARK [2][-]{subsection.3.5}{From TOV solver to reconstruction}{section.3}% 18
+\BOOKMARK [2][-]{subsection.3.6}{Alternative method: Monte Carlo}{section.3}% 19
+\BOOKMARK [2][-]{subsection.3.7}{Optimal radius and mass for a given slope}{section.3}% 20
+\BOOKMARK [2][-]{subsection.3.8}{Direct and indirect radius check}{section.3}% 21
 \BOOKMARK [1][-]{section.4}{Results}{}% 22
 \BOOKMARK [2][-]{subsection.4.1}{Issues}{section.4}% 23
 \BOOKMARK [3][-]{subsubsection.4.1.1}{Radius and slope control}{subsection.4.1}% 24
@@ -26,3 +26,5 @@
 \BOOKMARK [3][-]{subsubsection.4.2.1}{Varying the \040parameter}{subsection.4.2}% 26
 \BOOKMARK [3][-]{subsubsection.4.2.2}{MRR-EOS map uniqueness}{subsection.4.2}% 27
 \BOOKMARK [2][-]{subsection.4.3}{Second equation of state}{section.4}% 28
+\BOOKMARK [1][-]{Appendix.1.A}{List of abbreviations}{}% 29
+\BOOKMARK [1][-]{Appendix.1.B}{Statutory Declaration}{}% 30

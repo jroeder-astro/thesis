@@ -81,7 +81,7 @@ main(){
 
   // File I/O
 
-  FILE *fres = fopen("results_el2_5_p","w"); 
+  FILE *fres = fopen("results_el2_6_p","w"); 
   FILE *MRR  = fopen("mr_eos_alpha.out", "r");
   double pcenter;
 
@@ -304,7 +304,7 @@ main(){
       printf("diff radius %g %g %g %g %g %g %g %g\n",epsp,slope,slope_step,
       diff_s, Rcomp,MR_rel[mcount][0],Mcomp,MR_rel[mcount][1]);
                       // 0.000001
-      if (fabs(diff_s) < 0.00001) {
+      if (fabs(diff_s) < 0.0001) {
 //      cout << "fabs(diff_s) break condition" << endl;
         break;
       }
@@ -317,17 +317,17 @@ main(){
 // if eps is getting bigger, decrease slope step size and flip the sign
       slope_step /= -10;
       eps0=epsp;
-
-      if (fabs(slope_step) < 1e-8) {
+/*
+      if (fabs(slope_step) < 1e-7) {
         cout << "yo\n";
         break;
       }
-
+*/
 
     } // end slope loop
 
 // after first round set lambda to some reasonable value (one might play around with this number)
-    lambda = (5)*(1e-2);
+    lambda = (6)*(1e-2);
     slope_old = slope;
     alpha[indx] = y[0];
     alpha[indx+1] = alpha[indx-1] + (alpha[indx]-alpha[indx-2]) / slope ; 
