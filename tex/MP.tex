@@ -468,10 +468,8 @@ Looking at the sudden dropping \ac*{eos}, correspondence to their \ac*{mrr} is q
 
 \begin{figure}
 	\centering
-	\bigskip
-	\includegraphics[width=0.8\textwidth]{graphs_pdf/mrr_eos_lambda_varied_upright}
+	\includegraphics[width=0.9\textwidth]{graphs_pdf/mrr_eos_lambda_varied_upright}
 	\caption{EOS and MRR for various values of $\lambda$. The precision was not changed.}
-	\bigskip
 	\label{fig:lambda_vary}
 \end{figure}
 
@@ -493,17 +491,38 @@ In order to have another \ac*{eos} to test the program with, the following one w
 \begin{figure} [h]
 	\centering
 	\bigskip
-	\includegraphics[width=1\textwidth]{graphs_pdf/second_mrr_eos}
+	\includegraphics[width=1\textwidth]{graphs_pdf/mrr_eos_ext_new}
 	\caption{A second \ac*{eos} together with the \ac*{mrr} it produces}
 	\bigskip
 	\label{fig:othertest}
 \end{figure}
+Like before, various values for $\lambda$ were tested out. Surprisingly, no sudden drops in energy density did occur; rather, all reconstructed curves follow the same ``path''. $\lambda$ here does not seem to have a huge effect from $4\cdot 10^{-2}$ and above. Again, both \ac*{mrr} and \ac*{eos} have been plotted for all the $\lambda$ (fig. \ref{fig:lambda_vary_ext}). The similarity of the curves an also be seen clearly in fig. \ref{fig:eos_ratio_ext}: in the beginning, a $5$\,\% deviation occurs no matter what $\lambda$ was set to, to then cross the unity line and deviate into the other direction to up to 15\,\%. The curves would undoubtedly deviate even further upon extension of the calculation to higher densities. Fig. \ref{fig:eos_ratio_ext} shows the problem of maintaining numerical precision: if the starting star for the reconstruction already deviates significantly from the input, the rest of the calculated masses and radii will likely never converge in terms of the corresponding central pressure and energy density values. Still, finding the correct masses was not an issue. The only massively deviating variable is the radius; sometimes, the deviation reaches almost 1\,km. \\
+Varying the precision did not help either. The only part of the curve behavior that changes when changing required precision for the code to move on to the next star  is the position of the intersect of reconstruction and input. Just as this point seems to move to higher densities with increasing $\lambda$, the precision can have the same effect with slightly greater magnitude. Intersects may move to densities $200$\,MeV\,fm$^{-3}$ higher.\\
+Computation time is a factor independent of the \ac*{eos}. In order to achieve a complete curve in the first place, no matter its behavior, a statement regarding the slope variation step has to be implemented. For figures \ref{fig:lambda_vary} and \ref{fig:lambda_vary_ext}, the minimum step size for the slope was $10^{-6}$. If the code goes below this minimum, the calculation stops and the next star is started. A test run without this statement for the external \ac*{eos} managed to reconstruct the first star in both mass and radius to order $10^{-4}$, but getting stuck on the second star with a slope step size of order $10^{-11}$. This resulted in an unreasonably long computation time of at least multiple hours per star.
+\begin{figure} [h]
+	\centering
+	\bigskip
+	\includegraphics[width=1\textwidth]{graphs_pdf/eos_ext_ratios}
+	\caption{Ratio plots for the external EOS. $\varepsilon_R$: reconstructed energy density, $\varepsilon_D$: default energy density.}
+	\label{fig:eos_ratio_ext}
+\end{figure}
 
+\newpage
+\begin{figure} [h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{graphs_pdf/mrr_eos_ext_upright}
+	\caption{EOS and MRR for various values of $\lambda$. The precision was not changed.}
+	\label{fig:lambda_vary_ext}
+\end{figure}
+\clearpage
 
-
-
-
-
+\newpage
+\section{Conclusion and outlook}
+Looking at the results in the previous section, the flaws and issues of the method used are obvious. The numerical algorithm produces un-physical behavior for no particular, addressable reason and is not capable of correcting deviations occurring in the beginning of the calculation. Therefore the code still needs rather extensive adjusting before use with another \ac*{eos}. \\
+Nonetheless, studying the effect of $\lambda$ revealed the potential an inverse algorithm has for future analysis of actual data. Looking at the variety of \ac*{eos} that were proposed and generated \ac*{mrr} with, it seems reasonable to choose an inverse algorithm to avoid being constrained to a single model. This does not mean that the approach in this thesis was the correct one, it is rather one of many that should be pursued further (mainly the Monte Carlo and Lindblom methods discussed earlier). With a well-working code, the high-density phase diagram of strongly interacting matter can likely be probed better than with any other approach. Earth bound experiments might never reach energies and densities needed to study matter in extreme states for a sufficient time, making astrophysics increasingly relevant as a laboratory. \\
+Both \ac*{eos} that were used to test the code had no connection to actual data from an experiment. When \ac*{nic} obtains the first precise radius measurements, a main goal will be the maximum information extraction from these new constraints, whether through new theoretical models or numerical codes. The advantage lies clearly in the latter as it will immediately produce results that can be of further use in other fields of physics. The development or combination of theories will follow soon after in order to implement the numerically gathered information into already existing theoretical bodies. \\
+What kind and how much information experiments like \ac*{nic} will bring in the end remains of course unclear until the point of measurement. Until then, it is important to prepare for that moment as best as possible. The only reasonable preparation is obviously code development, as theoretical calculations will only make sense when they can be tested properly.\\
+All approaches can, will, and should be continuously modified to maintain a variety of possible directions for future research, which is where this work contributes. If the above discussed method holds up against other types of inverse calculations can be examined in the future, once there is access to experimental data. 
 
 
 
@@ -519,8 +538,7 @@ In order to have another \ac*{eos} to test the program with, the following one w
 	\bibliographystyle{unsrt}
 	
 	\newpage
-	\bigskip
-    \bigskip
+
 	\section{List of abbreviations}
 	\begin{acronym} [MRR]
 		\acro{eos}[EOS]{equation of state}
@@ -531,14 +549,13 @@ In order to have another \ac*{eos} to test the program with, the following one w
 		\acro{tov}[TOV]{Tolman-Oppenheimer-Volkoff equations}
 	\end{acronym}
 
-	
-	\bigskip
-	\bigskip
 	\section{Statutory Declaration}
-	I herewith declare that I have composed	the present thesis myself and without use of any other than the cited sources and aids. Sentences or parts of sentences quoted literally are marked as such; other references with regard to the statement and scope are indicated by full details of the publications concerned. The	thesis in the same or similar form has not been submitted to any examination body and has not been published. This thesis was not yet, even in part, used in another examination or as a course performance.\\\\\\\\
-	
+	I herewith declare that I have composed	the present thesis myself and without use of any other than the cited sources and aids. Sentences or parts of sentences quoted literally are marked as such; other references with regard to the statement and scope are indicated by full details of the publications concerned. The	thesis in the same or similar form has not been submitted to any examination body and has not been published. This thesis was not yet, even in part, used in another examination or as a course performance.\\\\\\
 	Place, Date ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Jan Röder
-	
+
+	\section{Eidesstattliche Erklärung}
+	Ich versichere hiermit, dass ich die vorliegende Arbeit selbständig und ohne Benutzung anderer als der angegebenen Quellen und Hilfsmittel verfasst habe. Wörtlich übernommene Sätze oder Satzteile sind als Zitat belegt, andere Anlehnungen, hinsichtlich  Aussage und Umfang, unter Quellenangabe kenntlich gemacht. Die Arbeit hat in gleicher oder ähnlicher Form noch keiner Prüfungsbehörde vorgelegen und ist nicht veröffentlicht. Sie wurde nicht, auch nicht auszugsweise, für eine andere Prüfungs- oder Studienleistung verwendet. \\\\\\
+	Ort, Datum ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Jan Röder
 	
 \end{appendices}
 

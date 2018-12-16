@@ -31,5 +31,7 @@
 \contentsline {subsubsection}{\numberline {4.2.1}Varying the $\lambda $ parameter}{25}{subsubsection.4.2.1}
 \contentsline {subsubsection}{\numberline {4.2.2}MRR-EOS map uniqueness}{28}{subsubsection.4.2.2}
 \contentsline {subsection}{\numberline {4.3}Second equation of state}{29}{subsection.4.3}
-\contentsline {section}{\numberline {A}List of abbreviations}{32}{Appendix.1.A}
-\contentsline {section}{\numberline {B}Statutory Declaration}{32}{Appendix.1.B}
+\contentsline {section}{\numberline {5}Conclusion and outlook}{32}{section.5}
+\contentsline {section}{\numberline {A}List of abbreviations}{35}{Appendix.1.A}
+\contentsline {section}{\numberline {B}Statutory Declaration}{35}{Appendix.1.B}
+\contentsline {section}{\numberline {C}Eidesstattliche Erkl\"arung}{35}{Appendix.1.C}
