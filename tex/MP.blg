@@ -6,7 +6,7 @@ Database file #1: thesis.bib
 Warning--empty publisher in ShapiroTeukolsky
 You've used 16 entries,
             1791 wiz_defined-function locations,
-            558 strings with 6372 characters,
+            557 strings with 6368 characters,
 and the built_in function-call counts, 3349 in all, are:
 = -- 279
 > -- 139

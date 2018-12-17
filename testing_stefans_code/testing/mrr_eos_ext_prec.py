@@ -25,7 +25,7 @@ M11 = []
 e11 = []
 p11 = []
 
-with open('results_el1_5_p', 'rb') as csvfile:
+with open('results_el_5', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter = ' ')
     for row in plots:
         R11.append(float(row[1]))
@@ -41,7 +41,7 @@ M25 = []
 e25 = []
 p25 = []
 
-with open('results_el2_5_p', 'rb') as csvfile:
+with open('results_el_fabs', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter = ' ')
     for row in plots:
         R25.append(float(row[1]))
@@ -57,7 +57,7 @@ M26 = []
 e26 = []
 p26 = []
 
-with open('results_el2_6_p', 'rb') as csvfile:
+with open('results_el_large', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter = ' ')
     for row in plots:
         R26.append(float(row[1]))
@@ -73,7 +73,7 @@ M27 = []
 e27 = []
 p27 = []
 
-with open('results_el2_7_p', 'rb') as csvfile:
+with open('results_el_neg', 'rb') as csvfile:
     plots = csv.reader(csvfile, delimiter = ' ')
     for row in plots:
         R27.append(float(row[1]))
@@ -116,11 +116,11 @@ plt.plot(pdn, edn, label ='EOS input')
 plt.plot(p11n, e11n, label ='EOS $\lambda = 0.1$')
 #plt.plot(p21n, e21n, label ='EOS $\lambda = 0.01$')
 #plt.plot(p24n, e24n, label ='EOS $\lambda = 0.04$')
-plt.plot(p25n, e25n, label ='EOS $\lambda = 0.05$')
+plt.plot(p25n, e25n, label ='EOS small')
 #plt.plot(p255n, e255n, label ='EOS $\lambda = 0.055$')
 #plt.plot(p257n, e257n, label ='EOS $\lambda = 0.057$')
-plt.plot(p26n, e26n, label ='EOS $\lambda = 0.06$')
-plt.plot(p27n, e27n, label ='EOS $\lambda = 0.07$')
+plt.plot(p26n, e26n, label ='EOS large')
+plt.plot(p27n, e27n, label ='EOS neg')
 #plt.plot(p28n, e28n, label ='EOS $\lambda = 0.08$')
 #plt.plot(p31n, e31n, label ='EOS $\lambda = 0.001$')
 plt.ylabel('$\epsilon$(p)/MeVfm$^{-3}$', fontsize=15)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.17)  16 DEC 2018 20:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.11.17)  17 DEC 2018 21:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -350,7 +350,14 @@ s
 \f@nch@O@olf=\skip63
 \f@nch@O@orf=\skip64
 )
-(/usr/share/texlive/texmf-dist/tex/latex/acronym/acronym.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tocbibind/tocbibind.sty
+Package: tocbibind 2010/10/13 v1.5k extra ToC listings
+Package tocbibind Info: The document has section divisions on input line 50.
+
+
+Package tocbibind Note: Using section or other style headings.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/acronym/acronym.sty
 Package: acronym 2015/03/21 v1.41 Support for acronyms (Tobias Oetiker)
 
 (/usr/share/texlive/texmf-dist/tex/latex/bigfoot/suffix.sty
@@ -366,24 +373,24 @@ Package: xstring 2013/10/13  v1.7c  String manipulations (C Tellechea)
 )
 \AC@clearlist=\toks25
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 40.
+Package hyperref Info: Option `colorlinks' set `true' on input line 41.
  (./MP.aux)
 \openout1 = `MP.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 49.
+LaTeX Font Info:    ... okay on input line 49.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -400,7 +407,7 @@ LaTeX Font Info:    ... okay on input line 48.
 \everyMPtoPDFconversion=\toks27
 )
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 48.
+Package hyperref Info: Link coloring ON on input line 49.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -409,9 +416,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count130
 )
-LaTeX Info: Redefining \ref on input line 48.
-LaTeX Info: Redefining \pageref on input line 48.
-LaTeX Info: Redefining \nameref on input line 48.
+LaTeX Info: Redefining \ref on input line 49.
+LaTeX Info: Redefining \pageref on input line 49.
+LaTeX Info: Redefining \nameref on input line 49.
 
 (./MP.out) (./MP.out)
 \@outlinefile=\write4
@@ -478,27 +485,27 @@ Package Fancyhdr Warning: \headheight is too small (12.0pt):
 
 [4] [5]
 Package acronym Info: Label `acro:eos' newly defined as it shall be overridden
-although it is yet undefined on input line 116.
-Package acronym Info: Label `acro:mrr' newly defined as it shall be overridden
 although it is yet undefined on input line 117.
+Package acronym Info: Label `acro:mrr' newly defined as it shall be overridden
+although it is yet undefined on input line 118.
 Package acronym Info: Label `acro:nic' newly defined as it shall be overridden
-although it is yet undefined on input line 119.
+although it is yet undefined on input line 120.
  [1]
 Package acronym Info: Label `acro:tov' newly defined as it shall be overridden
-although it is yet undefined on input line 133.
+although it is yet undefined on input line 134.
  [2] [3] [4] [5]
-<graphs_pdf/lipari7.pdf, id=305, 597.23125pt x 845.1575pt>
+<graphs_pdf/lipari7.pdf, id=310, 597.23125pt x 845.1575pt>
 File: graphs_pdf/lipari7.pdf Graphic file (type pdf)
 <use graphs_pdf/lipari7.pdf>
-Package pdftex.def Info: graphs_pdf/lipari7.pdf  used on input line 191.
+Package pdftex.def Info: graphs_pdf/lipari7.pdf  used on input line 192.
 (pdftex.def)             Requested size: 196.41982pt x 277.96143pt.
-<graphs_pdf/lipari8.pdf, id=306, 597.23125pt x 845.1575pt>
+<graphs_pdf/lipari8.pdf, id=311, 597.23125pt x 845.1575pt>
 File: graphs_pdf/lipari8.pdf Graphic file (type pdf)
 <use graphs_pdf/lipari8.pdf>
-Package pdftex.def Info: graphs_pdf/lipari8.pdf  used on input line 193.
+Package pdftex.def Info: graphs_pdf/lipari8.pdf  used on input line 194.
 (pdftex.def)             Requested size: 196.41982pt x 277.96143pt.
 
-Underfull \hbox (badness 3138) in paragraph at lines 194--194
+Underfull \hbox (badness 3138) in paragraph at lines 195--195
 []\OT1/cmr/m/n/12 Figure 1: []Schematic neu-tron star struc-ture for dif-fer-en
 t masses; h/q:
  []
@@ -507,51 +514,55 @@ t masses; h/q:
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [6] [7 <./graphs_pdf/lipari7.pdf> <./graphs_pdf/lipari8.pdf>]
-<graphs_pdf/third_and_stable.pdf, id=338, 396.48125pt x 250.9375pt>
+<graphs_pdf/third_and_stable.pdf, id=343, 396.48125pt x 250.9375pt>
 File: graphs_pdf/third_and_stable.pdf Graphic file (type pdf)
 <use graphs_pdf/third_and_stable.pdf>
-Package pdftex.def Info: graphs_pdf/third_and_stable.pdf  used on input line 20
-9.
+Package pdftex.def Info: graphs_pdf/third_and_stable.pdf  used on input line 21
+1.
 (pdftex.def)             Requested size: 376.11952pt x 238.05614pt.
  [8 <./graphs_pdf/third_and_stable.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [9]
-<graphs_pdf/EoS_letter.pdf, id=413, 528.97626pt x 400.49625pt>
+<graphs_pdf/EoS_letter.pdf, id=412, 528.97626pt x 400.49625pt>
 File: graphs_pdf/EoS_letter.pdf Graphic file (type pdf)
 <use graphs_pdf/EoS_letter.pdf>
-Package pdftex.def Info: graphs_pdf/EoS_letter.pdf  used on input line 228.
+Package pdftex.def Info: graphs_pdf/EoS_letter.pdf  used on input line 229.
 (pdftex.def)             Requested size: 192.24297pt x 145.54741pt.
-<graphs_pdf/mass_radius_stiff2SC.pdf, id=415, 849.1725pt x 596.2275pt>
+<graphs_pdf/mass_radius_stiff2SC.pdf, id=414, 849.1725pt x 596.2275pt>
 File: graphs_pdf/mass_radius_stiff2SC.pdf Graphic file (type pdf)
 <use graphs_pdf/mass_radius_stiff2SC.pdf>
 Package pdftex.def Info: graphs_pdf/mass_radius_stiff2SC.pdf  used on input lin
-e 229.
+e 230.
 (pdftex.def)             Requested size: 208.95671pt x 146.7093pt.
-<graphs_pdf/profiles.pdf, id=430, 849.1725pt x 596.2275pt>
+<graphs_pdf/profiles.pdf, id=429, 849.1725pt x 596.2275pt>
 File: graphs_pdf/profiles.pdf Graphic file (type pdf)
 <use graphs_pdf/profiles.pdf>
-Package pdftex.def Info: graphs_pdf/profiles.pdf  used on input line 237.
-(pdftex.def)             Requested size: 376.11952pt x 264.08766pt.
+Package pdftex.def Info: graphs_pdf/profiles.pdf  used on input line 238.
+(pdftex.def)             Requested size: 334.332pt x 234.74762pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[9]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [10 <./graphs_pdf/EoS_letter.pdf> <./graphs_pdf/mass_radius_stiff2SC.pdf>]
-[11 <./graphs_pdf/profiles.pdf>] [12]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 284.
+[11 <./graphs_pdf/profiles.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 285.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 284.
- [13]
-<graphs_pdf/mrr_corr_eos_new.pdf, id=521, 578.16pt x 289.08pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 285.
+ [12] [13]
+<graphs_pdf/mrr_corr_eos_new.pdf, id=526, 578.16pt x 289.08pt>
 File: graphs_pdf/mrr_corr_eos_new.pdf Graphic file (type pdf)
 <use graphs_pdf/mrr_corr_eos_new.pdf>
 Package pdftex.def Info: graphs_pdf/mrr_corr_eos_new.pdf  used on input line 29
-6.
+7.
 (pdftex.def)             Requested size: 376.11952pt x 188.05856pt.
-<graphs_pdf/eos_lines_recon_schematic.pdf, id=537, 867.24pt x 361.35pt>
+<graphs_pdf/eos_lines_recon_schematic.pdf, id=542, 867.24pt x 361.35pt>
 File: graphs_pdf/eos_lines_recon_schematic.pdf Graphic file (type pdf)
 <use graphs_pdf/eos_lines_recon_schematic.pdf>
 Package pdftex.def Info: graphs_pdf/eos_lines_recon_schematic.pdf  used on inpu
@@ -561,96 +572,82 @@ t line 305.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[14 <./graphs_pdf/mrr_corr_eos_new.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [15 <./graphs_pdf/eos_lines_recon_schematic.pdf>]
+[14 <./graphs_pdf/mrr_corr_eos_new.pdf>] [15 <./graphs_pdf/eos_lines_recon_sche
+matic.pdf>] [16]
 Package acronym Info: Label `acro:ode' newly defined as it shall be overridden
-although it is yet undefined on input line 340.
+although it is yet undefined on input line 341.
 Package acronym Info: Label `acro:rk4' newly defined as it shall be overridden
-although it is yet undefined on input line 340.
-
-Underfull \vbox (badness 1303) has occurred while \output is active []
-
- [16]
-[17] [18] [19]
-Underfull \hbox (badness 10000) in paragraph at lines 410--414
+although it is yet undefined on input line 341.
+ [17] [18] [19] [20]
+Underfull \hbox (badness 10000) in paragraph at lines 412--416
 
  []
 
-[20] [21] [22]
-<graphs_pdf/testcase_mrr_eos.pdf, id=707, 578.16pt x 289.08pt>
+[21] [22]
+<graphs_pdf/testcase_mrr_eos.pdf, id=719, 578.16pt x 289.08pt>
 File: graphs_pdf/testcase_mrr_eos.pdf Graphic file (type pdf)
 <use graphs_pdf/testcase_mrr_eos.pdf>
-Package pdftex.def Info: graphs_pdf/testcase_mrr_eos.pdf  used on input line 43
-9.
+Package pdftex.def Info: graphs_pdf/testcase_mrr_eos.pdf  used on input line 44
+1.
 (pdftex.def)             Requested size: 417.91342pt x 208.95346pt.
-<graphs_pdf/testcase_recon_stefan_fail.pdf, id=710, 462.52798pt x 346.89601pt>
+<graphs_pdf/testcase_recon_stefan_fail.pdf, id=722, 462.52798pt x 346.89601pt>
 File: graphs_pdf/testcase_recon_stefan_fail.pdf Graphic file (type pdf)
 <use graphs_pdf/testcase_recon_stefan_fail.pdf>
 Package pdftex.def Info: graphs_pdf/testcase_recon_stefan_fail.pdf  used on inp
-ut line 448.
+ut line 449.
 (pdftex.def)             Requested size: 417.91342pt x 313.45271pt.
-<graphs_pdf/testcase_recon_me_negslope.pdf, id=712, 462.52798pt x 346.89601pt>
+ [23 <./graphs_pdf/testcase_mrr_eos.pdf>] [24 <./graphs_pdf/testcase_recon_stef
+an_fail.pdf>]
+<graphs_pdf/testcase_recon_me_negslope.pdf, id=814, 462.52798pt x 346.89601pt>
 File: graphs_pdf/testcase_recon_me_negslope.pdf Graphic file (type pdf)
 <use graphs_pdf/testcase_recon_me_negslope.pdf>
 Package pdftex.def Info: graphs_pdf/testcase_recon_me_negslope.pdf  used on inp
 ut line 457.
 (pdftex.def)             Requested size: 417.91342pt x 313.45271pt.
- [23 <./graphs_pdf/testcase_mrr_eos.pdf>]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[24]
+ [25 <./graphs_pdf/testcase_recon_me_negslope.pdf>]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 464.
+(hyperref)                removing `math shift' on input line 463.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\lambda' on input line 464.
+(hyperref)                removing `\lambda' on input line 463.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 464.
+(hyperref)                removing `math shift' on input line 463.
 
-[25 <./graphs_pdf/testcase_recon_stefan_fail.pdf>]
-<graphs_pdf/mrr_eos_lambda_varied_upright.pdf, id=819, 505.89pt x 867.24pt>
+<graphs_pdf/mrr_eos_lambda_varied_upright.pdf, id=875, 505.89pt x 867.24pt>
 File: graphs_pdf/mrr_eos_lambda_varied_upright.pdf Graphic file (type pdf)
 <use graphs_pdf/mrr_eos_lambda_varied_upright.pdf>
 Package pdftex.def Info: graphs_pdf/mrr_eos_lambda_varied_upright.pdf  used on 
-input line 471.
+input line 470.
 (pdftex.def)             Requested size: 376.11952pt x 644.79115pt.
 
+LaTeX Warning: Float too large for page by 1.64418pt on input line 473.
 
-LaTeX Warning: Float too large for page by 1.64418pt on input line 474.
-
-[26 <./graphs_pdf/testcase_recon_me_negslope.pdf>] [27 <./graphs_pdf/mrr_eos_la
-mbda_varied_upright.pdf>]
-<graphs_pdf/mrr_eos_ratios.pdf, id=927, 1011.78pt x 505.89pt>
+[26] [27 <./graphs_pdf/mrr_eos_lambda_varied_upright.pdf>]
+<graphs_pdf/mrr_eos_ratios.pdf, id=939, 1011.78pt x 505.89pt>
 File: graphs_pdf/mrr_eos_ratios.pdf Graphic file (type pdf)
 <use graphs_pdf/mrr_eos_ratios.pdf>
-Package pdftex.def Info: graphs_pdf/mrr_eos_ratios.pdf  used on input line 483.
+Package pdftex.def Info: graphs_pdf/mrr_eos_ratios.pdf  used on input line 482.
 
 (pdftex.def)             Requested size: 417.91342pt x 208.96008pt.
  [28 <./graphs_pdf/mrr_eos_ratios.pdf>]
-<graphs_pdf/mrr_eos_ext_new.pdf, id=973, 578.16pt x 289.08pt>
+<graphs_pdf/mrr_eos_ext_new.pdf, id=985, 578.16pt x 289.08pt>
 File: graphs_pdf/mrr_eos_ext_new.pdf Graphic file (type pdf)
 <use graphs_pdf/mrr_eos_ext_new.pdf>
-Package pdftex.def Info: graphs_pdf/mrr_eos_ext_new.pdf  used on input line 494
+Package pdftex.def Info: graphs_pdf/mrr_eos_ext_new.pdf  used on input line 493
 .
 (pdftex.def)             Requested size: 417.91342pt x 208.95346pt.
-<graphs_pdf/eos_ext_ratios.pdf, id=985, 867.24pt x 505.89pt>
+<graphs_pdf/eos_ext_ratios.pdf, id=998, 867.24pt x 505.89pt>
 File: graphs_pdf/eos_ext_ratios.pdf Graphic file (type pdf)
 <use graphs_pdf/eos_ext_ratios.pdf>
 Package pdftex.def Info: graphs_pdf/eos_ext_ratios.pdf  used on input line 505.
 
 (pdftex.def)             Requested size: 417.91342pt x 243.78162pt.
  [29 <./graphs_pdf/mrr_eos_ext_new.pdf>] [30 <./graphs_pdf/eos_ext_ratios.pdf>]
-<graphs_pdf/mrr_eos_ext_upright.pdf, id=1072, 505.89pt x 867.24pt>
+<graphs_pdf/mrr_eos_ext_upright.pdf, id=1085, 505.89pt x 867.24pt>
 File: graphs_pdf/mrr_eos_ext_upright.pdf Graphic file (type pdf)
 <use graphs_pdf/mrr_eos_ext_upright.pdf>
 Package pdftex.def Info: graphs_pdf/mrr_eos_ext_upright.pdf  used on input line
@@ -668,49 +665,49 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 ] (./MP.bbl [33
 
 ]) [34]
-Underfull \hbox (badness 10000) in paragraph at lines 553--555
+Underfull \hbox (badness 10000) in paragraph at lines 554--556
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 553--555
+Underfull \hbox (badness 10000) in paragraph at lines 554--556
 
  []
 
 
-Overfull \hbox (10.12195pt too wide) in paragraph at lines 557--559
+Overfull \hbox (10.12195pt too wide) in paragraph at lines 558--560
 \OT1/cmr/m/n/12 nutzung an-derer als der angegebe-nen Quellen und Hil-f-s-mit-t
 el ver-fasst habe. W^^?ortlich
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 557--559
+Underfull \hbox (badness 10000) in paragraph at lines 558--560
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 557--559
+Underfull \hbox (badness 10000) in paragraph at lines 558--560
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 621.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 622.
 [35]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 621.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 622.
  (./MP.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 621.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 621.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 622.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 622.
 Package rerunfilecheck Info: File `MP.out' has not changed.
-(rerunfilecheck)             Checksum: 3441F45AE3E0C2293EAD45D20366B570;2277.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 621.
+(rerunfilecheck)             Checksum: C535099CCD7E0B3A8E02EAACE3ACCECB;2326.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 622.
  ) 
 Here is how much of TeX's memory you used:
- 8136 strings out of 494923
- 118362 string characters out of 6180741
- 210496 words of memory out of 5000000
- 11174 multiletter control sequences out of 15000+600000
+ 8222 strings out of 494923
+ 119598 string characters out of 6180741
+ 211419 words of memory out of 5000000
+ 11254 multiletter control sequences out of 15000+600000
  10449 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 29i,12n,43p,1634b,496s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 29i,12n,43p,1634b,530s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
@@ -723,10 +720,10 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb
 >
-Output written on MP.pdf (40 pages, 744481 bytes).
+Output written on MP.pdf (40 pages, 746511 bytes).
 PDF statistics:
- 1222 PDF objects out of 1440 (max. 8388607)
- 818 compressed objects within 9 object streams
- 149 named destinations out of 1000 (max. 500000)
- 337 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1235 PDF objects out of 1440 (max. 8388607)
+ 831 compressed objects within 9 object streams
+ 151 named destinations out of 1000 (max. 500000)
+ 345 words of extra memory for PDF output out of 10000 (max. 10000000)
 
