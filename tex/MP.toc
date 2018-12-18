@@ -1,38 +1,40 @@
-\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
-\contentsline {section}{\numberline {2}Theoretical background}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Compact stars}{2}{subsection.2.1}
-\contentsline {subsection}{\numberline {2.2}The Tolman-Oppenheimer-Volkoff equations}{2}{subsection.2.2}
-\contentsline {subsection}{\numberline {2.3}The equation of state and neutron star structure}{4}{subsection.2.3}
-\contentsline {paragraph}{$\rho \leq 10^6$}{4}{section*.6}
-\contentsline {paragraph}{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$}{5}{section*.7}
-\contentsline {paragraph}{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$}{5}{section*.8}
-\contentsline {paragraph}{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho _{core}$}{6}{section*.9}
-\contentsline {paragraph}{$\rho \geq \rho _{core}$}{6}{section*.10}
-\contentsline {subsection}{\numberline {2.4}General constraints}{7}{subsection.2.4}
-\contentsline {subsection}{\numberline {2.5}Stability, mass-radius relation and third family}{8}{subsection.2.5}
-\contentsline {subsection}{\numberline {2.6}A fourth compact family?}{9}{subsection.2.6}
-\contentsline {subsection}{\numberline {2.7}Fermi gas equation of state}{11}{subsection.2.7}
-\contentsline {subsection}{\numberline {2.8}The inverse problem}{12}{subsection.2.8}
-\contentsline {section}{\numberline {3}Reconstruction method}{14}{section.3}
-\contentsline {subsection}{\numberline {3.1}General goal}{14}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Pressure intervals}{15}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Linear interpolation}{16}{subsection.3.3}
-\contentsline {subsection}{\numberline {3.4}Numerical solution}{17}{subsection.3.4}
-\contentsline {subsubsection}{\numberline {3.4.1}Adaptive step size}{18}{subsubsection.3.4.1}
-\contentsline {subsubsection}{\numberline {3.4.2}Implementation}{18}{subsubsection.3.4.2}
-\contentsline {subsection}{\numberline {3.5}From TOV solver to reconstruction}{18}{subsection.3.5}
-\contentsline {subsection}{\numberline {3.6}Alternative method: Monte Carlo}{19}{subsection.3.6}
-\contentsline {subsection}{\numberline {3.7}Optimal radius and mass for a given slope}{20}{subsection.3.7}
-\contentsline {subsection}{\numberline {3.8}Direct and indirect radius check}{20}{subsection.3.8}
-\contentsline {section}{\numberline {4}Results}{22}{section.4}
-\contentsline {subsection}{\numberline {4.1}Issues}{22}{subsection.4.1}
-\contentsline {subsubsection}{\numberline {4.1.1}Radius and slope control}{22}{subsubsection.4.1.1}
-\contentsline {subsection}{\numberline {4.2}Test case}{23}{subsection.4.2}
-\contentsline {subsubsection}{\numberline {4.2.1}Varying the $\lambda $ parameter}{26}{subsubsection.4.2.1}
-\contentsline {subsubsection}{\numberline {4.2.2}MRR-EOS map uniqueness}{28}{subsubsection.4.2.2}
-\contentsline {subsection}{\numberline {4.3}Second equation of state}{29}{subsection.4.3}
-\contentsline {section}{\numberline {5}Conclusion and outlook}{32}{section.5}
-\contentsline {section}{\numberline {A}References}{33}{Appendix.1.A}
-\contentsline {section}{\numberline {B}List of abbreviations}{35}{Appendix.1.B}
-\contentsline {section}{\numberline {C}Statutory Declaration}{35}{Appendix.1.C}
-\contentsline {section}{\numberline {D}Eidesstattliche Erkl\"arung}{35}{Appendix.1.D}
+\thispagestyle {empty}
+\contentsline {section}{\numberline {1}Introduction}{6}{section.1}
+\contentsline {section}{\numberline {2}Theoretical background}{7}{section.2}
+\contentsline {subsection}{\numberline {2.1}Compact stars}{7}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}The Tolman-Oppenheimer-Volkoff equations}{7}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}The equation of state and neutron star structure}{9}{subsection.2.3}
+\contentsline {paragraph}{$\rho \leq 10^6$}{9}{section*.6}
+\contentsline {paragraph}{$10^6 \leq \rho \leq 4.3\cdot 10^{11}$}{10}{section*.7}
+\contentsline {paragraph}{$4.3\cdot 10^{11} \leq \rho \leq (2-2.4)\cdot 10^{14}$}{10}{section*.8}
+\contentsline {paragraph}{$(2-2.4)\cdot 10^{14} \leq \rho \leq \rho _{core}$}{11}{section*.9}
+\contentsline {paragraph}{$\rho \geq \rho _{core}$}{11}{section*.10}
+\contentsline {subsection}{\numberline {2.4}General constraints}{12}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Stability, mass-radius relation and third family}{13}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}A fourth compact family?}{14}{subsection.2.6}
+\contentsline {subsection}{\numberline {2.7}Fermi gas equation of state}{16}{subsection.2.7}
+\contentsline {subsection}{\numberline {2.8}The inverse problem}{17}{subsection.2.8}
+\contentsline {section}{\numberline {3}Reconstruction method}{19}{section.3}
+\contentsline {subsection}{\numberline {3.1}General goal}{19}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Pressure intervals}{20}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Linear interpolation}{21}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Numerical solution}{22}{subsection.3.4}
+\contentsline {subsubsection}{\numberline {3.4.1}Adaptive step size}{23}{subsubsection.3.4.1}
+\contentsline {subsubsection}{\numberline {3.4.2}Implementation}{23}{subsubsection.3.4.2}
+\contentsline {subsection}{\numberline {3.5}From TOV solver to reconstruction}{23}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Alternative method: Monte Carlo}{24}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}Optimal radius and mass for a given slope}{25}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}Direct and indirect radius check}{25}{subsection.3.8}
+\contentsline {section}{\numberline {4}Results}{27}{section.4}
+\contentsline {subsection}{\numberline {4.1}Issues}{27}{subsection.4.1}
+\contentsline {subsubsection}{\numberline {4.1.1}Radius and slope control}{27}{subsubsection.4.1.1}
+\contentsline {subsection}{\numberline {4.2}Test case}{28}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Varying the $\lambda $ parameter}{31}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}MRR-EOS map uniqueness}{33}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Second equation of state}{34}{subsection.4.3}
+\contentsline {section}{\numberline {5}Conclusion and outlook}{37}{section.5}
+\newpage 
+\contentsline {section}{\numberline {A}References}{38}{Appendix.1.A}
+\contentsline {section}{\numberline {B}List of abbreviations}{40}{Appendix.1.B}
+\contentsline {section}{\numberline {C}Statutory Declaration}{40}{Appendix.1.C}
+\contentsline {section}{\numberline {D}Eidesstattliche Erkl\"arung}{40}{Appendix.1.D}

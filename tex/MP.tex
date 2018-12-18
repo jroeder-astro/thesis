@@ -54,7 +54,7 @@
 	
 	
 	\pagestyle{empty}
-	\pagenumbering{roman}
+	%\pagenumbering{roman}
 	%\textasciitilde
 
 \title{Constructing the Equation of State for Compact Stars}
@@ -103,15 +103,17 @@
 \newpage
 \null
 \thispagestyle{empty}
+
 \newpage
-\thispagestyle{empty}
+%\thispagestyle{empty}
+\addtocontents{toc}{\protect\thispagestyle{empty}}
 \tableofcontents
 \newpage
 
 \null
 \thispagestyle{empty}
 \newpage
-\pagenumbering{arabic}
+%\pagenumbering{arabic}
 \section{Introduction}
 
 To this day, the nature of the \ac{eos} for neutron stars is highly debated. Previously discussed \ac*{eos} have emerged from various approaches to strong interaction physics.. Each one has different parameters determining its impact on calculations. \\
@@ -534,7 +536,7 @@ All approaches can, will, and should be continuously modified to maintain a vari
 \begin{appendices}
 	\newpage
 	\clearpage
-%	\addcontentsline{toc}{section}{References}
+	\addtocontents{toc}{\protect\newpage}
 	\bibliography{thesis}
 	\bibliographystyle{unsrt}
 	
